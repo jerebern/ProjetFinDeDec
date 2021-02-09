@@ -32,8 +32,12 @@ export class SignupComponent implements OnInit {
       return null;
     }
   }
-
   ngOnInit(): void {
+  }
+
+
+  signUp(){
+
   }
 
 }

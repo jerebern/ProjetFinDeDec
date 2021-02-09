@@ -4,7 +4,7 @@
     <div class="row mt-2">
         <div class="col-10 offset-1">
             <!-- https://getbootstrap.com/docs/4.5/components/forms -->
-            <form [formGroup]="signForm">
+            <form [formGroup]="signForm" (ngSubmit)="signUp()">
               <table class="center">
                   <tr>
                     <td>

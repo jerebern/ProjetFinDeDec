@@ -4,7 +4,7 @@
     <div class="row mt-2">
         <div class="col-10 offset-1">
             <!-- https://getbootstrap.com/docs/4.5/components/forms -->
-            <form [formGroup]="loginForm">
+            <form [formGroup]="loginForm" (ngSubmit)="logIn()">
                 <div class="form-group">
                   <p>Email</p>
                   <input formControlName="email" [class.is-invalid]="loginForm.get('email')?.errors && loginForm.get('email')?.dirty && loginForm.get('email')?.touched" type="email" placeholder="Email" class="form-control" >
