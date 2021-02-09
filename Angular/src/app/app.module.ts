@@ -15,6 +15,7 @@ import { HttpClientModule } from "@angular/common/http";
     SignupComponent
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
