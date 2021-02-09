@@ -64,7 +64,7 @@
                     <td>
                       <div class="form-group">
                         <p>Code Postale*</p>
-                        <input formControlName="postalCode" [class.is-invalid]="signForm.get('postalCode')?.errors && signForm.get('postalCode')?.dirty && signForm.get('postalCode')?.touched" type="text" placeholder="D0E2D2" class="form-control" >
+                        <input formControlName="postal_code" [class.is-invalid]="signForm.get('postal_code')?.errors && signForm.get('postal_code')?.dirty && signForm.get('postal_code')?.touched" type="text" placeholder="D0E2D2" class="form-control" >
                         <div class="invalid-feedback text-left">
                           Veuillez entrer un code postale valide.
                         </div>
@@ -108,7 +108,7 @@
                     <td>
                       <div class="form-group">
                         <p>Numéro de téléphone*</p>
-                        <input formControlName="phonenumber" [class.is-invalid]="signForm.get('phonenumber')?.errors && signForm.get('phonenumber')?.dirty && signForm.get('phonenumber')?.touched" type="text" placeholder="9395550113" class="form-control" >
+                        <input formControlName="phone_number" [class.is-invalid]="signForm.get('phone_number')?.errors && signForm.get('phone_number')?.dirty && signForm.get('phone_number')?.touched" type="text" placeholder="9395550113" class="form-control" >
                         <div class="invalid-feedback text-left">
                           Veuillez entrer un numéro de téléphone valide.
                         </div>

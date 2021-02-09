@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -10,7 +12,7 @@ export class SignupComponent implements OnInit {
 
   signForm: FormGroup;
 
-  constructor() {
+  constructor(private authService : AuthService) {
     this.signForm = new FormGroup({
       firstname: new FormControl("", [Validators.required, Validators.pattern('^[a-zA-Z]+$')]),
       lastname: new FormControl("", [Validators.required, Validators.pattern('^[a-zA-Z]+$')]),
@@ -19,9 +21,9 @@ export class SignupComponent implements OnInit {
       passwordConfirmation: new FormControl("", [Validators.required, Validators.minLength(6)]),
       address: new FormControl("", [Validators.required]),
       city: new FormControl("", [Validators.required, Validators.pattern('^[a-zA-Z]+$')]),
-      postalCode: new FormControl("", [Validators.required, Validators.maxLength(6), Validators.minLength(6)]),
+      postal_code: new FormControl("", [Validators.required, Validators.maxLength(6), Validators.minLength(6)]),
       province: new FormControl("", [Validators.required, Validators.pattern('^[a-zA-Z]+$')]),
-      phonenumber: new FormControl("", [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern('^[0-9]+$')])
+      phone_number: new FormControl("", [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern('^[0-9]+$')])
     }, this.passwordMatch);
   }
 
@@ -37,7 +39,28 @@ export class SignupComponent implements OnInit {
 
 
   signUp(){
+    let newUser : User = new User();
+    newUser.email = this.signForm.get('email')?.value;
+    newUser.password = this.signForm.get('password')?.value
+    newUser.firstname = this.signForm.get('firstname')?.value
+    newUser.lastname = this.signForm.get('lastname')?.value
+    newUser.address = this.signForm.get('address')?.value
+    newUser.city = this.signForm.get('city')?.value
+    newUser.postal_code = this.signForm.get('postal_code')?.value
+    newUser.province = this.signForm.get('province')?.value
+    newUser.phone_number = this.signForm.get('phone_number')?.value
+    console.log("SignUpform value : ", this.signForm.value);
+    console.log("New user value ", newUser);
 
+    this.authService.userRegistration(newUser).subscribe(succes =>{
+      if(succes){
+        console.log("succes criss")
+      }
+      else{
+        console.log("calisse")
+      }
+    }
+      );
   }
 
 }
