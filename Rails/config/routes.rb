@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   }
   root to: "angular#index"
   namespace :api, constraints: { format: 'json' }  do
-    resources :todos
+    resources :products
   end
 
   match '*url', to: "angular#index", via: :get # le parametre url contiendra tout ce qui suit l'étoile dans l'url
