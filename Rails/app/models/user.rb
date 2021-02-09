@@ -13,6 +13,7 @@ class User < ApplicationRecord
   validates :postal_code, presence: true
   validates :province, presence: true
   validates :phone_number, presence: true
+  has_one_attached :picture
   validates :is_admin, presence: true
 
   # Fonctionnalité privé au modèle
