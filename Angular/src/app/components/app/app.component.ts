@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,13 @@ import { Component, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-  title = 'Angular';
+  searchForm: FormGroup;
+
+  title = 'JFJ';
+
+  constructor(){
+    this.searchForm = new FormGroup({
+      itemQuerry: new FormControl
+    })
+  }
 }
