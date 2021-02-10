@@ -4,8 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :email, uniqueness: true, presence: true
-  validate :validate_email
+  validates :email, uniqueness: true, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  #validate :validate_email
   validates :firstname, presence: true
   validates :lastname, presence: true
   validates :address, presence: true
@@ -14,7 +14,6 @@ class User < ApplicationRecord
   validates :province, presence: true
   validates :phone_number, presence: true
   has_one_attached :picture
-  validates :is_admin, presence: true
 
   # Fonctionnalité privé au modèle
   private

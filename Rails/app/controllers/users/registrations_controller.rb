@@ -5,8 +5,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
   def create
     build_resource(sign_up_params)
-  
     resource.save
+    Rails.logger.info(@user.errors.inspect)
     yield resource if block_given?
     if resource.persisted?
       if resource.active_for_authentication?
@@ -85,4 +85,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  private
+
+  # Notice the name of the method
+  def sign_up_params
+    params.require(:registration).permit(:email, :password, :firstname, :lastname, :address, :city, :postal_code, :province, :phone_number)
+  end
+
 end
