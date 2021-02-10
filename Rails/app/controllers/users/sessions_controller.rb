@@ -19,10 +19,10 @@ end
   # end
 
   # DELETE /resource/sign_out
-   def destroy
+  def destroy
     signed_out = sign_out()
     render json: {success: true}
-   end
+  end
 
   # protected
 

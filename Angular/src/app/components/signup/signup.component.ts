@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -12,7 +13,7 @@ export class SignupComponent implements OnInit {
 
   signForm: FormGroup;
 
-  constructor(private authService : AuthService) {
+  constructor(private authService : AuthService, private router : Router) {
     this.signForm = new FormGroup({
       firstname: new FormControl("", [Validators.required, Validators.pattern('^[a-zA-Z]+$')]),
       lastname: new FormControl("", [Validators.required, Validators.pattern('^[a-zA-Z]+$')]),
@@ -52,15 +53,17 @@ export class SignupComponent implements OnInit {
     console.log("SignUpform value : ", this.signForm.value);
     console.log("New user value ", newUser);
 
-    this.authService.userRegistration(newUser).subscribe(succes =>{
-      if(succes){
-        console.log("succes criss")
+    this.authService.userRegistration(newUser).subscribe(success =>{
+      if(success){
+        this.router.navigate(['/']);
+        console.log("OK")
       }
       else{
-        console.log("calisse")
+        console.log("ERROR")
+        alert("Cette adresse email existe déjà");
       }
     }
-      );
+    );
   }
 
 }

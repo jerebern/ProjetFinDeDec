@@ -23,7 +23,7 @@ export class AuthService {
   }
 
   userSignout(){
-    return this.http.delete<any>(this.getUrl("sessions#destroy")).pipe(
+    return this.http.delete<any>(this.getUrl("sign_out")).pipe(
       tap(response => {
         console.log("New User signout service : ", response);
       })
