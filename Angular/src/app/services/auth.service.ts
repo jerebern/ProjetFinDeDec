@@ -14,12 +14,15 @@ export class AuthService {
     return "/users/"+parameter
   }
   private generateJSONforLogin(email : string, password : string){
-    var newJSON = {
-      "email" : email,
-      "password" : password
-    }
-    return newJSON
+    return {
+      "user":{
+        "email" : email,
+        "password" : password
+      }
+      }
   }
+
+ 
   userRegistration(newUser: User) {
     console.log("UserRegistrationService :", User)
     return this.http.post<any>(this.getUrl(""), newUser).pipe(
@@ -29,7 +32,7 @@ export class AuthService {
     )
   }
   userLogin(email : string, password : string) {
-    return this.http.post<any>(this.getUrl("sign_in"),this.generateJSONforLogin(email,password)).pipe(
+    return this.http.post<any>(this.getUrl("sign_in.json"),this.generateJSONforLogin(email,password)).pipe(
       tap(response => {
         console.log("New User service : ", response);
       })

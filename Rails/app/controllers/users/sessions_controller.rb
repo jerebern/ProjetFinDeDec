@@ -3,6 +3,7 @@
 class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
   def create
+
     self.resource = warden.authenticate!(auth_options)
     sign_in(resource_name, resource)
     render json: {success: true, email: resource.email}
@@ -18,14 +19,13 @@ end
   # end
 
   # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+   def destroy
+    signed_out = sign_out()
+    render json: {success: true}
+   end
 
   # protected
-  def sign_in_params
-    params.require(:session).permit(:email, :password)
-  end
+
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
