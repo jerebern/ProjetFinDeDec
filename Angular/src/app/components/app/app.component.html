@@ -1,36 +1,26 @@
 <div class="fixed-top">
-    <div class="row">
-      <div class="col text-center"  style="background-color:#d5e5fa">
-        <h1>JFJ</h1>
+  <div class="row">
+    <div class="col text-center" style="background-color:#d5e5fa">
+      <h1>JFJ</h1>
+    </div>
+  </div>
+
+  <!-- https://getbootstrap.com/docs/4.0/examples/navbars/ -->
+  <nav class="navbar navbar-expand" style="background-color:#d5e5fa">
+    <div class="collapse navbar-collapse" style="height: 30px">
+      <ul class="navbar-nav mr-auto">
+        <div class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a [routerLink]="['/produits']" class="text-dark bold mr-4">Work in Progress</a>
+          </li>
+        </div>
+      </ul>
+      <div style="margin-bottom: 100px;">
+        <button *ngIf="this.isLoggedIn()!=false" (click)="logOut()" type="button"
+          class="btn btn-danger">Déconnexion</button>
       </div>
     </div>
-
-    <!-- https://getbootstrap.com/docs/4.0/examples/navbars/ -->
-    <nav class="navbar navbar-expand"  style="background-color:#d5e5fa">
-        <div class="collapse navbar-collapse" style="height: 30px">
-            <ul class="navbar-nav mr-auto">
-              <div class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                  <a [routerLink]="['/produits']" class="text-light mr-4">Not Implemented</a>
-                </li>
-              </div>
-            </ul>
-              <!--<div class="navbar-nav mr-auto" *ngIf="isLoggedIn(); else loggedIn">
-                <button (click)="logOut()" type="button" class="btn btn-outline-light">Déconnexion</button>
-              </div>
-              <ng-template #loggedIn>
-                <button (click)="logIn()" type="button" class="btn btn-outline-light">Connexion</button>
-              </ng-template>-->
-            <div style="margin-bottom: 100px;">
-              <button (click)="logOut()" type="button" class="btn btn-danger">Déconnexion</button>
-            </div>
-          <!--SEARCH<form [formGroup]="loginForm" (ngSubmit)="logIn()">
-          </form>-->
-          <!--<div *ngIf="!isUserisLoggedIn()">
-          <a [routerLink]="['/']" class="text-light mr-4">Sign in!</a>
-          </div> -->
-        </div>
-    </nav>
+  </nav>
 </div>
 
 <div class="pt-4" style="margin: 112px 0px 24px 0px;">

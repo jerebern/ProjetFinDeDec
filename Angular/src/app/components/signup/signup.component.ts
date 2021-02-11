@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth.services';
 
 @Component({
   selector: 'app-signup',
@@ -13,7 +13,7 @@ export class SignupComponent implements OnInit {
 
   signForm: FormGroup;
 
-  constructor(private authService : AuthService, private router : Router) {
+  constructor(private authService: AuthService, private router: Router) {
     this.signForm = new FormGroup({
       firstname: new FormControl("", [Validators.required, Validators.pattern('^[a-zA-Z]+$')]),
       lastname: new FormControl("", [Validators.required, Validators.pattern('^[a-zA-Z]+$')]),
@@ -29,9 +29,9 @@ export class SignupComponent implements OnInit {
   }
 
   private passwordMatch(form: AbstractControl): ValidationErrors | null {
-    if(form.value?.password != form.value?.passwordConfirmation){
-      return {passwordConfirmationMustMatch: true};
-    }else {
+    if (form.value?.password != form.value?.passwordConfirmation) {
+      return { passwordConfirmationMustMatch: true };
+    } else {
       return null;
     }
   }
@@ -39,8 +39,8 @@ export class SignupComponent implements OnInit {
   }
 
 
-  signUp(){
-    let newUser : User = new User();
+  signUp() {
+    let newUser: User = new User();
     newUser.email = this.signForm.get('email')?.value;
     newUser.password = this.signForm.get('password')?.value
     newUser.firstname = this.signForm.get('firstname')?.value
@@ -53,12 +53,12 @@ export class SignupComponent implements OnInit {
     console.log("SignUpform value : ", this.signForm.value);
     console.log("New user value ", newUser);
 
-    this.authService.userRegistration(newUser).subscribe(success =>{
-      if(success){
+    this.authService.userRegistration(newUser).subscribe(success => {
+      if (success) {
         this.router.navigate(['/']);
         console.log("OK")
       }
-      else{
+      else {
         console.log("ERROR")
         alert("Cette adresse email existe déjà");
       }
