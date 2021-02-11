@@ -15,9 +15,19 @@
           </li>
         </div>
       </ul>
-      <div style="margin-bottom: 100px;">
-        <button *ngIf="this.isLoggedIn()!=false" (click)="logOut()" type="button"
-          class="btn btn-danger">Déconnexion</button>
+      <div class="row " style="margin-bottom: 100px;">
+        <div class="col px-md-1">
+          <button *ngIf="this.isLoggedIn()!=false" (click)="logOut()" type="button"
+            class="btn btn-danger">Déconnexion</button>
+        </div>
+        <div class="col px-md-1">
+          <button *ngIf="this.isLoggedIn()!=true" [routerLink]="['/login']" type="button"
+            class="btn btn-success">Connexion</button>
+        </div>
+        <div class="col px-md-1">
+          <button *ngIf="this.isLoggedIn()!=true" [routerLink]="['/signup']" type="button"
+            class="btn btn-success">Inscription</button>
+        </div>
       </div>
     </div>
   </nav>

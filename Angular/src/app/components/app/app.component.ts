@@ -32,7 +32,7 @@ export class AppComponent {
     this.authService.userSignout().subscribe(success => {
       if (success) {
         console.log("Utilisateur déconnecter");
-        this.router.navigate(['/login'])
+        this.router.navigate(['/'])
       } else {
         console.log("Erreur");
       }

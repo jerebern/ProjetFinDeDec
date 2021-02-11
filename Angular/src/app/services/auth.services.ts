@@ -6,6 +6,8 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class AuthService {
+  private readonly CURRENT_USER_KEY = 'jfj.users.currentUser';
+
   private _currentUser: User | null = null;
 
   get currentUser(): User | null {
@@ -16,7 +18,13 @@ export class AuthService {
     return !!this._currentUser;
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    const storedCurrentUser = JSON.parse(localStorage.getItem(this.CURRENT_USER_KEY) ?? 'null');
+
+    if (storedCurrentUser) {
+      this._currentUser = new User(storedCurrentUser);
+    }
+  }
 
   private getUrl(parameter: string) {
     return "/users/" + parameter
@@ -32,6 +40,7 @@ export class AuthService {
 
   private setCurrentUser(user: User | null) {
     this._currentUser = user;
+    localStorage.setItem(this.CURRENT_USER_KEY, JSON.stringify(user));
     console.log(this._currentUser);
   }
 
@@ -48,6 +57,7 @@ export class AuthService {
     return this.http.post<any>(this.getUrl(""), newUser).pipe(
       tap(response => {
         console.log("New User service : ", response);
+        this.setCurrentUser(newUser);
       })
     )
   }
