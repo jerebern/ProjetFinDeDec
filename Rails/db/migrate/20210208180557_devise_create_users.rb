@@ -40,6 +40,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
       t.string :postal_code, :limit => 6, null: false
       t.string :province, :limit => 50, null: false
       t.string :phone_number, :limit => 10, null: false
+      t.references :imageable, polymorphic: true
       t.boolean :is_admin, :default => false, null: false
       t.timestamps null: false
     end
