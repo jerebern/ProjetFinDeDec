@@ -13,7 +13,6 @@ class User < ApplicationRecord
   validates :postal_code, presence: true
   validates :province, presence: true
   validates :phone_number, presence: true
-  belongs_to :imageable, polymorphic: true
   has_one_attached :picture
 
   # Fonctionnalité privé au modèle

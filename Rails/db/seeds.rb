@@ -5,4 +5,5 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-admin = User.create!(email: "admin@jfj.com", password: "123456", firstname: "Réal", lastname: "Tremblay", address: "1570 rue morin", city: "Shawinigan", postal_code: "G0X2V0", province: "Québec", phone_number: "8195335333", is_admin: true)
+@admin = User.create!(email: "admin@jfj.com", password: "123456", firstname: "Réal", lastname: "Tremblay", address: "1570 rue morin", city: "Shawinigan", postal_code: "G0X2V0", province: "Québec", phone_number: "8195335333", is_admin: true)
+@admin.picture.attach(io: File.open(Rails.root + "app/assets/images/default.jpg"), filename: 'default.jpg')
