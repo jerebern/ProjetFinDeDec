@@ -25,7 +25,6 @@ export class AuthService {
       this._currentUser = new User(storedCurrentUser);
     }
   }
-
   private getUrl(parameter: string) {
     return "/users/" + parameter
   }

@@ -19,6 +19,8 @@ export class User extends JSONObject{
 
     province !: string
 
-    phone_number !: string 
+    phone_number !: string
+
+    picture !: FormData
 
 }
