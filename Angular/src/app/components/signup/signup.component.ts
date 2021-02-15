@@ -1,3 +1,4 @@
+import { CloneVisitor } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,7 +13,6 @@ import { AuthService } from 'src/app/services/auth.services';
 export class SignupComponent implements OnInit {
 
   signForm: FormGroup;
-
   constructor(private authService: AuthService, private router: Router) {
     this.signForm = new FormGroup({
       firstname: new FormControl("", [Validators.required, Validators.pattern('^[a-zA-Z]+$')]),
@@ -24,7 +24,8 @@ export class SignupComponent implements OnInit {
       city: new FormControl("", [Validators.required, Validators.pattern('^[a-zA-Z]+$')]),
       postal_code: new FormControl("", [Validators.required, Validators.maxLength(6), Validators.minLength(6)]),
       province: new FormControl("", [Validators.required, Validators.pattern('^[a-zA-Z]+$')]),
-      phone_number: new FormControl("", [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern('^[0-9]+$')])
+      phone_number: new FormControl("", [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern('^[0-9]+$')]),
+      file: new FormControl('', [Validators.required])
     }, this.passwordMatch);
   }
 
@@ -37,7 +38,15 @@ export class SignupComponent implements OnInit {
   }
   ngOnInit(): void {
   }
+  onFileChange(event : any) {
 
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.signForm.patchValue({
+        file: file
+      });
+    }
+  }
 
   signUp() {
     let newUser: User = new User();
@@ -50,9 +59,10 @@ export class SignupComponent implements OnInit {
     newUser.postal_code = this.signForm.get('postal_code')?.value
     newUser.province = this.signForm.get('province')?.value
     newUser.phone_number = this.signForm.get('phone_number')?.value
+    newUser.picture = this.signForm.get('file')?.value;
+    console.log("picture : ")
     console.log("SignUpform value : ", this.signForm.value);
     console.log("New user value ", newUser);
-
     this.authService.userRegistration(newUser).subscribe(success => {
       if (success) {
         this.router.navigate(['/']);
