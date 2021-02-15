@@ -7,12 +7,20 @@ import { AppComponent } from './components/app/app.component'
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component'
 import { HttpClientModule } from "@angular/common/http";
+import { CartComponent } from './components/cart/cart.component';
+import { CartItemsComponent } from './components/cart-items/cart-items.component';
+import { CommandsComponent } from './components/commands/commands.component';
+import { CommandItemsComponent } from './components/command-items/command-items.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    CartComponent,
+    CartItemsComponent,
+    CommandsComponent,
+    CommandItemsComponent
   ],
   imports: [
     ReactiveFormsModule,

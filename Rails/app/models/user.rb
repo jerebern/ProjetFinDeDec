@@ -14,6 +14,7 @@ class User < ApplicationRecord
   validates :province, presence: true
   validates :phone_number, presence: true
   has_one_attached :picture
+  has_many :commands
 
   # Fonctionnalité privé au modèle
   private
