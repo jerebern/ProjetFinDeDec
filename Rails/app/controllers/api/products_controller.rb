@@ -20,8 +20,10 @@ class Api::ProductsController < ApplicationController
     
     def delete
     end
+    
     private
     def product_params
-        params.require(:product).permit(:category, :price, :title, :description, :quantity, :animal_type)
+        params.require(:product).permit(:category, :price, :title, :description, :quantity, :animal_type, :picture)
     end
+
 end
