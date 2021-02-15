@@ -56,7 +56,10 @@ export class AuthService {
     return this.http.post<any>(this.getUrl(""), newUser).pipe(
       tap(response => {
         console.log("New User service : ", response);
-        this.setCurrentUser(newUser);
+         if(response.succes){
+           console.log("debug pour la connexion a tester ")
+          this.setCurrentUser(newUser);
+         }
       })
     )
   }
