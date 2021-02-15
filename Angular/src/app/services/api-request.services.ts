@@ -1,21 +1,41 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product.model';
+import { tap } from 'rxjs/operators';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiRequestService {
+  private readonly PRODUCTS_KEY = 'jfj.recipes';
+
+  get products(): Product[] {
+    let Products: Product[] = [];
+    const storedProducts = JSON.parse(localStorage.getItem(this.PRODUCTS_KEY) ?? 'null');
+
+    if (storedProducts) {
+      Products = (storedProducts as Product[]).map(obj =>
+        new Product(obj)
+      );
+    }
+
+    return Products;
+  }
 
   constructor(private http: HttpClient) { }
 
-  private getURL(querry: string) {
+  private getUrl(querry: string) {
     return '/api/' + querry + '/'
   }
 
-  private setProductsList(products: Product[] | null) {
-
+  listProducts() {
+    return this.http.get<any>(this.getUrl("products.json")).pipe(
+      tap(response => {
+        console.log("Products list : ", response);
+        localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(response));
+      })
+    )
   }
 
 }
