@@ -2,7 +2,7 @@ import { CloneVisitor } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/user';
+import { User } from 'src/app/models/user.models';
 import { AuthService } from 'src/app/services/auth.services';
 
 @Component({
@@ -38,7 +38,7 @@ export class SignupComponent implements OnInit {
   }
   ngOnInit(): void {
   }
-  onFileChange(event : any) {
+  onFileChange(event: any) {
 
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
