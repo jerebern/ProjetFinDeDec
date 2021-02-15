@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_15_140542) do
+ActiveRecord::Schema.define(version: 2021_02_15_195512) do
+
+  create_table "Commands", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.decimal "sub_total", precision: 8, scale: 2
+    t.decimal "tps", precision: 8, scale: 2
+    t.decimal "tvq", precision: 8, scale: 2
+    t.decimal "total", precision: 8, scale: 2
+    t.boolean "store_pickup", null: false
+    t.string "state", limit: 50, null: false
+    t.string "shipping_adress", limit: 50, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
