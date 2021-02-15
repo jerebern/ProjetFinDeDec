@@ -6,6 +6,5 @@ class Command < ApplicationRecord
     validates :store_pickup, presence: true
     validates :state, presence: true, allow_blank: false
     validates :shipping_adress, presence: true, allow_blank: false
-    validates :user_email, presence: true, allow_blank: false
-
+    belongs_to :user
 end
