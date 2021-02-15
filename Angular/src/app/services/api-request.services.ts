@@ -15,11 +15,9 @@ export class ApiRequestService {
     const storedProducts = JSON.parse(localStorage.getItem(this.PRODUCTS_KEY) ?? 'null');
 
     if (storedProducts) {
-      Products = (storedProducts as Product[]).map(obj =>
-        new Product(obj)
-      );
+      Products = storedProducts as Product[];
     }
-
+    //console.log("storedProducts:", storedProducts, "Products:", Products)
     return Products;
   }
 
@@ -32,7 +30,7 @@ export class ApiRequestService {
   listProducts() {
     return this.http.get<any>(this.getUrl("products.json")).pipe(
       tap(response => {
-        console.log("Products list : ", response);
+        //console.log("Products list : ", response);
         localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(response));
       })
     )
