@@ -22,4 +22,6 @@ export class Product extends JSONObject {
 
     @required
     animal_type !: string
+
+    picture !: string
 }

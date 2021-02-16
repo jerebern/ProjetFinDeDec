@@ -11,7 +11,7 @@
 @product = Product.create(category: "Accessoire", price: 2.97, title: "Thermomètre avec ventouse", description: "Un thermomètre: ça sert à savoir la température de l'eau.", quantity: 10, animal_type: "Aquariophilie")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/thermometre.jpg"), filename: 'thermometre.jpg')
 #https://zoo-max.com/fr/product/serin-2-lbs-3/?v=c4782f5abe5c
-@product = Product.create(category: "Nourriture", price: 7.49, title: "Vitomax pour serin", description: "Vitomax est une nourriture enrichie de vitamines & minéraux.", quantity: 10, animal_type: "Oiseaux")
+@product = Product.create(category: "Nourriture", price: 7.49, title: "Vitomax pour serin", description: "Vitomax est une nourriture enrichie de vitamines et minéraux.", quantity: 10, animal_type: "Oiseaux")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/vitomaxserin.jpg"), filename: 'vitomaxserin.jpg')
 #https://www.amazon.ca/-/fr/MiXXAT-%C3%A9lectrique-poisson-r%C3%A9aliste-peluche/dp/B08R75GKRC?ref_=Oct_s9_apbd_onr_hd_bw_b6roVQZ&pf_rd_r=72HBBNPHM29AM45T2JWA&pf_rd_p=d3d0fd8a-55ca-5b01-96f1-8d88b8665180&pf_rd_s=merchandised-search-10&pf_rd_t=BROWSE&pf_rd_i=6291980011
 @product = Product.create(category: "Jouet", price: 16.99, title: "Poisson électrique", description: "Jouet poisson électrique à l'herbe à chat.", quantity: 10, animal_type: "Chat")
