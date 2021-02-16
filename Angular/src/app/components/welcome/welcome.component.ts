@@ -33,7 +33,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   constructor(private apiService: ApiRequestService) {
-    //console.log(this.products.findIndex(s => s.id === 1), this.products.find(s => s.id === 1)?.title);
+    //console.log(this.products.findIndex(s => s.id === 1), this.products.find(s => s.id === 1));
   }
 
   ngOnInit(): void {
