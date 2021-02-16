@@ -1,17 +1,22 @@
 class Api::ProductsController < ApplicationController
     def index
-        @products = Product.all
-        render json: @products
+        @products = Product.all.with_attached_picture
+        
+        #render json: @products
+        render json: @products.map { |product|
+            product.as_json.merge({ picture: url_for(product.picture) })
+        }
     end
     
     def show
         @product = Product.find(params[:id])
-        render json: @product
+        #byebug
+        render json: url_for(@product.picture)
     end
     
     def update
         @product = Product.find(params[:id])
-        if @article.update(product_params)
+        if @product.update(product_params)
             render json: show, status: :ok, location: @product 
         else
             render json: @product.errors, status: :unprocessable_entity 
