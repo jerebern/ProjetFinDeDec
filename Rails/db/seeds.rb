@@ -37,3 +37,6 @@
 #https://www.amazon.ca/-/fr/Prevue-Products-verte-noire-SP1804-4/dp/B00SK7HOS6/ref=zg_bs_6291718011_24?_encoding=UTF8&psc=1&refRID=P4XMB2BV0821R0HV7AC9
 @product = Product.create(category: "Cage", price: 131.80, title: "Cage de vol", description: "Cage verte adaptée pour les petits oiseaux", quantity: 10, animal_type: "Oiseaux")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/cagevolpetit.jpg"), filename: 'cagevolpetit.jpg')
+
+command1 = Command.create(sub_total: 9.99, tps: 1.78,tvq: 1.80,total: 13.57,store_pickup: true, state: "test", shipping_adress: "Hellooo worlld", user_id: 1)
+command2 = Command.create(sub_total: 19.99, tps: 3.78,tvq: 4.80,total: 76.99,store_pickup: false, state: "test", shipping_adress: "Hellooo worlld", user_id: 1)
