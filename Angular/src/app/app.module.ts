@@ -13,6 +13,8 @@ import { CommandsComponent } from './components/commands/commands.component';
 import { CommandItemsComponent } from './components/command-items/command-items.component';
 import { ProductViewComponent } from './components/product-view/product-view.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ProductsListComponent } from './components/products-list/products-list.component';
+import { ProductsListItemComponent } from './components/products-list-item/products-list-item.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     CommandsComponent,
     CommandItemsComponent,
     ProductViewComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ProductsListComponent,
+    ProductsListItemComponent
   ],
   imports: [
     ReactiveFormsModule,
