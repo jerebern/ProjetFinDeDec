@@ -52,9 +52,9 @@ export class AuthService {
     )
   }
   userRegistration(newUser: User, picture : File) {
-    console.log("UserRegistrationService :", User)
+    console.log("UserRegistrationService :", JSON.stringify(newUser));
     const data = new FormData();
-    data.append("user",newUser.toLocaleString());
+    data.append("user",JSON.stringify(newUser));
     data.append("picture",picture)
     console.log("Auth service data : ", data)
     return this.http.post<any>(this.getUrl(""), data).pipe(
