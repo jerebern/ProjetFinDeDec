@@ -2,33 +2,30 @@ import { custom, JSONObject, required } from 'ts-json-object'
 
 export class User extends JSONObject {
 
-    @required
-    email !: string
 
-    @required
-    password !: string
+    email!: string
 
-    @required
-    firstname !: string
 
-    @required
-    lastname !: string
+    password!: string
 
-    @required
-    address !: string
+    firstname!: string
 
-    @required
-    city !: string
 
-    @required
-    postal_code !: string
+    lastname!: string
 
-    @required
-    province !: string
 
-    @required
-    phone_number !: string
+    address!: string
 
-    picture !: FormData
+
+    city!: string
+
+
+    postal_code!: string
+
+    province!: string
+
+    phone_number!: string
+
+    picture!: string
 
 }
