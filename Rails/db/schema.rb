@@ -20,8 +20,15 @@ ActiveRecord::Schema.define(version: 2021_02_15_195512) do
     t.boolean "store_pickup", null: false
     t.string "state", limit: 50, null: false
     t.string "shipping_adress", limit: 50, null: false
+<<<<<<< HEAD
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_Commands_on_user_id"
+=======
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+>>>>>>> df882cfdbd17330c923f5fa8f32f2b8eefa011e8
   end
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -77,5 +84,6 @@ ActiveRecord::Schema.define(version: 2021_02_15_195512) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "Commands", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
 end

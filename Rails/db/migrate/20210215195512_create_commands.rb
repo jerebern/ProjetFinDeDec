@@ -8,8 +8,9 @@ class CreateCommands < ActiveRecord::Migration[6.0]
       t.boolean :store_pickup, null: false
       t.string :state, :limit => 50, null: false
       t.string :shipping_adress, :limit => 50, null: false
-      
+      t.references :user, null: false, foreign_key: true
       t.timestamps
+      end
     end
   end
 end

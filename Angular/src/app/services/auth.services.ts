@@ -51,9 +51,13 @@ export class AuthService {
       })
     )
   }
-  userRegistration(newUser: User) {
+  userRegistration(newUser: User, picture : File) {
     console.log("UserRegistrationService :", User)
-    return this.http.post<any>(this.getUrl(""), newUser).pipe(
+    const data = new FormData();
+    data.append("user",newUser.toLocaleString());
+    data.append("picture",picture)
+    console.log("Auth service data : ", data)
+    return this.http.post<any>(this.getUrl(""), data).pipe(
       tap(response => {
         console.log("New User service : ", response);
          if(response.succes){
