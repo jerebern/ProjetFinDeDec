@@ -7,13 +7,15 @@ import { CommandsComponent } from './components/commands/commands.component';
 
 import { SigninupAccessGuard } from './guards/signinup-access.guard';
 import { ProductViewComponent } from './components/product-view/product-view.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [SigninupAccessGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [SigninupAccessGuard] },
   { path: 'commands', component: CommandsComponent, canActivate: [SigninupAccessGuard] },
   { path: 'products/:id', component: ProductViewComponent },
-  { path: '', component: WelcomeComponent }
+  { path: '', component: WelcomeComponent },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

@@ -12,6 +12,7 @@ import { CartItemsComponent } from './components/cart-items/cart-items.component
 import { CommandsComponent } from './components/commands/commands.component';
 import { CommandItemsComponent } from './components/command-items/command-items.component';
 import { ProductViewComponent } from './components/product-view/product-view.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ProductViewComponent } from './components/product-view/product-view.com
     CartItemsComponent,
     CommandsComponent,
     CommandItemsComponent,
-    ProductViewComponent
+    ProductViewComponent,
+    PageNotFoundComponent
   ],
   imports: [
     ReactiveFormsModule,
