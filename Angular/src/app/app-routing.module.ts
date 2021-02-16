@@ -6,11 +6,13 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { CommandsComponent } from './components/commands/commands.component';
 
 import { SigninupAccessGuard } from './guards/signinup-access.guard';
+import { ProductViewComponent } from './components/product-view/product-view.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [SigninupAccessGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [SigninupAccessGuard] },
   { path: 'commands', component: CommandsComponent, canActivate: [SigninupAccessGuard] },
+  { path: 'products/:id', component: ProductViewComponent },
   { path: '', component: WelcomeComponent }
 ];
 

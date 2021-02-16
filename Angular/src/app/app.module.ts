@@ -11,6 +11,7 @@ import { CartComponent } from './components/cart/cart.component';
 import { CartItemsComponent } from './components/cart-items/cart-items.component';
 import { CommandsComponent } from './components/commands/commands.component';
 import { CommandItemsComponent } from './components/command-items/command-items.component';
+import { ProductViewComponent } from './components/product-view/product-view.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CommandItemsComponent } from './components/command-items/command-items.
     CartComponent,
     CartItemsComponent,
     CommandsComponent,
-    CommandItemsComponent
+    CommandItemsComponent,
+    ProductViewComponent
   ],
   imports: [
     ReactiveFormsModule,

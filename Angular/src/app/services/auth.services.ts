@@ -51,19 +51,19 @@ export class AuthService {
       })
     )
   }
-  userRegistration(newUser: User, picture : File) {
+  userRegistration(newUser: User, picture: File) {
     console.log("UserRegistrationService :", JSON.stringify(newUser));
     const data = new FormData();
-    data.append("user",JSON.stringify(newUser));
-    data.append("picture",picture)
+    data.append("user", JSON.stringify(newUser));
+    data.append("picture", picture)
     console.log("Auth service data : ", data)
     return this.http.post<any>(this.getUrl(""), data).pipe(
       tap(response => {
         console.log("New User service : ", response);
-         if(response.succes){
-           console.log("debug pour la connexion a tester ")
+        if (response.succes) {
+          console.log("debug pour la connexion a tester ")
           this.setCurrentUser(newUser);
-         }
+        }
       })
     )
   }
@@ -87,8 +87,5 @@ export class AuthService {
         this.setCurrentUser(newUser);
       })
     )
-  }
-  getCurrentUser() {
-    return this._currentUser;
   }
 }
