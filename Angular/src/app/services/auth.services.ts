@@ -56,7 +56,6 @@ export class AuthService {
     const data = new FormData();
     data.append("user", JSON.stringify(newUser));
     data.append("picture", picture)
-    console.log("Auth service data : ", data)
     return this.http.post<any>(this.getUrl(""), data).pipe(
       tap(response => {
         console.log("New User service : ", response);
