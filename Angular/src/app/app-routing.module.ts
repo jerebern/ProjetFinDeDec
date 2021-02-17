@@ -13,7 +13,7 @@ import { ProductsComponent } from './components/products/products.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [SigninupAccessGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [SigninupAccessGuard] },
-  { path: 'commands', component: CommandsViewComponent},
+  { path: 'commands/:id', component: CommandsViewComponent},
   { path: 'products', component: ProductsComponent },
   { path: 'products/:id', component: ProductViewComponent },
   { path: '', component: WelcomeComponent },
