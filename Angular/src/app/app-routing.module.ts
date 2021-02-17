@@ -6,6 +6,8 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { CommandsViewComponent } from './components/commands-view/commands-view.component';
 
 import { SigninupAccessGuard } from './guards/signinup-access.guard';
+import { ProductViewComponent } from './components/product-view/product-view.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [SigninupAccessGuard] },

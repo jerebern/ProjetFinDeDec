@@ -8,7 +8,7 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ApiRequestService {
-  private readonly PRODUCTS_KEY = 'jfj.recipes';
+  private readonly PRODUCTS_KEY = 'jfj.products';
 
   get products(): Product[] {
     let Products: Product[] = [];
@@ -21,7 +21,9 @@ export class ApiRequestService {
     return Products;
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    ///////
+  }
 
   private getUrl(querry: string) {
     return '/api/' + querry + '/'
@@ -32,6 +34,14 @@ export class ApiRequestService {
       tap(response => {
         console.log("Products list : ", response);
         localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(response));
+      })
+    )
+  }
+
+  showProduct(id: number) {
+    return this.http.get<any>(this.getUrl("products/" + id + ".json")).pipe(
+      tap(response => {
+        console.log("Product : ", response);
       })
     )
   }

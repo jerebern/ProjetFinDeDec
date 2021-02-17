@@ -40,4 +40,8 @@ export class WelcomeComponent implements OnInit {
 
   }
 
+  view() {
+    console.log('allo');
+  }
+
 }

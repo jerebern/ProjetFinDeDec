@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <div class="row">
+                <img src="{{ product.picture }}" class="w-100 h-100">
+            </div>
+            <div class="row">
+                <h1>
+                    Description
+                </h1>
+            </div>
+            <div class="row">
+                {{ product.description }}
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="row">
+                <h1>
+                    {{ product.title }}
+                </h1>
+            </div>
+            <div class="row">
+                <h2>
+                    {{ product.price }}$
+                </h2>
+            </div>
+            <div class="row">
+                Quantité restante : {{ product.quantity }}
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="row">
+                <button type="button" class="btn btn-warning">
+                    Ajouter au panier
+                </button>
+            </div>
+            <div class="row">
+                Quantité:
+                <input type="number" min="1" max="{{ product.quantity }}" value="1">
+            </div>
+        </div>
+    </div>
+</div>

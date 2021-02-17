@@ -1,8 +1,6 @@
 class Api::ProductsController < ApplicationController
     def index
         @products = Product.all.with_attached_picture
-        
-        #render json: @products
         render json: @products.map { |product|
             product.as_json.merge({ picture: url_for(product.picture) })
         }
@@ -10,8 +8,7 @@ class Api::ProductsController < ApplicationController
     
     def show
         @product = Product.find(params[:id])
-        #byebug
-        render json: url_for(@product.picture)
+        render json: @product.as_json.merge({ picture: url_for(@product.picture) })
     end
     
     def update
