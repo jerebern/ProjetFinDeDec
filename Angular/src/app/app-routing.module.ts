@@ -13,7 +13,9 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [SigninupAccessGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [SigninupAccessGuard] },
   { path: 'commands', component: CommandsViewComponent, canActivate: [SigninupAccessGuard] },
-  { path: '', component: WelcomeComponent }
+  { path: 'products/:id', component: ProductViewComponent },
+  { path: '', component: WelcomeComponent },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
