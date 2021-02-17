@@ -9,7 +9,7 @@ import { SignupComponent } from './components/signup/signup.component'
 import { HttpClientModule } from "@angular/common/http";
 import { CartComponent } from './components/cart/cart.component';
 import { CartItemsComponent } from './components/cart-items/cart-items.component';
-import { CommandsComponent } from './components/commands/commands.component';
+import { CommandsViewComponent } from './components/commands-view/commands-view.component';
 import { CommandItemsComponent } from './components/command-items/command-items.component';
 
 @NgModule({
@@ -19,7 +19,7 @@ import { CommandItemsComponent } from './components/command-items/command-items.
     SignupComponent,
     CartComponent,
     CartItemsComponent,
-    CommandsComponent,
+    CommandsViewComponent,
     CommandItemsComponent
   ],
   imports: [

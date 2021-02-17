@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-command',
-  templateUrl: './commands.component.html',
-  styleUrls: ['./commands.component.css']
+  templateUrl: './commands-view.component.html',
+  styleUrls: ['./commands-view.component.css']
 })
-export class CommandsComponent implements OnInit {
+export class CommandsViewComponent implements OnInit {
 
 
   constructor() { }
