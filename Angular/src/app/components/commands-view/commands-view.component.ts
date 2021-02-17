@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiRequestService } from 'src/app/services/api-request.services';
+import { AuthService } from 'src/app/services/auth.services';
 
 @Component({
   selector: 'app-command',
@@ -8,10 +10,13 @@ import { Component, OnInit } from '@angular/core';
 export class CommandsViewComponent implements OnInit {
 
 
-  constructor() { }
+  constructor(apiRequestService : ApiRequestService, authService:AuthService) { }
 
   getCurrentCommandNumber(){
     
+  }
+  getAllCommand(){
+
   }
   ngOnInit(): void {
   }
