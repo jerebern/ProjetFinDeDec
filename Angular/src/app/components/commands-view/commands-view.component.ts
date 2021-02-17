@@ -18,7 +18,7 @@ export class CommandsViewComponent implements OnInit {
   getCurrentCommandNumber(){
     this.apiRequestService.getOneCommandFromOneUser(this.authService.currentUser,"1").subscribe(succes =>{
       if(succes){
-        this.currentCommand = this.apiRequestService.getCurrentCommand();
+      this.currentCommand = this.apiRequestService.getCurrentCommand();
       }
     })
   }

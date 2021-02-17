@@ -58,7 +58,8 @@ export class ApiRequestService {
     return this.http.get<any>(this.getUrl("/users/"+userID+"/commands/"+commandId)).pipe(
       tap(response =>{
         console.log("Command :",response)
-        
+        this._currenCommand = response;
+        console.log(this._currenCommand);
 
       })
     )

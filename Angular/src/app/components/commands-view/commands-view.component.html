@@ -1,42 +1,53 @@
-<h1> Detail de la commande # Date</h1>
-<button class="btn btn-success">Modifier</button> <button class="btn btn-danger"> Annuler la commande</button>
-<div>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">Facture :</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr> <td> Sous-Total : </td> <td> todo </td></tr>
-        <tr><td> Total taxes : </td> <td> Todo </td> </tr>
-        <tr> <td>  Total : </td>  <td> Todo </td> </tr>
-    </table> 
+<div class="float-md-left">
+  <div class="px-md-1">
+    <h3> Détail de la commande # {{currentCommand.id}}  </h3>
+  </div>
+  <div class="px-md-1">
+    <h5> Date : {{currentCommand.created_at}} </h5>
+  </div>
+  <div class="px-md-1">
+    <h5> Statut : {{currentCommand.state}} </h5>
+  </div>
 </div>
-<table class="table table-striped">
-    <thead>
-      <tr>
-        <td> Sous-Total : </td>
-        <td> Todo </td>
-      </tr>
+<div>
+  <div class="float-md-right">
+    <div class="row">
+    <div class="px-md-1">
+      <button class="btn btn-success">Modifier</button> 
+    </div>
+    <div class="px-md-1">
+      <button class="btn btn-danger"> Annuler</button> 
+    </div>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br> 
+<br>
+<div>
+<div class="float-xl-left">
+  <table class="table table-bordered table-responsive-xl">
+    <thead style="background-color: aliceblue; text-align: center;">
+       <th scope="row" colspan="2"> Facture : </th>
+       
     </thead>
     <tbody>
-        <tr> <td> Sous-Total : </td> <td> Todo </td></tr>
-        <tr><td> Total taxes : </td> <td> Todo </td> </tr>
-        <tr> <td>  Total : </td>  <td> Todo </td> </tr>
- </table> 
-<table>
-  <tbody>
-    <tr>
-      <td> Sous-Total : </td>
-      <td> Todo </td>
-    </tr>
-    <tr>
-      <td> Total taxes : </td>
-      <td> Todo </td>
-    </tr>
-    <tr>
-      <td> Total : </td>
-      <td> Todo </td>
-    </tr>
-</table>
+        <tr> <td> Sous-Total : </td> <td> {{currentCommand.sub_total}} </td></tr>
+        <tr><td> TPS : </td> <td> {{currentCommand.tps}} </td> </tr>
+        <tr><td> TVQ : </td> <td>  {{currentCommand.tvq}} </td> </tr>
+        <tr> <td> Total : </td>  <td> {{currentCommand.total}} </td> </tr>
+    </table>  
+  </div>
+
+  <div class="float-xl-right">
+    <table class="table table-bordered table-responsive-xl">
+      <thead style="background-color: aliceblue; text-align: center;">
+         <th scope="row" colspan="1"> Adresse de livraison </th>
+         
+      </thead>
+      <tbody>
+         <td style="text-align: center;"> {{currentCommand.shipping_adress}} </td>
+      </table>  
+</div>

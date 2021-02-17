@@ -1,7 +1,7 @@
 import { JSONObject } from "ts-json-object";
 
 export class Command extends JSONObject{
-    
+    id !: number
     sub_total !: number
     
     tps !:  number
@@ -15,6 +15,8 @@ export class Command extends JSONObject{
     state !: string
 
     shipping_adress !: string
+    
+    created_at !: Date
 
     user_id         !: number
 }
