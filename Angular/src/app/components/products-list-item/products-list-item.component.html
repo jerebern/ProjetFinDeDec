@@ -1,1 +1,12 @@
-<p>products-list-item works!</p>
+<div class="image">
+    <a href="products/{{ product.id }}">
+        <img src="{{ product.picture }}" class="w-100 h-100">
+
+        <div class="overlay">
+            <div class="detail">View Details</div>
+        </div>
+    </a>
+</div>
+<h5 class="text-center">{{ product.title }}</h5>
+<h5 class="text-center">{{ product.price }}$</h5>
+<a href="#" class="btn buy">BUY</a>

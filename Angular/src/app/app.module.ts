@@ -16,6 +16,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { ProductsListComponent } from './components/products-list/products-list.component';
 import { ProductsListItemComponent } from './components/products-list-item/products-list-item.component';
 import { RouterModule } from '@angular/router';
+import { ProductsComponent } from './components/products/products.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { RouterModule } from '@angular/router';
     ProductViewComponent,
     PageNotFoundComponent,
     ProductsListComponent,
-    ProductsListItemComponent
+    ProductsListItemComponent,
+    ProductsComponent
   ],
   imports: [
     ReactiveFormsModule,

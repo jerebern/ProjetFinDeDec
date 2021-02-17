@@ -8,11 +8,13 @@ import { CommandsViewComponent } from './components/commands-view/commands-view.
 import { SigninupAccessGuard } from './guards/signinup-access.guard';
 import { ProductViewComponent } from './components/product-view/product-view.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ProductsComponent } from './components/products/products.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [SigninupAccessGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [SigninupAccessGuard] },
   { path: 'commands', component: CommandsViewComponent, canActivate: [SigninupAccessGuard] },
+  { path: 'products', component: ProductsComponent },
   { path: 'products/:id', component: ProductViewComponent },
   { path: '', component: WelcomeComponent },
   { path: '**', component: PageNotFoundComponent }
