@@ -22,10 +22,16 @@ export class User extends JSONObject {
 
     postal_code!: string
 
+
     province!: string
+
 
     phone_number!: string
 
+
     picture!: string
+
+
+    is_admin!: boolean
 
 }
