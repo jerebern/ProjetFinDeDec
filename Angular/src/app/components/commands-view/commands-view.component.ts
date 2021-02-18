@@ -26,7 +26,7 @@ export class CommandsViewComponent implements OnInit {
       })
     }
     console.log("Heloooo",this.currentCommand);
-    this.currentCommand.created_at.getDate
+
   }
   cancelCommand(){
     if(this.authService.currentUser != null){
