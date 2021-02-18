@@ -47,25 +47,55 @@ export class ApiRequestService {
       })
     )
   }
-  getAllCommandFromOneUser(userID: string | null){
-    return this.http.get<any>(this.getUrl("/users/"+userID+"/commands")).pipe(
-      tap(response =>{
+  getAllCommandFromOneUser(userID: string | null) {
+    return this.http.get<any>(this.getUrl("/users/" + userID + "/commands")).pipe(
+      tap(response => {
         console.log("All Commands : ", response)
       })
     )
   }
-  getOneCommandFromOneUser(userID: User | null, commandId:string){
-    return this.http.get<any>(this.getUrl("/users/"+userID+"/commands/"+commandId)).pipe(
-      tap(response =>{
-        console.log("Command :",response)
+  getOneCommandFromOneUser(userID: User | null, commandId: string) {
+    return this.http.get<any>(this.getUrl("/users/" + userID + "/commands/" + commandId)).pipe(
+      tap(response => {
+        console.log("Command :", response)
         this._currenCommand = response;
         console.log(this._currenCommand);
 
       })
     )
   }
-  getCurrentCommand(){
+  getCurrentCommand() {
     return this._currenCommand;
+  }
+
+  filterProducts(animal: string, category: string) {
+    this.listProducts().subscribe(success => {
+      if (success) {
+        console.log("OK")
+        var index;
+        if (category == "Toutes les Catégories" && animal == "Tous les Animaux") {
+          index = this.products;
+          console.log('1', index);
+        }
+        else if (animal == "Tous les Animaux") {
+          index = this.products.filter(s => s.category === category);
+          console.log('2', index);
+        }
+        else if (category == "Toutes les Catégories") {
+          index = this.products.filter(s => s.animal_type === animal);
+          console.log('3', index);
+        }
+        else {
+          index = this.products.filter(s => s.animal_type === animal).filter(s => s.category === category);
+          console.log('4', index);
+        }
+        localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(index));
+      }
+      else {
+        console.log("ERROR")
+        alert("ERROR!!!");
+      }
+    });
   }
 
 }

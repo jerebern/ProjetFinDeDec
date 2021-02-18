@@ -31,7 +31,7 @@ import { ProductsComponent } from './components/products/products.component';
     PageNotFoundComponent,
     ProductsListComponent,
     ProductsListItemComponent,
-    ProductsComponent
+    ProductsComponent,
   ],
   imports: [
     ReactiveFormsModule,

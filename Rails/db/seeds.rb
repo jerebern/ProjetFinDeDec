@@ -14,7 +14,7 @@
 @product = Product.create(category: "Nourriture", price: 7.49, title: "Vitomax pour serin", description: "Vitomax est une nourriture enrichie de vitamines et minéraux.", quantity: 10, animal_type: "Oiseaux")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/vitomaxserin.jpg"), filename: 'vitomaxserin.jpg')
 #https://www.amazon.ca/-/fr/MiXXAT-%C3%A9lectrique-poisson-r%C3%A9aliste-peluche/dp/B08R75GKRC?ref_=Oct_s9_apbd_onr_hd_bw_b6roVQZ&pf_rd_r=72HBBNPHM29AM45T2JWA&pf_rd_p=d3d0fd8a-55ca-5b01-96f1-8d88b8665180&pf_rd_s=merchandised-search-10&pf_rd_t=BROWSE&pf_rd_i=6291980011
-@product = Product.create(category: "Jouet", price: 16.99, title: "Poisson électrique", description: "Jouet poisson électrique à l'herbe à chat.", quantity: 10, animal_type: "Chat")
+@product = Product.create(category: "Jouet", price: 16.99, title: "Poisson électrique", description: "Jouet poisson électrique à l'herbe à chat.", quantity: 10, animal_type: "Chats")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/poissonelectrique.jpg"), filename: 'poissonelectrique.jpg')
 #https://www.amazon.ca/-/fr/PawHut-Clapier-sur%C3%A9lev%C3%A9-plateau-coulissant/dp/B07DP9H9CC/ref=zg_mw_6292604011_18?_encoding=UTF8&psc=1&refRID=6D6E931H0RJT1PSATYEK
 @product = Product.create(category: "Cage", price: 209.99, title: "Clapier surélevé en bois à 2 étages", description: "Matériau : pin, bois de sapin, fil d'acier. Couleur : Poids du filet : Dimensions totales : Dimensions de la porte en maille HTop : Dimensions de la porte en bois HTop : 27,6 x 12,8 cm. 12,8 x 15,7 cm.", quantity: 10, animal_type: "Petits Animaux")

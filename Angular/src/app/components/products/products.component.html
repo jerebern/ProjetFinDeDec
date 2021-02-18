@@ -1,87 +1,26 @@
 <div class="row">
     <div class="col-2 border border-dark">
-        <form>
-            <div class="form-check border border-dark">
-                <p>Animal</p>
-                <input class="form-check-input" type="radio" name="animalCheck" value="Chiens">
-                <label class="form-check-label">
-                    Chiens
-                </label>
-                <br>
-                <input class="form-check-input" type="radio" name="animalCheck" value="Chats">
-                <label class="form-check-label">
-                    Chats
-                </label>
-                <br>
-                <input class="form-check-input" type="radio" name="animalCheck" value="Oiseaux">
-                <label class="form-check-label">
-                    Oiseaux
-                </label>
-                <br>
-                <input class="form-check-input" type="radio" name="animalCheck" value="Petits Animaux">
-                <label class="form-check-label">
-                    Petits Animaux
-                </label>
-                <br>
-                <input class="form-check-input" type="radio" name="animalCheck" value="Reptiles et Amphibiens">
-                <label class="form-check-label">
-                    Reptiles et Amphibiens
-                </label>
-                <br>
-                <input class="form-check-input" type="radio" name="animalCheck" value="Aquariophilie">
-                <label class="form-check-label">
-                    Aquariophilie
-                </label>
-                <br>
-                <input class="form-check-input" type="radio" name="animalCheck" value="all" checked>
-                <label class="form-check-label">
-                    Tous les Animaux
-                </label>
+        <form [formGroup]="filterForm" (ngSubmit)="filter()">
+            <div class="form-group">
+                <label>Animal</label>
+                <div class="radio" *ngFor="let animal of animal_type">
+                    <label>
+                        <input type="radio" formControlName="animal" [value]="animal" checked>
+                        {{ animal }}
+                    </label>
+                </div>
             </div>
-            <div class="form-check border border-dark">
-                <p>Catégorie</p>
-                <input class="form-check-input" type="radio" name="categoryCheck" value="Accessoire">
-                <label class="form-check-label">
-                    Accessoire
-                </label>
-                <br>
-                <input class="form-check-input" type="radio" name="categoryCheck" value="Nourriture">
-                <label class="form-check-label">
-                    Nourriture
-                </label>
-                <br>
-                <input class="form-check-input" type="radio" name="categoryCheck" value="Cage">
-                <label class="form-check-label">
-                    Cage
-                </label>
-                <br>
-                <input class="form-check-input" type="radio" name="categoryCheck" value="Jouet">
-                <label class="form-check-label">
-                    Jouet
-                </label>
-                <br>
-                <input class="form-check-input" type="radio" name="categoryCheck" value="Terrarium">
-                <label class="form-check-label">
-                    Terrarium
-                </label>
-                <br>
-                <input class="form-check-input" type="radio" name="categoryCheck" value="Aquarium">
-                <label class="form-check-label">
-                    Aquarium
-                </label>
-                <br>
-                <input class="form-check-input" type="radio" name="categoryCheck" value="Transport">
-                <label class="form-check-label">
-                    Transport
-                </label>
-                <br>
-                <input class="form-check-input" type="radio" name="categoryCheck" value="all" checked>
-                <label class="form-check-label">
-                    Toutes les Catégories
-                </label>
+            <div class="form-group">
+                <label>Catégorie</label>
+                <div class="radio" *ngFor="let category of categories">
+                    <label>
+                        <input type="radio" formControlName="category" [value]="category" checked>
+                        {{ category }}
+                    </label>
+                </div>
             </div>
-            <button type="submit">Appliquer</button>
-            <button type="reset">Réinitialiser</button>
+            <button type="submit" class="btn btn-primary">Appliquer</button>
+            <button (click)="reset()" class="btn btn-primary">Réinitialiser</button>
         </form>
     </div>
     <div class="col-10 border border-dark">
