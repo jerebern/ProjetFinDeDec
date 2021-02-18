@@ -175,4 +175,13 @@ export class ApiRequestService {
     });
   }
 
+  searchProduct(searchParams: string) {
+    this.listProducts().subscribe(success => {
+      var index = (typeof this.products !== 'undefined') ? this.products.filter((element) => {
+        return element.animal_type.includes(searchParams) || element.category.includes(searchParams) || element.title.includes(searchParams) || element.description.includes(searchParams);
+      }) : true;
+      localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(index));
+    });
+  }
+
 }
