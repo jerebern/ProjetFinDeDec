@@ -29,15 +29,17 @@
             </div>
         </div>
         <div class="col-sm">
-            <div class="row">
-                <button type="button" class="btn btn-warning">
-                    Ajouter au panier
-                </button>
-            </div>
-            <div class="row">
-                Quantité:
-                <input type="number" min="1" max="{{ product.quantity }}" value="1">
-            </div>
+            <form [formGroup]="addToCartForm" (ngSubmit)="addToCart()">
+                <div class="row form-group">
+                    <button type="submit" class="btn btn-warning">
+                        Ajouter au panier
+                    </button>
+                </div>
+                <div class="row form-group">
+                    Quantité:
+                    <input formControlName="quantity" type="number" min="1" max="{{ product.quantity }}" value="1">
+                </div>
+            </form>
         </div>
     </div>
 </div>

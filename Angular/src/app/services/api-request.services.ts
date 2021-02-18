@@ -31,6 +31,19 @@ export class ApiRequestService {
     return '/api/' + querry + '/'
   }
 
+  private generateJSONforProduct(product: Product) {
+    return {
+      "product": {
+        "category": product.category,
+        "price": product.price,
+        "title": product.title,
+        "description": product.description,
+        "quantity": product.quantity,
+        "animal_type": product.animal_type
+      }
+    }
+  }
+
   listProducts() {
     return this.http.get<any>(this.getUrl("products.json")).pipe(
       tap(response => {
@@ -68,7 +81,7 @@ export class ApiRequestService {
   getCurrentCommand() {
     return this._currenCommand;
   }
-  deleteOnCommand(){
+  deleteOnCommand() {
 
     return this
   }
@@ -95,6 +108,28 @@ export class ApiRequestService {
           console.log('4', index);
         }
         localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(index));
+      }
+      else {
+        console.log("ERROR")
+        alert("ERROR!!!");
+      }
+    });
+  }
+
+  updateProduct(product: Product) {
+    return this.http.patch<any>(this.getUrl("products/" + product.id + ".json"), this.generateJSONforProduct(product)).pipe(
+      tap(response => {
+        console.log("Product : ", response);
+      })
+    )
+  }
+
+  addProductToCart(product: Product, quantity: number) {
+    product.quantity = (Number(product.quantity) - quantity).toString();
+    console.log(product, quantity);
+    this.updateProduct(product).subscribe(success => {
+      if (success) {
+        console.log("OK", success)
       }
       else {
         console.log("ERROR")

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/models/product.model';
 import { ApiRequestService } from 'src/app/services/api-request.services';
@@ -9,6 +10,8 @@ import { ApiRequestService } from 'src/app/services/api-request.services';
   styleUrls: ['./product-view.component.css']
 })
 export class ProductViewComponent implements OnInit {
+
+  addToCartForm: FormGroup;
 
   private _product: Product | null = null;
 
@@ -28,9 +31,17 @@ export class ProductViewComponent implements OnInit {
         alert("ERROR!!!");
       }
     });
+    this.addToCartForm = new FormGroup({
+      quantity: new FormControl(1)
+    });
   }
 
   ngOnInit(): void {
+  }
+
+  addToCart() {
+    console.log('nombre de ' + this.product.title + ' vendu : ' + this.addToCartForm.get('quantity')?.value);
+    this.apiService.addProductToCart(this.product, this.addToCartForm.get('quantity')?.value);
   }
 
 }
