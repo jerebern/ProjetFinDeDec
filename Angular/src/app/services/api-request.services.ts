@@ -89,9 +89,13 @@ export class ApiRequestService {
     
     return this._currenCommand;
   }
-  deleteOnCommand() {
-
-    return this
+  deleteCommand(commandId : string, userID : string | null) {
+    
+    return this.http.delete<any>(this.getUrl("users/"+userID+"/commands/"+commandId)).pipe(
+      tap(response => {
+        console.log(response)
+      })
+    )
   }
 
   filterProducts(animal: string, category: string) {
