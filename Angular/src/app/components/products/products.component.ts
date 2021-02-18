@@ -12,7 +12,7 @@ export class ProductsComponent implements OnInit {
   filterForm: FormGroup;
 
   animal_type = ['Chiens', 'Chats', 'Oiseaux', 'Reptiles et Amphibiens', 'Petits Animaux', 'Aquariophilie', 'Tous les Animaux'];
-  categories = ['Accessoire', 'Nourriture', 'Jouet', 'Cage', 'Terrarium', 'Aquarium', 'Transport', 'Toutes les Catégories'];
+  categories = ['Accessoire et Hygiène', 'Nourriture', 'Jouet', 'Cage', 'Aquarium et Terrarium', 'Transport', 'Toutes les Catégories'];
 
   constructor(private apiService: ApiRequestService) {
     this.filterForm = new FormGroup({
