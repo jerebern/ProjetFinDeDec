@@ -24,7 +24,7 @@ import { ProductsComponent } from './components/products/products.component';
     LoginComponent,
     SignupComponent,
     CartComponent,
-    CartItemsComponent,
+    CartItemsComponent, 
     CommandsViewComponent,
     CommandItemsComponent,
     ProductViewComponent,
