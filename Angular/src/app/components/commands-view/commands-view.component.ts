@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Command } from 'src/app/models/command.model';
 import { ApiRequestService } from 'src/app/services/api-request.services';
 import { AuthService } from 'src/app/services/auth.services';
@@ -11,16 +11,24 @@ import { AuthService } from 'src/app/services/auth.services';
 })
 export class CommandsViewComponent implements OnInit {
   
-  currentCommand !: Command 
-  constructor(private apiRequestService : ApiRequestService, private authService:AuthService, private route: ActivatedRoute) { 
+  currentCommand : Command;
+  constructor(private apiRequestService : ApiRequestService, private authService:AuthService, private route: ActivatedRoute, private router: Router) { 
+  this.currentCommand = new Command();
   }
 
   getCurrentCommandNumber(id : string){
-    this.apiRequestService.getOneCommandFromOneUser(this.authService.currentUser,"1").subscribe(succes =>{
-      if(succes){
-      this.currentCommand = this.apiRequestService.getCurrentCommand();
-      }
-    })
+    if(this.authService.isLoggedIn && this.authService.currentUser != null){
+      console.log("ID string ", this.authService.currentUser)
+      this.apiRequestService.getOneCommandFromOneUser(this.authService.currentUser.id.toString(),id).subscribe(succes =>{
+        if(succes){
+        this.currentCommand = this.apiRequestService.getCurrentCommand();
+        }
+        else{
+          this.router.navigate(['/'])
+        }
+      })
+    }
+
   }
   getAllCommand(){
 

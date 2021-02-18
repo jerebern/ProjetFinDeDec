@@ -48,14 +48,15 @@ export class ApiRequestService {
     )
   }
   getAllCommandFromOneUser(userID: string | null) {
-    return this.http.get<any>(this.getUrl("/users/" + userID + "/commands")).pipe(
+    return this.http.get<any>(this.getUrl("users/" + userID + "/commands")).pipe(
       tap(response => {
         console.log("All Commands : ", response)
       })
     )
   }
-  getOneCommandFromOneUser(userID: User | null, commandId: string) {
-    return this.http.get<any>(this.getUrl("/users/" + userID + "/commands/" + commandId)).pipe(
+  getOneCommandFromOneUser(userID: string | null, commandId: string) {
+    console.log("le fucking user id me fait chier ", userID)
+    return this.http.get<any>(this.getUrl("users/" + userID + "/commands/" + commandId)).pipe(
       tap(response => {
         console.log("Command :", response)
         this._currenCommand = response;

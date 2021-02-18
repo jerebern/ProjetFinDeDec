@@ -12,6 +12,7 @@ export class AuthService {
 
   get currentUser(): User | null {
     return this._currentUser;
+    
   }
 
   get isLoggedIn(): boolean {
@@ -73,6 +74,8 @@ export class AuthService {
         var data = response.user;
         console.log("New User service : ", data);
         let newUser: User = new User();
+        newUser.id = data.id
+        console.log(newUser.id)
         newUser.email = data.email;
         newUser.password = data.password;
         newUser.firstname = data.firstname

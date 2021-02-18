@@ -7,5 +7,11 @@ class Api::CommandsController < ApplicationController
         @command = Command.find(params[:id])
         render json: @command
     end
+    def destroy
+        @user = User.find(params[:user_id])
+        @command = @user.commands.find(params[:id])
+        @command.destroy
+        render json status :ok
+    end
     
 end
