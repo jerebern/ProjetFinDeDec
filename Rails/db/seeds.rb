@@ -54,4 +54,4 @@
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/nourriturechat.jpg"), filename: 'nourriturechat.jpg')
 
 command1 = Command.create(sub_total: 9.99, tps: 1.78,tvq: 1.80,total: 13.57,store_pickup: true, state: "test", shipping_adress: "Hellooo worlld", user_id: 1)
-command1 = Command.create(sub_total: 9.99, tps: 1.78,tvq: 1.80,total: 13.57,store_pickup: true, state: "test", shipping_adress: "Hellooo worlld", user_id: 1)
+command2 = Command.create(sub_total: 9.99, tps: 1.78,tvq: 1.80,total: 13.57,store_pickup: true, state: "test", shipping_adress: "Hellooo worlld", user_id: 1)
