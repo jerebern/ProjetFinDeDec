@@ -11,7 +11,7 @@ import { Command } from '../models/command.model';
 })
 export class ApiRequestService {
   private readonly PRODUCTS_KEY = 'jfj.products';
-  private _currenCommand !: Command;
+  private _currenCommand : Command;
   private _currenCommands : Command[] = []
   get products(): Product[] {
     let Products: Product[] = [];
@@ -26,6 +26,7 @@ export class ApiRequestService {
 
   constructor(private http: HttpClient) {
     ///////
+    this._currenCommand = new Command();
   }
 
   private getUrl(querry: string) {
@@ -84,6 +85,7 @@ export class ApiRequestService {
     return this._currenCommands
   }
   getCurrentCommand() {
+    
     return this._currenCommand;
   }
   deleteOnCommand() {
