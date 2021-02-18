@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Command } from 'src/app/models/command.model';
 import { User } from 'src/app/models/user.models';
 import { ApiRequestService } from 'src/app/services/api-request.services';
@@ -12,7 +13,7 @@ import { AuthService } from 'src/app/services/auth.services';
 export class ProfileComponent implements OnInit {
   userCommands : Command[] = []
   currentUser : User
-  constructor(private authService : AuthService, private apiResquestService : ApiRequestService) {
+  constructor(private authService : AuthService, private apiResquestService : ApiRequestService, private router : Router) {
     this.currentUser = new User;
     
    }
@@ -31,6 +32,9 @@ export class ProfileComponent implements OnInit {
       console.log("Current User : ", this.authService.currentUser)
     }
 
+  }
+  loadCommand(id :number ){
+    this.router.navigate(['/commands/'+id])
   }
 
 }
