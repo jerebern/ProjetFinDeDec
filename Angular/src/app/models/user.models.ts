@@ -1,7 +1,7 @@
 import { custom, JSONObject, required } from 'ts-json-object'
 
 export class User extends JSONObject {
-
+    id !: number
 
     email!: string
 
