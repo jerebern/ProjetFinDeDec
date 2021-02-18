@@ -12,7 +12,7 @@ export class AuthService {
 
   get currentUser(): User | null {
     return this._currentUser;
-    
+
   }
 
   get isLoggedIn(): boolean {
@@ -23,9 +23,9 @@ export class AuthService {
     const storedCurrentUser = JSON.parse(localStorage.getItem(this.CURRENT_USER_KEY) ?? 'null');
 
     if (storedCurrentUser) {
-     // this._currentUser = new User(storedCurrentUser);
+      // this._currentUser = new User(storedCurrentUser);
 
-     this._currentUser = storedCurrentUser
+      this._currentUser = storedCurrentUser
       console.log(this.currentUser)
     }
   }
@@ -77,17 +77,19 @@ export class AuthService {
         var data = response.user;
         console.log("New User service : ", data);
         let newUser: User = new User();
-        newUser.id = data.id
-        console.log(newUser.id)
+        /*newUser.id = data.id;
+        console.log(newUser.id);
         newUser.email = data.email;
         newUser.password = data.password;
-        newUser.firstname = data.firstname
-        newUser.lastname = data.lastname
-        newUser.address = data.address
-        newUser.city = data.city
-        newUser.postal_code = data.postal_code
-        newUser.province = data.province
-        newUser.phone_number = data.phone_number
+        newUser.firstname = data.firstname;
+        newUser.lastname = data.lastname;
+        newUser.address = data.address;
+        newUser.city = data.city;
+        newUser.postal_code = data.postal_code;
+        newUser.province = data.province;
+        newUser.phone_number = data.phone_number;
+        newUser.is_admin = data.is_admin;*/
+        newUser = data;
         console.log("New user value ", newUser);
         this.setCurrentUser(newUser);
       })

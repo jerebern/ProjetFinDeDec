@@ -4,6 +4,7 @@ import { Product } from '../models/product.model';
 import { tap } from 'rxjs/operators';
 import { User } from '../models/user.models';
 import { Command } from '../models/command.model';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -24,7 +25,7 @@ export class ApiRequestService {
     return Products;
   }
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     ///////
     this._currenCommand = new Command();
   }
@@ -81,7 +82,7 @@ export class ApiRequestService {
       })
     )
   }
-  getcurrentCommands(){
+  getcurrentCommands() {
     return this._currenCommands
   }
   getCurrentCommand() {
@@ -137,6 +138,37 @@ export class ApiRequestService {
     this.updateProduct(product).subscribe(success => {
       if (success) {
         console.log("OK", success)
+      }
+      else {
+        console.log("ERROR")
+        alert("ERROR!!!");
+      }
+    });////for now addProductToCart just update the product.quantity by removing 1 in quantity
+  }
+
+  deleteProduct(product: Product) {
+    return this.http.delete<any>(this.getUrl("products/" + product.id + ".json")).pipe(
+      tap(response => {
+        console.log("Product : ", response);
+      })
+    )
+  }
+
+  deleteProductFromStore(product: Product) {
+    console.log("produit à supprimer: ", product);
+    this.deleteProduct(product).subscribe(success => {
+      if (success) {
+        console.log("OK", success)
+        this.listProducts().subscribe(success => {
+          if (success) {
+            console.log("OK")
+            this.router.navigate(['/products']);
+          }
+          else {
+            console.log("ERROR")
+            alert("ERROR!!!");
+          }
+        });
       }
       else {
         console.log("ERROR")

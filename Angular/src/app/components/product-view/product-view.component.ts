@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/models/product.model';
 import { ApiRequestService } from 'src/app/services/api-request.services';
+import { AuthService } from 'src/app/services/auth.services';
 
 @Component({
   selector: 'app-product-view',
@@ -12,6 +13,7 @@ import { ApiRequestService } from 'src/app/services/api-request.services';
 export class ProductViewComponent implements OnInit {
 
   addToCartForm: FormGroup;
+  deleteProductForm: FormGroup;
 
   private _product: Product | null = null;
 
@@ -19,7 +21,7 @@ export class ProductViewComponent implements OnInit {
     return this._product!;
   }
 
-  constructor(private route: ActivatedRoute, private apiService: ApiRequestService) {
+  constructor(private authService: AuthService, private route: ActivatedRoute, private apiService: ApiRequestService) {
     console.log("Product Input : ", this.route.snapshot.params.id)
     this.apiService.showProduct(this.route.snapshot.params.id).subscribe(success => {
       if (success) {
@@ -34,6 +36,7 @@ export class ProductViewComponent implements OnInit {
     this.addToCartForm = new FormGroup({
       quantity: new FormControl(1)
     });
+    this.deleteProductForm = new FormGroup({});
   }
 
   ngOnInit(): void {
@@ -42,6 +45,15 @@ export class ProductViewComponent implements OnInit {
   addToCart() {
     console.log('nombre de ' + this.product.title + ' vendu : ' + this.addToCartForm.get('quantity')?.value);
     this.apiService.addProductToCart(this.product, this.addToCartForm.get('quantity')?.value);
+  }
+
+  isAdmin(): boolean {
+    return this.authService.currentUser?.is_admin!;
+  }
+
+  deleteProduct() {
+    console.log(this.product);
+    this.apiService.deleteProductFromStore(this.product);
   }
 
 }

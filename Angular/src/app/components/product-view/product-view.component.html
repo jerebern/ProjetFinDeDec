@@ -40,6 +40,13 @@
                     <input formControlName="quantity" type="number" min="1" max="{{ product.quantity }}" value="1">
                 </div>
             </form>
+            <form [formGroup]="deleteProductForm" (ngSubmit)="deleteProduct()">
+                <div class="row form-group">
+                    <button *ngIf="this.isAdmin()==true" type="submit" class="btn btn-danger">
+                        Supprimer le Produit
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

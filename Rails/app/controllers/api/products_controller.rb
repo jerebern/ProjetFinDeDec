@@ -20,7 +20,11 @@ class Api::ProductsController < ApplicationController
         end
     end
     
-    def delete
+    def destroy
+        @product = Product.find(params[:id])
+        @deletedProduct = @product
+        @product.destroy
+        render json: @product, status: :ok
     end
     
     private
