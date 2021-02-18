@@ -35,9 +35,14 @@
         <table class="table table-bordered table-responsive-xl">
             <thead style="background-color: aliceblue; text-align: center;">
                <th scope="row" colspan="3"> Mes commandes </th>
+             <tr> <td style="text-align: center;"> Numéro de Commande </td> <td>Total</td> <td>Date</td></tr> 
             </thead>
             <tbody>
-         <tr> <td style="text-align: center;"> Numéro de Commande </td> <td>Prix</td> <td>Date</td></tr> 
+                <tr *ngFor="let command of userCommands; let i = index">
+                    <td>{{command.id}}</td>
+                    <td>{{command.total}}</td>
+                    <td>{{command.created_at}}</td>
+                </tr>
             </table>         
     </div>
 

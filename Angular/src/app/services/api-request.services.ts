@@ -12,6 +12,7 @@ import { Command } from '../models/command.model';
 export class ApiRequestService {
   private readonly PRODUCTS_KEY = 'jfj.products';
   private _currenCommand !: Command;
+  private _currenCommands : Command[] = []
   get products(): Product[] {
     let Products: Product[] = [];
     const storedProducts = JSON.parse(localStorage.getItem(this.PRODUCTS_KEY) ?? 'null');
@@ -51,6 +52,7 @@ export class ApiRequestService {
     return this.http.get<any>(this.getUrl("users/" + userID + "/commands")).pipe(
       tap(response => {
         console.log("All Commands : ", response)
+        this._currenCommands = response;
       })
     )
   }
@@ -64,6 +66,9 @@ export class ApiRequestService {
 
       })
     )
+  }
+  getcurrentCommands(){
+    return this._currenCommands
   }
   getCurrentCommand() {
     return this._currenCommand;
