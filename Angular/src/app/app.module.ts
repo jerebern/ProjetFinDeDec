@@ -17,6 +17,7 @@ import { ProductsListComponent } from './components/products-list/products-list.
 import { ProductsListItemComponent } from './components/products-list-item/products-list-item.component';
 import { RouterModule } from '@angular/router';
 import { ProductsComponent } from './components/products/products.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ProductsComponent } from './components/products/products.component';
     ProductsListComponent,
     ProductsListItemComponent,
     ProductsComponent,
+    ProfileComponent,
   ],
   imports: [
     ReactiveFormsModule,

@@ -68,6 +68,10 @@ export class ApiRequestService {
   getCurrentCommand() {
     return this._currenCommand;
   }
+  deleteOnCommand(){
+
+    return this
+  }
 
   filterProducts(animal: string, category: string) {
     this.listProducts().subscribe(success => {
