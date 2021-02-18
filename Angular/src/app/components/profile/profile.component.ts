@@ -19,12 +19,16 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.authService.currentUser != null){
+      console.log("Current User : ", this.authService.currentUser)
       this.currentUser = this.authService.currentUser;      
        this.apiResquestService.getAllCommandFromOneUser(this.authService.currentUser.id.toString()).subscribe(succes =>{
          if(succes){
            this.userCommands = this.apiResquestService.getcurrentCommands()
          }
        })
+    }
+    else{
+      console.log("Current User : ", this.authService.currentUser)
     }
 
   }

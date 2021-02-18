@@ -23,7 +23,10 @@ export class AuthService {
     const storedCurrentUser = JSON.parse(localStorage.getItem(this.CURRENT_USER_KEY) ?? 'null');
 
     if (storedCurrentUser) {
-      this._currentUser = new User(storedCurrentUser);
+     // this._currentUser = new User(storedCurrentUser);
+
+     this._currentUser = storedCurrentUser
+      console.log(this.currentUser)
     }
   }
   private getUrl(parameter: string) {
