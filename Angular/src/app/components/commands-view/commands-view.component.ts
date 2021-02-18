@@ -21,17 +21,19 @@ export class CommandsViewComponent implements OnInit {
       console.log("ID string ", this.authService.currentUser)
       this.apiRequestService.getOneCommandFromOneUser(this.authService.currentUser.id.toString(),id).subscribe(succes =>{
         if(succes){
-        this.currentCommand = this.apiRequestService.getCurrentCommand();
-        }
-        else{
-          this.router.navigate(['/'])
+            this.currentCommand = this.apiRequestService.getCurrentCommand();
         }
       })
     }
+    console.log("Heloooo",this.currentCommand);
 
   }
-  getAllCommand(){
-
+  cancelCommand(){
+    if(this.authService.currentUser != null){
+      this.apiRequestService.deleteCommand(this.currentCommand.id.toString(),this.authService.currentUser.id.toString()).subscribe(succes =>{
+        this.router.navigate(["/profile"])
+      })
+    }
   }
   ngOnInit(): void {
     let id : string | null;

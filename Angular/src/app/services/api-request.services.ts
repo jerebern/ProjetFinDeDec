@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
 })
 export class ApiRequestService {
   private readonly PRODUCTS_KEY = 'jfj.products';
-  private _currenCommand !: Command;
-  private _currenCommands: Command[] = []
+  private _currenCommand : Command;
+  private _currenCommands : Command[] = []
   get products(): Product[] {
     let Products: Product[] = [];
     const storedProducts = JSON.parse(localStorage.getItem(this.PRODUCTS_KEY) ?? 'null');
@@ -27,6 +27,7 @@ export class ApiRequestService {
 
   constructor(private http: HttpClient, private router: Router) {
     ///////
+    this._currenCommand = new Command();
   }
 
   private getUrl(querry: string) {
@@ -85,11 +86,16 @@ export class ApiRequestService {
     return this._currenCommands
   }
   getCurrentCommand() {
+    
     return this._currenCommand;
   }
-  deleteOnCommand() {
-
-    return this
+  deleteCommand(commandId : string, userID : string | null) {
+    
+    return this.http.delete<any>(this.getUrl("users/"+userID+"/commands/"+commandId)).pipe(
+      tap(response => {
+        console.log(response)
+      })
+    )
   }
 
   filterProducts(animal: string, category: string) {
