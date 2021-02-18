@@ -21,14 +21,12 @@ export class CommandsViewComponent implements OnInit {
       console.log("ID string ", this.authService.currentUser)
       this.apiRequestService.getOneCommandFromOneUser(this.authService.currentUser.id.toString(),id).subscribe(succes =>{
         if(succes){
-        this.currentCommand = this.apiRequestService.getCurrentCommand();
-        }
-        else{
-          this.router.navigate(['/'])
+            this.currentCommand = this.apiRequestService.getCurrentCommand();
         }
       })
     }
-
+    console.log("Heloooo",this.currentCommand);
+    this.currentCommand.created_at.getDate
   }
   getAllCommand(){
 
