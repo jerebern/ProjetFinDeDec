@@ -1,4 +1,4 @@
-<div class="fixed-top">
+<!-- <div class="fixed-top">
   <div class="row">
     <div class="col text-center" style="background-color:#d5e5fa">
       <h1>Animalerie en ligne</h1>
@@ -6,7 +6,7 @@
     </div>
   </div>
 
-  <!-- https://getbootstrap.com/docs/4.0/examples/navbars/ -->
+  <-- https://getbootstrap.com/docs/4.0/examples/navbars/ 
   <nav class="navbar navbar-expand" style="background-color:#d5e5fa">
     <div class="collapse navbar-collapse" style="height: 30px">
       <ul class="navbar-nav mr-auto">
@@ -36,8 +36,52 @@
       </div>
     </div>
   </nav>
-</div>
+</div> -->
 
-<div class="pt-4" style="margin: 112px 0px 24px 0px;">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+      Animalerie En Ligne JFJ
+    </a>
+  
+    <button class="navbar-toggler" type="button"
+            (click)="toggleNavbar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+  
+    <div class="collapse navbar-collapse"
+         [ngClass]="{ 'show': navbarOpen }">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Acceuil</a>
+        </li>
+  
+        <li class="nav-item">
+          <a class="nav-link" href="/products">Produits</a>
+        </li>
+
+        <li class="nav-item" *ngIf="this.isLoggedIn()!=true">
+          <a class="nav-link" href="/login">Se connecter</a>
+        </li>
+        <li class="nav-item" *ngIf="this.isLoggedIn()!=true">
+          <a class="nav-link"  href="/signup">Inscription</a>
+        </li>
+        <li class="nav-item" *ngIf="this.isLoggedIn()!=false">
+          <a class="nav-link" (click)="logOut()" href="#">Se déconnecter</a>
+        </li>
+        <li class="nav-item" *ngIf="this.isLoggedIn()!=false">
+          <a class="nav-link" href="/profile">Mon Profil</a>
+        </li>
+
+
+      </ul>
+    </div>
+  </nav>
+
+
+
+<div>
   <router-outlet></router-outlet>
 </div>
+
+  

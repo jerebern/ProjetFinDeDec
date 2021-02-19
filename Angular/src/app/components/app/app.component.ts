@@ -12,13 +12,17 @@ import { AuthService } from 'src/app/services/auth.services';
 })
 export class AppComponent {
   searchForm: FormGroup;
-
+  navbarOpen = false;
   title = 'JFJ';
 
   constructor(private authService: AuthService, private router: Router, private apiService: ProductApiRequestService) {
     this.searchForm = new FormGroup({
       itemQuerry: new FormControl
     })
+  }
+
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
   }
 
   isLoggedIn(): boolean {
