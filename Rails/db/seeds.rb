@@ -25,7 +25,7 @@
 @product = Product.create(category: "Aquarium et Terrarium", price: 279.81, title: "Terrarium en verre", description: "Terrarium en verre de 45,7 x 45,7 x 45,7 cm pour petit reptiles ou amphibiens.", quantity: 10, animal_type: "Reptiles et Amphibiens")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/petitterrarium.jpg"), filename: 'petitterrarium.jpg')
 #https://www.amazon.ca/-/fr/Load-Kennel-Door-Blue-15lbs/dp/B0062JFGM0?ref_=Oct_s9_apbd_otopr_hd_bw_b6rpZFD&pf_rd_r=29GXD55HKH0STC9FMXAQ&pf_rd_p=84b0eb4c-0fba-5f16-b821-c3620ae185eb&pf_rd_s=merchandised-search-10&pf_rd_t=BROWSE&pf_rd_i=6292233011&th=1
-@product = Product.create(category: "Transport", price: 53.99, title: "petit pet voyageur", description: "De petite taille et idéal pour les petits chiens.", quantity: 10, animal_type: "Chiens")
+@product = Product.create(category: "Transport", price: 53.99, title: "Petit pet voyageur", description: "De petite taille et idéal pour les petits chiens.", quantity: 10, animal_type: "Chiens")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/petitpetvoyageur.jpg"), filename: 'petitpetvoyageur.jpg')
 #https://www.amazon.ca/-/fr/American-Products-30-gallons-Acrylique-Aquarium/dp/B0085Y5AYE/ref=sr_1_106?dchild=1&qid=1613406756&s=pet-supplies&sr=1-106
 @product = Product.create(category: "Aquarium et Terrarium", price: 332.57, title: "Aquarium 30 gallon", description: "Aquarium de 30 gallon en acrylique.", quantity: 10, animal_type: "Aquariophilie")

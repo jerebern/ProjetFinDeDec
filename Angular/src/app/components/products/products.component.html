@@ -1,6 +1,20 @@
 <div class="row">
+    <app-search-bar></app-search-bar>
+</div>
+<div class="row">
     <div class="col-2 border border-dark">
         <form [formGroup]="filterForm" (ngSubmit)="filter()">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                </div>
+                <select class="custom-select" id="inputGroupSelect01" formControlName="select">
+                    <option value="Ordre Alphabétique Croissant">Ordre Alphabétique Croissant</option>
+                    <option value="Ordre Alphabétique Décroissant">Ordre Alphabétique Décroissant</option>
+                    <option value="Prix Croissant">Prix Croissant</option>
+                    <option value="Prix Décroissant">Prix Décroissant</option>
+                </select>
+            </div>
             <div class="form-group">
                 <label>Animal</label>
                 <div class="radio" *ngFor="let animal of animal_type">

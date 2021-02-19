@@ -1,0 +1,15 @@
+<div class="col">
+    <form [formGroup]="searchProductForm" (ngSubmit)="search()">
+        <div class="row">
+            <div class="col-sm-10">
+                <input formControlName="search" type="text" placeholder="Rechercher" class="form-control">
+            </div>
+            <div class="col-sm-2">
+                <button type="submit" class="btn btn-secondary">
+                    <img src="https://openclipart.org/image/2400px/svg_to_png/213239/Search-icon.png"
+                        class="img-responsive fit-image">
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

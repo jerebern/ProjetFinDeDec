@@ -18,6 +18,7 @@ import { ProductsListItemComponent } from './components/products-list-item/produ
 import { RouterModule } from '@angular/router';
 import { ProductsComponent } from './components/products/products.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     ProductsListItemComponent,
     ProductsComponent,
     ProfileComponent,
+    SearchBarComponent,
   ],
   imports: [
     ReactiveFormsModule,

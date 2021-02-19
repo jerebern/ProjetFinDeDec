@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
 })
 export class ApiRequestService {
   private readonly PRODUCTS_KEY = 'jfj.products';
-  private _currenCommand : Command;
-  private _currenCommands : Command[] = []
+  private _currenCommand: Command;
+  private _currenCommands: Command[] = []
   get products(): Product[] {
     let Products: Product[] = [];
     const storedProducts = JSON.parse(localStorage.getItem(this.PRODUCTS_KEY) ?? 'null');
@@ -86,12 +86,12 @@ export class ApiRequestService {
     return this._currenCommands
   }
   getCurrentCommand() {
-    
+
     return this._currenCommand;
   }
-  deleteCommand(commandId : string, userID : string | null) {
-    
-    return this.http.delete<any>(this.getUrl("users/"+userID+"/commands/"+commandId)).pipe(
+  deleteCommand(commandId: string, userID: string | null) {
+
+    return this.http.delete<any>(this.getUrl("users/" + userID + "/commands/" + commandId)).pipe(
       tap(response => {
         console.log(response)
       })
@@ -101,7 +101,7 @@ export class ApiRequestService {
    
   }
 
-  filterProducts(animal: string, category: string) {
+  filterProducts(animal: string, category: string, sortBy: number) {
     this.listProducts().subscribe(success => {
       if (success) {
         console.log("OK")
@@ -121,6 +121,18 @@ export class ApiRequestService {
         else {
           index = this.products.filter(s => s.animal_type === animal).filter(s => s.category === category);
           console.log('4', index);
+        }
+        if (sortBy == 1) {
+          index.sort((a, b) => a.title > b.title ? 1 : -1);
+        }
+        else if (sortBy == 2) {
+          index.sort((a, b) => a.title < b.title ? 1 : -1);
+        }
+        else if (sortBy == 3) {
+          index.sort((a, b) => Number(a.price) > Number(b.price) ? 1 : -1);
+        }
+        else if (sortBy == 4) {
+          index.sort((a, b) => Number(a.price) < Number(b.price) ? 1 : -1);
         }
         localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(index));
       }
@@ -181,6 +193,15 @@ export class ApiRequestService {
         console.log("ERROR")
         alert("ERROR!!!");
       }
+    });
+  }
+
+  searchProduct(searchParams: string) {
+    this.listProducts().subscribe(success => {
+      var index = (typeof this.products !== 'undefined') ? this.products.filter((element) => {
+        return element.animal_type.includes(searchParams) || element.category.includes(searchParams) || element.title.includes(searchParams) || element.description.includes(searchParams);
+      }) : true;
+      localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(index));
     });
   }
 
