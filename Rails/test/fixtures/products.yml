@@ -4,8 +4,20 @@
 # model remove the '{}' from the fixture names and add the products immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# product: value
-#
-two: {}
-# product: value
+one:
+  id: 1
+  category: "Transport"
+  price: 14.97
+  title: "Mini pet voyageur"
+  description: "Idéal pour tous les petits animaux."
+  quantity: 10
+  animal_type: "Petits Animaux"
+
+two:
+  id: 2
+  category: "Nourriture"
+  price: 7.49
+  title: "Vitomax pour serin"
+  description: "Vitomax est une nourriture enrichie de vitamines et minéraux."
+  quantity: 10
+  animal_type: "Oiseaux"
