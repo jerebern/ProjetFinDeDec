@@ -4,8 +4,9 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+one: {sub_total: 9.99,  tps: 0.5,tvq: 1.00,total: 11.49, store_pickup: true,  state: "En cours", shipping_adress: "Boutique Shawinigan", user_id: 1}
 # column: value
 #
-two: {}
+two: {sub_total: 19.99, tps: 0.75,tvq: 1.50,total: 17.24,store_pickup: false, state: "Traite", shipping_adress: "2-1903 rue Saint-Jacques Shawinigan", user_id: 2}
 # column: value
+three: {sub_total: 19.99, tps: 0.75,tvq: 1.50,total: 17.24,store_pickup: false, state: "En cours", shipping_adress: "2-1903 rue Saint-Jacques Shawinigan", user_id: 2}
