@@ -40,7 +40,6 @@ export class CommandApiRequestService {
     )
   }
   getOneCommandFromOneUser(userID: string | null, commandId: string): Observable<any> {
-    console.log("le fucking user id me fait chier ", userID)
     return this.http.get<any>(this.getUrl("users/" + userID + "/commands/" + commandId)).pipe(
       map(response => {
         if (response) {
@@ -132,5 +131,33 @@ export class CommandApiRequestService {
         return of(null);
       })
     )
+  }
+  generateJSONforSearch(querry : string){
+    console.log(querry)
+    return {
+      "q": querry
+    }
+  }
+  searchCommand(querry : string, userID : string ){
+    console.log(this.generateJSONforSearch(querry))
+    return this.http.get<any>(this.getUrl("users/" + userID + "/commands") + "?q="+querry).pipe(
+      map(response => {
+        if (response) {
+          console.log("All Commands : ", response)
+          this._currenCommands = response;
+          return true;
+        }
+        else {
+          console.log(response);
+          return false;
+        }
+      }),
+      catchError(error => {
+        console.log('Error', error);
+
+        return of(null);
+      })
+    )
+
   }
 }

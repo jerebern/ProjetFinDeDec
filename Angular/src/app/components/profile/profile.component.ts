@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
   currentUser: User
   sortMode: string = "lowTotal"
   searchCommandForm: FormGroup;
-  constructor(private authService: AuthService, private apiResquestService: CommandApiRequestService, private router: Router) {
+  constructor(private authService: AuthService, private commandApiRequestService: CommandApiRequestService, private router: Router) {
     this.currentUser = new User;
     this.searchCommandForm = new FormGroup({
       search: new FormControl('')
@@ -36,16 +36,16 @@ export class ProfileComponent implements OnInit {
         console.log("Sort");
         break;
     }
-    this.userCommands = this.apiResquestService.getcurrentCommands(this.sortMode)
+    this.userCommands = this.commandApiRequestService.getcurrentCommands(this.sortMode)
   }
   ngOnInit(): void {
     if (this.authService.currentUser != null) {
       console.log("Current User : ", this.authService.currentUser)
       this.currentUser = this.authService.currentUser;
-      this.apiResquestService.getAllCommandFromOneUser(this.authService.currentUser.id.toString()).subscribe(success => {
+      this.commandApiRequestService.getAllCommandFromOneUser(this.authService.currentUser.id.toString()).subscribe(success => {
         if (success) {
           console.log("OK")
-          this.userCommands = this.apiResquestService.getcurrentCommands("")
+          this.userCommands = this.commandApiRequestService.getcurrentCommands("")
         }
         else {
           console.log("ERROR")
@@ -59,13 +59,24 @@ export class ProfileComponent implements OnInit {
 
   }
   searchCommand() {
-
     let querry = this.searchCommandForm.get('search')?.value
-    console.log(querry)
-    this.userCommands = this.userCommands.filter((element) => {
-      return element.state.includes(querry)
-    })
-    console.log(this.userCommands)
+    if(this.authService.currentUser){
+      console.log(querry)
+      this.commandApiRequestService.searchCommand(querry,this.authService.currentUser.id.toString()).subscribe(succes =>{
+        if(succes){
+          console.log("ok c'est cool")
+          this.userCommands = this.commandApiRequestService.getcurrentCommands("")
+
+        }
+      })
+    }
+
+    // 
+    // console.log(querry)
+    // this.userCommands = this.userCommands.filter((element) => {
+    //   return element.state.includes(querry)
+    // })
+    // console.log(this.userCommands)
   }
   loadCommand(id: number) {
     this.router.navigate(['/commands/' + id])
