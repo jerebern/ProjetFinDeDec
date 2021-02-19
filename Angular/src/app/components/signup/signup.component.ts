@@ -63,14 +63,14 @@ export class SignupComponent implements OnInit {
     console.log("picture : ")
     console.log("SignUpform value : ", this.signForm.value);
     console.log("New user value ", newUser);
-    this.authService.userRegistration(newUser,this.signForm.get('file')?.value).subscribe(success => {
+    this.authService.userRegistration(newUser, this.signForm.get('file')?.value).subscribe(success => {
       if (success) {
         this.router.navigate(['/']);
         console.log("OK")
       }
       else {
         console.log("ERROR")
-        alert("Cette adresse email existe déjà");
+        alert("ERROR!!!      une valeur est infonctionnelle");///////a modifié
       }
     }
     );

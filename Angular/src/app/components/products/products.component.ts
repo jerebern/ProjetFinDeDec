@@ -1,7 +1,7 @@
 import { formatNumber } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ApiRequestService } from 'src/app/services/api-request.services';
+import { ProductApiRequestService } from 'src/app/services/product-api-request.services';
 
 @Component({
   selector: 'app-products',
@@ -15,11 +15,20 @@ export class ProductsComponent implements OnInit {
   animal_type = ['Chiens', 'Chats', 'Oiseaux', 'Reptiles et Amphibiens', 'Petits Animaux', 'Aquariophilie', 'Tous les Animaux'];
   categories = ['Accessoire et Hygiène', 'Nourriture', 'Jouet', 'Cage', 'Aquarium et Terrarium', 'Transport', 'Toutes les Catégories'];
 
-  constructor(private apiService: ApiRequestService) {
+  constructor(private apiService: ProductApiRequestService) {
     this.filterForm = new FormGroup({
       animal: new FormControl('Tous les Animaux'),
       category: new FormControl('Toutes les Catégories'),
       select: new FormControl('Ordre Alphabétique Croissant')
+    });
+    this.apiService.listProducts().subscribe(success => {
+      if (success) {
+        console.log("OK")
+      }
+      else {
+        console.log("ERROR", success)
+        alert("ERROR!!!");
+      }
     });
   }
 

@@ -29,7 +29,11 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/']);
         console.log("la team de JFJ est trop forte")
       }
-    })
+      else {
+        console.log("ERROR")
+        alert("Email ou Mot de Passe invalide.");
+      }
+    });
   }
 
 }

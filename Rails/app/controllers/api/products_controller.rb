@@ -1,14 +1,20 @@
 class Api::ProductsController < ApplicationController
     def index
-        @products = Product.all.with_attached_picture
-        render json: @products.map { |product|
-            product.as_json.merge({ picture: url_for(product.picture) })
-        }
+        if @products = Product.all.with_attached_picture
+            render json: @products.map { |product|
+                product.as_json.merge({ picture: url_for(product.picture) })
+            }
+        else
+            render json: @product.errors, status: :unprocessable_entity 
+        end
     end
     
     def show
-        @product = Product.find(params[:id])
-        render json: @product.as_json.merge({ picture: url_for(@product.picture) })
+        if @product = Product.find(params[:id])
+            render json: @product.as_json.merge({ picture: url_for(@product.picture) })
+        else
+            render json: @product.errors, status: :unprocessable_entity 
+        end
     end
     
     def update
@@ -22,9 +28,11 @@ class Api::ProductsController < ApplicationController
     
     def destroy
         @product = Product.find(params[:id])
-        @deletedProduct = @product
-        @product.destroy
-        render json: @product, status: :ok
+        if @product.destroy
+            render json: @product, status: :ok
+        else
+            render json: @product.errors, status: :unprocessable_entity 
+        end
     end
     
     private

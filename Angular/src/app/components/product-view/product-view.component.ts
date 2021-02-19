@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/models/product.model';
-import { ApiRequestService } from 'src/app/services/api-request.services';
+import { ProductApiRequestService } from 'src/app/services/product-api-request.services';
 import { AuthService } from 'src/app/services/auth.services';
 
 @Component({
@@ -21,16 +21,18 @@ export class ProductViewComponent implements OnInit {
     return this._product!;
   }
 
-  constructor(private authService: AuthService, private route: ActivatedRoute, private apiService: ApiRequestService) {
+  constructor(private authService: AuthService, private route: ActivatedRoute, private apiService: ProductApiRequestService, private router: Router) {
     console.log("Product Input : ", this.route.snapshot.params.id)
     this.apiService.showProduct(this.route.snapshot.params.id).subscribe(success => {
       if (success) {
         console.log("OK", success)
         this._product = success as Product;
+        console.log(this._product)
       }
       else {
         console.log("ERROR")
-        alert("ERROR!!!");
+        alert("Produit innexistant.");
+        this.router.navigate(['/products']);
       }
     });
     this.addToCartForm = new FormGroup({

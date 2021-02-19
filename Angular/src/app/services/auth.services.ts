@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError, tap, retry } from 'rxjs/operators';
 import { User } from '../models/user.models';
+import { Observable, of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -47,7 +48,7 @@ export class AuthService {
     console.log(this._currentUser);
   }
 
-  userSignout() {
+  userSignout(): Observable<any> {
     return this.http.delete<any>(this.getUrl("sign_out")).pipe(
       tap(response => {
         console.log("New User signout service : ", response);
@@ -55,43 +56,51 @@ export class AuthService {
       })
     )
   }
-  userRegistration(newUser: User, picture: File) {
+  userRegistration(newUser: User, picture: File): Observable<any> {
     console.log("UserRegistrationService :", JSON.stringify(newUser));
     const data = new FormData();
     data.append("user", JSON.stringify(newUser));
     data.append("picture", picture)
     return this.http.post<any>(this.getUrl(""), data).pipe(
-      tap(response => {
+      map(response => {
         console.log("New User service : ", response);
-        if (response.succes) {
-          console.log("debug pour la connexion a tester ")
+        if (response?.succes) {
+          console.log("succès:", response);
           this.setCurrentUser(newUser);
+          return true;
         }
+        else {
+          return false;
+        }
+      }),
+      catchError(error => {
+        console.log('Error', error);
+
+        return of(null);
       })
     )
   }
-  userLogin(email: string, password: string) {
+  userLogin(email: string, password: string): Observable<any> {
     return this.http.post<any>(this.getUrl("sign_in.json"), this.generateJSONforLogin(email, password)).pipe(
-      tap(response => {
-        console.log("New User service : ", response);
-        var data = response.user;
-        console.log("New User service : ", data);
-        let newUser: User = new User();
-        /*newUser.id = data.id;
-        console.log(newUser.id);
-        newUser.email = data.email;
-        newUser.password = data.password;
-        newUser.firstname = data.firstname;
-        newUser.lastname = data.lastname;
-        newUser.address = data.address;
-        newUser.city = data.city;
-        newUser.postal_code = data.postal_code;
-        newUser.province = data.province;
-        newUser.phone_number = data.phone_number;
-        newUser.is_admin = data.is_admin;*/
-        newUser = data;
-        console.log("New user value ", newUser);
-        this.setCurrentUser(newUser);
+      map(response => {
+        if (response?.success) {
+          console.log("New User service : ", response);
+          var data = response.user;
+          console.log("New User service : ", data);
+          let newUser: User = new User();
+          newUser = data;
+          console.log("New user value ", newUser);
+          this.setCurrentUser(newUser);
+          return true;
+        }
+        else {
+          return false;
+        }
+      }),
+      catchError(error => {
+        console.log('Error', error);
+
+        return of(null);
       })
     )
   }

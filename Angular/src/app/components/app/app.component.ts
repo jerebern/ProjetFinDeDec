@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ApiRequestService } from 'src/app/services/api-request.services';
+import { ProductApiRequestService } from 'src/app/services/product-api-request.services';
 import { AuthService } from 'src/app/services/auth.services';
 
 @Component({
@@ -15,19 +15,10 @@ export class AppComponent {
 
   title = 'JFJ';
 
-  constructor(private authService: AuthService, private router: Router, private apiService: ApiRequestService) {
+  constructor(private authService: AuthService, private router: Router, private apiService: ProductApiRequestService) {
     this.searchForm = new FormGroup({
       itemQuerry: new FormControl
     })
-    this.apiService.listProducts().subscribe(success => {
-      if (success) {
-        console.log("OK")
-      }
-      else {
-        console.log("ERROR")
-        alert("ERROR!!!");
-      }
-    });
   }
 
   isLoggedIn(): boolean {

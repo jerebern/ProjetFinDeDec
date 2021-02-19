@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product.model';
-import { ApiRequestService } from 'src/app/services/api-request.services';
+import { ProductApiRequestService } from 'src/app/services/product-api-request.services';
 
 @Component({
   selector: 'app-products-list',
@@ -13,7 +13,7 @@ export class ProductsListComponent implements OnInit {
     return this.apiService.products;
   }
 
-  constructor(private apiService: ApiRequestService) { }
+  constructor(private apiService: ProductApiRequestService) { }
 
   ngOnInit(): void {
     console.log("TEST:", this.products)
