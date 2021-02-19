@@ -4,8 +4,19 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+one: 
+  email: admin@jfj.com
+  password: shawinigan
+  firstname: Réal
+  lastname: Tremblay
+  address: 1570 rue morin
+  city: Shawinigan
+  postal_code: G0X2V0
+  province: Québec
+  phone_number: 8195335333
+  is_admin: true
+
 # column: value
 #
-two: {}
+#two: {email: "jere.bern@hotmail.com", password: "shawi123", firstname: "Jérémy", lastname: "Bernard", address: "2-1903 rue Saint-Jacques", city: "Shawinigan", postal_code: "G9N4A7", province: "Québec", phone_number: "8193295860", is_admin: false}
 # column: value
