@@ -1,12 +1,20 @@
 class Api::CommandsController < ApplicationController
     def index
+        @user = User.find(params[:user_id])
+    if params[:q]
+        render json: @user.commands.where("state LIKE ?", "%" + params[:q] + "%")
+    else
         if @user = User.find(params[:user_id])
             render json: @user.commands
         else
             render json: @user.errors, status: :unprocessable_entity 
         end
     end
+
+
+    end
     def show 
+
         @user = User.find(params[:user_id])
         if @command = @user.commands.find(params[:id])
             render json: @command
