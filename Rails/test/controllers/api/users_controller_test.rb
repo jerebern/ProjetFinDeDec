@@ -8,4 +8,10 @@ class Api::UsersControllerTest < ActionDispatch::IntegrationTest
     get "/api/users/1"
     assert_response :success
   end
+  test "Can't get no existing user" do 
+    assert_raises(ActiveRecord::RecordNotFound) do
+      get "/api/users/666"
+    end
+  end
+  
 end
