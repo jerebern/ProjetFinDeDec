@@ -19,5 +19,16 @@ one:
 
 # column: value
 #
-#two: {email: "jere.bern@hotmail.com", password: "shawi123", firstname: "Jérémy", lastname: "Bernard", address: "2-1903 rue Saint-Jacques", city: "Shawinigan", postal_code: "G9N4A7", province: "Québec", phone_number: "8193295860", is_admin: false}
+two:
+  id: 2
+  email: jere.bern@hotmail.com
+  encrypted_password: <%= User.new.send(:password_digest, '123456') %>
+  firstname: Jérémy
+  lastname: Bernard
+  address: 2-1903 rue Saint-Jacques
+  city: Shawinigan
+  postal_code: G9N4A7
+  province: Québec
+  phone_number: 8193295860
+  is_admin: false
 # column: value
