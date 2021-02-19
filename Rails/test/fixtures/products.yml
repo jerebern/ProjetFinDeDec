@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no products defined. If you add products to the
+# model remove the '{}' from the fixture names and add the products immediately
+# below each fixture, per the syntax in the comments below
+#
+one: {}
+# product: value
+#
+two: {}
+# product: value
