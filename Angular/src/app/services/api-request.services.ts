@@ -97,6 +97,9 @@ export class ApiRequestService {
       })
     )
   }
+  updateCommand(){
+   
+  }
 
   filterProducts(animal: string, category: string) {
     this.listProducts().subscribe(success => {

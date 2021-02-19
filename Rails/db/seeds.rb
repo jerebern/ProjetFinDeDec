@@ -7,6 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 @admin = User.create!(email: "admin@jfj.com", password: "123456", firstname: "Réal", lastname: "Tremblay", address: "1570 rue morin", city: "Shawinigan", postal_code: "G0X2V0", province: "Québec", phone_number: "8195335333", is_admin: true)
 @admin.picture.attach(io: File.open(Rails.root + "app/assets/images/default.jpg"), filename: 'default.jpg')
+@jerebern = User.create!(email: "jere.bern@hotmail.com", password: "shawi123", firstname: "Jérémy", lastname: "Bernard", address: "2-1903 rue Saint-Jacques", city: "Shawinigan", postal_code: "G9N4A7", province: "Québec", phone_number: "8193295860", is_admin: false)
+
 #https://www.amazon.ca/-/fr/Marina-Thermom%C3%A8tre-flottant-ventouse-aquarium/dp/B0002AQITK?ref_=Oct_s9_apbd_orecs_hd_bw_b6rqbEx&pf_rd_r=X0J2Z10J5XYN88WEEXXC&pf_rd_p=38bd970b-92ba-5009-be3c-7de76d6b9340&pf_rd_s=merchandised-search-10&pf_rd_t=BROWSE&pf_rd_i=6292479011&th=1
 @product = Product.create(category: "Accessoire et Hygiène", price: 2.97, title: "Thermomètre avec ventouse", description: "Un thermomètre: ça sert à savoir la température de l'eau.", quantity: 10, animal_type: "Aquariophilie")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/thermometre.jpg"), filename: 'thermometre.jpg')
@@ -53,5 +55,16 @@
 @product = Product.create(category: "Nourriture", price: 19.48, title: "Nourriture sèche pour chat", description: "Alimentation saine et complète pour votre chat, contient aussi de la dinde.", quantity: 10, animal_type: "Chats")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/nourriturechat.jpg"), filename: 'nourriturechat.jpg')
 
-command1 = Command.create(sub_total: 9.99, tps: 1.78,tvq: 1.80,total: 13.57,store_pickup: true, state: "test", shipping_adress: "Hellooo worlld", user_id: 1)
-command2 = Command.create(sub_total: 9.99, tps: 1.78,tvq: 1.80,total: 13.57,store_pickup: true, state: "test", shipping_adress: "Hellooo worlld", user_id: 1)
+command1 = Command.create(sub_total: 9.99,  tps: 0.5,tvq: 1.00,total: 11.49, store_pickup: true,  state: "En cours", shipping_adress: "Boutique Shawinigan", user_id: 1)
+command2 = Command.create(sub_total: 14.99, tps: 0.75,tvq: 1.50,total: 17.24,store_pickup: false, state: "Traite", shipping_adress: "1570 rue morin", user_id: 1)
+command3 = Command.create(sub_total: 19.99, tps: 1.00,tvq: 1.99,total: 22.98,store_pickup: false, state: "Traite", shipping_adress: "1570 rue morin", user_id: 1)
+command4 = Command.create(sub_total: 19.99, tps: 0.75,tvq: 1.50,total: 17.24,store_pickup: false, state: "Traite", shipping_adress: "2-1903 rue Saint-Jacques Shawinigan", user_id: 2)
+command5 = Command.create(sub_total: 19.99, tps: 0.75,tvq: 1.50,total: 17.24,store_pickup: false, state: "En cours", shipping_adress: "2-1903 rue Saint-Jacques Shawinigan", user_id: 2)
+command6 = Command.create(sub_total: 29.99, tps: 1.50,tvq: 2.99,total: 34.48,store_pickup: true, state: "Pret au ramassage", shipping_adress: "Boutique Shawinigan", user_id: 2)
+command7 = Command.create(sub_total: 29.99, tps: 1.50,tvq: 2.99,total: 34.48,store_pickup: false, state: "Annule", shipping_adress: "2-1903 rue Saint-Jacques Shawinigan", user_id: 2)
+command7 = Command.create(sub_total: 79.99, tps: 4.00,tvq: 7.98,total: 91.97,store_pickup: false, state: "Livre", shipping_adress: "2-1903 rue Saint-Jacques Shawinigan", user_id: 2)
+command8 = Command.create(sub_total: 79.99, tps: 4.00,tvq: 7.98,total: 91.97,store_pickup: true, state: "Pret", shipping_adress: "Boutique Shawinigan", user_id: 2)
+command9 = Command.create(sub_total: 79.99, tps: 4.00,tvq: 7.98,total: 91.97,store_pickup: false, state: "Livre", shipping_adress: "2-1903 rue Saint-Jacques Shawinigan", user_id: 2)
+
+
+

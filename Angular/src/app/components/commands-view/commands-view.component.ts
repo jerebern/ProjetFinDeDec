@@ -28,6 +28,9 @@ export class CommandsViewComponent implements OnInit {
     console.log("Heloooo",this.currentCommand);
 
   }
+  updateCommandShipping(){
+    
+  }
   cancelCommand(){
     if(this.authService.currentUser != null){
       this.apiRequestService.deleteCommand(this.currentCommand.id.toString(),this.authService.currentUser.id.toString()).subscribe(succes =>{
