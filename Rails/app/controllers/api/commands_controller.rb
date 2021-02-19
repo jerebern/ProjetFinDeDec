@@ -15,16 +15,15 @@ class Api::CommandsController < ApplicationController
         render json: @command, status: :ok
     end
     def update
-        byebug 
         @user = User.find(params[:user_id])
         @command = @user.commands.find(params[:id])
-        @command.update(params)
+        @command.update(command_params)
 
     end
 
     private 
     def command_params
-        #todo pour la semaine #2 
+        params.require(:command).permit(:sub_total, :tps, :tvq, :total, :store_pickup, :state, :shipping_adress)
     end
     
 end
