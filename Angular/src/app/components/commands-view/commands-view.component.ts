@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Command } from 'src/app/models/command.model';
@@ -26,6 +27,15 @@ export class CommandsViewComponent implements OnInit {
       })
     }
     console.log("Heloooo",this.currentCommand);
+
+  } 
+  updateCommandShipping(){
+    this.currentCommand.shipping_adress = "141 rue Alarie"
+    if(this.authService.currentUser){
+      this.apiRequestService.updateCommand(this.currentCommand.id.toString(),this.authService.currentUser.id.toString(),this.currentCommand).subscribe(succes => {
+
+      })
+    }
 
   }
   cancelCommand(){

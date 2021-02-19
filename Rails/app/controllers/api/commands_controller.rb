@@ -1,7 +1,8 @@
 class Api::CommandsController < ApplicationController
     def index
-        @commands = Command.all
-        render json: @commands
+        
+        @user = User.find(params[:user_id])
+        render json: @user.commands
     end
     def show 
         @command = Command.find(params[:id])
@@ -12,6 +13,17 @@ class Api::CommandsController < ApplicationController
         @command = @user.commands.find(params[:id])
         @command.destroy
         render json: @command, status: :ok
+    end
+    def update
+        @user = User.find(params[:user_id])
+        @command = @user.commands.find(params[:id])
+        @command.update(command_params)
+
+    end
+
+    private 
+    def command_params
+        params.require(:command).permit(:sub_total, :tps, :tvq, :total, :store_pickup, :state, :shipping_adress)
     end
     
 end

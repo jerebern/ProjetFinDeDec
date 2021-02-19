@@ -97,6 +97,27 @@ export class ApiRequestService {
       })
     )
   }
+  generateJsonForCommandUpdate(command : Command){
+    return {
+      "command":{
+        "sub_total":command.sub_total,
+        "tps":command.tps,
+        "tvq":command.tvq,
+        "total":command.total,
+        "store_pickup":command.store_pickup,
+        "state":command.state,
+        "shipping_adress":command.shipping_adress
+      }
+    }
+  }
+  updateCommand(commandId: string, userID: string | null, command: Command){
+   return this.http.patch(this.getUrl("users/"+userID+"/commands/"+commandId), this.generateJsonForCommandUpdate(command)).pipe(
+     tap(response =>{
+      console.log(response)
+
+     })
+   )
+  }
 
   filterProducts(animal: string, category: string, sortBy: number) {
     this.listProducts().subscribe(success => {
