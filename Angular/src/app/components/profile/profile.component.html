@@ -35,7 +35,7 @@
         <table class="table table-bordered table-responsive-xl">
             <thead style="background-color: white; text-align: center;">
                <th scope="row" colspan="3"> Mes commandes </th>
-             <tr> <td style="text-align: center;"> Numéro de la Commande </td> <td>Total</td> <td>Date</td></tr> 
+             <tr> <td style="text-align: center;"> Numéro de la Commande </td> <td > <a (click)="sortBy()">Total </a></td> <td>Date</td></tr> 
             </thead>
             <tbody>
                 <tr *ngFor="let command of userCommands; let i = index">

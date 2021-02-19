@@ -13,18 +13,32 @@ import { AuthService } from 'src/app/services/auth.services';
 export class ProfileComponent implements OnInit {
   userCommands : Command[] = []
   currentUser : User
+  sortMode : string = "lowTotal"
   constructor(private authService : AuthService, private apiResquestService : ApiRequestService, private router : Router) {
     this.currentUser = new User;
     
    }
+  sortBy(){
 
+    switch(this.sortMode){
+      case "lowTotal":
+      this.sortMode = "highTotal"  
+      console.log("Sort");
+      break;
+      case "highTotal":
+        this.sortMode = "lowTotal"         
+        console.log("Sort");
+      break;
+    }
+    this.userCommands = this.apiResquestService.getcurrentCommands(this.sortMode)
+  }
   ngOnInit(): void {
     if(this.authService.currentUser != null){
       console.log("Current User : ", this.authService.currentUser)
       this.currentUser = this.authService.currentUser;      
        this.apiResquestService.getAllCommandFromOneUser(this.authService.currentUser.id.toString()).subscribe(succes =>{
          if(succes){
-           this.userCommands = this.apiResquestService.getcurrentCommands()
+           this.userCommands = this.apiResquestService.getcurrentCommands("")
          }
        })
     }

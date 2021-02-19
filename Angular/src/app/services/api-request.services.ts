@@ -67,7 +67,8 @@ export class ApiRequestService {
     return this.http.get<any>(this.getUrl("users/" + userID + "/commands")).pipe(
       tap(response => {
         console.log("All Commands : ", response)
-        this._currenCommands = response;
+         this._currenCommands = response;
+
       })
     )
   }
@@ -82,7 +83,20 @@ export class ApiRequestService {
       })
     )
   }
-  getcurrentCommands() {
+  getcurrentCommands(sortBy : string) {
+    switch(sortBy){
+
+      case "lowTotal":
+        this._currenCommands.sort((a, b) => Number(a.total) < Number(b.total) ? 1 : -1)
+      break;
+      case "highTotal":
+        this._currenCommands.sort((a, b) => Number(a.total) > Number(b.total) ? 1 : -1);
+      break;
+      
+      default:
+        break;
+    }
+    console.log(this._currenCommands)
     return this._currenCommands
   }
   getCurrentCommand() {
