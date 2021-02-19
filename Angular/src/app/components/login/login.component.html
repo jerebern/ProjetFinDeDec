@@ -2,29 +2,34 @@
   <div class="container text-center">
     <h1>Connexion</h1>
     <div class="row mt-2">
-        <div class="col-10 offset-1">
-            <!-- https://getbootstrap.com/docs/4.5/components/forms -->
-            <form [formGroup]="loginForm" (ngSubmit)="logIn()">
-                <div class="form-group">
-                  <p>Email</p>
-                  <input formControlName="email" [class.is-invalid]="loginForm.get('email')?.errors && loginForm.get('email')?.dirty && loginForm.get('email')?.touched" type="email" placeholder="Email" class="form-control" >
-                  <div class="invalid-feedback text-left">
-                    Veuillez entrer une adresse email valide.
-                  </div>
-                </div>
+      <div class="col-10 offset-1">
+        <!-- https://getbootstrap.com/docs/4.5/components/forms -->
+        <form [formGroup]="loginForm" (ngSubmit)="logIn()">
+          <div class="form-group">
+            <p>Email</p>
+            <input formControlName="email"
+              [class.is-invalid]="loginForm.get('email')?.errors && loginForm.get('email')?.dirty && loginForm.get('email')?.touched"
+              type="email" placeholder="Email" class="form-control">
+            <div class="invalid-feedback text-left">
+              Veuillez entrer une adresse email valide.
+            </div>
+          </div>
 
-                <div class="form-group">
-                  <p>Mot de passe</p>
-                  <input formControlName="password" [class.is-invalid]="loginForm.get('password')?.errors && loginForm.get('password')?.dirty && loginForm.get('password')?.touched" type="password" placeholder="Password" class="form-control" >
-                  <div class="invalid-feedback text-left">
-                    Veuillez entrer un mot de passe valide.
-                  </div>
-                </div>
+          <div class="form-group">
+            <p>Mot de passe</p>
+            <input formControlName="password"
+              [class.is-invalid]="loginForm.get('password')?.errors && loginForm.get('password')?.dirty && loginForm.get('password')?.touched"
+              type="password" placeholder="Password" class="form-control">
+            <div class="invalid-feedback text-left">
+              Veuillez entrer un mot de passe valide.
+            </div>
+          </div>
 
-                <button [disabled]="loginForm.invalid" class="btn btn-lg btn-primary btn-block" type="submit">Connexion</button>
-                <a [routerLink]="['/']" class="btn btn-lg btn-danger btn-block" role="button">Annuler</a>
-            </form>
-         </div>
+          <button [disabled]="loginForm.invalid" class="btn btn-lg btn-primary btn-block"
+            type="submit">Connexion</button>
+          <a [routerLink]="['/']" class="btn btn-lg btn-outline-danger btn-block" role="button">Annuler</a>
+        </form>
+      </div>
     </div>
   </div>
 </body>
