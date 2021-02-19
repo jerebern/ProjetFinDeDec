@@ -17,5 +17,9 @@ class CreateProducts < ActiveRecord::Migration[6.0]
       ALTER TABLE products
       ADD CONSTRAINT quantity_check CHECK (quantity >= 0);
     SQL
+    execute <<-SQL
+      ALTER TABLE products
+      ADD FULLTEXT INDEX fulltext_products (category, title, description, animal_type);
+    SQL
   end
 end
