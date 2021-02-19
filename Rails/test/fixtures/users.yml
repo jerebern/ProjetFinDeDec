@@ -6,7 +6,7 @@
 #
 one: 
   email: admin@jfj.com
-  password: shawinigan
+  encrypted_password: <%= User.new.send(:password_digest, '123456') %>
   firstname: Réal
   lastname: Tremblay
   address: 1570 rue morin
