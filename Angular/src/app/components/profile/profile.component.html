@@ -3,12 +3,12 @@
     <p>TODO photo a mettre ici je sais pas comment  :(</p>
 </div>
 <div class="float-xl-right">
-    <select name="cars" id="cars">
-        <option value="volvo">todo</option>
-        <option value="saab">todo</option>
-    </select>
-    <input type="text" id="lname" name="lname">
+    <form [formGroup]="searchCommandForm" (ngSubmit)="searchCommand()">
+    <input formControlName="search" placeholder="Entrer etat" type="text" class="form-control">
+     <button class="btn btn-primary" type="submit">Rechercher</button>
+    </form>
 </div>
+<br>
 <br>
 <br>
 <br>
