@@ -40,10 +40,11 @@ ActiveRecord::Schema.define(version: 2021_02_15_195512) do
     t.decimal "total", precision: 8, scale: 2
     t.boolean "store_pickup", null: false
     t.string "state", limit: 50, null: false
-    t.string "shipping_adress", limit: 50, null: false
+    t.string "shipping_adress", limit: 156, null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["state", "shipping_adress"], name: "fulltext_commands", type: :fulltext
     t.index ["user_id"], name: "index_commands_on_user_id"
   end
 
@@ -56,6 +57,7 @@ ActiveRecord::Schema.define(version: 2021_02_15_195512) do
     t.string "animal_type", limit: 50, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["category", "title", "description", "animal_type"], name: "fulltext_products", type: :fulltext
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -75,6 +77,7 @@ ActiveRecord::Schema.define(version: 2021_02_15_195512) do
     t.boolean "is_admin", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email", "firstname", "lastname", "address", "city", "postal_code", "province", "phone_number"], name: "fulltext_users", type: :fulltext
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

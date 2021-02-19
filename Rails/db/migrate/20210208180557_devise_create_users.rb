@@ -47,6 +47,10 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
       ALTER TABLE users
       ADD COLUMN fullname VARCHAR(101) GENERATED ALWAYS AS (CONCAT(firstname, ' ', lastname)) VIRTUAL AFTER lastname;
     SQL
+    execute <<-SQL
+      ALTER TABLE users
+      ADD FULLTEXT INDEX fulltext_users (email, firstname, lastname, address, city, postal_code, province, phone_number);
+    SQL
     add_index :users, :email,                unique: true
     add_index :users, :reset_password_token, unique: true
     # add_index :users, :confirmation_token,   unique: true

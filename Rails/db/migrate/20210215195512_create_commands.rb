@@ -7,9 +7,13 @@ class CreateCommands < ActiveRecord::Migration[6.0]
       t.decimal :total, precision: 8, scale: 2
       t.boolean :store_pickup, null: false
       t.string :state, :limit => 50, null: false
-      t.string :shipping_adress, :limit => 50, null: false
+      t.string :shipping_adress, :limit => 156, null: false
       t.references :user, null: false, foreign_key: true
       t.timestamps
       end
+      execute <<-SQL
+        ALTER TABLE commands
+        ADD FULLTEXT INDEX fulltext_commands (state, shipping_adress);
+      SQL
     end
 end
