@@ -19,6 +19,8 @@ import { RouterModule } from '@angular/router';
 import { ProductsComponent } from './components/products/products.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { HelpComponent } from './components/help/help.component';
+import { ConversationComponent } from './components/conversation/conversation.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     LoginComponent,
     SignupComponent,
     CartComponent,
-    CartItemsComponent, 
+    CartItemsComponent,
     CommandsViewComponent,
     CommandItemsComponent,
     ProductViewComponent,
@@ -36,6 +38,8 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     ProductsComponent,
     ProfileComponent,
     SearchBarComponent,
+    HelpComponent,
+    ConversationComponent,
   ],
   imports: [
     ReactiveFormsModule,

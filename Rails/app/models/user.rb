@@ -15,6 +15,7 @@ class User < ApplicationRecord
   validates :phone_number, presence: true
   has_one_attached :picture
   has_many :commands
+  has_one :message
 
   # Fonctionnalité privé au modèle
   private

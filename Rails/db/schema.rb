@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_15_195512) do
+ActiveRecord::Schema.define(version: 2021_02_21_000409) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -46,6 +46,23 @@ ActiveRecord::Schema.define(version: 2021_02_15_195512) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["state", "shipping_adress"], name: "fulltext_commands", type: :fulltext
     t.index ["user_id"], name: "index_commands_on_user_id"
+  end
+
+  create_table "converations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_converations_on_user_id"
+  end
+
+  create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "message", limit: 2500, default: "", null: false
+    t.bigint "converation_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["converation_id"], name: "index_messages_on_converation_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -84,4 +101,7 @@ ActiveRecord::Schema.define(version: 2021_02_15_195512) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "commands", "users"
+  add_foreign_key "converations", "users"
+  add_foreign_key "messages", "converations"
+  add_foreign_key "messages", "users"
 end

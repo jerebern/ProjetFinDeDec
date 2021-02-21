@@ -1,0 +1,17 @@
+<body>
+
+  <div>
+    <h1 style="font-weight: bold;">Centre d'aide</h1>
+    <br>
+    <p>Bienvenue dans le centre d'aide! Pour démarrer une conversation ou pour continuer une conversation avec notre administrateur,
+       veuillez appuyer sur le bouton si dessus.
+    </p>
+    <div *ngIf="this.hasMessage(); else messageButton">
+      <button class="btn btn-primary" (click)="message()">Continuer votre conversation</button>
+    </div>
+    <ng-template #messageButton>
+      <button class="btn btn-primary" (click)="message()">Démarrer une conversation</button>
+    </ng-template>
+  </div>
+
+</body>
