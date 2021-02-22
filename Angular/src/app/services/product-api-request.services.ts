@@ -113,6 +113,7 @@ export class ProductApiRequestService {
   deleteProduct(product: Product): Observable<any> {
     return this.http.delete<any>(this.getUrl("products/" + product.id + ".json")).pipe(
       map(response => {
+        console.log("Product delete service : ", response);
         if (response) {
           console.log("Product : ", response);
           return true;
@@ -143,29 +144,6 @@ export class ProductApiRequestService {
         window.location.reload();
       }
     });////for now addProductToCart just update the product.quantity by removing 1 in quantity
-  }
-
-  deleteProductFromStore(product: Product) {
-    console.log("produit à supprimer: ", product);
-    this.deleteProduct(product).subscribe(success => {
-      if (success) {
-        console.log("OK", success)
-        this.listProducts().subscribe(success => {
-          if (success) {
-            console.log("OK")
-            this.router.navigate(['/products']);
-          }
-          else {
-            console.log("ERROR")
-            alert("ERROR!!!");
-          }
-        });
-      }
-      else {
-        console.log("ERROR")
-        alert("ERROR!!!");
-      }
-    });
   }
 
   generateJSONforSearch(querry: string) {
