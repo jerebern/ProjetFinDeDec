@@ -1,12 +1,12 @@
 <div class="col w-100">
     <form [formGroup]="searchProductForm" (ngSubmit)="search()">
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-10">
                 <input formControlName="search" type="text" placeholder="Rechercher un produit" class="form-control">
             </div>
             <div class="col-sm-1">
                 <button type="submit" class="btn btn-secondary">
-                    <img src="../../../assets/img/Search-icon.png" width="25" height="25">
+                    <img src="../../../assets/img/Search-icon.png" class="w-100 p-10">
                 </button>
             </div>
         </div>
