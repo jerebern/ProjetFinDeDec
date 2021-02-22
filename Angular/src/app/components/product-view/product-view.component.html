@@ -2,15 +2,7 @@
     <div class="row">
         <div class="col-sm">
             <div class="row">
-                <img src="{{ product.picture }}" class="w-100 h-100">
-            </div>
-            <div class="row">
-                <h1>
-                    Description
-                </h1>
-            </div>
-            <div class="row">
-                {{ product.description }}
+                <img src="{{ product.picture }}" class="w-100 h-100 rounded">
             </div>
         </div>
         <div class="col-sm">
@@ -27,17 +19,26 @@
             <div class="row">
                 Quantité restante : {{ product.quantity }}
             </div>
+            <div class="row">
+                <h1>
+                    Description
+                </h1>
+            </div>
+            <div class="row">
+                {{ product.description }}
+            </div>
         </div>
         <div class="col-sm">
             <form [formGroup]="addToCartForm" (ngSubmit)="addToCart()">
+                <br>
+                <div class="row form-group">
+                    Quantité:
+                    <input formControlName="quantity" type="number" min="1" max="{{ product.quantity }}" value="1">
+                </div>
                 <div class="row form-group">
                     <button type="submit" class="btn btn-warning">
                         Ajouter au panier
                     </button>
-                </div>
-                <div class="row form-group">
-                    Quantité:
-                    <input formControlName="quantity" type="number" min="1" max="{{ product.quantity }}" value="1">
                 </div>
             </form>
             <form [formGroup]="deleteProductForm" (ngSubmit)="deleteProduct()">

@@ -22,7 +22,7 @@ Bundler.require(*Rails.groups)
 module Projet
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
+    config.load_defaults 6.1
     config.autoload_paths << "#{Rails.root}/lib"
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore

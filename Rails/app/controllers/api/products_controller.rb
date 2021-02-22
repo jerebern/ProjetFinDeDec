@@ -2,38 +2,44 @@ class Api::ProductsController < ApplicationController
     def index
         if params[:q]
             if @products = Product.all.with_attached_picture
-                render json: @products.where("title LIKE ?", "%" + params[:q] + "%").or(@products.where("description LIKE ?", "%" + params[:q] + "%")).or(@products.where("category LIKE ?", "%" + params[:q] + "%")).or(@products.where("animal_type LIKE ?", "%" + params[:q] + "%")).map { |product|
+                render json: { products: @products.where("title LIKE ?", "%" + params[:q] + "%").or(@products.where("description LIKE ?", "%" + params[:q] + "%")).or(@products.where("category LIKE ?", "%" + params[:q] + "%")).or(@products.where("animal_type LIKE ?", "%" + params[:q] + "%")).map { |product|
                     product.as_json.merge({ picture: url_for(product.picture) })
-                }
+                }, success: true } 
             else
-                render json: @product.errors, status: :unprocessable_entity 
+                render json: { success: false, error: [@product.errors] }
             end
         else
             if @products = Product.all.with_attached_picture
-                render json: @products.map { |product|
+                render json: { products: @products.map { |product|
                     product.as_json.merge({ picture: url_for(product.picture) })
-                }
+                }, success: true }
             else
-                render json: @product.errors, status: :unprocessable_entity 
+                render json: { success: false, error: [@product.errors] }
             end
         end
+    rescue => e
+        render json: { success: false, error: [e] }
     end
     
     def show
         if @product = Product.find(params[:id])
-            render json: @product.as_json.merge({ picture: url_for(@product.picture) })
+            render json: { product: @product.as_json.merge({ picture: url_for(@product.picture) }), success: true }
         else
-            render json: @product.errors, status: :unprocessable_entity 
+            render json: { success: false, error: [@product.errors] }
         end
+    rescue => e
+        render json: { success: false, error: [e] }
     end
     
     def update
         @product = Product.find(params[:id])
         if @product.update(product_params)
-            render json: @product.as_json.merge({ picture: url_for(@product.picture) })
+            render json: { product: @product.as_json.merge({ picture: url_for(@product.picture) }), success: true }
         else
-            render json: @product.errors, status: :unprocessable_entity 
+            render json: { success: false, error: [@product.errors] }
         end
+    rescue => e
+        render json: { success: false, error: [e] }
     end
     
     def destroy
@@ -42,11 +48,13 @@ class Api::ProductsController < ApplicationController
         else
             @product = Product.find(params[:id])
             if @product.destroy
-                render json: @product, status: :ok
+                render json: { product: @product.as_json.merge({ picture: url_for(@product.picture) }), success: true }
             else
-                render json: @product.errors, status: :unprocessable_entity 
+                render json: { success: false, error: [@product.errors] }
             end
         end
+    rescue => e
+        render json: { success: false, error: [e] }
     end
     
     private

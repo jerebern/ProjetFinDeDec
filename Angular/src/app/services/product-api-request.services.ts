@@ -45,16 +45,40 @@ export class ProductApiRequestService {
         "description": product.description,
         "quantity": product.quantity,
         "animal_type": product.animal_type
-      }
+      },
+      "datatype": "JSON"
     }
   }
 
   listProducts(): Observable<any> {
     return this.http.get<any>(this.getUrl("products.json")).pipe(
       map(response => {
-        if (response) {
-          console.log("Products list : ", response);
-          localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(response));
+        if (response.success) {
+          console.log("Products list : ", response.products);
+          localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(response.products));
+          return true;
+        }
+        else {
+          console.log(response);
+          return false;
+        }
+      }),
+      catchError(error => {
+        console.log('Error', error);
+
+        return of(null);
+      })
+    )
+  }
+
+  searchProducts(searchParams: string) {
+    console.log(this.generateJSONforSearch(searchParams))
+    return this.http.get<any>(this.getUrl("/products") + "?q=" + searchParams).pipe(
+      map(response => {
+        if (response.success) {
+          console.log("Search Products : ", response.products)
+          this._searchProduct = searchParams;
+          localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(response.products));
           return true;
         }
         else {
@@ -73,9 +97,9 @@ export class ProductApiRequestService {
   showProduct(id: number): Observable<any> {
     return this.http.get<any>(this.getUrl("products/" + id + ".json")).pipe(
       map(response => {
-        if (response) {
-          console.log("Product : ", response);
-          return response;
+        if (response.success) {
+          console.log("Product : ", response.product);
+          return response.product;
         }
         else {
           console.log(response);
@@ -93,8 +117,8 @@ export class ProductApiRequestService {
   updateProduct(product: Product): Observable<any> {
     return this.http.patch<any>(this.getUrl("products/" + product.id + ".json"), this.generateJSONforProduct(product)).pipe(
       map(response => {
-        if (response) {
-          console.log("Product : ", response);
+        if (response.success) {
+          console.log("Product Update: ", response.product);
           return true;
         }
         else {
@@ -113,8 +137,9 @@ export class ProductApiRequestService {
   deleteProduct(product: Product): Observable<any> {
     return this.http.delete<any>(this.getUrl("products/" + product.id + ".json")).pipe(
       map(response => {
-        if (response) {
-          console.log("Product : ", response);
+        console.log("Product delete service : ", response.product);
+        if (response.success) {
+          console.log("Product : ", response.product);
           return true;
         }
         else {
@@ -145,59 +170,13 @@ export class ProductApiRequestService {
     });////for now addProductToCart just update the product.quantity by removing 1 in quantity
   }
 
-  deleteProductFromStore(product: Product) {
-    console.log("produit à supprimer: ", product);
-    this.deleteProduct(product).subscribe(success => {
-      if (success) {
-        console.log("OK", success)
-        this.listProducts().subscribe(success => {
-          if (success) {
-            console.log("OK")
-            this.router.navigate(['/products']);
-          }
-          else {
-            console.log("ERROR")
-            alert("ERROR!!!");
-          }
-        });
-      }
-      else {
-        console.log("ERROR")
-        alert("ERROR!!!");
-      }
-    });
-  }
-
   generateJSONforSearch(querry: string) {
     console.log(querry)
     return {
       "q": querry
     }
   }
-
-  searchProducts(searchParams: string) {
-    console.log(this.generateJSONforSearch(searchParams))
-    return this.http.get<any>(this.getUrl("/products") + "?q=" + searchParams).pipe(
-      map(response => {
-        if (response) {
-          console.log("Search Products : ", response)
-          this._searchProduct = searchParams;
-          localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(response));
-          return true;
-        }
-        else {
-          console.log(response);
-          return false;
-        }
-      }),
-      catchError(error => {
-        console.log('Error', error);
-
-        return of(null);
-      })
-    )
-  }
-
+  ///TODO: changer ça et le déplacer dans products.component.ts et pas faire restart la list si je clique sur la loupe
   filterProducts(animal: string, category: string, sortBy: number) {
     this.searchProducts(this.searchParams).subscribe(success => {
       if (success) {

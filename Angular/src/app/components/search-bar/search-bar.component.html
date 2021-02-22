@@ -1,14 +1,6 @@
-<div class="col w-100">
-    <form [formGroup]="searchProductForm" (ngSubmit)="search()">
-        <div class="row">
-            <div class="col-sm-8">
-                <input formControlName="search" type="text" placeholder="Rechercher un produit" class="form-control">
-            </div>
-            <div class="col-sm-1">
-                <button type="submit" class="btn btn-secondary">
-                    <img src="../../../assets/img/Search-icon.png" width="25" height="25">
-                </button>
-            </div>
-        </div>
-    </form>
-</div>
+<form [formGroup]="searchProductForm" (ngSubmit)="search()" class="form-inline">
+    <input formControlName="search" class="form-control w-75" type="text" placeholder="Rechercher un produit">
+    <button type="submit" class="btn btn-secondary mr-sm-2">
+        <i class="fa fa-search"></i>
+    </button>
+</form>
