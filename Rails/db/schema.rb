@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 2021_02_21_000409) do
   end
 
   create_table "converations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "title", limit: 50, null: false
+    t.string "description", limit: 2500, null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
