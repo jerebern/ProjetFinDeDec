@@ -28,12 +28,11 @@ class Api::ProductsController < ApplicationController
     end
     
     def update
-            @product = Product.find(params[:id])
-            if @product.update(product_params)
-                render json: @product.as_json.merge({ picture: url_for(@product.picture) })
-            else
-                render json: @product.errors, status: :unprocessable_entity 
-            end
+        @product = Product.find(params[:id])
+        if @product.update(product_params)
+            render json: @product.as_json.merge({ picture: url_for(@product.picture) })
+        else
+            render json: @product.errors, status: :unprocessable_entity 
         end
     end
     
