@@ -52,7 +52,7 @@ export class ProductApiRequestService {
   listProducts(): Observable<any> {
     return this.http.get<any>(this.getUrl("products.json")).pipe(
       map(response => {
-        if (response) {
+        if (response.success == undefined) {
           console.log("Products list : ", response);
           localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(response));
           return true;
@@ -73,7 +73,7 @@ export class ProductApiRequestService {
   showProduct(id: number): Observable<any> {
     return this.http.get<any>(this.getUrl("products/" + id + ".json")).pipe(
       map(response => {
-        if (response) {
+        if (response.success == undefined) {
           console.log("Product : ", response);
           return response;
         }
@@ -93,8 +93,8 @@ export class ProductApiRequestService {
   updateProduct(product: Product): Observable<any> {
     return this.http.patch<any>(this.getUrl("products/" + product.id + ".json"), this.generateJSONforProduct(product)).pipe(
       map(response => {
-        if (response) {
-          console.log("Product : ", response);
+        if (response.success == undefined) {
+          console.log("Product Update: ", response);
           return true;
         }
         else {
@@ -114,7 +114,7 @@ export class ProductApiRequestService {
     return this.http.delete<any>(this.getUrl("products/" + product.id + ".json")).pipe(
       map(response => {
         console.log("Product delete service : ", response);
-        if (response) {
+        if (response.success == undefined) {
           console.log("Product : ", response);
           return true;
         }
@@ -157,7 +157,7 @@ export class ProductApiRequestService {
     console.log(this.generateJSONforSearch(searchParams))
     return this.http.get<any>(this.getUrl("/products") + "?q=" + searchParams).pipe(
       map(response => {
-        if (response) {
+        if (response.success == undefined) {
           console.log("Search Products : ", response)
           this._searchProduct = searchParams;
           localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(response));

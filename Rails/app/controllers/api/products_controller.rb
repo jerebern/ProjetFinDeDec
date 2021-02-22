@@ -6,7 +6,7 @@ class Api::ProductsController < ApplicationController
                     product.as_json.merge({ picture: url_for(product.picture) })
                 }
             else
-                render json: @product.errors, status: :unprocessable_entity 
+                render json: { success: false, error: [@product.errors] }
             end
         else
             if @products = Product.all.with_attached_picture
@@ -14,17 +14,21 @@ class Api::ProductsController < ApplicationController
                     product.as_json.merge({ picture: url_for(product.picture) })
                 }
             else
-                render json: @product.errors, status: :unprocessable_entity 
+                render json: { success: false, error: [@product.errors] }
             end
         end
+    rescue => e
+        render json: { success: false, error: [e] }
     end
     
     def show
         if @product = Product.find(params[:id])
             render json: @product.as_json.merge({ picture: url_for(@product.picture) })
         else
-            render json: @product.errors, status: :unprocessable_entity 
+            render json: { success: false, error: [@product.errors] }
         end
+    rescue => e
+        render json: { success: false, error: [e] }
     end
     
     def update
@@ -32,8 +36,10 @@ class Api::ProductsController < ApplicationController
         if @product.update(product_params)
             render json: @product.as_json.merge({ picture: url_for(@product.picture) })
         else
-            render json: @product.errors, status: :unprocessable_entity 
+            render json: { success: false, error: [@product.errors] }
         end
+    rescue => e
+        render json: { success: false, error: [e] }
     end
     
     def destroy
@@ -44,9 +50,11 @@ class Api::ProductsController < ApplicationController
             if @product.destroy
                 render json: @product, status: :ok
             else
-                render json: @product.errors, status: :unprocessable_entity 
+                render json: { success: false, error: [@product.errors] }
             end
         end
+    rescue => e
+        render json: { success: false, error: [e] }
     end
     
     private
