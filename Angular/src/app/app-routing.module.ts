@@ -11,6 +11,7 @@ import { ProductsComponent } from './components/products/products.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { HelpComponent } from './components/help/help.component';
 import { ConversationComponent } from './components/conversation/conversation.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [SigninupAccessGuard] },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent }, //todo proteger la route
   { path: 'conversation', component: ConversationComponent },
   { path: 'help', component: HelpComponent },
+  { path: 'admin', component: AdminComponent },
   { path: '', component: WelcomeComponent },
   { path: '**', component: PageNotFoundComponent }
 ];

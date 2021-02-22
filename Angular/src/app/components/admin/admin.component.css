@@ -1,14 +1,14 @@
-p{
-  font-size: larger;
-}
 div{
   margin-top: 10px;
   margin-left: 10px;
   margin-right: 10px;
 }
-button{
-  width: 100%;
-}
 h1{
   font-weight: bold;
 }
+th, td{
+  text-align: center;
+  border: 1px solid white;
+  width: 33%;
+}
+

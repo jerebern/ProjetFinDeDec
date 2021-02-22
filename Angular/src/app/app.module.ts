@@ -21,6 +21,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { HelpComponent } from './components/help/help.component';
 import { ConversationComponent } from './components/conversation/conversation.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ConversationComponent } from './components/conversation/conversation.co
     SearchBarComponent,
     HelpComponent,
     ConversationComponent,
+    AdminComponent,
   ],
   imports: [
     ReactiveFormsModule,
