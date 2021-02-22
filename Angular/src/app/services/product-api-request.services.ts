@@ -13,6 +13,10 @@ import { Observable, of } from 'rxjs';
 })
 export class ProductApiRequestService {
   private readonly PRODUCTS_KEY = 'jfj.products';
+  private _searchProduct: string = "";
+  get searchParams(): string {
+    return this._searchProduct;
+  }
   get products(): Product[] {
     let Products: Product[] = [];
     const storedProducts = JSON.parse(localStorage.getItem(this.PRODUCTS_KEY) ?? 'null');
@@ -164,17 +168,38 @@ export class ProductApiRequestService {
     });
   }
 
-  searchProduct(searchParams: string) {
-    this.listProducts().subscribe(success => {
-      var index = (typeof this.products !== 'undefined') ? this.products.filter((element) => {
-        return element.animal_type.includes(searchParams) || element.category.includes(searchParams) || element.title.includes(searchParams) || element.description.includes(searchParams);
-      }) : true;
-      localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(index));
-    });
+  generateJSONforSearch(querry: string) {
+    console.log(querry)
+    return {
+      "q": querry
+    }
+  }
+
+  searchProducts(searchParams: string) {
+    console.log(this.generateJSONforSearch(searchParams))
+    return this.http.get<any>(this.getUrl("/products") + "?q=" + searchParams).pipe(
+      map(response => {
+        if (response) {
+          console.log("Search Products : ", response)
+          this._searchProduct = searchParams;
+          localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(response));
+          return true;
+        }
+        else {
+          console.log(response);
+          return false;
+        }
+      }),
+      catchError(error => {
+        console.log('Error', error);
+
+        return of(null);
+      })
+    )
   }
 
   filterProducts(animal: string, category: string, sortBy: number) {
-    this.listProducts().subscribe(success => {
+    this.searchProducts(this.searchParams).subscribe(success => {
       if (success) {
         console.log("OK")
         var index;

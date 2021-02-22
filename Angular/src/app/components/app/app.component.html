@@ -1,54 +1,49 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    
-    <a class="navbar-brand" href="#">
-      <img class="navbar-brand"  src="../../../assets/img/Animalerie_JFJ.png"/>
-    </a>
+  <a class="navbar-brand" href="/">
+    <img class="navbar-brand" src="../../../assets/img/Animalerie_JFJ.png" />
+  </a>
 
-    <button class="navbar-toggler" type="button"
-            (click)="toggleNavbar()">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
 
-    <div class="collapse navbar-collapse"
-         [ngClass]="{ 'show': navbarOpen }" style="text-align: center;">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Accueil</a>
-        </li>
+  <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }" style="text-align: center;">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Accueil</a>
+      </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="/products">Produits</a>
-        </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/products">Produits</a>
+      </li>
 
-        <li class="nav-item" *ngIf="this.isLoggedIn()!=true">
-          <a class="nav-link" href="/login">Connexion</a>
-        </li>
-        <li class="nav-item" *ngIf="this.isLoggedIn()!=true">
-          <a class="nav-link"  href="/signup">Inscription</a>
-        </li>
-        <li class="nav-item" *ngIf="this.isLoggedIn()!=false">
-          <a class="nav-link" href="/profile">Profil</a>
-        </li>
-        <li class="nav-item" *ngIf="this.isLoggedIn()!=false">
-          <a class="nav-link" href="/help">Aide</a>
-        </li>
-        <li class="nav-item" *ngIf="this.isLoggedIn()!=false">
-          <a class="nav-link" (click)="logOut()" href="#">Déconnexion</a>
-        </li>
-            <br>
-           <app-search-bar></app-search-bar>
+      <li class="nav-item" *ngIf="this.isLoggedIn()!=true">
+        <a class="nav-link" href="/login">Connexion</a>
+      </li>
+      <li class="nav-item" *ngIf="this.isLoggedIn()!=true">
+        <a class="nav-link" href="/signup">Inscription</a>
+      </li>
+      <li class="nav-item" *ngIf="this.isLoggedIn()!=false">
+        <a class="nav-link" href="/profile">Profil</a>
+      </li>
+      <li class="nav-item" *ngIf="this.isLoggedIn()!=false">
+        <a class="nav-link" href="/help">Aide</a>
+      </li>
+      <li class="nav-item" *ngIf="this.isLoggedIn()!=false">
+        <a class="nav-link" (click)="logOut()" href="#">Déconnexion</a>
+      </li>
+      <br>
+      <app-search-bar></app-search-bar>
 
-   
-      </ul>
-    </div>
-  </nav>
+
+    </ul>
+  </div>
+</nav>
 
 
 
 <div>
   <router-outlet></router-outlet>
 </div>
-
-

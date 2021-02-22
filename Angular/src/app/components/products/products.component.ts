@@ -21,7 +21,7 @@ export class ProductsComponent implements OnInit {
       category: new FormControl('Toutes les Catégories'),
       select: new FormControl('Ordre Alphabétique Croissant')
     });
-    this.apiService.listProducts().subscribe(success => {
+    this.apiService.searchProducts(this.apiService.searchParams).subscribe(success => {
       if (success) {
         console.log("OK")
       }
@@ -35,7 +35,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  toggleSideBar(){
+  toggleSideBar() {
     this.sideBarOpen = !this.sideBarOpen;
   }
 

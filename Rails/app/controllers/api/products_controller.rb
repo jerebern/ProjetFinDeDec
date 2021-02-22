@@ -1,11 +1,21 @@
 class Api::ProductsController < ApplicationController
     def index
-        if @products = Product.all.with_attached_picture
-            render json: @products.map { |product|
-                product.as_json.merge({ picture: url_for(product.picture) })
-            }
+        if params[:q]
+            if @products = Product.all.with_attached_picture
+                render json: @products.where("title LIKE ?", "%" + params[:q] + "%").or(@products.where("description LIKE ?", "%" + params[:q] + "%")).or(@products.where("category LIKE ?", "%" + params[:q] + "%")).or(@products.where("animal_type LIKE ?", "%" + params[:q] + "%")).map { |product|
+                    product.as_json.merge({ picture: url_for(product.picture) })
+                }
+            else
+                render json: @product.errors, status: :unprocessable_entity 
+            end
         else
-            render json: @product.errors, status: :unprocessable_entity 
+            if @products = Product.all.with_attached_picture
+                render json: @products.map { |product|
+                    product.as_json.merge({ picture: url_for(product.picture) })
+                }
+            else
+                render json: @product.errors, status: :unprocessable_entity 
+            end
         end
     end
     
