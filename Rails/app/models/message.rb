@@ -1,4 +1,4 @@
 class Message < ApplicationRecord
-    validate :message, presence: true
+    validates :message, presence: true
     belongs_to :conversation
 end
