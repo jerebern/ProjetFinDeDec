@@ -11,7 +11,7 @@ import { ProductApiRequestService } from 'src/app/services/product-api-request.s
 export class ProductsComponent implements OnInit {
 
   filterForm: FormGroup;
-
+  sideBarOpen = false;
   animal_type = ['Chiens', 'Chats', 'Oiseaux', 'Reptiles et Amphibiens', 'Petits Animaux', 'Aquariophilie', 'Tous les Animaux'];
   categories = ['Accessoire et Hygiène', 'Nourriture', 'Jouet', 'Cage', 'Aquarium et Terrarium', 'Transport', 'Toutes les Catégories'];
 
@@ -33,6 +33,10 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  toggleSideBar(){
+    this.sideBarOpen = !this.sideBarOpen;
   }
 
   filter() {
