@@ -39,7 +39,7 @@ export class AppComponent {
         console.log("Utilisateur déconnecter");
         this.router.navigate(['/'])
       } else {
-        console.log("Erreur");
+        console.log("Erreur", success);
       }
     })
   }

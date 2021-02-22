@@ -50,9 +50,20 @@ export class AuthService {
 
   userSignout(): Observable<any> {
     return this.http.delete<any>(this.getUrl("sign_out")).pipe(
-      tap(response => {
+      map(response => {
         console.log("New User signout service : ", response);
-        this.setCurrentUser(null);
+        if (response?.success) {
+          this.setCurrentUser(null);
+          return true;
+        }
+        else {
+          return false;
+        }
+      }),
+      catchError(error => {
+        console.log('Error', error);
+
+        return of(null);
       })
     )
   }
@@ -64,7 +75,7 @@ export class AuthService {
     return this.http.post<any>(this.getUrl(""), data).pipe(
       map(response => {
         console.log("New User service : ", response);
-        if (response?.succes) {
+        if (response?.success) {
           console.log("succès:", response);
           this.setCurrentUser(newUser);
           return true;
