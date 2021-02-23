@@ -1,64 +1,46 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-
   <a class="navbar-brand" href="/">
     <img class="navbar-brand" src="../../../assets/img/Animalerie_JFJ.png" />
   </a>
-
   <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
     <span class="navbar-toggler-icon"></span>
   </button>
-
-
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }" style="text-align: center;">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" href="/">Accueil</a>
       </li>
-
       <li class="nav-item">
         <a class="nav-link" href="/products">Produits</a>
       </li>
-
       <li class="nav-item" *ngIf="this.isLoggedIn()!=true">
         <a class="nav-link" href="/login">Connexion</a>
       </li>
       <li class="nav-item" *ngIf="this.isLoggedIn()!=true">
         <a class="nav-link" href="/signup">Inscription</a>
       </li>
-
       <li class="nav-item" *ngIf="this.isLoggedIn()!=false">
         <a class="nav-link" href="/help">Aide</a>
       </li>
       <!-- <li class="nav-item" *ngIf="this.isLoggedIn()!=false">
       </li>   -->
     </ul>
-    <ul>
-      
-
-
-
-    </ul>
-
-    <button class="btn btn-warning mr-sm-2" (click)="navigateProfile()"  *ngIf="this.isLoggedIn()!=false" >
+    <div class="w-100 mx-auto">
+      <app-search-bar></app-search-bar>
+    </div>
+    <button class="btn btn-warning mr-sm-2" (click)="navigateProfile()" *ngIf="this.isLoggedIn()!=false">
       <!-- Ajouter la fonction pour navigue au cart en haut -->
       <i class="fa fa-shopping-cart"></i>
     </button>
-    <button class="btn btn-secondary mr-sm-2" (click)="navigateProfile()"  *ngIf="this.isLoggedIn()!=false" >
-       <i class="fa fa-user-circle fa-1x"></i>
-     </button>
-     <button class="btn btn-danger mr-sm-2" (click)="logOut()" *ngIf="this.isLoggedIn()!=false" >
+    <button class="btn btn-secondary mr-sm-2" (click)="navigateProfile()" *ngIf="this.isLoggedIn()!=false">
+      <i class="fa fa-user-circle fa-1x"></i>
+    </button>
+    <button class="btn btn-danger mr-sm-2" (click)="logOut()" *ngIf="this.isLoggedIn()!=false">
       <i class="fa fa-sign-out fa-1x"></i>
     </button>
-
-    <app-search-bar></app-search-bar>
-
-
   </div>
 </nav>
-
-
-
 <div>
   <router-outlet></router-outlet>
 </div>

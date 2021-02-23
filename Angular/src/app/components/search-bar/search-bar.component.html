@@ -1,4 +1,6 @@
-    <form [formGroup]="searchProductForm" (ngSubmit)="search()" class="form-inline">
-                <input formControlName="search" class="form-control" type="text" placeholder="Rechercher un produit">
-                <button type="submit" class="btn btn-secondary mr-sm-2"> <i class="fa fa-search"></i></button>
-    </form>
+<form [formGroup]="searchProductForm" (ngSubmit)="search()" class="form-inline">
+    <input formControlName="search" class="form-control w-75" type="text" placeholder="Rechercher un produit">
+    <button type="submit" class="btn btn-secondary mr-sm-2">
+        <i class="fa fa-search"></i>
+    </button>
+</form>
