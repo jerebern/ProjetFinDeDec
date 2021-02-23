@@ -1,1 +1,39 @@
-<p>cart works!</p>
+<form>
+    <div class="container w-100">
+        <div class="row">
+            <div class="col col-sm-3">
+                <h1>
+                    Votre panier
+                </h1>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <table class="table table-bordered table-responsive-xl">
+                <thead style=" background-color: white; text-align: center; border: 1px solid white">
+                    <th scope="row" colspan="2">
+                        Détail sans les taxes
+                    </th>
+                </thead>
+            </table>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col col-sm-6">
+                <table class="table table-bordered table-responsive-xl">
+                    <thead style=" background-color: white; text-align: center; border: 1px solid white">
+                        <th scope="row" colspan="2">
+                            Méthode de livrason
+                        </th>
+                    </thead>
+                </table>
+            </div>
+            <div class="col col-sm-6">
+                <button class="btn btn-lg btn-success btn-block" type="submit">
+                    Passer à la caisse
+                </button>
+                <a [routerLink]="['/']" class="btn btn-lg btn btn-danger btn-block" role="button">
+                    Annuler
+                </a>
+            </div>
+        </div>
+    </div>
+</form>
