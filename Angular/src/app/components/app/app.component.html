@@ -33,13 +33,12 @@
       <!-- <li class="nav-item" *ngIf="this.isLoggedIn()!=false">
       </li>   -->
     </ul>
-
-    <span style=" color: tomato; ">
-      <a class="nav-item" class="nav-link" href="/profile"> <i class="fa fa-user-circle fa-2x"></i></a>
-    </span>
-      <span style=" color: tomato; ">
-      <i class="fa fa-sign-out fa-2x"></i>
-    </span>
+    <button class="btn btn-secondary mr-sm-2" (click)="navigateProfile()"  *ngIf="this.isLoggedIn()!=false" >
+       <i class="fa fa-user-circle fa-1x"></i>
+     </button>
+     <button class="btn btn-danger mr-sm-2" (click)="logOut()" *ngIf="this.isLoggedIn()!=false" >
+      <i class="fa fa-sign-out fa-1x"></i>
+    </button>
 
     <app-search-bar></app-search-bar>
 

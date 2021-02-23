@@ -32,6 +32,9 @@ export class AppComponent {
   logIn() {
     this.router.navigate(['/login']);
   }
+  navigateProfile(){
+    this.router.navigate(['/profile'])
+  }
 
   logOut() {
     this.authService.userSignout().subscribe(success => {
