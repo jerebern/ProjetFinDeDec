@@ -36,10 +36,10 @@ export class WelcomeComponent implements OnInit {
     //console.log(this.products.findIndex(s => s.id === 1), this.products.find(s => s.id === 1));
     this.apiService.listProducts().subscribe(success => {
       if (success) {
-        console.log("OK")
+        console.log("OK");
       }
       else {
-        console.log("ERROR")
+        console.log("ERROR", success);
         alert("ERROR!!!");
       }
     });

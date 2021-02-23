@@ -52,9 +52,32 @@ export class ProductApiRequestService {
   listProducts(): Observable<any> {
     return this.http.get<any>(this.getUrl("products.json")).pipe(
       map(response => {
-        if (response.success == undefined) {
-          console.log("Products list : ", response);
-          localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(response));
+        if (response.success) {
+          console.log("Products list : ", response.products);
+          localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(response.products));
+          return true;
+        }
+        else {
+          console.log(response);
+          return false;
+        }
+      }),
+      catchError(error => {
+        console.log('Error', error);
+
+        return of(null);
+      })
+    )
+  }
+
+  searchProducts(searchParams: string) {
+    console.log(this.generateJSONforSearch(searchParams))
+    return this.http.get<any>(this.getUrl("/products") + "?q=" + searchParams).pipe(
+      map(response => {
+        if (response.success) {
+          console.log("Search Products : ", response.products)
+          this._searchProduct = searchParams;
+          localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(response.products));
           return true;
         }
         else {
@@ -73,9 +96,9 @@ export class ProductApiRequestService {
   showProduct(id: number): Observable<any> {
     return this.http.get<any>(this.getUrl("products/" + id + ".json")).pipe(
       map(response => {
-        if (response.success == undefined) {
-          console.log("Product : ", response);
-          return response;
+        if (response.success) {
+          console.log("Product : ", response.product);
+          return response.product;
         }
         else {
           console.log(response);
@@ -93,8 +116,8 @@ export class ProductApiRequestService {
   updateProduct(product: Product): Observable<any> {
     return this.http.patch<any>(this.getUrl("products/" + product.id + ".json"), this.generateJSONforProduct(product)).pipe(
       map(response => {
-        if (response.success == undefined) {
-          console.log("Product Update: ", response);
+        if (response.success) {
+          console.log("Product Update: ", response.product);
           return true;
         }
         else {
@@ -113,9 +136,9 @@ export class ProductApiRequestService {
   deleteProduct(product: Product): Observable<any> {
     return this.http.delete<any>(this.getUrl("products/" + product.id + ".json")).pipe(
       map(response => {
-        console.log("Product delete service : ", response);
-        if (response.success == undefined) {
-          console.log("Product : ", response);
+        console.log("Product delete service : ", response.product);
+        if (response.success) {
+          console.log("Product : ", response.product);
           return true;
         }
         else {
@@ -151,29 +174,6 @@ export class ProductApiRequestService {
     return {
       "q": querry
     }
-  }
-
-  searchProducts(searchParams: string) {
-    console.log(this.generateJSONforSearch(searchParams))
-    return this.http.get<any>(this.getUrl("/products") + "?q=" + searchParams).pipe(
-      map(response => {
-        if (response.success == undefined) {
-          console.log("Search Products : ", response)
-          this._searchProduct = searchParams;
-          localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(response));
-          return true;
-        }
-        else {
-          console.log(response);
-          return false;
-        }
-      }),
-      catchError(error => {
-        console.log('Error', error);
-
-        return of(null);
-      })
-    )
   }
 
   filterProducts(animal: string, category: string, sortBy: number) {

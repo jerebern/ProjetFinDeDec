@@ -25,12 +25,12 @@ export class ProductViewComponent implements OnInit {
     console.log("Product Input : ", this.route.snapshot.params.id)
     this.apiService.showProduct(this.route.snapshot.params.id).subscribe(success => {
       if (success) {
-        console.log("OK", success)
+        console.log("OK", success);
         this._product = success as Product;
-        console.log(this._product)
+        console.log(this._product);
       }
       else {
-        console.log("ERROR")
+        console.log("ERROR", success);
         alert("Produit innexistant.");
         this.router.navigate(['/products']);
       }
@@ -57,20 +57,20 @@ export class ProductViewComponent implements OnInit {
     console.log(this.product);
     this.apiService.deleteProduct(this.product).subscribe(success => {
       if (success) {
-        console.log("OK", success)
+        console.log("OK", success);
         this.apiService.listProducts().subscribe(success => {
           if (success) {
-            console.log("OK")
+            console.log("OK");
             this.router.navigate(['/products']);
           }
           else {
-            console.log("ERROR")
+            console.log("ERROR");
             alert("ERROR!!!");
           }
         });
       }
       else {
-        console.log("ERROR")
+        console.log("ERROR");
         alert("ERROR!!!");
       }
     });
