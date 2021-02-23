@@ -6,4 +6,6 @@ class Product < ApplicationRecord
     validates :quantity, presence: true, allow_blank: false, numericality: {greater_than_or_equal_to: 0}
     validates :animal_type, presence: true, allow_blank: false
     has_one_attached :picture
+    has_many :cart_products
+    has_many :carts, through: :cart_products
 end

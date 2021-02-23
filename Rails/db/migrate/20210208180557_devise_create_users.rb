@@ -35,6 +35,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
       #User column
       t.string :firstname, :limit => 50, null: false
       t.string :lastname, :limit => 50, null: false
+      t.virtual "fullname", type: :string, limit: 101, as: "concat(`firstname`,' ',`lastname`)"
       t.string :address, :limit => 50, null: false
       t.string :city, :limit => 50, null: false
       t.string :postal_code, :limit => 6, null: false
@@ -42,15 +43,16 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
       t.string :phone_number, :limit => 10, null: false
       t.boolean :is_admin, :default => false, null: false
       t.timestamps null: false
+      t.index ["email", "firstname", "lastname", "address", "city", "postal_code", "province", "phone_number"], name: "fulltext_users", type: :fulltext
     end
-    execute <<-SQL
-      ALTER TABLE users
-      ADD COLUMN fullname VARCHAR(101) GENERATED ALWAYS AS (CONCAT(firstname, ' ', lastname)) VIRTUAL AFTER lastname;
-    SQL
-    execute <<-SQL
-      ALTER TABLE users
-      ADD FULLTEXT INDEX fulltext_users (email, firstname, lastname, address, city, postal_code, province, phone_number);
-    SQL
+    #execute <<-SQL
+    #  ALTER TABLE users
+    #  ADD COLUMN fullname VARCHAR(101) GENERATED ALWAYS AS (CONCAT(firstname, ' ', lastname)) VIRTUAL AFTER lastname;
+    #SQL
+    #execute <<-SQL
+    #  ALTER TABLE users
+    #  ADD FULLTEXT INDEX fulltext_users (email, firstname, lastname, address, city, postal_code, province, phone_number);
+    #SQL
     add_index :users, :email,                unique: true
     add_index :users, :reset_password_token, unique: true
     # add_index :users, :confirmation_token,   unique: true
