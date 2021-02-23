@@ -176,7 +176,7 @@ export class ProductApiRequestService {
       "q": querry
     }
   }
-
+  ///TODO: changer ça et le déplacer dans products.component.ts et pas faire restart la list si je clique sur la loupe
   filterProducts(animal: string, category: string, sortBy: number) {
     this.searchProducts(this.searchParams).subscribe(success => {
       if (success) {
