@@ -66,5 +66,13 @@ command7 = Command.create(sub_total: 79.99, tps: 4.00,tvq: 7.98,total: 91.97,sto
 command8 = Command.create(sub_total: 79.99, tps: 4.00,tvq: 7.98,total: 91.97,store_pickup: true, state: "Pret", shipping_adress: "Boutique Shawinigan", user_id: 2)
 command9 = Command.create(sub_total: 79.99, tps: 4.00,tvq: 7.98,total: 91.97,store_pickup: false, state: "Livre", shipping_adress: "2-1903 rue Saint-Jacques Shawinigan", user_id: 2)
 
+@cart=Cart.create!(sub_total: 887.29, user_id: 1)
+@cart=Cart.create!(sub_total: 1545.85, user_id: 2)
 
 
+@cart_product = CartProduct.create(total_price: 790.80, quantity: 6, cart_id: 1, product_id: 10)
+@cart_product = CartProduct.create(total_price: 33.53, quantity: 7, cart_id: 1, product_id: 13)
+@cart_product = CartProduct.create(total_price: 53.99, quantity: 1, cart_id: 1, product_id: 6)
+@cart_product = CartProduct.create(total_price: 8.97, quantity: 1, cart_id: 1, product_id: 14)
+@cart_product = CartProduct.create(total_price: 75.92, quantity: 4, cart_id: 2, product_id: 11)
+@cart_product = CartProduct.create(total_price: 1469.93, quantity: 7, cart_id: 2, product_id: 4)

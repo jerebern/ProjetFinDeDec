@@ -17,6 +17,7 @@ class User < ApplicationRecord
   has_many :commands
   has_one :conversation
   has_many :message
+  has_one :cart
 
   # Fonctionnalité privé au modèle
   private
