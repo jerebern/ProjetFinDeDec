@@ -48,10 +48,9 @@ class Api::CommandsController < ApplicationController
     end
     def is_currentUser?
         unless current_user.id == params[:user_id].to_i || current_user.is_admin == true
-        rescue => e
-            render json: { success: false, error: [e] }
+            render json: {success: false} 
         end
-        render json: {success: false} 
-        end
+    rescue => e
+        render json: { success: false, error: [e] }
     end
 end
