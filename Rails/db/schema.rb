@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 2021_02_23_162503) do
     t.index ["user_id"], name: "index_commands_on_user_id"
   end
 
-  create_table "converations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "converations", charset: "utf8mb4", force: :cascade do |t|
     t.string "title", limit: 50, null: false
     t.string "description", limit: 2500, null: false
     t.bigint "user_id", null: false
