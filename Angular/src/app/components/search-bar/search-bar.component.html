@@ -1,4 +1,4 @@
-    <form [formGroup]="searchProductForm" (ngSubmit)="search()" >
-                <input formControlName="search" type="text" placeholder="Rechercher un produit" style="max-width:100%; height: 25px;">
-                <button type="submit" class="btn btn-secondary"> <i class="fa fa-search fa-1x"></i></button>
+    <form [formGroup]="searchProductForm" (ngSubmit)="search()" class="form-inline">
+                <input formControlName="search" class="form-control" type="text" placeholder="Rechercher un produit">
+                <button type="submit" class="btn btn-secondary"> <i class="fa fa-search"></i></button>
     </form>
