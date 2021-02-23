@@ -1,17 +1,49 @@
 <body>
-
-  <div>
-    <h1>Centre d'aide</h1>
-    <br>
-    <p>Bienvenue dans le centre d'aide! Pour démarrer une conversation ou pour continuer une conversation avec notre administrateur,
-       veuillez appuyer sur le bouton si dessus.
-    </p>
+  <div class="container-fluid">
+    <div class="row mt-2">
+      <div class="col">
+        <h1>Centre d'aide</h1>
+        <br>
+        <p>Bienvenue dans le centre d'aide! Pour démarrer une conversation ou pour continuer une conversation avec notre administrateur,
+           veuillez appuyer sur le bouton si dessus.
+        </p>
+      </div>
+    </div>
     <div *ngIf="this.hasMessage(); else messageButton">
       <button class="btn btn-primary" (click)="message()">Continuer votre conversation</button>
     </div>
     <ng-template #messageButton>
-      <button class="btn btn-primary" (click)="message()">Démarrer une conversation</button>
+      <div class="row mt-2">
+        <div class="col">
+          <form [formGroup]="conversationForm" (ngSubmit)="createConversation()">
+            <div class="form-row">
+              <div class="form-group">
+                <p style="font-weight: bold;">Titre*</p>
+                <input style="width: 250px;" formControlName="title"
+                [class.is-invalid]="conversationForm.get('title')?.errors && conversationForm.get('title')?.dirty && conversationForm.get('title')?.touched"
+                type="text" placeholder="Titre" class="form-control">
+                <div class="invalid-feedback text-left">
+                  Veuillez entrer un titre valide.
+                </div>
+              </div>
+            </div>
+
+            <div class="from-row">
+              <div class="form-group">
+                <p style="font-weight: bold;">Description*</p>
+                <textarea formControlName="description"
+                [class.is-invalid]="conversationForm.get('description')?.errors && conversationForm.get('description')?.dirty && conversationForm.get('description')?.touched"
+                type="text" placeholder="Description de la raison de la conversation..." class="form-control">
+                <div class="invalid-feedback text-left">
+                  Veuillez entrer une description valide.
+                </div>
+                </textarea>
+              </div>
+            </div>
+          </form>
+          <button style="margin-top: 10px;" class="btn btn-primary" (click)="message()">Démarrer une conversation</button>
+        </div>
+      </div>
     </ng-template>
   </div>
-
 </body>

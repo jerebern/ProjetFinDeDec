@@ -20,9 +20,9 @@ const routes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: 'products/:id', component: ProductViewComponent }, //todo proteger la route
   { path: 'profile', component: ProfileComponent }, //todo proteger la route
-  { path: 'conversation', component: ConversationComponent },
-  { path: 'help', component: HelpComponent },
-  { path: 'admin', component: AdminComponent },
+  { path: 'conversation/:id', component: ConversationComponent }, //todo protéger la route
+  { path: 'help', component: HelpComponent }, //todo protéger la route
+  { path: 'admin', component: AdminComponent }, //todo protéger la route
   { path: '', component: WelcomeComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
