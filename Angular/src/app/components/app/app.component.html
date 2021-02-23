@@ -33,6 +33,17 @@
       <!-- <li class="nav-item" *ngIf="this.isLoggedIn()!=false">
       </li>   -->
     </ul>
+    <ul>
+      
+
+
+
+    </ul>
+
+    <button class="btn btn-warning mr-sm-2" (click)="navigateProfile()"  *ngIf="this.isLoggedIn()!=false" >
+      <!-- Ajouter la fonction pour navigue au cart en haut -->
+      <i class="fa fa-shopping-cart"></i>
+    </button>
     <button class="btn btn-secondary mr-sm-2" (click)="navigateProfile()"  *ngIf="this.isLoggedIn()!=false" >
        <i class="fa fa-user-circle fa-1x"></i>
      </button>
