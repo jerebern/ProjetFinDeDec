@@ -12,17 +12,19 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { HelpComponent } from './components/help/help.component';
 import { ConversationComponent } from './components/conversation/conversation.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { CartComponent } from './components/cart/cart.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [SigninupAccessGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [SigninupAccessGuard] },
-  { path: 'commands/:id', component: CommandsViewComponent},
+  { path: 'commands/:id', component: CommandsViewComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'products/:id', component: ProductViewComponent }, //todo proteger la route
   { path: 'profile', component: ProfileComponent }, //todo proteger la route
   { path: 'conversation/:id', component: ConversationComponent }, //todo protéger la route
   { path: 'help', component: HelpComponent }, //todo protéger la route
   { path: 'admin', component: AdminComponent }, //todo protéger la route
+  { path: 'users/:user_id/carts', component: CartComponent }, ///TODO : guard
   { path: '', component: WelcomeComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
