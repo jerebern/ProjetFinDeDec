@@ -13,6 +13,7 @@ import { HelpComponent } from './components/help/help.component';
 import { ConversationComponent } from './components/conversation/conversation.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { CartComponent } from './components/cart/cart.component';
+import { CartAccessGuard } from './guards/cart-access.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [SigninupAccessGuard] },
@@ -24,7 +25,7 @@ const routes: Routes = [
   { path: 'conversation/:id', component: ConversationComponent }, //todo protéger la route
   { path: 'help', component: HelpComponent }, //todo protéger la route
   { path: 'admin', component: AdminComponent }, //todo protéger la route
-  { path: 'users/:user_id/carts', component: CartComponent }, ///TODO : guard
+  { path: 'users/:user_id/carts', component: CartComponent, canActivate: [CartAccessGuard] },
   { path: '', component: WelcomeComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
