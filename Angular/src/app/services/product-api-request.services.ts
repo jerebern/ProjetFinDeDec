@@ -45,7 +45,8 @@ export class ProductApiRequestService {
         "description": product.description,
         "quantity": product.quantity,
         "animal_type": product.animal_type
-      }
+      },
+      "datatype": "JSON"
     }
   }
 
