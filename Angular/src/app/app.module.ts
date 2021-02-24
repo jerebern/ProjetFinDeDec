@@ -8,7 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component'
 import { HttpClientModule } from "@angular/common/http";
 import { CartComponent } from './components/cart/cart.component';
-import { CartItemsComponent } from './components/cart-items/cart-items.component';
+import { CartItemsComponent } from './components/cart-list/cart-list.component';
 import { CommandsViewComponent } from './components/commands-view/commands-view.component';
 import { CommandItemsComponent } from './components/command-items/command-items.component';
 import { ProductViewComponent } from './components/product-view/product-view.component';
@@ -22,6 +22,8 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { HelpComponent } from './components/help/help.component';
 import { ConversationComponent } from './components/conversation/conversation.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { AdminListItemComponent } from './components/admin-list-item/admin-list-item.component';
+import { CartListItemComponent } from './components/cart-list-item/cart-list-item.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { AdminComponent } from './components/admin/admin.component';
     HelpComponent,
     ConversationComponent,
     AdminComponent,
+    AdminListItemComponent,
+    CartListItemComponent,
   ],
   imports: [
     ReactiveFormsModule,

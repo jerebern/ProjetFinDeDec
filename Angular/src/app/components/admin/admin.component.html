@@ -16,12 +16,12 @@
           <tr>
             <th scope="col">Utilisateur</th>
             <th scope="col">Lien</th>
-            <th scope="col">Actions</th>
+            <th scope="col">Supprimer</th>
           </tr>
         </thead>
 
         <tbody>
-
+         <tr *ngFor="let conversation of conversations" app-admin-list-item [conversation]="conversation" (conversationClicked)="conversationClicked($event)"></tr>
         </tbody>
 
       </table>
