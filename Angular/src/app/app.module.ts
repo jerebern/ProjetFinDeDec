@@ -22,7 +22,9 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { HelpComponent } from './components/help/help.component';
 import { ConversationComponent } from './components/conversation/conversation.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { AdminListItemComponent } from './components/admin-list-item/admin-list-item.component';
 import { CartListItemComponent } from './components/cart-list-item/cart-list-item.component';
+import { ConversationListItemComponent } from './components/conversation-list-item/conversation-list-item.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { CartListItemComponent } from './components/cart-list-item/cart-list-ite
     HelpComponent,
     ConversationComponent,
     AdminComponent,
+    AdminListItemComponent,
     CartListItemComponent,
+    ConversationListItemComponent,
   ],
   imports: [
     ReactiveFormsModule,

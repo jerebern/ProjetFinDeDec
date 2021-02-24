@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Conversation } from 'src/app/models/conversation.model';
+import { ConversationApiRequestService } from 'src/app/services/conversation-api-request.service';
 
 @Component({
   selector: 'app-conversation',
@@ -7,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConversationComponent implements OnInit {
 
-  constructor() { }
+  conversations!: Conversation;
+  messageForm: FormGroup;
+
+  constructor(private conversationService: ConversationApiRequestService) {
+    this.messageForm = new FormGroup({})
+  }
 
   ngOnInit(): void {
+  }
+
+  getConversation(){
+
   }
 
 }

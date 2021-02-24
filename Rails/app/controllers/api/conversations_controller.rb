@@ -1,20 +1,15 @@
 class Api::ConversationsController < ApplicationController
     def index 
-        @user = User.find(params[:user_id])
-        if params[:q]
-            render json: @user.converations.where("state LIKE ?", "%" + params[:q] + "%")
+        if @converations = Conversation.all
+            render json: @converations
         else
-            if @user = User.find(params[:user_id])
-                render json: @user.converations
-            else
-                render json: @user.errors, status: :unprocessable_entity
-            end
+            render json: @converations.errors, status: :unprocessable_entity
         end
     end
 
     def show
         @user = User.find(params[:user_id])
-        if @converation = @user.converations.fin(params[:id])
+        if @converation = @user.converations.find(params[:id])
             render json: @converation
         else
             render json: @converation.errors, status: :unprocessable_entity
@@ -41,7 +36,7 @@ class Api::ConversationsController < ApplicationController
     end
 
     def destroy
-        if current_user.is_admin == false
+        if !is_admin
             redirect_to ''
         else
             @converation = Conversation.find(params[:id])
@@ -49,11 +44,20 @@ class Api::ConversationsController < ApplicationController
                 render json: @converation, status: :ok
             else
                 render json: @converation.errors, status: :unprocessable_entity
+            end
         end
     end
 
     private 
     def conversation_params
-        params.require(:converation).permit(:title, :description)
+        params.require(:converation).permit(:title, :description, :email_user, :user_id)
+    end
+
+    def is_admin
+        if current_user.is_admin==true
+            return true
+        else
+            return false
+        end
     end
 end

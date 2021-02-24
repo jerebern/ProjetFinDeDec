@@ -11,9 +11,6 @@ class CreateCommands < ActiveRecord::Migration[6.0]
       t.references :user, null: false, foreign_key: true
       t.timestamps
       end
-      execute <<-SQL
-        ALTER TABLE commands
-        ADD FULLTEXT INDEX fulltext_commands (state, shipping_adress);
-      SQL
+
     end
 end

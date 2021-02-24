@@ -12,6 +12,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { HelpComponent } from './components/help/help.component';
 import { ConversationComponent } from './components/conversation/conversation.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { AdminAccessGuard } from './guards/admin-access.guard';
 import { CartComponent } from './components/cart/cart.component';
 import { CartAccessGuard } from './guards/cart-access.guard';
 
@@ -24,7 +25,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent }, //todo proteger la route
   { path: 'conversation/:id', component: ConversationComponent }, //todo protéger la route
   { path: 'help', component: HelpComponent }, //todo protéger la route
-  { path: 'admin', component: AdminComponent }, //todo protéger la route
+  { path: 'admin', component: AdminComponent, canActivate: [AdminAccessGuard] }, //todo protéger la route
   { path: 'users/:user_id/carts', component: CartComponent, canActivate: [CartAccessGuard] },
   { path: '', component: WelcomeComponent },
   { path: '**', component: PageNotFoundComponent }

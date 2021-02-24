@@ -20,6 +20,10 @@ export class AuthService {
     return !!this._currentUser;
   }
 
+  get isAdmin(): boolean{
+    return !!this._currentUser?.is_admin;
+  }
+
   constructor(private http: HttpClient) {
     const storedCurrentUser = JSON.parse(localStorage.getItem(this.CURRENT_USER_KEY) ?? 'null');
 
