@@ -1,4 +1,5 @@
 class Api::CommandsController < ApplicationController
+    before_action :is_currentUser? || :is_admin?, :authenticate_user!
     def index
         @user = User.find(params[:user_id])
     if params[:q]
@@ -45,5 +46,11 @@ class Api::CommandsController < ApplicationController
     def command_params
         params.require(:command).permit(:sub_total, :tps, :tvq, :total, :store_pickup, :state, :shipping_adress)
     end
-    
+    def is_currentUser?
+        unless current_user.id == params[:user_id].to_i || current_user.is_admin == true
+            render json: {success: false} 
+        end
+    rescue => e
+        render json: { success: false, error: [e] }
+    end
 end

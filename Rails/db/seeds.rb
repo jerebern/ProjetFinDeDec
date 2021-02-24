@@ -73,3 +73,16 @@ conversation1 = Conversation.create(title: "Test", description: "Test test test.
 conversation2 = Conversation.create(title: "Test2", description: "Test test test...", email_user: "jevei@hotmail.com", user_id: 3)
 conversation3 = Conversation.create(title: "Test3", description: "Test test test...", email_user: "felixcm1129@hotmail.ca", user_id: 4)
 
+
+
+#cart
+@cart=Cart.create!(sub_total: 887.29, user_id: 1)
+@cart=Cart.create!(sub_total: 1545.85, user_id: 2)
+
+
+@cart_product = CartProduct.create(total_price: 790.80, quantity: 6, cart_id: 1, product_id: 10)
+@cart_product = CartProduct.create(total_price: 33.53, quantity: 7, cart_id: 1, product_id: 13)
+@cart_product = CartProduct.create(total_price: 53.99, quantity: 1, cart_id: 1, product_id: 6)
+@cart_product = CartProduct.create(total_price: 8.97, quantity: 1, cart_id: 1, product_id: 14)
+@cart_product = CartProduct.create(total_price: 75.92, quantity: 4, cart_id: 2, product_id: 11)
+@cart_product = CartProduct.create(total_price: 1469.93, quantity: 7, cart_id: 2, product_id: 4)

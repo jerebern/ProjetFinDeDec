@@ -32,8 +32,14 @@ export class AppComponent {
   logIn() {
     this.router.navigate(['/login']);
   }
-  navigateProfile(){
-    this.router.navigate(['/profile'])
+
+  navigateProfile() {
+    this.router.navigate(['/profile']);
+  }
+
+  navigateCart() {
+    console.log('/users/' + this.authService.currentUser?.id + '/carts');
+    this.router.navigate(['/users/' + this.authService.currentUser?.id + '/carts']);
   }
 
   logOut() {

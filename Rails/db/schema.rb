@@ -41,13 +41,30 @@ ActiveRecord::Schema.define(version: 2021_02_23_162503) do
   end
 
   create_table "cart_products", charset: "utf8mb4", force: :cascade do |t|
+    t.decimal "total_price", precision: 8, scale: 2, null: false
+    t.integer "quantity", null: false
+    t.bigint "cart_id", null: false
+    t.bigint "product_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["cart_id"], name: "index_cart_products_on_cart_id"
+    t.index ["product_id"], name: "index_cart_products_on_product_id"
+    t.check_constraint "`price` > 0", name: "price_check"
+    t.check_constraint "`quantity` >= 0", name: "quantity_check"
+    t.check_constraint "`quantity` >= 0", name: "quantity_check"
+    t.check_constraint "`sub_total` > 0", name: "price_check"
+    t.check_constraint "`total_price` > 0", name: "price_check"
   end
 
   create_table "carts", charset: "utf8mb4", force: :cascade do |t|
+    t.decimal "sub_total", precision: 8, scale: 2, null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_carts_on_user_id"
+    t.check_constraint "`price` > 0", name: "price_check"
+    t.check_constraint "`sub_total` > 0", name: "price_check"
+    t.check_constraint "`total_price` > 0", name: "price_check"
   end
 
   create_table "commands", charset: "utf8mb4", force: :cascade do |t|
@@ -99,6 +116,9 @@ ActiveRecord::Schema.define(version: 2021_02_23_162503) do
     t.index ["category", "title", "description", "animal_type"], name: "fulltext_products", type: :fulltext
     t.check_constraint "`price` > 0", name: "price_check"
     t.check_constraint "`quantity` >= 0", name: "quantity_check"
+    t.check_constraint "`quantity` >= 0", name: "quantity_check"
+    t.check_constraint "`sub_total` > 0", name: "price_check"
+    t.check_constraint "`total_price` > 0", name: "price_check"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
@@ -125,6 +145,9 @@ ActiveRecord::Schema.define(version: 2021_02_23_162503) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "cart_products", "carts"
+  add_foreign_key "cart_products", "products"
+  add_foreign_key "carts", "users"
   add_foreign_key "commands", "users"
   add_foreign_key "conversations", "users"
   add_foreign_key "conversations", "users", column: "admin_id"
