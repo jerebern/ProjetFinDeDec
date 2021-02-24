@@ -18,7 +18,7 @@ class Api::CommandsController < ApplicationController
 
         @user = User.find(params[:user_id])
         if @command = @user.commands.find(params[:id])
-            render json: @command
+            render json: {command: @command, success: true}
         else
             render json: @command.errors, status: :unprocessable_entity 
         end

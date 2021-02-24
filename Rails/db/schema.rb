@@ -78,7 +78,6 @@ ActiveRecord::Schema.define(version: 2021_02_23_162503) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["state", "shipping_adress"], name: "fulltext_commands", type: :fulltext
     t.index ["user_id"], name: "index_commands_on_user_id"
   end
 
