@@ -22,9 +22,9 @@ export class CommandApiRequestService {
   getAllCommandFromOneUser(userID: string | null): Observable<any> {
     return this.http.get<any>(this.getUrl("users/" + userID + "/commands")).pipe(
       map(response => {
-        if (response) {
+        if (response.success) {
           console.log("All Commands : ", response)
-          this._currenCommands = response;
+          this._currenCommands = response.commands;
           return true;
         }
         else {
@@ -42,9 +42,9 @@ export class CommandApiRequestService {
   getOneCommandFromOneUser(userID: string | null, commandId: string): Observable<any> {
     return this.http.get<any>(this.getUrl("users/" + userID + "/commands/" + commandId)).pipe(
       map(response => {
-        if (response) {
+        if (response.success) {
           console.log("Command :", response)
-          this._currenCommand = response;
+          this._currenCommand = response.command;
           console.log(this._currenCommand);
           return response;
         }
@@ -142,9 +142,10 @@ export class CommandApiRequestService {
     console.log(this.generateJSONforSearch(querry))
     return this.http.get<any>(this.getUrl("users/" + userID + "/commands") + "?q="+querry).pipe(
       map(response => {
-        if (response) {
+        if (response.success) {
           console.log("All Commands : ", response)
-          this._currenCommands = response;
+          
+          this._currenCommands = response.commands;
           return true;
         }
         else {

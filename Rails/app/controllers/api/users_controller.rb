@@ -2,13 +2,13 @@ class Api::UsersController < ApplicationController
     before_action :is_currentUser?, :authenticate_user!
     def show
         user = User.find(params[:id])
-        render json: user
+        render json: {user: @user, success:true}
     end
 
     def index
         if isAdmin?
            users = User.all
-            render json: users
+            render json: {users: @users, success: true}
         end
     end
     private 
