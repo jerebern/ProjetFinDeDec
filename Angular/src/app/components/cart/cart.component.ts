@@ -1,5 +1,6 @@
 import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { CartProduct } from 'src/app/models/cart-product.model';
 import { Cart } from 'src/app/models/cart.model';
 import { CartApiRequestService } from 'src/app/services/cart-api-request.service';
@@ -14,6 +15,8 @@ import { __createBinding } from 'tslib';
 export class CartComponent implements OnInit {
 
   private _cart!: Cart;
+
+  cartForm: FormGroup;
 
   get cart() {
     return this._cart;
@@ -30,9 +33,16 @@ export class CartComponent implements OnInit {
         alert("ERROR!!!");
       }
     });
+    this.cartForm = new FormGroup({
+      shipping: new FormControl('0'),
+    });
   }
 
   ngOnInit(): void {
+  }
+
+  checkUp() {
+
   }
 
 }
