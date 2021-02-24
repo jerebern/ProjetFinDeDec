@@ -65,22 +65,25 @@ ActiveRecord::Schema.define(version: 2021_02_23_162503) do
     t.index ["user_id"], name: "index_commands_on_user_id"
   end
 
-  create_table "converations", charset: "utf8mb4", force: :cascade do |t|
+  create_table "conversations", charset: "utf8mb4", force: :cascade do |t|
     t.string "title", limit: 50, null: false
     t.string "description", limit: 2500, null: false
+    t.string "email_user", limit: 50, null: false
     t.bigint "user_id", null: false
+    t.bigint "admin_id", default: 1, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_converations_on_user_id"
+    t.index ["admin_id"], name: "index_conversations_on_admin_id"
+    t.index ["user_id"], name: "index_conversations_on_user_id"
   end
 
   create_table "messages", charset: "utf8mb4", force: :cascade do |t|
     t.string "message", limit: 2500, default: "", null: false
-    t.bigint "converation_id", null: false
+    t.bigint "conversation_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["converation_id"], name: "index_messages_on_converation_id"
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
@@ -123,7 +126,8 @@ ActiveRecord::Schema.define(version: 2021_02_23_162503) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "commands", "users"
-  add_foreign_key "converations", "users"
-  add_foreign_key "messages", "converations"
+  add_foreign_key "conversations", "users"
+  add_foreign_key "conversations", "users", column: "admin_id"
+  add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
 end

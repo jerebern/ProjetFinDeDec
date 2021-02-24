@@ -22,6 +22,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { HelpComponent } from './components/help/help.component';
 import { ConversationComponent } from './components/conversation/conversation.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { AdminListItemComponent } from './components/admin-list-item/admin-list-item.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { AdminComponent } from './components/admin/admin.component';
     HelpComponent,
     ConversationComponent,
     AdminComponent,
+    AdminListItemComponent,
   ],
   imports: [
     ReactiveFormsModule,

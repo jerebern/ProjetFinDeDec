@@ -46,4 +46,11 @@ export class AppComponent {
       }
     })
   }
+
+  isAdmin(){
+    if(this.authService.currentUser?.is_admin){
+      return true;
+    }
+    else return false;
+  }
 }
