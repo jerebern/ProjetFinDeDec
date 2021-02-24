@@ -8,65 +8,9 @@
             </div>
         </div>
         <div class="row d-flex justify-content-center">
-            <table class="table table-bordered table-responsive-xl table-active">
-                <thead style="background-color: white; text-align: center;">
-                    <th scope="row" colspan="4">
-                        Détail sans les taxes
-                    </th>
-                    <tr class="text-center">
-                        <td style="background-color: white;">
-                            Produits
-                        </td>
-                        <td style="background-color: white;">
-                            Prix
-                        </td>
-                        <td style="background-color: white;">
-                            Actions
-                        </td>
-                        <td style="background-color: white;">
-                            Total
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="text-center">
-                        <td>
-                            Vitomax pour serin
-                        </td>
-                        <td class="text-right">
-                            7.49$
-                        </td>
-                        <td>
-                            <div class="row justify-content-md-end">
-                                <div class="col col-sm-2">
-                                    Quantité:
-                                </div>
-                                <div class="col col-sm-2 form-group">
-                                    <input type="number" min="1" max="10" value="3">
-                                </div>
-                                <div class="col col-sm-4 form-group">
-                                    <button type="submit" class="btn btn-danger">
-                                        Retirer le produit
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="text-right">
-                            22.47$
-                        </td>
-                    </tr>
-                </tbody>
-                <thead style=" background-color: white; text-align: center;">
-                    <tr class="text-center">
-                        <th colspan="3">
-                            Prix Total :
-                        </th>
-                        <th class="text-right">
-                            22.47$
-                        </th>
-                    </tr>
-                </thead>
-            </table>
+            <div class="col">
+                <app-cart-list [cart]="cart"></app-cart-list>
+            </div>
         </div>
         <div class="row d-flex justify-content-center">
             <div class="col col-sm-6">

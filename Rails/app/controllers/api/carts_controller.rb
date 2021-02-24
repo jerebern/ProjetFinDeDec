@@ -3,8 +3,10 @@ class Api::CartsController < ApplicationController
 
     def index
         @user = User.find(params[:user_id])
-        @carts = @user.cart
-        render json: { cart: @carts.as_json, success: true }
+        @cart = @user.cart
+        render json: { cart: @cart.as_json.merge({ cartProducts: @cart.cart_products.map{ |cartProduct|
+        cartProduct.as_json.merge({ products: @cart.products.where("product_id LIKE ?", "%" + cartProduct.product_id.to_s + "%").as_json })
+        }}), success: true }
     rescue => e
         render json: { success: false, error: [e] }
     end
@@ -12,24 +14,26 @@ class Api::CartsController < ApplicationController
     def show
         @user = User.find(params[:user_id])
         @cart = @user.cart
-        render json: { cart: @cart.as_json, success: true }
+        render json: { cart: @cart.as_json.merge({ cartProducts: @cart.cart_products.map{ |cartProduct|
+        cartProduct.as_json.merge({ products: @cart.products.where("product_id LIKE ?", "%" + cartProduct.product_id.to_s + "%").as_json })
+        }}), success: true }
     rescue => e
         render json: { success: false, error: [e] }
     end
 
-    def create
-        @user = User.find(params[:user_id])
-        @cart = @user.cart
-        if @cart.create(cart_params)
-            render json: { cart: @cart, success: true }
-        else
-            render json: { success: false, error: [@cart.errors] }
-        end
-    rescue => e
-        render json: { success: false, error: [e] }
-    end
+    # def create
+    #     @user = User.find(params[:user_id])
+    #     @cart = @user.cart
+    #     if @cart.create(cart_params)
+    #         render json: { cart: @cart, success: true }
+    #     else
+    #         render json: { success: false, error: [@cart.errors] }
+    #     end
+    # rescue => e
+    #     render json: { success: false, error: [e] }
+    # end
 
-    def update
+    def update###juste recevoir un product le reste est fait auto
         @user = User.find(params[:user_id])
         @cart = @user.cart
         if @cart.update(cart_params)
