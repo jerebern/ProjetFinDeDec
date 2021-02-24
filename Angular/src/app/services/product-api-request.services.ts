@@ -167,7 +167,7 @@ export class ProductApiRequestService {
         alert("ERROR!!!");
         window.location.reload();
       }
-    });////for now addProductToCart just update the product.quantity by removing 1 in quantity
+    });////for now addProductToCart just update the product.quantity by removing 1 in quantity TODO: changer ça et le déplacer dans products.component.ts
   }
 
   generateJSONforSearch(querry: string) {
@@ -176,7 +176,7 @@ export class ProductApiRequestService {
       "q": querry
     }
   }
-  ///TODO: changer ça et le déplacer dans products.component.ts et pas faire restart la list si je clique sur la loupe
+  ///TODO: changer ça et le déplacer dans products.component.ts
   filterProducts(animal: string, category: string, sortBy: number) {
     this.searchProducts(this.searchParams).subscribe(success => {
       if (success) {
