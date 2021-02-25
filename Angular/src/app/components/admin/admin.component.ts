@@ -35,6 +35,8 @@ export class AdminComponent implements OnInit {
   }
 
   conversationClicked(conversation: Conversation){
+    console.log("ConversationClicked: ", conversation);
+
     this.conversationService.setCurrentConversation(conversation);
     this.router.navigate(['conversation/' + conversation.id]);
   }

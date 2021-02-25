@@ -14,21 +14,22 @@ export class ConversationApiRequestService {
 
   private readonly CURRENT_CONVERSATION_KEY = 'jfj.currentConversation';
 
-  private _currentConversation: Conversation;
+  private _currentConversation: Conversation;;
   private allConversations: Conversation[] = [];
   private conversation: Conversation | null = null;
 
-  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
+  get currentConversation(){
+    return this._currentConversation;
+  }
 
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
     this._currentConversation = new Conversation();
 
     const storedCurrentConversation = JSON.parse(localStorage.getItem(this.CURRENT_CONVERSATION_KEY) ?? 'null');
 
     if (storedCurrentConversation) {
-      // this._currentUser = new User(storedCurrentUser);
-
-      this._currentConversation = storedCurrentConversation;
-      console.log(this._currentConversation);
+      this._currentConversation = storedCurrentConversation
+      console.log(this.currentConversation)
     }
   }
 
@@ -86,10 +87,6 @@ export class ConversationApiRequestService {
 
   sortConversationsAdmin(sortBy: string){
 
-  }
-
-  getCurrentConversation(){
-    return this._currentConversation;
   }
 
   createConversation(userID: string | null, conversation: Conversation): Observable<any>{
@@ -162,9 +159,5 @@ export class ConversationApiRequestService {
 
   getConversations(){
     return this.allConversations;
-  }
-
-  getOneConversation(){
-    return this.conversation;
   }
 }

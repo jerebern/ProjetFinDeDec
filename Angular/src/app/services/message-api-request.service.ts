@@ -21,13 +21,12 @@ export class MessageApiRequestService {
     return '/api/' + querry + '/';
   }
 
-  getAllMessages(userID: string | null){
+  getAllMessages(userID: string | undefined){
     return this.http.get<any>(this.getUrl("users/" + userID + "/messages")).pipe(
       map(response => {
         if(response){
           console.log("GetAllMessages: ", response);
           this.allMessages = response;
-          console.log("AllMessages: ", response);
           return true;
         }else{
           console.log("GetAllMessages: ", response);
@@ -45,7 +44,7 @@ export class MessageApiRequestService {
     return this.allMessages;
   }
 
-  createMessage(userID: string | null, message: Message){
+  createMessage(userID: string | undefined, message: Message){
     return this.http.post<any>(this.getUrl("users/" + userID + "/messages"), message).pipe(
       map(response => {
         if(response){

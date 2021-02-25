@@ -13,11 +13,13 @@ import { ConversationApiRequestService } from 'src/app/services/conversation-api
 export class HelpComponent implements OnInit {
 
   private conversations: Conversation[] = [];
-  private userConversation: Conversation | null = null;
+  private userConversation: Conversation;
 
   conversationForm: FormGroup;
 
   constructor(private conversationService : ConversationApiRequestService, private router: Router, private authService: AuthService) {
+    this.userConversation = new Conversation();
+
     this.conversationForm = new FormGroup({
       title: new FormControl("", Validators.required),
       description: new FormControl("", Validators.required)
@@ -32,7 +34,7 @@ export class HelpComponent implements OnInit {
     for(var i = 0; i < this.conversations.length; i ++){
       if(this.conversations[i].user_id == this.authService.currentUser?.id){
         this.conversationService.setCurrentConversation(this.conversations[i]);
-        this.userConversation = this.conversationService.getCurrentConversation();
+        this.userConversation = this.conversationService.currentConversation;
         return true;
       }
     }

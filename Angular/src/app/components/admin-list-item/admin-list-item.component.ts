@@ -22,7 +22,7 @@ export class AdminListItemComponent implements OnInit {
   }
 
   clicked(){
-    this.conversationClicked.emit(this.conversation.id.toString());
+    this.conversationClicked.emit(this.conversation);
   }
 
   deleteConversation(){
