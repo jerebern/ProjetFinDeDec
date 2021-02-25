@@ -28,9 +28,11 @@ export class CartListItemComponent implements OnInit {
 
   refreshItem() {
     this.cartProduct.quantity = this.cartItemForm.get('quantity')?.value;
+    console.log("cart_product to update", this.cartProduct);
     this.apiCartService.updateCart(this.cartProduct).subscribe(success => {
       if (success) {
         console.log("OK", this.apiCartService.cart);
+        window.location.reload();
       }
       else {
         console.log("ERROR", success);
