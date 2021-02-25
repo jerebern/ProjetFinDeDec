@@ -41,4 +41,17 @@ export class CartListItemComponent implements OnInit {
     });
   }
 
+  deleteCartProduct(cartProduct: CartProduct) {
+    this.apiCartService.deleteCartProduct(cartProduct).subscribe(success => {
+      if (success) {
+        console.log("OK", this.apiCartService.cart);
+        window.location.reload();
+      }
+      else {
+        console.log("ERROR", success);
+        alert("ERROR!!!");
+      }
+    });
+  }
+
 }

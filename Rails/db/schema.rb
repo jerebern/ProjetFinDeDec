@@ -50,9 +50,9 @@ ActiveRecord::Schema.define(version: 2021_02_24_061352) do
     t.index ["cart_id"], name: "index_cart_products_on_cart_id"
     t.index ["product_id"], name: "index_cart_products_on_product_id"
     t.check_constraint "`price` > 0", name: "price_check"
+    t.check_constraint "`quantity` > 0", name: "quantity_check"
     t.check_constraint "`quantity` >= 0", name: "quantity_check"
-    t.check_constraint "`quantity` >= 0", name: "quantity_check"
-    t.check_constraint "`sub_total` > 0", name: "price_check"
+    t.check_constraint "`sub_total` >= 0", name: "price_check"
     t.check_constraint "`total_price` > 0", name: "price_check"
   end
 
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 2021_02_24_061352) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_carts_on_user_id"
     t.check_constraint "`price` > 0", name: "price_check"
-    t.check_constraint "`sub_total` > 0", name: "price_check"
+    t.check_constraint "`sub_total` >= 0", name: "price_check"
     t.check_constraint "`total_price` > 0", name: "price_check"
   end
 
@@ -126,9 +126,9 @@ ActiveRecord::Schema.define(version: 2021_02_24_061352) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category", "title", "description", "animal_type"], name: "fulltext_products", type: :fulltext
     t.check_constraint "`price` > 0", name: "price_check"
+    t.check_constraint "`quantity` > 0", name: "quantity_check"
     t.check_constraint "`quantity` >= 0", name: "quantity_check"
-    t.check_constraint "`quantity` >= 0", name: "quantity_check"
-    t.check_constraint "`sub_total` > 0", name: "price_check"
+    t.check_constraint "`sub_total` >= 0", name: "price_check"
     t.check_constraint "`total_price` > 0", name: "price_check"
   end
 
