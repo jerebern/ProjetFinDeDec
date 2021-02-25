@@ -5,20 +5,25 @@
     {{ cartProduct.products[0].price }}$
 </td>
 <td>
-    <div class="row justify-content-md-end">
-        <div class="col col-sm-2">
-            Quantité:
+    <form>
+        <div class="row justify-content-md-end">
+            <div class="col col-sm-2">
+                Quantité:
+            </div>
+            <div class="col col-sm-2 form-group">
+                <input type="number" min="1" max="{{ cartProduct.products[0].quantity }}"
+                    value="{{ cartProduct.quantity }}">
+            </div>
+            <div class="col col-sm-5 form-group">
+                <button class="btn btn-info" type="submit">
+                    <i class="fa fa-check-circle fa-1x"></i>
+                </button>
+                <button class="btn btn-danger">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </div>
         </div>
-        <div class="col col-sm-2 form-group">
-            <input type="number" min="1" max="{{ cartProduct.products[0].quantity }}"
-                value="{{ cartProduct.quantity }}">
-        </div>
-        <div class="col col-sm-4 form-group">
-            <button type="submit" class="btn btn-danger">
-                Retirer le produit
-            </button>
-        </div>
-    </div>
+    </form>
 </td>
 <td class="text-right">
     {{ cartProduct.total_price }}$
