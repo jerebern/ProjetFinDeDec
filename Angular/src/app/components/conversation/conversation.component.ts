@@ -13,7 +13,7 @@ import { MessageApiRequestService } from 'src/app/services/message-api-request.s
 })
 export class ConversationComponent implements OnInit {
 
-  conversation: Conversation | null = null;
+  conversation: Conversation;
   messageForm: FormGroup;
   messages: Message[] = [];
 
@@ -21,6 +21,7 @@ export class ConversationComponent implements OnInit {
     this.messageForm = new FormGroup({
       message: new FormControl("", [Validators.required])
     })
+    this.conversation = new Conversation();
     this.getMessages();
     this.getConversation();
   }
@@ -41,7 +42,9 @@ export class ConversationComponent implements OnInit {
   }
 
   getConversation(){
-    this.conversation = this.conversationService.getCurrentConversation();
+    if(this.conversationService.getCurrentConversation()){
+      this.conversation = this.conversationService.getCurrentConversation();
+    }
   }
 
   createMessage(){

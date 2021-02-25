@@ -14,11 +14,14 @@ export class ConversationApiRequestService {
 
   private readonly CURRENT_CONVERSATION_KEY = 'jfj.currentConversation';
 
-  private _currentConversation: Conversation | null = null;
+  private _currentConversation: Conversation;
   private allConversations: Conversation[] = [];
-  private conversation!: Conversation;
+  private conversation: Conversation | null = null;
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
+
+    this._currentConversation = new Conversation();
+
     const storedCurrentConversation = JSON.parse(localStorage.getItem(this.CURRENT_CONVERSATION_KEY) ?? 'null');
 
     if (storedCurrentConversation) {
