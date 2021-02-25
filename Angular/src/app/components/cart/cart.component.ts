@@ -41,8 +41,7 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  checkUp() {
-
+  checkUp() {///fonction pour passer aux commandes
   }
 
 }
