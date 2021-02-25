@@ -38,7 +38,7 @@ class Api::CommandsController < ApplicationController
         @newCommand.tvq = @newCommand.sub_total * 0.09975
         @newCommand.total = (1 + 0.14975) * @newCommand.sub_total
         @newCommand.shipping_adress = current_user.address+","+current_user.city+","+current_user.province+","+current_user.postal_code
-        @newCommand.state = "Payer"
+        @newCommand.state = "Payé"
         @newCommand.save
         render json: Command.last, success:true
     end
@@ -54,6 +54,9 @@ class Api::CommandsController < ApplicationController
     def destroy
         @user = User.find(params[:user_id])
         @command = @user.commands.find(params[:id])
+        @command.command_products.each do |p|
+            p.destroy
+        end
         if @command.destroy
             render json: {command: @command, success:true}
         else
