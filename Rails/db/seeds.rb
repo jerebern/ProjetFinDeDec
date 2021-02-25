@@ -88,3 +88,4 @@ conversation3 = Conversation.create(title: "Test3", description: "Test test test
 @cart_product = CartProduct.create(total_price: 8.97, quantity: 1, cart_id: 1, product_id: 14)
 @cart_product = CartProduct.create(total_price: 75.92, quantity: 4, cart_id: 2, product_id: 11)
 @cart_product = CartProduct.create(total_price: 1469.93, quantity: 7, cart_id: 2, product_id: 4)
+@taxes = CurrentTax.create(tps:0.05, tvq:0.09975)
