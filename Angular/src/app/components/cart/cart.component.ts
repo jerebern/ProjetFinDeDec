@@ -42,6 +42,22 @@ export class CartComponent implements OnInit {
   }
 
   checkUp() {///fonction pour passer aux commandes
+    let shipping = this.cartForm.get('shipping')?.value;
+    console.log(shipping);
+    this.apiCartService.showCart().subscribe(success => {
+      if (success) {
+        console.log("OK", this.apiCartService.cart);
+        this._cart = this.apiCartService.cart!;
+        let cartProducts = this._cart.cartProducts;
+
+        /////code de Jé Bernard
+
+      }
+      else {
+        console.log("ERROR", success);
+        alert("ERROR!!!");
+      }
+    });
   }
 
 }
