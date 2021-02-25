@@ -8,8 +8,8 @@ class CreateProducts < ActiveRecord::Migration[6.0]
       t.integer :quantity, null: false
       t.string :animal_type, :limit => 50, null: false
       t.timestamps
-      t.check_constraint("price > 0", name: "price_check")
-      t.check_constraint("quantity >= 0", name: "quantity_check")
+      t.check_constraint("price > 0", name: "price_product_check")
+      t.check_constraint("quantity >= 0", name: "quantity_product_check")
       t.index ["category", "title", "description", "animal_type"], name: "fulltext_products", type: :fulltext
     end
     #execute <<-SQL

@@ -49,11 +49,8 @@ ActiveRecord::Schema.define(version: 2021_02_25_160131) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["cart_id"], name: "index_cart_products_on_cart_id"
     t.index ["product_id"], name: "index_cart_products_on_product_id"
-    t.check_constraint "`price` > 0", name: "price_check"
-    t.check_constraint "`quantity` > 0", name: "quantity_check"
-    t.check_constraint "`quantity` >= 0", name: "quantity_check"
-    t.check_constraint "`sub_total` >= 0", name: "price_check"
-    t.check_constraint "`total_price` > 0", name: "price_check"
+    t.check_constraint "`quantity` > 0", name: "quantity_cart_product_check"
+    t.check_constraint "`total_price` > 0", name: "price_cart_product_check"
   end
 
   create_table "carts", charset: "utf8mb4", force: :cascade do |t|
@@ -62,9 +59,7 @@ ActiveRecord::Schema.define(version: 2021_02_25_160131) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_carts_on_user_id"
-    t.check_constraint "`price` > 0", name: "price_check"
-    t.check_constraint "`sub_total` >= 0", name: "price_check"
-    t.check_constraint "`total_price` > 0", name: "price_check"
+    t.check_constraint "`sub_total` >= 0", name: "price_cart_check"
   end
 
   create_table "command_products", charset: "utf8mb4", force: :cascade do |t|
@@ -86,7 +81,7 @@ ActiveRecord::Schema.define(version: 2021_02_25_160131) do
     t.decimal "total", precision: 8, scale: 2, null: false
     t.boolean "store_pickup", null: false
     t.string "state", limit: 50, null: false
-    t.string "shipping_adress", limit: 156, null: false
+    t.string "shipping_adress", limit: 159, null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -132,11 +127,8 @@ ActiveRecord::Schema.define(version: 2021_02_25_160131) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category", "title", "description", "animal_type"], name: "fulltext_products", type: :fulltext
-    t.check_constraint "`price` > 0", name: "price_check"
-    t.check_constraint "`quantity` > 0", name: "quantity_check"
-    t.check_constraint "`quantity` >= 0", name: "quantity_check"
-    t.check_constraint "`sub_total` >= 0", name: "price_check"
-    t.check_constraint "`total_price` > 0", name: "price_check"
+    t.check_constraint "`price` > 0", name: "price_product_check"
+    t.check_constraint "`quantity` >= 0", name: "quantity_product_check"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|

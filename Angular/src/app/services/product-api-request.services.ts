@@ -167,7 +167,7 @@ export class ProductApiRequestService {
         alert("ERROR!!!");
         window.location.reload();
       }
-    });////for now addProductToCart just update the product.quantity by removing 1 in quantity TODO: changer ça et le déplacer dans products.component.ts
+    });////for now addProductToCart just update the product.quantity by removing 1 in quantity proof for update product
   }
 
   generateJSONforSearch(querry: string) {

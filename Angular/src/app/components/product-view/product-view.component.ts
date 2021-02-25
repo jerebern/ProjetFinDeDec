@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/models/product.model';
 import { ProductApiRequestService } from 'src/app/services/product-api-request.services';
 import { AuthService } from 'src/app/services/auth.services';
+import { CartApiRequestService } from 'src/app/services/cart-api-request.service';
 
 @Component({
   selector: 'app-product-view',
@@ -21,7 +22,7 @@ export class ProductViewComponent implements OnInit {
     return this._product!;
   }
 
-  constructor(private authService: AuthService, private route: ActivatedRoute, private apiService: ProductApiRequestService, private router: Router) {
+  constructor(private authService: AuthService, private route: ActivatedRoute, private apiService: ProductApiRequestService, private apiCartService: CartApiRequestService, private router: Router) {
     console.log("Product Input : ", this.route.snapshot.params.id)
     this.apiService.showProduct(this.route.snapshot.params.id).subscribe(success => {
       if (success) {
@@ -44,9 +45,24 @@ export class ProductViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addToCart() {
-    console.log('nombre de ' + this.product.title + ' vendu : ' + this.addToCartForm.get('quantity')?.value);
-    this.apiService.addProductToCart(this.product, this.addToCartForm.get('quantity')?.value);
+  // addToCart() {
+  //   console.log('nombre de ' + this.product.title + ' vendu : ' + this.addToCartForm.get('quantity')?.value);
+  //   this.apiService.addProductToCart(this.product, this.addToCartForm.get('quantity')?.value);
+  // }///exemple de update product
+
+  addToCart(product: Product) {
+    if (this.addToCartForm.get('quantity')?.value > 10) {
+      this.addToCartForm.get('quantity')?.setValue(10);
+    }
+    this.apiCartService.addProductToCart(product, this.addToCartForm.get('quantity')?.value).subscribe(success => {
+      if (success) {
+        console.log("OK");
+      }
+      else {
+        console.log("ERROR", success);
+        alert("ERROR!!!");
+      }
+    });
   }
 
   isAdmin(): boolean {
