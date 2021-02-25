@@ -94,4 +94,27 @@ export class CartApiRequestService {
       })
     )
   }
+
+  deleteCartProduct(cartProduct: CartProduct): Observable<any> {
+    console.log('refresh');
+    return this.http.delete<any>(this.getUrl("users/" + this.authService.currentUser?.id + "/carts/" + cartProduct.id + ".json")).pipe(
+      map(response => {
+        console.log("CartProduct delete service : ", response.cart_product);
+        console.log(response);
+        if (response.success) {
+          console.log("CartProduct : ", response.cart_product);
+          return true;
+        }
+        else {
+          console.log(response);
+          return false;
+        }
+      }),
+      catchError(error => {
+        console.log('Error', error);
+
+        return of(null);
+      })
+    )
+  }
 }
