@@ -21,17 +21,32 @@ class Api::CartsController < ApplicationController
         render json: { success: false, error: [e] }
     end
 
-    # def create
-    #     @user = User.find(params[:user_id])
-    #     @cart = @user.cart
-    #     if @cart.create(cart_params)
-    #         render json: { cart: @cart, success: true }
-    #     else
-    #         render json: { success: false, error: [@cart.errors] }
-    #     end
-    # rescue => e
-    #     render json: { success: false, error: [e] }
-    # end
+    def create
+        @user = current_user
+        @cart = @user.cart
+        @cart_product = CartProduct.new
+        @cart_product.cart_id = @cart.id
+        @newParams = params[:cart_product]
+        @cart_product.quantity = @newParams[:quantity]
+        @newParams = @newParams[:products]
+        @cart_product.product_id = Product.find(@newParams.last[:id]).id
+        @cart_product.total_price = Product.find(@cart_product.product_id).price * @cart_product.quantity
+        if @cart_product.save
+            @cart.sub_total = 0
+            @cart.cart_products.each do |carpro|
+                @cart.sub_total += carpro.total_price
+            end
+            if @cart.save
+                render json: { cart_product: @cart_product, success: true }
+            else
+                render json: { success: false, error: [@cart.errors] }
+            end
+        else
+            render json: { success: false, error: [@cart_product.errors] }
+        end
+    rescue => e
+        render json: { success: false, error: [e] }
+    end
 
     def update
         @user = current_user
@@ -71,11 +86,8 @@ class Api::CartsController < ApplicationController
             @cart.cart_products.each do |carpro|
                 @cart.sub_total += carpro.total_price
             end
-            if @cart.save
-                render json: { cart_product: @cart_product.as_json, success: true }
-            else
-                render json: { success: false, error: [@cart.errors] }
-            end
+            @cart.save
+            render json: { cart_product: @cart_product.as_json, success: true }
         else
             render json: { success: false, error: [@cart_product.errors] }
         end

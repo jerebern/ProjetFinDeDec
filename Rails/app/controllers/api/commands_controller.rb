@@ -19,7 +19,7 @@ class Api::CommandsController < ApplicationController
     end
             
     def create 
-        ##ICI ON NE RECOIT UTILISE RIEN EN PARAMETRE POUR EVITER QU'UN USER RENTRE DES MENSONGE 
+        ##ICI ON NE RECOIT UTILISE RIEN EN PARAMETRE POUR EVITER QU'UN USER RENTRE DES MENSONGE  SAUF POUR CALCULER UN ESTIMER
         @cart = current_user.cart
         @newCommand = Command.new
         @cartProducts = @cart.cart_products
@@ -37,10 +37,17 @@ class Api::CommandsController < ApplicationController
         @newCommand.tps = @newCommand.sub_total * CurrentTax.find(1).tps
         @newCommand.tvq = @newCommand.sub_total * CurrentTax.find(1).tvq
         @newCommand.total = (1 + (CurrentTax.find(1).tps + CurrentTax.find(1).tvq)) * @newCommand.sub_total
+    
+        if params[:sendCommand] == "true"
         @newCommand.shipping_adress = current_user.address+","+current_user.city+","+current_user.province+","+current_user.postal_code
         @newCommand.state = "Payé"
         @newCommand.save
-        render json: Command.last, success:true
+        render json: {command: Command.last, success:true}
+        else
+        render json: {command: @newCommand, success:true}
+
+        end
+
     end
     def show 
 

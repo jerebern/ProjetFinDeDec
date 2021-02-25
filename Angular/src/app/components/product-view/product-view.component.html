@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="col-sm">
-            <form [formGroup]="addToCartForm" (ngSubmit)="addToCart()">
+            <form [formGroup]="addToCartForm" (ngSubmit)="addToCart(this.product)">
                 <br>
                 <div class="row form-group">
                     Quantité:

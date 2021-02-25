@@ -25,16 +25,20 @@ export class CartApiRequestService {
     return '/api/' + querry + '/'
   }
 
-  private generateJSONforCart(cartProduct: CartProduct) {//TODO finish it
+  private generateJSONforCartProduct(cartProduct: CartProduct) {
     return {
       "cart_product": cartProduct,
       "datatype": "JSON"
     }
   }
 
-  addProductToCart(product: Product): Observable<any> {//TODO finish it doesn't work
-    console.log("add product to cart :", product);
-    return this.http.patch<any>(this.getUrl("users/" + this.authService.currentUser?.id + "/carts/" + this.authService.currentUser?.id + ".json"), "").pipe(
+  addProductToCart(product: Product, quantity: number): Observable<any> {
+    let cartProduct = new CartProduct();
+    let newProduct: Product[] = [product];
+    cartProduct.products = newProduct;
+    cartProduct.quantity = quantity.toString();
+    console.log("add product to cart :", cartProduct);
+    return this.http.post<any>(this.getUrl("users/" + this.authService.currentUser?.id + "/carts.json"), this.generateJSONforCartProduct(cartProduct)).pipe(
       map(response => {
         console.log("add product to cart : ", response);
         if (response?.success) {
@@ -76,7 +80,7 @@ export class CartApiRequestService {
 
   updateCart(cartProduct: CartProduct): Observable<any> {
     console.log('refresh');
-    return this.http.patch<any>(this.getUrl("users/" + this.authService.currentUser?.id + "/carts/" + cartProduct.id + ".json"), this.generateJSONforCart(cartProduct)).pipe(
+    return this.http.patch<any>(this.getUrl("users/" + this.authService.currentUser?.id + "/carts/" + cartProduct.id + ".json"), this.generateJSONforCartProduct(cartProduct)).pipe(
       map(response => {
         if (response.success) {
           console.log("Cart Update: ", response);

@@ -60,6 +60,7 @@ export class CommandApiRequestService {
       })
     )
   }
+
   getcurrentCommands(sortBy: string) {
     switch (sortBy) {
 
@@ -138,11 +139,22 @@ export class CommandApiRequestService {
       "q": querry
     }
   }
-  createCommand(userID : string){
-    return this.http.post<any>(this.getUrl("users/"+ userID+"/commands"),"").pipe(
+  generateJSONforTmpController(querry : string){
+    console.log(querry)
+    return {
+      "sendCommand": querry
+    }
+  }
+  createCommand(userID : string,sendCommand : string){
+    return this.http.post<any>(this.getUrl("users/"+ userID+"/commands"),this.generateJSONforTmpController(sendCommand)).pipe(
      map(response =>{
       if(response.success){
         console.log(response)
+        if(sendCommand == "false"){
+          this._currenCommand = response.command
+      
+        }
+
       }
       
      }),

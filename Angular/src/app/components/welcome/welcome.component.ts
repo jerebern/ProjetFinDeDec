@@ -51,7 +51,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   addToCart(product: Product) {
-    this.apiCartService.addProductToCart(product).subscribe(success => {
+    this.apiCartService.addProductToCart(product, 1).subscribe(success => {
       if (success) {
         console.log("OK");
       }
