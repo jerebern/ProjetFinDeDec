@@ -1,37 +1,37 @@
 class Api::ConversationsController < ApplicationController
     def index 
-        if @converations = Conversation.all
-            render json: @converations
+        if @conversations = Conversation.all
+            render json: @conversations
         else
-            render json: @converations.errors, status: :unprocessable_entity
+            render json: @conversations.errors, status: :unprocessable_entity
         end
     end
 
     def show
         @user = User.find(params[:user_id])
-        if @converation = @user.converations.find(params[:id])
-            render json: @converation
+        if @conversation = @user.conversation.find(params[:id])
+            render json: @conversation
         else
-            render json: @converation.errors, status: :unprocessable_entity
+            render json: @conversation.errors, status: :unprocessable_entity
         end
     end
 
     def create
-        @converation = current_user.converations.new(conversation_params)
-        if @converation.save
+        @conversation = current_user.conversation.new(conversation_params)
+        if @conversation.save
             render json: @conversation
         else
-            render json: @converation.errors, status: :unprocessable_entity
+            render json: @conversation.errors, status: :unprocessable_entity
         end
     end
 
     def update
         @user. User.find(params[:user_id])
-        @converation = @user.converations.find(params[:id])
-        if @converation.update(conversation_params)
-            render json: @converation
+        @conversation = @user.conversation.find(params[:id])
+        if @conversation.update(conversation_params)
+            render json: @conversation
         else
-            render json: @converation.errors, status: :unprocessable_entity
+            render json: @conversation.errors, status: :unprocessable_entity
         end   
     end
 
@@ -39,18 +39,18 @@ class Api::ConversationsController < ApplicationController
         if !is_admin
             redirect_to ''
         else
-            @converation = Conversation.find(params[:id])
-            if @converation.destroy
-                render json: @converation, status: :ok
+            @conversation = Conversation.find(params[:id])
+            if @conversation.destroy
+                render json: @conversation, status: :ok
             else
-                render json: @converation.errors, status: :unprocessable_entity
+                render json: @conversation.errors, status: :unprocessable_entity
             end
         end
     end
 
     private 
     def conversation_params
-        params.require(:converation).permit(:title, :description, :email_user, :user_id)
+        params.require(:conversation).permit(:title, :description, :email_user, :user_id)
     end
 
     def is_admin

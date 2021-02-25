@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Conversation } from 'src/app/models/conversation.model';
 import { AuthService } from 'src/app/services/auth.services';
 import { ConversationApiRequestService } from 'src/app/services/conversation-api-request.service';
+import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-admin',
@@ -12,6 +13,7 @@ import { ConversationApiRequestService } from 'src/app/services/conversation-api
 export class AdminComponent implements OnInit {
 
   conversations: Conversation[] = [];
+  conversation!: Conversation;
 
   constructor(private conversationService: ConversationApiRequestService, private authService: AuthService, private router: Router) {
     this.getConversations();
@@ -32,7 +34,8 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  conversationClicked(conversationID: string){
-    this.router.navigate(['conversation/' + conversationID]);
+  conversationClicked(conversation: Conversation){
+    this.conversationService.setCurrentConversation(conversation);
+    this.router.navigate(['conversation/' + conversation.id]);
   }
 }

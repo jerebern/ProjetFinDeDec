@@ -11,11 +11,22 @@ import { AuthService } from './auth.services';
   providedIn: 'root'
 })
 export class ConversationApiRequestService {
-  private _currentConversation: Conversation;
+
+  private readonly CURRENT_CONVERSATION_KEY = 'jfj.currentConversation';
+
+  private _currentConversation: Conversation | null = null;
   private allConversations: Conversation[] = [];
+  private conversation!: Conversation;
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
-    this._currentConversation = new Conversation();
+    const storedCurrentConversation = JSON.parse(localStorage.getItem(this.CURRENT_CONVERSATION_KEY) ?? 'null');
+
+    if (storedCurrentConversation) {
+      // this._currentUser = new User(storedCurrentUser);
+
+      this._currentConversation = storedCurrentConversation;
+      console.log(this._currentConversation);
+    }
   }
 
   private getUrl(querry: string){
@@ -66,13 +77,15 @@ export class ConversationApiRequestService {
 
   setCurrentConversation(conversation: Conversation){
     this._currentConversation = conversation;
+    localStorage.setItem(this.CURRENT_CONVERSATION_KEY, JSON.stringify(conversation));
+    console.log("SetCurrentConversation: ", this._currentConversation)
   }
 
   sortConversationsAdmin(sortBy: string){
 
   }
 
-  get getCurrentConversation(){
+  getCurrentConversation(){
     return this._currentConversation;
   }
 
@@ -124,7 +137,7 @@ export class ConversationApiRequestService {
     }
   }
 
-  updateCoonversation(userID: string | null, conversationID: string , conversation: Conversation): Observable<any> {
+  updateConversation(userID: string | null, conversationID: string , conversation: Conversation): Observable<any> {
     return this.http.patch(this.getUrl("users/" + userID + "/conversations/" + conversationID), this.generateJsonForConversationUpdate(conversation)).pipe(
       map(response => {
         if (response) {
@@ -146,5 +159,9 @@ export class ConversationApiRequestService {
 
   getConversations(){
     return this.allConversations;
+  }
+
+  getOneConversation(){
+    return this.conversation;
   }
 }

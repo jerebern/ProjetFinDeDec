@@ -1,1 +1,10 @@
-
+<div *ngIf="this.isMessageUser()!=true; else notMessageUser">
+  <td class="col-md-auto" style="background-color: rgb(233, 233, 233); margin-top: 5px;">
+    {{message.texte}}
+  </td>
+  <td class="col-md-auto" style="margin-top: 5px;"></td>
+</div>
+<ng-template #notMessageUser>
+  <td class="col-md-auto" style="margin-top: 5px;"></td>
+  <td class="col-md-auto" style="background-color: blue; color: white; margin-top: 5px;">{{message.texte}}</td>
+</ng-template>

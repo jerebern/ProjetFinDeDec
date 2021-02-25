@@ -1,0 +1,10 @@
+#messageBox{
+  background-color: white;
+  border-radius: 25px;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 100%;
+}
+table{
+  table-layout: auto;
+}

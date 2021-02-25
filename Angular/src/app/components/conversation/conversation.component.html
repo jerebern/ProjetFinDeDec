@@ -1,12 +1,34 @@
 <body>
-  <div>
-    <h1>Title</h1>
-    <p>Description</p>
-    <div class="container text-center table-responsive" style="background-color: white;">
-      <table>
-
-      </table>
+  <div class="container-fluid">
+    <div class="row" style="height: 80vh;">
+      <div class="col" id="messageBox" class="col table-responsive">
+        <h1 style="text-align: center;">{{conversation.title}}</h1>
+        <p style="text-align: center;">{{conversation.description}}</p>
+        <table style="width: 100%;">
+          <tr style="width: fit-content;" *ngFor="let message of messages" app-conversation-list-item [message]="message" ></tr>
+        </table>
+      </div>
     </div>
-    <input type="text" id="message" placeholder="Entrer message">
+    <div class="form-row" style="height: 10vh; margin-top: 5px; margin-left: 5px; width: 100%;">
+      <form [formGroup]="messageForm" (ngSubmit)="createMessage()" style="width: 100%;">
+
+        <div class="form-row" style="width: 100%">
+
+          <div class="form-group" style="width: 80%;">
+            <input formControlName="message"
+            [class.is-invalid]="messageForm.get('message')?.errors && messageForm.get('message')?.dirty && messageForm.get('message')?.touched"
+            type="text" placeholder="Entrer votre message..." class="form-control" style="width: 100%">
+            <div class="invalid-feedback text-left">
+              Veuillez entrer un message valide.
+            </div>
+          </div>
+
+          <div class="form-group" style="width: 13%; margin-left: 2px;">
+            <button class="btn btn-primary" type="submit">Envoyer</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
   </div>
 </body>

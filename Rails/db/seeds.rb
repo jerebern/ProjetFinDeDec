@@ -73,7 +73,9 @@ conversation1 = Conversation.create(title: "Test", description: "Test test test.
 conversation2 = Conversation.create(title: "Test2", description: "Test test test...", email_user: "jevei@hotmail.com", user_id: 3)
 conversation3 = Conversation.create(title: "Test3", description: "Test test test...", email_user: "felixcm1129@hotmail.ca", user_id: 4)
 
-
+#message
+@message = Message.create(texte: "Allo", user_id: 4, conversation_id: 3);
+@message = Message.create(texte: "Allo comment puis-je vous aidez?", user_id: 1, conversation_id: 3);
 
 #cart
 @cart=Cart.create!(sub_total: 887.29, user_id: 1)
