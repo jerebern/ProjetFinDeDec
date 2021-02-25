@@ -15,6 +15,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { AdminAccessGuard } from './guards/admin-access.guard';
 import { CartComponent } from './components/cart/cart.component';
 import { CartAccessGuard } from './guards/cart-access.guard';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [SigninupAccessGuard] },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'help', component: HelpComponent }, //todo protéger la route
   { path: 'admin', component: AdminComponent, canActivate: [AdminAccessGuard] }, //todo protéger la route
   { path: 'users/:user_id/carts', component: CartComponent, canActivate: [CartAccessGuard] },
+  { path: 'checkout', component: CheckoutComponent},
   { path: '', component: WelcomeComponent },
   { path: '**', component: PageNotFoundComponent }
 ];

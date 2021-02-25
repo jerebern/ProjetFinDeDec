@@ -138,6 +138,20 @@ export class CommandApiRequestService {
       "q": querry
     }
   }
+  createCommand(userID : string){
+    return this.http.post<any>(this.getUrl("users/"+ userID+"/commands"),"").pipe(
+     map(response =>{
+      if(response.success){
+        console.log(response)
+      }
+      
+     }),
+     catchError(error=> { 
+       return of(null)
+     })
+    )
+  }
+
   searchCommand(querry : string, userID : string ){
     console.log(this.generateJSONforSearch(querry))
     return this.http.get<any>(this.getUrl("users/" + userID + "/commands") + "?q="+querry).pipe(
