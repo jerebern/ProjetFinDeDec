@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   namespace :api, constraints: { format: 'json' }  do
     resources :products
     resources :users do 
-      resources :commands
+      resources :commands do
+        resources :command_products
+      end
       resources :conversations
       resources :messages
       resources :carts
