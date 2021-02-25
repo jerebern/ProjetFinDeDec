@@ -10,7 +10,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { CartComponent } from './components/cart/cart.component';
 import { CartItemsComponent } from './components/cart-list/cart-list.component';
 import { CommandsViewComponent } from './components/commands-view/commands-view.component';
-import { CommandItemsComponent } from './components/command-items/command-items.component';
+import { CheckoutItemsComponent } from './components/checkout-items/checkout-items.component';
 import { ProductViewComponent } from './components/product-view/product-view.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ProductsListComponent } from './components/products-list/products-list.component';
@@ -27,6 +27,7 @@ import { CartListItemComponent } from './components/cart-list-item/cart-list-ite
 import { ConversationListItemComponent } from './components/conversation-list-item/conversation-list-item.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     CartComponent,
     CartItemsComponent,
     CommandsViewComponent,
-    CommandItemsComponent,
+    CheckoutItemsComponent,
     ProductViewComponent,
     PageNotFoundComponent,
     ProductsListComponent,
@@ -50,6 +51,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     CartListItemComponent,
     ConversationListItemComponent,
     CheckoutComponent,
+
   ],
   imports: [
     ReactiveFormsModule,

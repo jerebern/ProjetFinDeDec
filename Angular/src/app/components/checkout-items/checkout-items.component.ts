@@ -3,11 +3,11 @@ import { CartProduct } from 'src/app/models/cart-product.model';
 import { CartApiRequestService } from 'src/app/services/cart-api-request.service';
 
 @Component({
-  selector: '[app-command-items]',
-  templateUrl: './command-items.component.html',
-  styleUrls: ['./command-items.component.css']
+  selector: '[app-checkout-items]',
+  templateUrl: './checkout-items.component.html',
+  styleUrls: ['./checkout-items.component.css']
 })
-export class CommandItemsComponent implements OnInit {
+export class CheckoutItemsComponent implements OnInit {
   @Input() cartProduct!: CartProduct;
 
 
