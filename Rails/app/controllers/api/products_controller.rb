@@ -41,6 +41,7 @@ class Api::ProductsController < ApplicationController
     rescue => e
         render json: { success: false, error: [e] }
     end
+
     
     def destroy
         if current_user.is_admin==false

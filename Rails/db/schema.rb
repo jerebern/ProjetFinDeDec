@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_23_162503) do
+ActiveRecord::Schema.define(version: 2021_02_24_061352) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -65,6 +65,18 @@ ActiveRecord::Schema.define(version: 2021_02_23_162503) do
     t.check_constraint "`price` > 0", name: "price_check"
     t.check_constraint "`sub_total` > 0", name: "price_check"
     t.check_constraint "`total_price` > 0", name: "price_check"
+  end
+
+  create_table "command_products", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "quantity", null: false
+    t.decimal "total_price", precision: 8, scale: 2, null: false
+    t.decimal "unit_price", precision: 8, scale: 2, null: false
+    t.bigint "product_id", null: false
+    t.bigint "command_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["command_id"], name: "index_command_products_on_command_id"
+    t.index ["product_id"], name: "index_command_products_on_product_id"
   end
 
   create_table "commands", charset: "utf8mb4", force: :cascade do |t|
@@ -147,6 +159,8 @@ ActiveRecord::Schema.define(version: 2021_02_23_162503) do
   add_foreign_key "cart_products", "carts"
   add_foreign_key "cart_products", "products"
   add_foreign_key "carts", "users"
+  add_foreign_key "command_products", "commands"
+  add_foreign_key "command_products", "products"
   add_foreign_key "commands", "users"
   add_foreign_key "conversations", "users"
   add_foreign_key "conversations", "users", column: "admin_id"

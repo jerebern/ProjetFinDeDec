@@ -5,5 +5,6 @@ class Command < ApplicationRecord
     validates :total, presence: true
     validates :state, presence: true, allow_blank: false
     validates :shipping_adress, presence: true, allow_blank: false
+    has_many   :command_products
     belongs_to :user
 end

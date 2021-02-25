@@ -17,6 +17,31 @@ class Api::CommandsController < ApplicationController
 
 
     end
+            
+    def create 
+        ##ICI ON NE RECOIT UTILISE RIEN EN PARAMETRE POUR EVITER QU'UN USER RENTRE DES MENSONGE 
+        @cart = current_user.cart
+        @newCommand = Command.new
+        @cartProducts = @cart.cart_products
+        @newCommand.sub_total = 0
+        @newCommand.store_pickup = false;
+        @cartProducts.each do |c|
+           @newCommand.command_products.new
+           @newCommand.command_products.last.quantity = c.quantity
+           @newCommand.command_products.last.unit_price = c.product.price
+           @newCommand.command_products.last.product_id = c.product.id
+           @newCommand.command_products.last.total_price = (c.quantity * c.product.price)
+           @newCommand.sub_total = @newCommand.sub_total + @newCommand.command_products.last.total_price
+        end
+        @newCommand.user_id = current_user.id
+        @newCommand.tps = @newCommand.sub_total * 0.05
+        @newCommand.tvq = @newCommand.sub_total * 0.09975
+        @newCommand.total = (1 + 0.14975) * @newCommand.sub_total
+        @newCommand.shipping_adress = current_user.address+","+current_user.city+","+current_user.province+","+current_user.postal_code
+        @newCommand.state = "Payer"
+        @newCommand.save
+        render json: Command.last, success:true
+    end
     def show 
 
         @user = User.find(params[:user_id])
