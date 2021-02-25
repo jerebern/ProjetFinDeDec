@@ -1,1 +1,67 @@
-<button (click) = "sendCommand()"> POST COMMAND </button>
+<h1> Finalisation de votre commande</h1>
+
+        <div class="row d-flex justify-content-center">
+            <div class="col">
+                <table class="table table-bordered table-responsive-xl table-active">
+                    <thead style="background-color: white; text-align: center;">
+                        <th scope="row" colspan="4">
+                            Produits
+                        </th>
+                        <tr class="text-center">
+                            <td style="background-color: white;">
+                                Produits
+                            </td>
+                            <td style="background-color: white;">
+                                Prix unitaire
+                            </td>
+                            <td style="background-color: white;">
+                                Quatité
+                            </td>
+                            <td style="background-color: white;">
+                                Total
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                         <tr *ngFor="let cartProduct of this.cart.cartProducts" class="text-center" app-command-items
+                            [cartProduct]="cartProduct"> 
+                        </tr>
+                    </tbody>
+                    <!-- <thead style=" background-color: white; text-align: center;">
+                        <tr class="text-center">
+                            <th colspan="3">
+                                Prix Total :
+                            </th>
+                            <th class="text-right">
+                              {{ cart.sub_total }}$ 
+                            </th>
+                        </tr>
+                    </thead> -->
+                </table>
+            </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col col-sm-6">
+                <table class="table table-responsive-xl table-active">
+                    <thead style=" background-color: white; text-align: center;">
+
+                            <th colspan="3">
+                                Facturation
+                            </th>
+
+                    </thead>
+                    <tr><td >Livraison :</td> <td>0.00$</td> </tr>
+                    <tr><td> Sous-Total :</td> <td>{{tmpcommand.sub_total}}$</td> </tr>
+                    <tr><td> TPS :</td> <td>{{tmpcommand.tps}}$</td> </tr>
+                    <tr><td> TVQ :</td> <td>{{tmpcommand.tvq}}$</td> </tr>
+                    <tr><td> Total :</td> <td>{{tmpcommand.total}}$</td> </tr>
+                </table>
+            </div>
+            <div class="col col-sm-6">
+                <button class="btn btn-lg btn-success btn-block" (click) = "sendCommand()"> Payer      </button>
+                <a [routerLink]="['/products']" class="btn btn-lg btn btn-danger btn-block" role="button">
+                    Annuler
+                </a>
+            </div>
+        </div>
+   
