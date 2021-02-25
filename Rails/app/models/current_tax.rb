@@ -1,0 +1,2 @@
+class CurrentTax < ApplicationRecord
+end
