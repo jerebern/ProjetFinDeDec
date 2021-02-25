@@ -37,7 +37,9 @@ class Api::CartsController < ApplicationController
         @user = User.find(params[:user_id])
         @cart = @user.cart
         if @cart.update(cart_params)
-            render json: { cart: @cart, success: true }
+            render json: { cart: @cart.as_json.merge({ cartProducts: @cart.cart_products.map{ |cartProduct|
+            cartProduct.as_json.merge({ products: @cart.products.where("product_id LIKE ?", "%" + cartProduct.product_id.to_s + "%").as_json })
+            }}), success: true }
         else
             render json: { success: false, error: [@cart.errors] }
         end
@@ -68,6 +70,6 @@ class Api::CartsController < ApplicationController
 
     private
     def cart_params
-        params.require(:cart).permit(:sub_total, :user_id)
+        params.require(:cart).permit(:sub_total, :user_id, :cart_products)
     end
 end

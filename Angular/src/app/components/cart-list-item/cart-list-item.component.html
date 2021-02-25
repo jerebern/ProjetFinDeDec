@@ -5,13 +5,13 @@
     {{ cartProduct.products[0].price }}$
 </td>
 <td>
-    <form>
+    <form [formGroup]="cartItemForm" (ngSubmit)="refreshItem()">
         <div class="row justify-content-md-end">
             <div class="col col-sm-2">
                 Quantité:
             </div>
             <div class="col col-sm-2 form-group">
-                <input type="number" min="1" max="{{ cartProduct.products[0].quantity }}"
+                <input formControlName="quantity" type="number" min="1" max="{{ cartProduct.products[0].quantity }}"
                     value="{{ cartProduct.quantity }}">
             </div>
             <div class="col col-sm-5 form-group">
