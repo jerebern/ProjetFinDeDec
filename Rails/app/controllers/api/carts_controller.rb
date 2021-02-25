@@ -2,7 +2,7 @@ class Api::CartsController < ApplicationController
     before_action :is_currentUser?, :authenticate_user!
 
     def index
-        @user = User.find(params[:user_id])
+        @user = current_user
         @cart = @user.cart
         render json: { cart: @cart.as_json.merge({ cartProducts: @cart.cart_products.map{ |cartProduct|
         cartProduct.as_json.merge({ products: @cart.products.where("product_id LIKE ?", "%" + cartProduct.product_id.to_s + "%").as_json })
@@ -12,7 +12,7 @@ class Api::CartsController < ApplicationController
     end
 
     def show
-        @user = User.find(params[:user_id])
+        @user = current_user
         @cart = @user.cart
         render json: { cart: @cart.as_json.merge({ cartProducts: @cart.cart_products.map{ |cartProduct|
         cartProduct.as_json.merge({ products: @cart.products.where("product_id LIKE ?", "%" + cartProduct.product_id.to_s + "%").as_json })
@@ -33,31 +33,55 @@ class Api::CartsController < ApplicationController
     #     render json: { success: false, error: [e] }
     # end
 
-    def update###juste recevoir un product le reste est fait auto
-        @user = User.find(params[:user_id])
+    def update
+        @user = current_user
         @cart = @user.cart
-        if @cart.update(cart_params)
-            render json: { cart: @cart.as_json.merge({ cartProducts: @cart.cart_products.map{ |cartProduct|
-            cartProduct.as_json.merge({ products: @cart.products.where("product_id LIKE ?", "%" + cartProduct.product_id.to_s + "%").as_json })
-            }}), success: true }
+        @cart_product=@cart.cart_products.find(params[:id])
+        if @cart_product.update(cart_product_params)
+            @product = Product.find(@cart_product.product_id)
+            @cart_product.total_price = @product.price * @cart_product.quantity
+            if @cart_product.save
+                @cart.sub_total = 0
+                @cart.cart_products.each do |carpro|
+                    @cart.sub_total += carpro.total_price
+                end
+                if @cart.save
+                    render json: { cart: @cart.as_json.merge({ cartProducts: @cart.cart_products.map{ |cartProduct|
+                    cartProduct.as_json.merge({ products: @cart.products.where("product_id LIKE ?", "%" + cartProduct.product_id.to_s + "%").as_json })
+                    }}), success: true }
+                else
+                    render json: { success: false, error: [@cart.errors] }
+                end
+            else
+                render json: { success: false, error: [@cart.errors] }
+            end
         else
-            render json: { success: false, error: [@cart.errors] }
+            render json: { success: false, error: [@cart_product.errors] }
         end
     rescue => e
         render json: { success: false, error: [e] }
     end
 
-    # def destroy
-    #     @user = User.find(params[:user_id])
-    #     @cart = @user.cart
-    #     if @cart.destroy
-    #         render json: { cart: @cart, success: true }
-    #     else
-    #         render json: { success: false, error: [@cart.errors] }
-    #     end
-    # rescue => e
-    #     render json: { success: false, error: [e] }
-    # end
+    def destroy
+        @user = current_user
+        @cart = @user.cart
+        @cart_product=@cart.cart_products.find(params[:id])
+        if @cart_product.destroy
+            @cart.sub_total = 0
+            @cart.cart_products.each do |carpro|
+                @cart.sub_total += carpro.total_price
+            end
+            if @cart.save
+                render json: { cart_product: @cart_product.as_json, success: true }
+            else
+                render json: { success: false, error: [@cart.errors] }
+            end
+        else
+            render json: { success: false, error: [@cart_product.errors] }
+        end
+    rescue => e
+        render json: { success: false, error: [e] }
+    end
     
     private
     def is_currentUser?
@@ -69,7 +93,7 @@ class Api::CartsController < ApplicationController
     end
 
     private
-    def cart_params
-        params.require(:cart).permit(:sub_total, :user_id, :cart_products)
+    def cart_product_params
+        params.require(:cart_product).permit(:quantity, :cart_id, :product_id)
     end
 end

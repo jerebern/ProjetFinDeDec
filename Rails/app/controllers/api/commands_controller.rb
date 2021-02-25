@@ -34,9 +34,9 @@ class Api::CommandsController < ApplicationController
            @newCommand.sub_total = @newCommand.sub_total + @newCommand.command_products.last.total_price
         end
         @newCommand.user_id = current_user.id
-        @newCommand.tps = @newCommand.sub_total * 0.05
-        @newCommand.tvq = @newCommand.sub_total * 0.09975
-        @newCommand.total = (1 + 0.14975) * @newCommand.sub_total
+        @newCommand.tps = @newCommand.sub_total * CurrentTax.find(1).tps
+        @newCommand.tvq = @newCommand.sub_total * CurrentTax.find(1).tvq
+        @newCommand.total = (1 + (CurrentTax.find(1).tps + CurrentTax.find(1).tvq)) * @newCommand.sub_total
         @newCommand.shipping_adress = current_user.address+","+current_user.city+","+current_user.province+","+current_user.postal_code
         @newCommand.state = "Payé"
         @newCommand.save
