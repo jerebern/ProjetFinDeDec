@@ -19,6 +19,7 @@ class Api::CommandsController < ApplicationController
     end
             
     def create 
+        ##ICI ON NE RECOIT UTILISE RIEN EN PARAMETRE POUR EVITER QU'UN USER RENTRE DES MENSONGE 
         @cart = current_user.cart
         @newCommand = Command.new
         @cartProducts = @cart.cart_products
