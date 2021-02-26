@@ -2,9 +2,9 @@ class Api::ConversationsController < ApplicationController
     def index 
         if is_admin
             if @conversations = Conversation.all
-                render json: @conversations
+                render json: {conversations: @conversations, success: true}
             else
-                render json: @conversations.errors, status: :unprocessable_entity
+                render json: {success: false, error: [@conversations.errors]}
             end
         end
     end
@@ -12,9 +12,9 @@ class Api::ConversationsController < ApplicationController
     def show
         @user = current_user
         if @conversation = @user.conversation
-            render json: @conversation
+            render json: {conversation: @conversation, success: true}
         else
-            render json: @conversation.errors, status: :unprocessable_entity
+            render json: {success: false, error: [@conversation.errors]}
         end
     end
 
@@ -22,19 +22,19 @@ class Api::ConversationsController < ApplicationController
         @user = current_user
         @conversation = @user.conversation.create(conversation_params)
         if @conversation.save
-            render json: @conversation
+            render json: {conversation: @conversation, success: true}
         else
-            render json: @conversation.errors, status: :unprocessable_entity
+            render json: {success: false, error: [@conversation.errors]}
         end
     end
 
     def update
-        @user. User.find(params[:user_id])
+        @user = User.find(params[:user_id])
         @conversation = @user.conversation.find(params[:id])
         if @conversation.update(conversation_params)
-            render json: @conversation
+            render json: {conversation: @conversation, success: true}
         else
-            render json: @conversation.errors, status: :unprocessable_entity
+            render json: {success: false, error: [@conversation.errors]}
         end   
     end
 
@@ -44,9 +44,9 @@ class Api::ConversationsController < ApplicationController
         else
             @conversation = Conversation.find(params[:id])
             if @conversation.destroy
-                render json: @conversation, status: :ok
+                render json: {conversation: @conversation, success: true}
             else
-                render json: @conversation.errors, status: :unprocessable_entity
+                render json: {success: false, error: [@conversation.errors]}
             end
         end
     end
