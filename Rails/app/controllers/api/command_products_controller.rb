@@ -29,10 +29,12 @@ def index
         render json: {command_products: @command.command_products.sort_by(&:quantity).reverse, succes: true}
     else
         render json: {command_products: @command.command_products, succes: true}
-
+        #todo rajouter un s a succes sans tout faire planter
     end
 end
 def destroy
+    #ici on recacule la commande pour balancer dans les chiffres 
+    #todo semaine 3 verifier en inventaire si le produit est dispo avant de commander
     @command = Command.find(params[:command_id])
     @command.sub_total = @command.sub_total - @command.command_products.find(params[:id]).total_price
     @command.tps = @command.sub_total * CurrentTax.find(1).tps
@@ -53,7 +55,7 @@ def destroy
 end
 
 def update
-
+    #ici on recacule la commande pour balancer dans les chiffres 
     #demo pour la presentation a moment donner faut livrer :(
     @command = Command.find(params[:command_id])
     @product = @command.command_products.find(params[:id])

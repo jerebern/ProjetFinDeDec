@@ -35,6 +35,10 @@ class Api::CommandsController < ApplicationController
             
     def create 
         ##ICI ON NE RECOIT UTILISE RIEN EN PARAMETRE POUR EVITER QU'UN USER RENTRE DES MENSONGE  SAUF POUR CALCULER UN ESTIMER
+        ##TODO reflechir a une methode de renvoyer un false si le cart est vide 
+        ## Pour le perfectionement de API
+        ##Verifier si le solde de la commande est plus grand que zeor
+        ## on se garde ça pour la semaine 3 - Jeremy 5h du matin
         @cart = current_user.cart
         @newCommand = Command.new
         @cartProducts = @cart.cart_products
@@ -57,7 +61,7 @@ class Api::CommandsController < ApplicationController
         @newCommand.shipping_adress = current_user.address+","+current_user.city+","+current_user.province+","+current_user.postal_code
         @newCommand.state = "Payé"
         @newCommand.save
-        render json: {command: Command.last, success:true}
+        render json: {command: current_user.commands.last, success:true}
         else
         render json: {command: @newCommand, success:true}
 
