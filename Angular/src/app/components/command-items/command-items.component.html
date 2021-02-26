@@ -8,7 +8,7 @@
     {{ commandProduct.unit_price }}$
 </td>
 <td class="text-right">
-    {{ commandProduct.quantity }}
+   <a (click)= "updateQuantity()">  {{ commandProduct.quantity }} </a>
 </td>
 <td class="text-right">
     {{ commandProduct.total_price }}$

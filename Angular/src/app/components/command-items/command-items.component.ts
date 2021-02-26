@@ -26,7 +26,14 @@ export class CommandItemsComponent implements OnInit {
 
     })
   }
+  updateQuantity(){
+    console.log("Hello")
+    this.commandProductApiService.updateCommandProduct(this.userID.toString(),this.commandProduct.command_id.toString(),this.commandProduct.id.toString()).subscribe(result=>{
 
+        window.location.reload()
+      
+    })
+  }
   deleteProduct(){
     console.log(this.commandProduct)
     this.commandProductApiService.deleteCommandProduct(this.userID.toString(),this.commandProduct.command_id.toString(),this.commandProduct.id.toString()).subscribe(result =>{

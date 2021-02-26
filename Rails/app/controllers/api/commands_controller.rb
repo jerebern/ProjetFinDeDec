@@ -1,15 +1,30 @@
 class Api::CommandsController < ApplicationController
     before_action :is_currentUser? || :is_admin?, :authenticate_user!
     def index
+
+
         @user = User.find(params[:user_id])
     if params[:q]
     
-        @commands =  @user.commands.where("state LIKE ?", "%" + params[:q] + "%")
-      
+         @commands =  @user.commands.where("state LIKE ?", "%" + params[:q] + "%")
+    
         render json: {commands: @commands ,success: true}
+
+    elsif params[:s] == "dateReverse"
+
+        render json: {commands: @user.commands.sort_by(&:created_at).reverse, success: true}
+    elsif params[:s] == "date"
+
+        render json: {commands: @user.commands.sort_by(&:created_at), success: true} 
+    elsif params[:s] == "priceUp"
+
+        render json: {commands: @user.commands.sort_by(&:total), success: true}
+    elsif params[:s] == "priceDown"
+        
+        render json: {commands: @user.commands.sort_by(&:total).reverse, success: true}               
     else
         if @user = User.find(params[:user_id])
-            render json: {commands: @user.commands, success:true} 
+            render json: {commands: @user.commands.sort_by(&:id), success:true} 
         else
             render json: @user.errors, status: :unprocessable_entity 
         end

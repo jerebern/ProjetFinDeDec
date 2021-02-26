@@ -19,8 +19,8 @@ export class CommandApiRequestService {
   private getUrl(querry: string) {
     return '/api/' + querry + '/'
   }
-  getAllCommandFromOneUser(userID: string | null): Observable<any> {
-    return this.http.get<any>(this.getUrl("users/" + userID + "/commands")).pipe(
+  getAllCommandFromOneUser(userID: string | null, sort : string): Observable<any> {
+    return this.http.get<any>(this.getUrl("users/" + userID + "/commands") + "?s="+ sort).pipe(
       map(response => {
         if (response.success) {
           console.log("All Commands : ", response)
