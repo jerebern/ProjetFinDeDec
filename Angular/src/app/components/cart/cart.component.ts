@@ -1,3 +1,4 @@
+import { TmplAstBoundAttribute } from '@angular/compiler';
 import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -18,6 +19,7 @@ export class CartComponent implements OnInit {
 
   cartForm: FormGroup;
   searchCartProductForm: FormGroup;
+  filterCartProductForm: FormGroup;
 
   get cart() {
     return this._cart;
@@ -52,6 +54,9 @@ export class CartComponent implements OnInit {
     });
     this.searchCartProductForm = new FormGroup({
       search: new FormControl('')
+    })
+    this.filterCartProductForm = new FormGroup({
+      cash: new FormControl('[0$-25$]')
     })
   }
 
@@ -90,5 +95,41 @@ export class CartComponent implements OnInit {
         alert("ERROR!!!");
       }
     });
+  }
+
+  filterCartProduct() {
+    console.log(this.filterCartProductForm.get('cash')?.value);
+    var tempCart = this.cart;
+    let tempCartProduct: CartProduct[] = [];
+    if (this.filterCartProductForm.get('cash')?.value == '[>50$]') {
+      tempCart.cartProducts.forEach(cartProduct => {
+        if (Number(cartProduct.total_price) > 50) {
+          console.log('TROUVÉS', cartProduct);
+          tempCartProduct.push(cartProduct);
+        }
+      })
+    }
+    else if (this.filterCartProductForm.get('cash')?.value == '[25$-50$]') {
+      tempCart.cartProducts.forEach(cartProduct => {
+        if (Number(cartProduct.total_price) > 25 && Number(cartProduct.total_price) <= 50) {
+          console.log('TROUVÉS', cartProduct);
+          tempCartProduct.push(cartProduct);
+        }
+      })
+    }
+    else if (this.filterCartProductForm.get('cash')?.value == '[0$-25$]') {
+      tempCart.cartProducts.forEach(cartProduct => {
+        if (Number(cartProduct.total_price) >= 0 && Number(cartProduct.total_price) <= 25) {
+          console.log('TROUVÉS', cartProduct);
+          tempCartProduct.push(cartProduct);
+        }
+      })
+    }
+    tempCart.cartProducts = tempCartProduct;
+    console.log(tempCart);
+  }
+
+  reset() {
+    window.location.reload();
   }
 }

@@ -4,6 +4,26 @@
             class="form-control">
         <button class="btn btn-primary" type="submit">Rechercher</button>
     </form>
+    <form [formGroup]="filterCartProductForm" (ngSubmit)="filterCartProduct()">
+        <label>
+            [0$-25$]
+            <input type="radio" formControlName="cash" value="[0$-25$]" checked>
+        </label>
+        <br>
+        <label>
+            [25$-50$]
+            <input type="radio" formControlName="cash" value="[25$-50$]">
+        </label>
+        <br>
+        <label>
+            [>50$]
+            <input type="radio" formControlName="cash" value="[>50$]">
+        </label>
+        <br>
+        <button type="submit" class="btn btn-primary">Appliquer</button>
+        <br>
+        <button (click)="reset()" class="btn btn-outline-primary">Tous les produits</button>
+    </form>
 </div>
 <form [formGroup]="cartForm" (ngSubmit)="checkUp()">
     <div class="container w-100">
@@ -48,7 +68,7 @@
                 </table>
             </div>
             <div class="col col-sm-6">
-                <button class="btn btn-lg btn-success btn-block" type="submit">
+                <button [routerLink]="['/checkout']" class="btn btn-lg btn-success btn-block" type="submit">
                     Passer à la caisse
                 </button>
                 <a [routerLink]="['/products']" class="btn btn-lg btn btn-danger btn-block" role="button">

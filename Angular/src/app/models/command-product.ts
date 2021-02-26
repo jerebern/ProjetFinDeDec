@@ -2,6 +2,8 @@ import { JSONObject } from "ts-json-object"
 import { Product } from "./product.model"
 
 export class CommandProduct extends JSONObject {
+    id !: number
+
     quantity !: number
 
     total_price !: number
@@ -9,4 +11,6 @@ export class CommandProduct extends JSONObject {
     unit_price !: number
 
     product_id !: number
+
+    command_id !: number
 }
