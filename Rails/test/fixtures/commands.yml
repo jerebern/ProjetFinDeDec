@@ -5,26 +5,111 @@
 # below each fixture, per the syntax in the comments below
 #
 one: 
- id: 1
- sub_total: 9.99
- tps: 0.5
- tvq: 1.00
- total: 11.49
- store_pickup: true
- state: En cours
- shipping_adress: Boutique Shawinigan
- user_id: 1
-# column: value
-#
-two:
- id : 2
- sub_total: 19.99
- tps: 0.75
- tvq: 1.50
- total: 17.24
- store_pickup: false
- state: Traite
- shipping_adress: 2-1903 rue Saint-Jacques Shawinigan
- user_id: 2
-# column: value
+  id: 1
+  sub_total: 9.99
+  tps: 0.5
+  tvq: 1.00
+  total: 11.49
+  store_pickup: true
+  state: En cours
+  shipping_adress: Boutique Shawinigan
+  user_id: 1
 
+two:
+  id : 2
+  sub_total: 14.99
+  tps: 0.75
+  tvq: 1.50
+  total: 17.24
+  store_pickup: false
+  state: Traite
+  shipping_adress: 1570 rue morin
+  user_id: 1
+
+three: 
+  id: 3
+  sub_total: 19.99
+  tps: 1.00
+  tvq: 1.99
+  total: 22.98
+  store_pickup: false
+  state: "Traite"
+  shipping_adress: "1570 rue morin"
+  user_id: 1
+
+four:
+  id: 4
+  sub_total: 19.99
+  tps: 0.75
+  tvq: 1.50
+  total: 17.24
+  store_pickup: false
+  state: "Traite"
+  shipping_adress: "2-1903 rue Saint-Jacques Shawinigan"
+  user_id: 2
+
+five: 
+  id: 5
+  sub_total: 19.99
+  tps: 0.75
+  tvq: 1.50
+  total: 17.24
+  store_pickup: false
+  state: "En cours"
+  shipping_adress: "2-1903 rue Saint-Jacques Shawinigan"
+  user_id: 2
+
+six:
+  id: 6
+  sub_total: 29.99
+  tps: 1.50
+  tvq: 2.99
+  total: 34.48
+  store_pickup: true
+  state: "Pret au ramassage"
+  shipping_adress: "Boutique Shawinigan"
+  user_id: 2
+
+seven:
+  id: 7
+  sub_total: 29.99
+  tps: 1.50
+  tvq: 2.99
+  total: 34.48
+  store_pickup: false
+  state: "Annule"
+  shipping_adress: "2-1903 rue Saint-Jacques Shawinigan"
+  user_id: 2
+
+eight:
+  id: 8
+  sub_total: 79.99
+  tps: 4.00
+  tvq: 7.98
+  total: 91.97
+  store_pickup: false
+  state: "Livre"
+  shipping_adress: "2-1903 rue Saint-Jacques Shawinigan"
+  user_id: 2
+
+nine:
+  id: 9
+  sub_total: 79.99
+  tps: 4.00
+  tvq: 7.98
+  total: 91.97
+  store_pickup: true
+  state: "Pret"
+  shipping_adress: "Boutique Shawinigan"
+  user_id: 2
+
+ten: 
+  id: 10
+  sub_total: 79.99
+  tps: 4.00
+  tvq: 7.98
+  total: 91.97
+  store_pickup: false
+  state: "Livre"
+  shipping_adress: "2-1903 rue Saint-Jacques Shawinigan"
+  user_id: 2
