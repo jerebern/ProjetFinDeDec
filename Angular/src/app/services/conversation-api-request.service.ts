@@ -40,10 +40,10 @@ export class ConversationApiRequestService {
   getConversation(userID: string | null, conversationID: string): Observable<any>{
     return this.http.get<any>(this.getUrl("users/" + userID + "/conversations/" + conversationID)).pipe(
       map(response => {
-        if(response){
+        if(response.success){
           console.log("GetConversation: ", response);
-          this._currentConversation = response[0];
-          return true;
+          this._currentConversation = response.conversation;
+          return response;
         }
         else{
           console.log("GetConversation: ", response);
@@ -60,12 +60,12 @@ export class ConversationApiRequestService {
   getConversationsAdmin(userID: string | null){
       return this.http.get<any>(this.getUrl("users/" + userID + "/conversations")).pipe(
         map(response => {
-          if(response){
+          if(response.success){
             console.log("GetConversationAdmin: ", response);
-            this.allConversations = response;
+            this.allConversations = response.conversations;
             console.log("AllConversations: ", this.allConversations);
 
-            return true;
+            return response;
           }
           else{
             console.log("GetConversationAdmin: ", response);
@@ -92,9 +92,9 @@ export class ConversationApiRequestService {
   createConversation(userID: string | null, conversation: Conversation): Observable<any>{
     return this.http.post<any>(this.getUrl("users/" + userID + "/conversations"), conversation).pipe(
       map(response => {
-        if(response){
+        if(response.success){
           console.log("CreateConversation: ", response);
-          return true;
+          return response;
         }
         else{
           console.log("CreateConversation: ", response);
@@ -111,9 +111,9 @@ export class ConversationApiRequestService {
   deleteConversation(userID: string | null, conversationId: string): Observable<any> {
     return this.http.delete<any>(this.getUrl("users/" + userID + "/conversations/" + conversationId)).pipe(
       map(response => {
-        if (response) {
+        if (response.success) {
           console.log("DeleteConversation: ", response)
-          return true;
+          return response;
         }
         else {
           console.log("DeleteConversation: ", response);
