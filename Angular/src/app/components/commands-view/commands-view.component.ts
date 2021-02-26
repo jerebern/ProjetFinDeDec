@@ -1,5 +1,6 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Command } from 'src/app/models/command.model';
 import { AuthService } from 'src/app/services/auth.services';
@@ -18,11 +19,21 @@ export class CommandsViewComponent implements OnInit {
   sortUnit : string = "priceUnitDown"
   sortQuantity : string = "quantityUp"
   sortTotalPrice : string = "priceTotalUp"
-  
+  searchCommandForm: FormGroup;
   constructor(private apiRequestService: CommandApiRequestService, private authService: AuthService, private route: ActivatedRoute, private router: Router, private apiCommandProductService : CommandProductApiRequestService) {
     this.currentCommand = new Command();
+    this.searchCommandForm = new FormGroup({
+      search: new FormControl('')
+    })
   }
-
+  searchCommand(){
+    let querry = this.searchCommandForm.get('search')?.value
+    if(this.authService.currentUser){
+      this.apiCommandProductService.searchCommandProduct(this.authService.currentUser.id.toString(),this.currentCommand.id.toString(),querry).subscribe(success =>{
+        this.currentCommand.command_products = success
+    })
+  }
+}
   sortByUnitPrice(){
     if(this.sortUnit==  "priceUnitDown"){
       this.sortUnit = "priceUnitlUp"

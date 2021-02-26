@@ -2,12 +2,18 @@
     <div class="float-xl-left">
         <p>TODO photo a mettre ici je sais pas comment :(</p>
     </div>
-
-    <br>
-    <br>
-    <br>
-    <br>
     <div>
+        <div class="float-xl-right">
+            <form [formGroup]="searchCommandForm" (ngSubmit)="searchCommand()">
+                <input formControlName="search" placeholder="Entrer etat" type="text" class="form-control">
+                <button class="btn btn-primary" type="submit">Rechercher</button>
+            </form>
+        </div>
+    <br>
+    <br>
+    <br>
+    <br>
+
         <div class="float-xl-left">
             <div class="float-xl-right">
                 <table class="table table-bordered table-responsive-xl">

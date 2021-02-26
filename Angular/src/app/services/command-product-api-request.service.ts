@@ -11,6 +11,14 @@ export class CommandProductApiRequestService {
   getURL(userID : string, commandID : string, command_productsID : string){
     return "/api/users/"+userID+"/commands/"+commandID+"/command_products/"+command_productsID
   }
+  searchCommandProduct(userID : string, commandID : string, querry : string ){
+    return this.http.get<any>("/api/users/"+userID+"/commands/"+commandID+"/command_products/"+"?q="+querry).pipe(
+      map(response => { 
+          return response.command_products
+        
+      })
+    )
+  }
   getCommandProduct(userID : string, commandID : string, sort : string){
     return this.http.get<any>("/api/users/"+userID+"/commands/"+commandID+"/command_products/"+"?s="+sort).pipe(
       map(response => { 

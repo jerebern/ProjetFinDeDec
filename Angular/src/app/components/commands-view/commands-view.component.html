@@ -25,7 +25,14 @@
 <br>
 <br>
 <br> 
-<br>
+<br><br>
+<div>
+  <div class="float-xl-right">
+      <form [formGroup]="searchCommandForm" (ngSubmit)="searchCommand()">
+          <input formControlName="search" placeholder="Entrer ID" type="text" class="form-control">
+          <button class="btn btn-primary" type="submit">Rechercher</button>
+      </form>
+  </div>
 <div>
 <div class="float-xl-left">
   <table class="table table-bordered table-responsive-xl">

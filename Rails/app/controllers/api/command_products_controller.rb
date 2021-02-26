@@ -6,7 +6,9 @@ def index
 
     if params[:q]
     
-    #todo
+        @commandsProduct=  @command.command_products.where("product_id LIKE ?","%" +params[:q]+"%")
+    
+        render json: {command_products: @commandsProduct ,success: true}
     elsif params[:s] == "priceTotalUp"
         render json: {command_products: @command.command_products.sort_by(&:total_price), succes: true}
     
