@@ -1,8 +1,34 @@
 class Api::CommandProductsController < ApplicationController
 before_action :authenticate_user!, :is_currentUser?
 def index
+
     @command = Command.find(params[:command_id])
-    render json: {command_products: @command.command_products, succes: true}
+
+    if params[:q]
+    
+    #todo
+    elsif params[:s] == "priceTotalUp"
+        render json: {command_products: @command.command_products.sort_by(&:total_price), succes: true}
+    
+    elsif params[:s] == "priceTotalDown"
+        render json: {command_products: @command.command_products.sort_by(&:total_price).reverse, succes: true}
+   
+    elsif params[:s] == "priceUnitlUp"
+        render json: {command_products: @command.command_products.sort_by(&:unit_price), succes: true}
+    
+    elsif params[:s] == "priceUnitDown"
+        render json: {command_products: @command.command_products.sort_by(&:unit_price).reverse, succes: true}
+
+    elsif params[:s] == "quantityUp"
+        render json: {command_products: @command.command_products.sort_by(&:quantity), succes: true}
+    
+    elsif params[:s] == "quantityDown"
+       
+        render json: {command_products: @command.command_products.sort_by(&:quantity).reverse, succes: true}
+    else
+        render json: {command_products: @command.command_products, succes: true}
+
+    end
 end
 def destroy
     @command = Command.find(params[:command_id])
@@ -23,6 +49,12 @@ def destroy
         render json: {succes: false}
     end
 end
+
+def update
+    @command = Command.find(params[:command_id])
+    
+end
+
 private 
 def is_currentUser?
     unless current_user.id == params[:user_id].to_i || current_user.is_admin == true
