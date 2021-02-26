@@ -19,6 +19,14 @@ export class CommandProductApiRequestService {
       })
     )
   }
+  updateCommandProduct(userID : string, commandID : string, command_productsID : string){
+    return this.http.patch<any>(this.getURL(userID, commandID, command_productsID),"").pipe(
+      map(response => {
+        return response.command
+
+      })
+    )
+  }
  deleteCommandProduct(userID : string, commandID : string, command_productsID : string){
    console.log("test:",this.getURL(userID, commandID, command_productsID))
   return this.http.delete<any>(this.getURL(userID, commandID, command_productsID)).pipe(

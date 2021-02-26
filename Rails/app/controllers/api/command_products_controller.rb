@@ -51,8 +51,18 @@ def destroy
 end
 
 def update
+
+    #demo pour la presentation a moment donner faut livrer :(
     @command = Command.find(params[:command_id])
-    
+    @command.command_products.find(params[:id]).quantity =+ 1
+    @command.command_products.find(params[:id]).total_price = @command.command_products.find(params[:id]).total_price + @command.command_products.find(params[:id]).unit_price
+    @command.sub_total = @command.sub_total + @command.command_products.find(params[:id]).unit_price
+    @command.tps = @command.sub_total * CurrentTax.find(1).tps
+    @command.tvq = @command.sub_total * CurrentTax.find(1).tvq
+    @command.total = (1 + (CurrentTax.find(1).tps + CurrentTax.find(1).tvq)) * @command.sub_total
+    ##TODO vefifier la quantite en inventaire avant incrementation
+    @command.save
+    render json:{command: @command, succes:true}
 end
 
 private 
