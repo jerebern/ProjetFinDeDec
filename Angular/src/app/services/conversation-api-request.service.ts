@@ -43,7 +43,7 @@ export class ConversationApiRequestService {
         if(response.success){
           console.log("GetConversation: ", response);
           this._currentConversation = response.conversation;
-          return response;
+          return true;
         }
         else{
           console.log("GetConversation: ", response);
@@ -65,7 +65,7 @@ export class ConversationApiRequestService {
             this.allConversations = response.conversations;
             console.log("AllConversations: ", this.allConversations);
 
-            return response;
+            return true;
           }
           else{
             console.log("GetConversationAdmin: ", response);
@@ -94,7 +94,7 @@ export class ConversationApiRequestService {
       map(response => {
         if(response.success){
           console.log("CreateConversation: ", response);
-          return response;
+          return true;
         }
         else{
           console.log("CreateConversation: ", response);
@@ -113,7 +113,7 @@ export class ConversationApiRequestService {
       map(response => {
         if (response.success) {
           console.log("DeleteConversation: ", response)
-          return response;
+          return true;
         }
         else {
           console.log("DeleteConversation: ", response);
