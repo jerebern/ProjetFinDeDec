@@ -42,7 +42,7 @@ export class ConversationApiRequestService {
       map(response => {
         if(response){
           console.log("GetConversation: ", response);
-          this._currentConversation = response;
+          this._currentConversation = response[0];
           return true;
         }
         else{

@@ -32,24 +32,25 @@ export class ConversationComponent implements OnInit {
 
   getMessages(){
     if(this.conversation){
-      console.log("ConversationUserID: ", this.conversation.user_id);
+      console.log("ConversationID: ", this.conversation.id);
 
-      this.messageService.getAllMessages(this.conversation.user_id?.toString()).subscribe(success => {
+      this.messageService.getAllMessages(this.conversation.id?.toString()).subscribe(success => {
         if(success){
-          this.messagesTemp = this.messageService.getMessages();
-          console.log("MessageTemp.length: ", this.messagesTemp.length);
-          if(this.messages.length >= 0){
+          if(this.authService.currentUser?.is_admin){
+            this.messagesTemp = this.messageService.getMessages();
+
             this.messages = [];
-          }
-          for(var i = 0; i < this.messagesTemp.length; i++)
-          {
-            console.log("this.messagesTemp[i].conversation_id: ", this.messagesTemp[i].conversation_id);
-            console.log("this.conversation.id: ", this.conversation.id);
-            if(this.messagesTemp[i].conversation_id == this.conversation.id){
-              this.messages.push(this.messagesTemp[i]);
+
+            for(var i = 0; i < this.messagesTemp.length; i++){
+              if(this.messagesTemp[i].conversation_id == this.conversation.id){
+                this.messages.push(this.messagesTemp[i]);
+              }
             }
+          }else{
+            this.messages = this.messageService.getMessages();
+            console.log("Messages.length: ", this.messages.length);
+            console.log("AllMessages: ", this.messages);
           }
-          console.log("AllMessages: ", this.messages);
         }
       })
     }
@@ -71,6 +72,7 @@ export class ConversationComponent implements OnInit {
       this.messageService.createMessage(this.conversation.user_id?.toString(), newMessage).subscribe(success => {
         if(success){
           console.log("Success: ", success);
+          this.conversation;
           this.getMessages();
         }
       })

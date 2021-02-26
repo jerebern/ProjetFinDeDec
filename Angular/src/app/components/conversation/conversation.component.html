@@ -14,7 +14,7 @@
 
         <div class="form-row" style="width: 100%">
 
-          <div class="form-group" style="width: 80%;">
+          <div class="form-group" style="width: 85%;">
             <input formControlName="message"
             [class.is-invalid]="messageForm.get('message')?.errors && messageForm.get('message')?.dirty && messageForm.get('message')?.touched"
             type="text" placeholder="Entrer votre message..." class="form-control" style="width: 100%">
@@ -24,7 +24,7 @@
           </div>
 
           <div class="form-group" style="width: 13%; margin-left: 2px;">
-            <button class="btn btn-primary" type="submit">Envoyer</button>
+            <button class="btn btn-primary" type="submit"><i class="fa fa-paper-plane"></i></button>
           </div>
         </div>
 

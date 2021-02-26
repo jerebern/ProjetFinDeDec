@@ -52,7 +52,6 @@ export class MessageApiRequestService {
           return true;
         }
         else{
-          console.log("CreateMessage: ", response);
           return false;
         }
       }),
