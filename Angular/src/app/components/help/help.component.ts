@@ -12,7 +12,6 @@ import { ConversationApiRequestService } from 'src/app/services/conversation-api
 })
 export class HelpComponent implements OnInit {
 
-  private conversations: Conversation[] = [];
   private userConversation: Conversation;
 
   conversationForm: FormGroup;
@@ -27,27 +26,25 @@ export class HelpComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getConversations();
+    this.getConversation();
   }
 
   hasMessage(){
-    for(var i = 0; i < this.conversations.length; i ++){
-      if(this.conversations[i].user_id == this.authService.currentUser?.id){
-        this.conversationService.setCurrentConversation(this.conversations[i]);
-        this.userConversation = this.conversationService.currentConversation;
-        return true;
-      }
+    if(this.userConversation)
+    {
+      return true;
+    }else{
+      return false;
     }
-    return false;
   }
 
-  getConversations(){
+  getConversation(){
     if(this.authService.currentUser)
     {
-      this.conversationService.getConversationsAdmin(this.authService.currentUser.id.toString()).subscribe(success => {
+      this.conversationService.getConversation(this.authService.currentUser.id.toString(), "1").subscribe(success => {
         if(success){
-          this.conversations = this.conversationService.getConversations();
-          console.log("Conversations: ", this.conversations);
+          this.userConversation = this.conversationService.currentConversation;
+          console.log("userConversation: ", this.userConversation);
         }
       })
     }
@@ -65,6 +62,6 @@ export class HelpComponent implements OnInit {
   }
 
   message(){
-    this.router.navigate(['conversation/' + this.userConversation?.id]);
+    this.router.navigate(['conversation/' + this.userConversation.id]);
   }
 }
