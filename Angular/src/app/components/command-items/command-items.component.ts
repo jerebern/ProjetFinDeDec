@@ -12,16 +12,10 @@ import { ProductApiRequestService } from 'src/app/services/product-api-request.s
   styleUrls: ['./command-items.component.css']
 })
 export class CommandItemsComponent implements OnInit {
-<<<<<<< HEAD
   @Input() commandProduct!: CommandProduct ;
   @Input() userID!: number ;
   product !: Product
   constructor(private apiProductService : ProductApiRequestService, private commandProductApiService  : CommandProductApiRequestService ,private router : Router ) { 
-=======
-  @Input() commandProduct!: CommandProduct;
-  product !: Product
-  constructor(private apiProductService: ProductApiRequestService, private router: Router) {
->>>>>>> 6fc73c378e39ca27d0cf353f00fd0cd0d682635a
 
 
   }
