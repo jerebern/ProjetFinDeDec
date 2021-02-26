@@ -10,17 +10,17 @@ import { ProductApiRequestService } from 'src/app/services/product-api-request.s
   styleUrls: ['./command-items.component.css']
 })
 export class CommandItemsComponent implements OnInit {
-  @Input() commandProduct!: CommandProduct ;
+  @Input() commandProduct!: CommandProduct;
   product !: Product
-  constructor(private apiProductService : ProductApiRequestService, private router : Router ) { 
+  constructor(private apiProductService: ProductApiRequestService, private router: Router) {
 
 
   }
 
   ngOnInit(): void {
-     this.apiProductService.showProduct(this.commandProduct.product_id).subscribe(result=>{
+    this.apiProductService.showProduct(this.commandProduct.product_id).subscribe(result => {
       this.product = result
-    
+
     })
   }
   loadProduct(id: number) {
