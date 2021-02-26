@@ -2,11 +2,19 @@ class Api::CartsController < ApplicationController
     before_action :is_currentUser?, :authenticate_user!
 
     def index
-        @user = current_user
-        @cart = @user.cart
-        render json: { cart: @cart.as_json.merge({ cartProducts: @cart.cart_products.map{ |cartProduct|
-        cartProduct.as_json.merge({ products: @cart.products.where("product_id LIKE ?", "%" + cartProduct.product_id.to_s + "%").as_json })
-        }}), success: true }
+        if params[:q]
+            @user = current_user
+            @cart = @user.cart
+            render json: { cart: @cart.as_json.merge({ cartProducts: @cart.cart_products.map{ |cartProduct|
+            cartProduct.as_json.merge({ products: @cart.products.where("product_id LIKE ?", "%" + cartProduct.product_id.to_s + "%").where("description LIKE ?", "%" + params[:q] + "%").as_json })
+            }}), success: true }
+        else
+            @user = current_user
+            @cart = @user.cart
+            render json: { cart: @cart.as_json.merge({ cartProducts: @cart.cart_products.map{ |cartProduct|
+            cartProduct.as_json.merge({ products: @cart.products.where("product_id LIKE ?", "%" + cartProduct.product_id.to_s + "%").as_json })
+            }}), success: true }
+        end
     rescue => e
         render json: { success: false, error: [e] }
     end

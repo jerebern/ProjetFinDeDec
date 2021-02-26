@@ -9,7 +9,7 @@ class Api::MessagesController < ApplicationController
 
     def show
         @user = User.find(params[:user_id])
-        if @message = @user.conversation.messages.find(params[:id])
+        if @message = @user.message.find(params[:id])
             render json: @message
         else
             render json: @message.errors, status: :unprocessable_entity
