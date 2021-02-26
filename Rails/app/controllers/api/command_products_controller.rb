@@ -5,8 +5,20 @@ def index
     render json: {command_products: @command.command_products, succes: true}
 end
 def destroy
-    if Command.find(params[:command_id]).command_products.find(params[:id]).destroy
-        render json: {succes: true}
+    @command = Command.find(params[:command_id])
+    @command.sub_total = @command.sub_total - @command.command_products.find(params[:id]).total_price
+    @command.tps = @command.sub_total * CurrentTax.find(1).tps
+    @command.tvq = @command.sub_total * CurrentTax.find(1).tvq
+    @command.total = (1 + (CurrentTax.find(1).tps + CurrentTax.find(1).tvq)) * @command.sub_total
+    if @command.command_products.find(params[:id]).destroy
+        if @command.command_products.count == 0
+            @command.destroy
+            render json: {command: "destroy", succes: true}
+
+        else 
+            @command.save
+            render json: {succes: true}
+        end
     else
         render json: {succes: false}
     end

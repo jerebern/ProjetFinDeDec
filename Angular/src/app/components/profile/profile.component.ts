@@ -71,12 +71,6 @@ export class ProfileComponent implements OnInit {
       })
     }
 
-    // 
-    // console.log(querry)
-    // this.userCommands = this.userCommands.filter((element) => {
-    //   return element.state.includes(querry)
-    // })
-    // console.log(this.userCommands)
   }
   loadCommand(id: number) {
     this.router.navigate(['/commands/' + id])

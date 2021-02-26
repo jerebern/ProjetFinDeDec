@@ -1,6 +1,8 @@
 <td>
-    <a href="products/{{product.id}}">{{ product.title }}</a>
 
+    <a href="products/{{product.id}}">{{ product.title }}</a>
+    <button (click)="deleteProduct()" class="btn btn-outline-danger"><i class="fa fa-trash"></i>
+    </button>
 </td>
 <td class="text-right">
     {{ commandProduct.unit_price }}$
