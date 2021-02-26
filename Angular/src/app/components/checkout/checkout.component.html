@@ -24,20 +24,10 @@
                     </thead>
                     <tbody>
                         <tr>
-                         <tr *ngFor="let cartProduct of this.cart.cartProducts" class="text-center" app-command-items
+                         <tr *ngFor="let cartProduct of this.cart.cartProducts" class="text-center" app-checkout-items
                             [cartProduct]="cartProduct"> 
                         </tr>
                     </tbody>
-                    <!-- <thead style=" background-color: white; text-align: center;">
-                        <tr class="text-center">
-                            <th colspan="3">
-                                Prix Total :
-                            </th>
-                            <th class="text-right">
-                              {{ cart.sub_total }}$ 
-                            </th>
-                        </tr>
-                    </thead> -->
                 </table>
             </div>
         <div class="row d-flex justify-content-center">
