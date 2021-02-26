@@ -1,14 +1,24 @@
 class Api::MessagesController < ApplicationController
     def index 
-        if @messages = Message.all
-            render json: @messages
+        if is_admin
+            @user = current_user
+            if @messages = Message.all
+                render json: @messages
+            else
+                render json: @messages.errors, status: :unprocessable_entity
+            end
         else
-            render json: @messages.errors, status: :unprocessable_entity
+            @user = current_user
+            if @messages = @user.conversation.last.messages
+                render json: @messages
+            else
+                render json: @messages.errors, status: :unprocessable_entity
+            end
         end
     end
 
     def show
-        @user = User.find(params[:user_id])
+        @user = current_user
         if @message = @user.message.find(params[:id])
             render json: @message
         else
@@ -17,17 +27,26 @@ class Api::MessagesController < ApplicationController
     end
 
     def create
-        @user = User.find(params[:user_id])
-        @message = @user.conversation.last.messages.create(message_params)
-        if @message.save
-            render json: @message
+        if is_admin
+            @message = Message.create(message_params)
+            if @message.save
+                render json: @message
+            else
+                render json: @message.errors, status: :unprocessable_entity
+            end
         else
-            render json: @message.errors, status: :unprocessable_entity
+            @user = current_user
+            @message = @user.conversation.last.messages.create(message_params)
+            if @message.save
+                render json: @message
+            else
+                render json: @message.errors, status: :unprocessable_entity
+            end
         end
     end
 
     def update
-        @user. User.find(params[:user_id])
+        @user. current_user
         @message = @user.conversation.messages.find(params[:id])
         if @message.update(message_params)
             render json: @message

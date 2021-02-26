@@ -1,15 +1,17 @@
 class Api::ConversationsController < ApplicationController
     def index 
-        if @conversations = Conversation.all
-            render json: @conversations
-        else
-            render json: @conversations.errors, status: :unprocessable_entity
+        if is_admin
+            if @conversations = Conversation.all
+                render json: @conversations
+            else
+                render json: @conversations.errors, status: :unprocessable_entity
+            end
         end
     end
 
     def show
-        @user = User.find(params[:user_id])
-        if @conversation = @user.conversation.find(params[:id])
+        @user = current_user
+        if @conversation = @user.conversation
             render json: @conversation
         else
             render json: @conversation.errors, status: :unprocessable_entity
@@ -17,7 +19,7 @@ class Api::ConversationsController < ApplicationController
     end
 
     def create
-        @user = User.find(params[:user_id])
+        @user = current_user
         @conversation = @user.conversation.create(conversation_params)
         if @conversation.save
             render json: @conversation
