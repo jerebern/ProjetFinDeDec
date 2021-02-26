@@ -16,6 +16,9 @@ export class ProfileComponent implements OnInit {
   userCommands: Command[] = []
   currentUser: User
   sortMode: string = "lowTotal"
+  sortDateMode : string = "date"
+  sortPriceMode : string = "priceUp"
+
   searchCommandForm: FormGroup;
   constructor(private authService: AuthService, private commandApiRequestService: CommandApiRequestService, private router: Router) {
     this.currentUser = new User;
@@ -24,25 +27,57 @@ export class ProfileComponent implements OnInit {
     })
 
   }
-  sortBy() {
-
-    switch (this.sortMode) {
-      case "lowTotal":
-        this.sortMode = "highTotal"
-        console.log("Sort");
-        break;
-      case "highTotal":
-        this.sortMode = "lowTotal"
-        console.log("Sort");
-        break;
-    }
-    this.userCommands = this.commandApiRequestService.getcurrentCommands(this.sortMode)
+  sortByID(){
+    this.loadCommandList("")
   }
+
+  sortByPrice(){
+
+    if(this.sortPriceMode == "priceUp"){
+      this.sortPriceMode= "priceDown"
+    }
+    else{
+      this.sortPriceMode = "priceUp"
+    }
+    this.loadCommandList(this.sortPriceMode)
+
+  }
+
+  sortBydate() {
+
+    if(this.sortDateMode == "date"){
+      this.sortDateMode = "dateReverse"
+    }
+    else{
+      this.sortDateMode = "date"
+    }
+    this.loadCommandList(this.sortDateMode)
+
+    
+  }
+  loadCommandList(mode : string){
+    if (this.authService.currentUser != null) {
+      console.log("Current User : ", this.authService.currentUser)
+      this.currentUser = this.authService.currentUser;
+      this.commandApiRequestService.getAllCommandFromOneUser(this.authService.currentUser.id.toString(),mode).subscribe(success => {
+        if (success) {
+          console.log("OK")
+          this.userCommands = this.commandApiRequestService.getcurrentCommands("")
+        }
+        else {
+          console.log("ERROR")
+          alert("ERROR!!!");
+        }
+      })
+    }
+
+  }
+
   ngOnInit(): void {
     if (this.authService.currentUser != null) {
       console.log("Current User : ", this.authService.currentUser)
       this.currentUser = this.authService.currentUser;
-      this.commandApiRequestService.getAllCommandFromOneUser(this.authService.currentUser.id.toString()).subscribe(success => {
+      this.commandApiRequestService.getAllCommandFromOneUser(this.authService.currentUser.id.toString(),"").subscribe(success => {
         if (success) {
           console.log("OK")
           this.userCommands = this.commandApiRequestService.getcurrentCommands("")
