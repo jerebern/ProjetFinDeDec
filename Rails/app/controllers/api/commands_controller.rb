@@ -6,7 +6,7 @@ class Api::CommandsController < ApplicationController
     
         @commands =  @user.commands.where("state LIKE ?", "%" + params[:q] + "%")
       
-        render json: {commands: @commands, success: true}
+        render json: {commands: @commands ,success: true}
     else
         if @user = User.find(params[:user_id])
             render json: {commands: @user.commands, success:true} 
@@ -53,7 +53,7 @@ class Api::CommandsController < ApplicationController
 
         @user = User.find(params[:user_id])
         if @command = @user.commands.find(params[:id])
-            render json: {command: @command, success: true}
+            render json: {command: @command, command_products: @command.command_products ,success: true}
         else
             render json: @command.errors, status: :unprocessable_entity, success:false
         end

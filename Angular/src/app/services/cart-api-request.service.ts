@@ -12,6 +12,12 @@ import { AuthService } from './auth.services';
 })
 export class CartApiRequestService {
   private readonly SORT_KEY = 'jfj.sort';
+  private readonly CART_PRODUCT_KEY = 'jfj.cart_product'
+  private readonly SEARCH_CART_KEY = 'jfj.cart_product.search'
+  private _searchCartProduct: string = "";
+  get searchParams(): string {
+    return this._searchCartProduct;
+  }
   private _cart: Cart | null = null;
   private _sort: string = "CTotal"
 
@@ -71,8 +77,18 @@ export class CartApiRequestService {
     return this.http.get<any>(this.getUrl("users/" + this.authService.currentUser?.id + "/carts.json")).pipe(
       map(response => {
         if (response.success) {
-          console.log("Cart : ", response);
-          this._cart = response.cart;
+          if (localStorage.getItem(this.SEARCH_CART_KEY) != "") {
+            response.cart.cartProduct = localStorage.getItem(this.CART_PRODUCT_KEY);
+            console.log("Cart test : ", localStorage.getItem(this.CART_PRODUCT_KEY)?.toString());
+            let temp = response.cart;
+            temp.cartProducts = JSON.parse(localStorage.getItem(this.CART_PRODUCT_KEY)!);
+            this._cart = temp;
+            localStorage.setItem(this.SEARCH_CART_KEY, "");
+          }
+          else {
+            this._cart = response.cart;
+          }
+          console.log("Cart : ", this._cart);
           return response.success;
         }
         else {
@@ -134,5 +150,42 @@ export class CartApiRequestService {
 
   setSort(sort: string) {
     localStorage.setItem(this.SORT_KEY, sort);
+  }
+
+  generateJSONforSearch(querry: string) {
+    console.log(querry)
+    return {
+      "q": querry
+    }
+  }
+
+  searchCartProduct(searchParams: string) {
+    console.log(this.generateJSONforSearch(searchParams))
+    return this.http.get<any>(this.getUrl("users/" + this.authService.currentUser?.id + "/carts.json") + "?q=" + searchParams).pipe(
+      map(response => {
+        if (response.success) {
+          console.log("Search Cart Products : ", response);
+          this._searchCartProduct = searchParams;
+          let cart_products: CartProduct[] = [];
+          response.cart.cartProducts.forEach((cart_product: { products: string | any[]; }) => {
+            if (cart_product.products.length >= 1) {
+              cart_products.push(cart_product as CartProduct);
+            }
+          });
+          localStorage.setItem(this.CART_PRODUCT_KEY, JSON.stringify(cart_products));
+          localStorage.setItem(this.SEARCH_CART_KEY, this._searchCartProduct);
+          return true;
+        }
+        else {
+          console.log(response);
+          return false;
+        }
+      }),
+      catchError(error => {
+        console.log('Error', error);
+
+        return of(null);
+      })
+    )
   }
 }

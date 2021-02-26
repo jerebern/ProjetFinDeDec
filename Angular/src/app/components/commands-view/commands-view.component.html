@@ -55,16 +55,19 @@
   <div>
     <table class="table table-bordered table-responsive-xl">
       <thead style="background-color: aliceblue; text-align: center;">
-         <th scope="row" colspan="3"> Produits </th>
+         <th scope="row" colspan="4"> Produits </th>
          <tr>
          <th scope="row" colspan="1"> Produit </th>
          <th scope="row" colspan="1"> Prix unitaire </th>
+         <th scope="row" colspan="1"> Quantité </th>
          <th scope="row" colspan="1"> Total </th>
         </tr>
          
       </thead>
       <tbody>
-         <td> todo semaine</td>
+          <tr *ngFor="let commandProduct of this.currentCommand.command_products" class="text-center" app-command-items
+             [commandProduct]="commandProduct"> 
+         </tr>
       </table>  
 </div>
 </div>

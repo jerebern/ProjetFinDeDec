@@ -13,6 +13,7 @@ import { CommandApiRequestService } from 'src/app/services/command-api-request.s
 export class CommandsViewComponent implements OnInit {
 
   currentCommand: Command;
+  
   constructor(private apiRequestService: CommandApiRequestService, private authService: AuthService, private route: ActivatedRoute, private router: Router) {
     this.currentCommand = new Command();
   }

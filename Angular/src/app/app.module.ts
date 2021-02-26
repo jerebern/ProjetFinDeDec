@@ -26,6 +26,7 @@ import { AdminListItemComponent } from './components/admin-list-item/admin-list-
 import { CartListItemComponent } from './components/cart-list-item/cart-list-item.component';
 import { ConversationListItemComponent } from './components/conversation-list-item/conversation-list-item.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { CommandItemsComponent } from './components/command-items/command-items.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     CartListItemComponent,
     ConversationListItemComponent,
     CheckoutComponent,
+    CommandItemsComponent,
 
   ],
   imports: [
