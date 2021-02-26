@@ -20,22 +20,30 @@ class Api::ConversationsController < ApplicationController
 
     def create
         @user = current_user
-        @conversation = @user.conversation.create(conversation_params)
-        if @conversation.save
-            render json: {conversation: @conversation, success: true}
-        else
+        if @conversation = @user.conversation.last
             render json: {success: false, error: [@conversation.errors]}
+        else
+            @conversation = @user.conversation.create(conversation_params)
+            if @conversation.save
+                render json: {conversation: @conversation, success: true}
+            else
+                render json: {success: false, error: [@conversation.errors]}
+            end
         end
     end
 
     def update
-        @user = User.find(params[:user_id])
+        @user = current_user
         @conversation = @user.conversation.find(params[:id])
-        if @conversation.update(conversation_params)
-            render json: {conversation: @conversation, success: true}
+        if @conversation.user_id != @user.id
+            redirect_to ''
         else
-            render json: {success: false, error: [@conversation.errors]}
-        end   
+            if @conversation.update(conversation_params)
+                render json: {conversation: @conversation, success: true}
+            else
+                render json: {success: false, error: [@conversation.errors]}
+            end
+        end  
     end
 
     def destroy

@@ -27,7 +27,7 @@ export class MessageApiRequestService {
         if(response.success){
           console.log("GetAllMessages: ", response);
           this.allMessages = response.messages;
-          return response;
+          return true;
         }else{
           console.log("GetAllMessages: ", response);
           return false;
@@ -49,7 +49,7 @@ export class MessageApiRequestService {
       map(response => {
         if(response.success){
           console.log("CreateMessage: ", response);
-          return response;
+          return true;
         }
         else{
           return false;

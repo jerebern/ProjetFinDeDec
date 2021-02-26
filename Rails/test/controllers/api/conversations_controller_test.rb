@@ -10,7 +10,7 @@ class Api::ConversationsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "if current_is_not_admin should return nil" do
+  test "if current_user_is_not_admin should return nil" do
     post "/users/sign_in", params: {user: {email: "felixcm1129@hotmail.ca", password: "123456"}}
     get "/api/users/1/conversations"
     conversations = response.parsed_body["conversations"]
@@ -26,42 +26,59 @@ class Api::ConversationsControllerTest < ActionDispatch::IntegrationTest
     assert_equal(1, conversation.count)
   end
 
-  test "can't get conversation if user doesn't have any" do
+  test "can't get conversation if user doesn't have any should return nil" do
     post "/users/sign_in", params: {user: {email: "johnDoe@hotmail.ca", password: "123456"}}
     get "/api/users/5/conversations"
     assert_nil(response.parsed_body["success"])
   end
 
   #create
-  test "can create conversation" do
+  test "normal user can create conversation if he doesn't have any" do
     post "/users/sign_in", params: {user: {email: "johnDoe@hotmail.ca", password: "123456"}}
-    post "/api/users/3/conversations", params: {conversation: {title: "Rails test", description: "Conversation créer dans Rails Test", email_user: "jevei@hotmail.com", user_id: 3}}
+    post "/api/users/5/conversations", params: {conversation: {title: "Rails test", description: "Conversation créer dans Rails Test", email_user: "jevei@hotmail.com", user_id: 3}}
       conversations = Conversation.new(response.parsed_body["conversation"])
       assert_equal(Conversation.last, conversations)
       assert_response :success
   end
 
+  test "normal user can't have more than one conversation" do
+    post "/users/sign_in", params: {user: {email: "jevei@hotmail.com", password: "123456"}}
+    assert_difference "Conversation.count", 0 do
+      post "/api/users/3/conversations", params: {conversation: {title: "Rails test", description: "Conversation créer dans Rails Test", email_user: "jevei@hotmail.com", user_id: 3}}
+        conversations = Conversation.new(response.parsed_body["conversation"])
+        assert_response :success
+    end
+  end
+
   test "can't create conversation without title" do
-    post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
-    post "/api/users/3/conversations", params: {conversation: {title: "", description: "Conversation créer dans Rails Test", email_user: "jevei@hotmail.com", user_id: 3}}
+    post "/users/sign_in", params: {user: {email: "johnDoe@hotmail.ca", password: "123456"}}
+    post "/api/users/5/conversations", params: {conversation: {title: "", description: "Conversation créer dans Rails Test", email_user: "jevei@hotmail.com", user_id: 3}}
       assert_equal({"success"=>false, "error"=>[{"title"=>["can't be blank"]}]}, response.parsed_body)
       assert_equal(false, response.parsed_body["success"])
   end
 
   test "can't create conversation without description" do
-    post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
-    post "/api/users/3/conversations", params: {conversation: {title: "Rails Test", description: "", email_user: "jevei@hotmail.com", user_id: 3}}
+    post "/users/sign_in", params: {user: {email: "johnDoe@hotmail.ca", password: "123456"}}
+    post "/api/users/5/conversations", params: {conversation: {title: "Rails Test", description: "", email_user: "jevei@hotmail.com", user_id: 3}}
       assert_equal({"success"=>false, "error"=>[{"description"=>["can't be blank"]}]}, response.parsed_body)
       assert_equal(false, response.parsed_body["success"])
   end
 
   #update
-  test "can update conversation from user" do
+  test "current_user can update is own conversation" do
     post "/users/sign_in", params: {user: {email: "felixcm1129@hotmail.ca", password: "123456"}}
     patch "/api/users/4/conversations/3", params: {conversation: {title: "Hello Rails Test"}}
     conversation = Conversation.new(response.parsed_body["conversation"])
     assert_equal(Conversation.find(3), conversation)
     assert_response :success
+  end
+
+  test "current_user can't update other conversation should not find conversation" do
+    post "/users/sign_in", params: {user: {email: "felixcm1129@hotmail.ca", password: "123456"}}
+    assert_raises(ActiveRecord::RecordNotFound) do
+      patch "/api/users/4/conversations/2", params: {conversation: {title: "Hello Rails Test"}}
+      conversation = Conversation.new(response.parsed_body["conversation"])
+    end
   end
 
   test "can't update conversation if title is blank" do 
@@ -81,18 +98,18 @@ class Api::ConversationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   #delete
-  test "admin can delete conversation" do
+  test "admin can delete conversation should delete all messages from that conversation" do
     post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
     assert_difference "Conversation.count", -1 do
-      delete "/api/users/1/messages/4"
-      delete "/api/users/3/messages/3"
       delete "/api/users/1/conversations/2"
     end
   end
 
   test "normal user can't delete conversation" do
     post "/users/sign_in", params: {user: {email: "felixcm1129@hotmail.ca", password: "123456"}}
-    delete "/api/users/4/conversations/3"
-    assert_nil(response.parsed_body["success"])
+    assert_difference "Conversation.count", 0 do
+      delete "/api/users/4/conversations/3"
+      assert_nil(response.parsed_body["success"])
+    end
   end
 end
