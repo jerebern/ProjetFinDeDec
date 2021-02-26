@@ -1,3 +1,10 @@
+<div class="float-xl-right">
+    <form [formGroup]="searchCartProductForm" (ngSubmit)="searchCartProduct()">
+        <input formControlName="search" placeholder="Rechercher dans la description des produit du panier" type="text"
+            class="form-control">
+        <button class="btn btn-primary" type="submit">Rechercher</button>
+    </form>
+</div>
 <form [formGroup]="cartForm" (ngSubmit)="checkUp()">
     <div class="container w-100">
         <div class="row">

@@ -17,6 +17,7 @@ export class CartComponent implements OnInit {
   private _cart!: Cart;
 
   cartForm: FormGroup;
+  searchCartProductForm: FormGroup;
 
   get cart() {
     return this._cart;
@@ -49,6 +50,9 @@ export class CartComponent implements OnInit {
     this.cartForm = new FormGroup({
       shipping: new FormControl('0'),
     });
+    this.searchCartProductForm = new FormGroup({
+      search: new FormControl('')
+    })
   }
 
   ngOnInit(): void {
@@ -73,4 +77,18 @@ export class CartComponent implements OnInit {
     });
   }
 
+  searchCartProduct() {
+    let querry = this.searchCartProductForm.get('search')?.value
+    console.log(querry)
+    this.apiCartService.searchCartProduct(querry).subscribe(success => {
+      if (success) {
+        console.log("OK");
+        window.location.reload();
+      }
+      else {
+        console.log("ERROR", success);
+        alert("ERROR!!!");
+      }
+    });
+  }
 }
