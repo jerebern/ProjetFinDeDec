@@ -51,7 +51,7 @@ class Api::CartsController < ApplicationController
     def update
         @user = current_user
         @cart = @user.cart
-        @cart_product=@cart.cart_products.find(params[:id])
+        @cart_product = @cart.cart_products.find(params[:id])
         if @cart_product.update(cart_product_params)
             @product = Product.find(@cart_product.product_id)
             @cart_product.total_price = @product.price * @cart_product.quantity
@@ -80,14 +80,17 @@ class Api::CartsController < ApplicationController
     def destroy
         @user = current_user
         @cart = @user.cart
-        @cart_product=@cart.cart_products.find(params[:id])
+        @cart_product = @cart.cart_products.find(params[:id])
         if @cart_product.destroy
             @cart.sub_total = 0
             @cart.cart_products.each do |carpro|
                 @cart.sub_total += carpro.total_price
             end
-            @cart.save
-            render json: { cart_product: @cart_product.as_json, success: true }
+            if @cart.save
+                render json: { cart_product: @cart_product.as_json, success: true }
+            else
+                render json: { success: false, error: [@cart.errors] }
+            end
         else
             render json: { success: false, error: [@cart_product.errors] }
         end
