@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Command } from 'src/app/models/command.model';
 import { AuthService } from 'src/app/services/auth.services';
 import { CommandApiRequestService } from 'src/app/services/command-api-request.service';
+import { CommandProductApiRequestService } from 'src/app/services/command-product-api-request.service';
 
 @Component({
   selector: 'app-command',
@@ -13,9 +14,50 @@ import { CommandApiRequestService } from 'src/app/services/command-api-request.s
 export class CommandsViewComponent implements OnInit {
 
   currentCommand: Command;
+
+  sortUnit : string = "priceUnitDown"
+  sortQuantity : string = "quantityUp"
+  sortTotalPrice : string = "priceTotalUp"
   
-  constructor(private apiRequestService: CommandApiRequestService, private authService: AuthService, private route: ActivatedRoute, private router: Router) {
+  constructor(private apiRequestService: CommandApiRequestService, private authService: AuthService, private route: ActivatedRoute, private router: Router, private apiCommandProductService : CommandProductApiRequestService) {
     this.currentCommand = new Command();
+  }
+
+  sortByUnitPrice(){
+    if(this.sortUnit==  "priceUnitDown"){
+      this.sortUnit = "priceUnitlUp"
+    }
+    else{
+      this.sortUnit=  "priceUnitDown"
+    }
+    this.loadCommand_Products(this.sortUnit)
+  }
+  sortByTotalPrice(){
+    if(this.sortTotalPrice==  "priceTotalUp"){
+      this.sortTotalPrice = "priceTotalDown"
+    }
+    else{
+      this.sortTotalPrice=  "priceTotalUp"
+    }
+    this.loadCommand_Products(this.sortTotalPrice)
+  }
+  sortbyQuantity(){
+    console.log(this.sortQuantity)
+    if(this.sortQuantity==  "quantityUp"){
+      this.sortQuantity = "quantityDown"
+    }
+    else{
+      this.sortQuantity=  "quantityUp"
+    }
+    this.loadCommand_Products(this.sortQuantity)
+  }
+  loadCommand_Products(sortMode : string){
+    if (this.authService.isLoggedIn && this.authService.currentUser != null) {
+    this.apiCommandProductService.getCommandProduct(this.authService.currentUser.id.toString(),this.currentCommand.id.toString(),sortMode).subscribe(success =>{
+      this.currentCommand.command_products = success
+      console.log(this.currentCommand.command_products)
+    })
+    }
   }
 
   getCurrentCommandNumber(id: string) {

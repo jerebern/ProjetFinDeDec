@@ -11,7 +11,14 @@ export class CommandProductApiRequestService {
   getURL(userID : string, commandID : string, command_productsID : string){
     return "/api/users/"+userID+"/commands/"+commandID+"/command_products/"+command_productsID
   }
-
+  getCommandProduct(userID : string, commandID : string, sort : string){
+    return this.http.get<any>("/api/users/"+userID+"/commands/"+commandID+"/command_products/"+"?s="+sort).pipe(
+      map(response => { 
+          return response.command_products
+        
+      })
+    )
+  }
  deleteCommandProduct(userID : string, commandID : string, command_productsID : string){
    console.log("test:",this.getURL(userID, commandID, command_productsID))
   return this.http.delete<any>(this.getURL(userID, commandID, command_productsID)).pipe(

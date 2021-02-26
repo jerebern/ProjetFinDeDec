@@ -2,7 +2,7 @@ class Api::CommandsController < ApplicationController
     before_action :is_currentUser? || :is_admin?, :authenticate_user!
     def index
 
-       
+
         @user = User.find(params[:user_id])
     if params[:q]
     
