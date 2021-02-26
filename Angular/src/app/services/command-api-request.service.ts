@@ -43,8 +43,10 @@ export class CommandApiRequestService {
     return this.http.get<any>(this.getUrl("users/" + userID + "/commands/" + commandId)).pipe(
       map(response => {
         if (response.success) {
-          console.log("Command :", response)
+          console.log("Command :", response.command)
           this._currenCommand = response.command;
+          this._currenCommand.command_products = response.command_products
+
           console.log(this._currenCommand);
           return response;
         }

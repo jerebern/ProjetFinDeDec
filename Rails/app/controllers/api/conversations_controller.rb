@@ -17,7 +17,8 @@ class Api::ConversationsController < ApplicationController
     end
 
     def create
-        @conversation = current_user.conversation.new(conversation_params)
+        @user = User.find(params[:user_id])
+        @conversation = @user.conversation.create(conversation_params)
         if @conversation.save
             render json: @conversation
         else
