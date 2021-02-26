@@ -26,6 +26,19 @@ export class CartComponent implements OnInit {
     this.apiCartService.showCart().subscribe(success => {
       if (success) {
         console.log("OK", this.apiCartService.cart);
+        if (this.apiCartService.sort == "CTotal") {
+          this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.total_price) > Number(b.total_price) ? 1 : -1)
+        }
+        else if (this.apiCartService.sort == "DTotal") {
+          this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.total_price) < Number(b.total_price) ? 1 : -1)
+        }
+        else if (this.apiCartService.sort == "CPrix") {
+          this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.products[0].price) > Number(b.products[0].price) ? 1 : -1)
+        }
+        else if (this.apiCartService.sort == "DPrix") {
+          this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.products[0].price) < Number(b.products[0].price) ? 1 : -1)
+        }
+        console.log(this.apiCartService.sort);
         this._cart = this.apiCartService.cart!;
       }
       else {
