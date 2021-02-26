@@ -14,8 +14,8 @@ export class CartApiRequestService {
   private readonly SORT_KEY = 'jfj.sort';
   private readonly CART_PRODUCT_KEY = 'jfj.cart_product'
   private readonly SEARCH_CART_KEY = 'jfj.cart_product.search'
-  private _searchCartProduct: string = "";
-  get searchParams(): string {
+  private _searchCartProduct: string | null = null;
+  get searchParams(): string | null {
     return this._searchCartProduct;
   }
   private _cart: Cart | null = null;
@@ -77,7 +77,8 @@ export class CartApiRequestService {
     return this.http.get<any>(this.getUrl("users/" + this.authService.currentUser?.id + "/carts.json")).pipe(
       map(response => {
         if (response.success) {
-          if (localStorage.getItem(this.SEARCH_CART_KEY) != "") {
+          console.log("all", localStorage.getItem(this.SEARCH_CART_KEY));
+          if (localStorage.getItem(this.SEARCH_CART_KEY) != undefined && localStorage.getItem(this.SEARCH_CART_KEY) != null && localStorage.getItem(this.SEARCH_CART_KEY) != "") {
             response.cart.cartProduct = localStorage.getItem(this.CART_PRODUCT_KEY);
             console.log("Cart test : ", localStorage.getItem(this.CART_PRODUCT_KEY)?.toString());
             let temp = response.cart;
