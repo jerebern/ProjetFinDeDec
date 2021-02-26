@@ -31,4 +31,30 @@ two:
   province: Québec
   phone_number: 8193295860
   is_admin: false
+
+three:
+  id: 3
+  email: jevei@hotmail.com
+  encrypted_password: <%= User.new.send(:password_digest, '123456') %>
+  firstname: Jérémy
+  lastname: Veillette
+  address: 3-1903 rue Saint-Jacques
+  city: Shawinigan
+  postal_code: G9N4A7
+  province: Québec
+  phone_number: 8197358945
+  is_admin: false
+
+four:
+  id: 4
+  email: felixcm1129@hotmail.ca
+  encrypted_password: <%= User.new.send(:password_digest, '123456') %>
+  firstname: Félix
+  lastname: Carle-Milette
+  address: 1660 chemin de Saint-Jean-des-Piles
+  city: Shawinigan
+  postal_code: G0X2V0
+  province: Québec
+  phone_number: 8196996429
+  is_admin: false
 # column: value

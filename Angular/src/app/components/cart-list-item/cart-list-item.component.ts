@@ -53,5 +53,4 @@ export class CartListItemComponent implements OnInit {
       }
     });
   }
-
 }

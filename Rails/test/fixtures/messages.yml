@@ -4,8 +4,33 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+one: 
+  texte: "Allo"
+  user_id: 2
+  conversation_id: 1
+
+two: 
+  texte: "Allo M. Bernard, comment puis-je vous aidez?"
+  user_id: 1
+  conversation_id: 1
+
+three: 
+  texte: "Allo"
+  user_id: 3
+  conversation_id: 2
+
+four: 
+  texte: "Allo M. Veillette, comment puis-je vous aidez?"
+  user_id: 1
+  conversation_id: 2
+
+five: 
+  texte: "Allo"
+  user_id: 4
+  conversation_id: 3
+
+six: 
+  texte: "Allo M. Carle-Milette, comment puis-je vous aidez?"
+  user_id: 1
+  conversation_id: 3
+

@@ -41,7 +41,7 @@
               </div>
             </div>
           </form>
-          <button style="margin-top: 10px;" class="btn btn-primary" (click)="message()">Démarrer une conversation</button>
+          <button style="margin-top: 10px;" class="btn btn-primary" [disabled]="conversationForm.invalid" (click)="message()">Démarrer une conversation</button>
         </div>
       </div>
     </ng-template>

@@ -6,18 +6,135 @@
 #
 one:
   id: 1
+  category: "Accessoire et Hygiène" 
+  price: 2.97 
+  title: "Thermomètre avec ventouse" 
+  description: "Un thermomètre: ça sert à savoir la température de l'eau." 
+  quantity: 10 
+  animal_type: "Aquariophilie"
+
+two:
+  id: 2
+  category: "Nourriture" 
+  price: 7.49
+  title: "Vitomax pour serin"
+  description: "Vitomax est une nourriture enrichie de vitamines et minéraux."
+  quantity: 10 
+  animal_type: "Oiseaux"
+
+three:
+  id: 3
+  category: "Jouet"
+  price: 16.99
+  title: "Poisson électrique"
+  description: "Jouet poisson électrique à l'herbe à chat."
+  quantity: 10
+  animal_type: "Chats"
+
+four:
+  id: 4
+  category: "Cage"
+  price: 209.99
+  title: "Clapier surélevé en bois à 2 étages"
+  description: "Matériau : pin, bois de sapin, fil d'acier. Couleur : Poids du filet : Dimensions totales : Dimensions de la porte en maille HTop : Dimensions de la porte en bois HTop : 27,6 x 12,8 cm. 12,8 x 15,7 cm."
+  quantity: 10
+  animal_type: "Petits Animaux"
+
+five: 
+  id: 5
+  category: "Aquarium et Terrarium"
+  price: 279.81
+  title: "Terrarium en verre"
+  description: "Terrarium en verre de 45,7 x 45,7 x 45,7 cm pour petit reptiles ou amphibiens."
+  quantity: 10
+  animal_type: "Reptiles et Amphibiens"
+
+six:
+  id: 6
   category: "Transport"
+  price: 53.99
+  title: "Petit pet voyageur"
+  description: "De petite taille et idéal pour les petits chiens."
+  quantity: 10
+  animal_type: "Chiens"
+
+seven: 
+ id: 7
+ category: "Aquarium et Terrarium"
+ price: 332.57
+ title: "Aquarium 30 gallon"
+ description: "Aquarium de 30 gallon en acrylique."
+ quantity: 10
+ animal_type: "Aquariophilie"
+
+eight:
+  id: 8
+  category: "Accessoire et Hygiène"
+  price: 17.99
+  title: "Pelle a litière"
+  description: "Pelle en alluminium pour nettoyer la litière."
+  quantity: 10
+  animal_type: "Chats"
+
+nine: 
+  id: 9
+  category: "Nourriture"
+  price: 21.99
+  title: "Bâtonnets flottants"
+  description: "Nourriture pour tortue sousforme de batonnêts flottants."
+  quantity: 10
+  animal_type: "Reptiles et Amphibiens"
+
+ten:
+  id: 10
+  category: "Cage"
+  price: 131.80
+  title: "Cage de vol"
+  description: "Cage verte adaptée pour les petits oiseaux."
+  quantity: 10
+  animal_type: "Oiseaux"
+
+eleven:
+  id: 11
+  category: "Accessoire et Hygiène"
+  price: 18.98 
+  title: "Litière à chat"
+  description: "Élimine à la fois les odeurs d'urine et d'excréments sur le contact."
+  quantity: 10
+  animal_type: "Chats"
+
+twelve: 
+  id: 12
+  category: "Transport" 
   price: 14.97
   title: "Mini pet voyageur"
   description: "Idéal pour tous les petits animaux."
   quantity: 10
   animal_type: "Petits Animaux"
 
-two:
-  id: 2
-  category: "Nourriture"
-  price: 7.49
-  title: "Vitomax pour serin"
-  description: "Vitomax est une nourriture enrichie de vitamines et minéraux."
+thirteen:
+  id: 13
+  category: "Accessoire et Hygiène"
+  price: 4.79
+  title: "Os de Seiche"
+  description: "Parfait et nécessaire pour la santé des os de votre oiseau."
   quantity: 10
   animal_type: "Oiseaux"
+
+fourteen:
+  id: 14
+  category: "Jouet"
+  price: 8.97
+  title: "Balle"
+  description: "Balle jaune-orange pour amuser votre chien sans effort."
+  quantity: 10
+  animal_type: "Chiens"
+
+fifteen:
+  id: 15
+  category: "Nourriture"
+  price: 19.48
+  title: "Nourriture sèche pour chat"
+  description: "Alimentation saine et complète pour votre chat, contient aussi de la dinde."
+  quantity: 10
+  animal_type: "Chats"

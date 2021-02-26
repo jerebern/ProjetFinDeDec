@@ -11,15 +11,25 @@ import { AuthService } from './auth.services';
   providedIn: 'root'
 })
 export class CartApiRequestService {
-  private readonly CART_KEY = 'jfj.cart';
+  private readonly SORT_KEY = 'jfj.sort';
   private _cart: Cart | null = null;
+  private _sort: string = "CTotal"
 
   get cart(): Cart | null {
     return this._cart;
-
+  }
+  get sort(): string | null {
+    return this._sort;
   }
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient, private authService: AuthService) {
+    if (localStorage.getItem(this.SORT_KEY)) {
+      this._sort = localStorage.getItem(this.SORT_KEY)!?.toString();
+    }
+    else {
+      localStorage.setItem(this.SORT_KEY, this._sort);
+    }
+  }
 
   private getUrl(querry: string) {
     return '/api/' + querry + '/'
@@ -120,5 +130,9 @@ export class CartApiRequestService {
         return of(null);
       })
     )
+  }
+
+  setSort(sort: string) {
+    localStorage.setItem(this.SORT_KEY, sort);
   }
 }

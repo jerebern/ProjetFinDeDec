@@ -64,9 +64,9 @@ command4 = Command.create(sub_total: 19.99, tps: 0.75,tvq: 1.50,total: 17.24,sto
 command5 = Command.create(sub_total: 19.99, tps: 0.75,tvq: 1.50,total: 17.24,store_pickup: false, state: "En cours", shipping_adress: "2-1903 rue Saint-Jacques Shawinigan", user_id: 2)
 command6 = Command.create(sub_total: 29.99, tps: 1.50,tvq: 2.99,total: 34.48,store_pickup: true, state: "Pret au ramassage", shipping_adress: "Boutique Shawinigan", user_id: 2)
 command7 = Command.create(sub_total: 29.99, tps: 1.50,tvq: 2.99,total: 34.48,store_pickup: false, state: "Annule", shipping_adress: "2-1903 rue Saint-Jacques Shawinigan", user_id: 2)
-command7 = Command.create(sub_total: 79.99, tps: 4.00,tvq: 7.98,total: 91.97,store_pickup: false, state: "Livre", shipping_adress: "2-1903 rue Saint-Jacques Shawinigan", user_id: 2)
-command8 = Command.create(sub_total: 79.99, tps: 4.00,tvq: 7.98,total: 91.97,store_pickup: true, state: "Pret", shipping_adress: "Boutique Shawinigan", user_id: 2)
-command9 = Command.create(sub_total: 79.99, tps: 4.00,tvq: 7.98,total: 91.97,store_pickup: false, state: "Livre", shipping_adress: "2-1903 rue Saint-Jacques Shawinigan", user_id: 2)
+command8 = Command.create(sub_total: 79.99, tps: 4.00,tvq: 7.98,total: 91.97,store_pickup: false, state: "Livre", shipping_adress: "2-1903 rue Saint-Jacques Shawinigan", user_id: 2)
+command9 = Command.create(sub_total: 79.99, tps: 4.00,tvq: 7.98,total: 91.97,store_pickup: true, state: "Pret", shipping_adress: "Boutique Shawinigan", user_id: 2)
+command10 = Command.create(sub_total: 79.99, tps: 4.00,tvq: 7.98,total: 91.97,store_pickup: false, state: "Livre", shipping_adress: "2-1903 rue Saint-Jacques Shawinigan", user_id: 2)
 
 #conversations
 conversation1 = Conversation.create(title: "Test", description: "Test test test...", email_user: "jere.bern@hotmail.com", user_id: 2)
@@ -74,12 +74,18 @@ conversation2 = Conversation.create(title: "Test2", description: "Test test test
 conversation3 = Conversation.create(title: "Test3", description: "Test test test...", email_user: "felixcm1129@hotmail.ca", user_id: 4)
 
 #message
+@message = Message.create(texte: "Allo", user_id: 2, conversation_id: 1);
+@message = Message.create(texte: "Allo M. Bernard, comment puis-je vous aidez?", user_id: 1, conversation_id: 1);
+
+@message = Message.create(texte: "Allo", user_id: 3, conversation_id: 2);
+@message = Message.create(texte: "Allo M. Veillette, comment puis-je vous aidez?", user_id: 1, conversation_id: 2);
+
 @message = Message.create(texte: "Allo", user_id: 4, conversation_id: 3);
-@message = Message.create(texte: "Allo comment puis-je vous aidez?", user_id: 1, conversation_id: 3);
+@message = Message.create(texte: "Allo M. Carle-Milette, comment puis-je vous aidez?", user_id: 1, conversation_id: 3);
 
 #cart
-@cart=Cart.create!(sub_total: 887.29, user_id: 1)
-@cart=Cart.create!(sub_total: 1545.85, user_id: 2)
+@cart = Cart.create!(sub_total: 887.29, user_id: 1)
+@cart = Cart.create!(sub_total: 1545.85, user_id: 2)
 
 
 @cart_product = CartProduct.create(total_price: 790.80, quantity: 6, cart_id: 1, product_id: 10)
