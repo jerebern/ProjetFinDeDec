@@ -55,17 +55,13 @@ class Api::MessagesController < ApplicationController
         end   
     end
 
-    #à modifier
     def destroy
-        if !is_admin
-            redirect_to ''
+        @user = current_user
+        @message = @user.message.find(params[:id])
+        if @message.destroy
+            render json: {message: @message, success: true}
         else
-            @message = Message.find(params[:id])
-            if @message.destroy
-                render json: {message: @message, success: true}
-            else
-                render json: {success: false, error: [@message.errors]}
-            end
+            render json: {success: false, error: [@message.errors]}
         end
     end
 
