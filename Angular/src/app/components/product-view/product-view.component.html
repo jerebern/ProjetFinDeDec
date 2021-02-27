@@ -36,7 +36,10 @@
                     <input formControlName="quantity" type="number" min="1" max="{{ product.quantity }}" value="1">
                 </div>
                 <div class="row form-group">
-                    <button type="submit" class="btn btn-warning">
+                    <button *ngIf="this.isLoggedIn()==true" type="submit" class="btn btn-warning">
+                        Ajouter au panier
+                    </button>
+                    <button *ngIf="this.isLoggedIn()==false" (click)="login()" class="btn btn-warning">
                         Ajouter au panier
                     </button>
                 </div>

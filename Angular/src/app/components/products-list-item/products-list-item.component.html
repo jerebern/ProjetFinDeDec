@@ -1,9 +1,10 @@
 <div class="image">
-    <a href="products/{{ product.id }}">
+    <a [routerLink]="['/products', product.id]">
         <img class="rounded" src="{{ product.picture }}" height="200" width="200">
     </a>
 </div>
 <h5 style="text-align: center;">{{ product.title }}</h5>
 <h5 style="text-align: center;">{{ product.price }}$</h5>
-<button (click)="addToCart(product)" class="btn btn-warning">Ajouter au panier</button>
+<button *ngIf="this.isLoggedIn()==true" (click)="addToCart(product)" class="btn btn-warning">Ajouter au panier</button>
+<button *ngIf="this.isLoggedIn()==false" (click)="login()" class="btn btn-warning">Ajouter au panier</button>
 <p> --- </p>

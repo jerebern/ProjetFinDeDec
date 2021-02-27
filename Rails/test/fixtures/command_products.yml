@@ -12,3 +12,17 @@ one:
   product_id: 10
   command_id: 1
 
+two:  
+  id: 2
+  quantity: 2
+  total_price: 121.80
+  unit_price: 121.80
+  product_id: 12
+  command_id: 1
+three:  
+  id: 3
+  quantity: 2
+  total_price: 121.80
+  unit_price: 121.80
+  product_id: 10
+  command_id: 4

@@ -58,7 +58,20 @@ export class ProductsComponent implements OnInit {
   }
 
   reset() {
-    window.location.reload();
+    this.filterForm = new FormGroup({
+      animal: new FormControl('Tous les Animaux'),
+      category: new FormControl('Toutes les Catégories'),
+      select: new FormControl('Ordre Alphabétique Croissant')
+    });
+    this.apiService.listProducts().subscribe(success => {
+      if (success) {
+        console.log("OK")
+      }
+      else {
+        console.log("ERROR", success)
+        alert("ERROR!!!");
+      }
+    });
   }
 
 }

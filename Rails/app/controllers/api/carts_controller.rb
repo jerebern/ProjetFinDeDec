@@ -6,7 +6,7 @@ class Api::CartsController < ApplicationController
             @user = current_user
             @cart = @user.cart
             render json: { cart: @cart.as_json.merge({ cartProducts: @cart.cart_products.map{ |cartProduct|
-            cartProduct.as_json.merge({ products: @cart.products.where("product_id LIKE ?", "%" + cartProduct.product_id.to_s + "%").where("description LIKE ?", "%" + params[:q] + "%").as_json })
+            cartProduct.as_json.merge({ products: @cart.products.where("product_id LIKE ?", "%" + cartProduct.product_id.to_s + "%").where("MATCH(category, title, description, animal_type) AGAINST('" + params[:q] + "')").as_json })
             }}), success: true }
         else
             @user = current_user
@@ -38,6 +38,9 @@ class Api::CartsController < ApplicationController
         @cart_product.quantity = @newParams[:quantity]
         @newParams = @newParams[:products]
         @cart_product.product_id = Product.find(@newParams.last[:id]).id
+        if @cart_product.quantity > Product.find(@newParams.last[:id]).quantity
+            @cart_product.quantity = Product.find(@newParams.last[:id]).quantity
+        end
         @cart_product.total_price = Product.find(@cart_product.product_id).price * @cart_product.quantity
         if @cart_product.save
             @cart.sub_total = 0
@@ -62,6 +65,9 @@ class Api::CartsController < ApplicationController
         @cart_product = @cart.cart_products.find(params[:id])
         if @cart_product.update(cart_product_params)
             @product = Product.find(@cart_product.product_id)
+            if @cart_product.quantity > @product.quantity
+                @cart_product.quantity = @product.quantity
+            end
             @cart_product.total_price = @product.price * @cart_product.quantity
             if @cart_product.save
                 @cart.sub_total = 0

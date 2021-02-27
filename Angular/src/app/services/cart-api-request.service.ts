@@ -150,7 +150,10 @@ export class CartApiRequestService {
   }
 
   setSort(sort: string) {
+    console.log(sort);
     localStorage.setItem(this.SORT_KEY, sort);
+    this._sort = localStorage.getItem(this.SORT_KEY)!;
+    console.log(localStorage.getItem(this.SORT_KEY));
   }
 
   generateJSONforSearch(querry: string) {
@@ -173,8 +176,10 @@ export class CartApiRequestService {
               cart_products.push(cart_product as CartProduct);
             }
           });
-          localStorage.setItem(this.CART_PRODUCT_KEY, JSON.stringify(cart_products));
-          localStorage.setItem(this.SEARCH_CART_KEY, this._searchCartProduct);
+          //localStorage.setItem(this.CART_PRODUCT_KEY, JSON.stringify(cart_products));
+          //localStorage.setItem(this.SEARCH_CART_KEY, this._searchCartProduct);
+
+          this._cart!.cartProducts = cart_products;
           return true;
         }
         else {

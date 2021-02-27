@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">
+  <a class="navbar-brand" [routerLink]="['/']">
     <img class="navbar-brand" src="../../../assets/img/Animalerie_JFJ.png" />
   </a>
   <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
@@ -9,22 +9,17 @@
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }" style="text-align: center;">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/">Accueil</a>
+        <a class="nav-link" [routerLink]="['/']">Accueil</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/products">Produits</a>
+        <a class="nav-link" [routerLink]="['/products']">Produits</a>
       </li>
-      <li class="nav-item" *ngIf="this.isLoggedIn()!=true">
-        <a class="nav-link" href="/login">Connexion</a>
-      </li>
-      <li class="nav-item" *ngIf="this.isLoggedIn()!=true">
-        <a class="nav-link" href="/signup">Inscription</a>
-      </li>
+
       <li class="nav-item" *ngIf="this.isLoggedIn()!=false && this.isAdmin()!=true">
-        <a class="nav-link" href="/help">Aide</a>
+        <a class="nav-link" [routerLink]="['/help']">Aide</a>
       </li>
       <li class="nav-item" *ngIf="this.isAdmin()!=false">
-        <a class="nav-link" href="/admin">Admin</a>
+        <a class="nav-link" [routerLink]="['/admin']">Admin</a>
       </li>
       <!-- <li class="nav-item" *ngIf="this.isLoggedIn()!=false">
       </li>   -->
@@ -32,6 +27,14 @@
     <div class="w-100 mx-auto">
       <app-search-bar></app-search-bar>
     </div>
+    <ul class="navbar-nav mr-auto">
+    <li class="nav-item" *ngIf="this.isLoggedIn()!=true">
+      <a class="nav-link" [routerLink]="['/login']">Connexion</a>
+    </li>
+    <li class="nav-item" *ngIf="this.isLoggedIn()!=true">
+      <a class="nav-link" [routerLink]="['/signup']">Inscription</a>
+    </li>
+    </ul>
     <button class="btn btn-warning mr-sm-2" (click)="navigateCart()" *ngIf="this.isLoggedIn()!=false">
       <i class="fa fa-shopping-cart"></i>
     </button>

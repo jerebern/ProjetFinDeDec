@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { CartProduct } from 'src/app/models/cart-product.model';
 import { Cart } from 'src/app/models/cart.model';
 import { CartApiRequestService } from 'src/app/services/cart-api-request.service';
+import { CartComponent } from '../cart/cart.component';
 
 @Component({
   selector: '[app-cart-list-item]',
@@ -15,7 +16,7 @@ export class CartListItemComponent implements OnInit {
 
   cartItemForm: FormGroup;
 
-  constructor(private apiCartService: CartApiRequestService) {
+  constructor(private apiCartService: CartApiRequestService, private cartComponent: CartComponent) {
     this.cartItemForm = new FormGroup({
       quantity: new FormControl(''),
     });
@@ -32,7 +33,29 @@ export class CartListItemComponent implements OnInit {
     this.apiCartService.updateCart(this.cartProduct).subscribe(success => {
       if (success) {
         console.log("OK", this.apiCartService.cart);
-        window.location.reload();
+        this.apiCartService.showCart().subscribe(success => {
+          if (success) {
+            console.log("OK", this.apiCartService.sort);
+            if (this.apiCartService.sort == "CTotal") {
+              this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.total_price) > Number(b.total_price) ? 1 : -1)
+            }
+            else if (this.apiCartService.sort == "DTotal") {
+              this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.total_price) < Number(b.total_price) ? 1 : -1)
+            }
+            else if (this.apiCartService.sort == "CPrix") {
+              this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.products[0].price) > Number(b.products[0].price) ? 1 : -1)
+            }
+            else if (this.apiCartService.sort == "DPrix") {
+              this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.products[0].price) < Number(b.products[0].price) ? 1 : -1)
+            }
+            console.log(this.apiCartService.sort);
+            this.cartComponent.setCart(this.apiCartService.cart!);
+          }
+          else {
+            console.log("ERROR", success);
+            alert("ERROR!!!");
+          }
+        });
       }
       else {
         console.log("ERROR", success);
@@ -45,7 +68,29 @@ export class CartListItemComponent implements OnInit {
     this.apiCartService.deleteCartProduct(cartProduct).subscribe(success => {
       if (success) {
         console.log("OK", this.apiCartService.cart);
-        window.location.reload();
+        this.apiCartService.showCart().subscribe(success => {
+          if (success) {
+            console.log("OK", this.apiCartService.sort);
+            if (this.apiCartService.sort == "CTotal") {
+              this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.total_price) > Number(b.total_price) ? 1 : -1)
+            }
+            else if (this.apiCartService.sort == "DTotal") {
+              this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.total_price) < Number(b.total_price) ? 1 : -1)
+            }
+            else if (this.apiCartService.sort == "CPrix") {
+              this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.products[0].price) > Number(b.products[0].price) ? 1 : -1)
+            }
+            else if (this.apiCartService.sort == "DPrix") {
+              this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.products[0].price) < Number(b.products[0].price) ? 1 : -1)
+            }
+            console.log(this.apiCartService.sort);
+            this.cartComponent.setCart(this.apiCartService.cart!);
+          }
+          else {
+            console.log("ERROR", success);
+            alert("ERROR!!!");
+          }
+        });
       }
       else {
         console.log("ERROR", success);

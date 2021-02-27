@@ -51,12 +51,10 @@ export class ProductViewComponent implements OnInit {
   // }///exemple de update product
 
   addToCart(product: Product) {
-    if (this.addToCartForm.get('quantity')?.value > 10) {
-      this.addToCartForm.get('quantity')?.setValue(10);
-    }
     this.apiCartService.addProductToCart(product, this.addToCartForm.get('quantity')?.value).subscribe(success => {
       if (success) {
         console.log("OK");
+        alert("Ajouter au Panier");
       }
       else {
         console.log("ERROR", success);
@@ -91,5 +89,14 @@ export class ProductViewComponent implements OnInit {
       }
     });
   }
+
+  login() {
+    this.router.navigate(['/login']);
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn;
+  }
+
 
 }

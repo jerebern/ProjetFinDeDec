@@ -44,7 +44,7 @@ export class CartItemsComponent implements OnInit {
     }
     this.apiCartService.showCart().subscribe(success => {
       if (success) {
-        console.log("OK", this.apiCartService.cart);
+        console.log("OK", this.apiCartService.sort);
         if (this.apiCartService.sort == "CTotal") {
           this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.total_price) > Number(b.total_price) ? 1 : -1)
         }
@@ -58,7 +58,8 @@ export class CartItemsComponent implements OnInit {
           this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.products[0].price) < Number(b.products[0].price) ? 1 : -1)
         }
         console.log(this.apiCartService.sort);
-        window.location.reload();
+        //window.location.reload();
+        this.cart = this.apiCartService.cart!;
       }
       else {
         console.log("ERROR", success);
