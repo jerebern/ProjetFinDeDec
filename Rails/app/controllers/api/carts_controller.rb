@@ -35,9 +35,16 @@ class Api::CartsController < ApplicationController
         @cart_product = CartProduct.new
         @cart_product.cart_id = @cart.id
         @newParams = params[:cart_product]
-        @cart_product.quantity = @newParams[:quantity]
+        @quantity = @newParams[:quantity]
+        @cart_product.quantity = @quantity
         @newParams = @newParams[:products]
-        @cart_product.product_id = Product.find(@newParams.last[:id]).id
+        if @cart.products.find_by_id(Product.find(@newParams.last[:id]).id)
+            #@cart_product = @cart.cart_products.where("product_id LIKE ?", "%" + Product.find(@newParams.last[:id]).id.to_s + "%")
+            @cart_product = @cart.cart_products.find_by(product_id: Product.find(@newParams.last[:id]).id)
+            @cart_product.quantity = @quantity.to_i + @cart_product.quantity
+        else
+            @cart_product.product_id = Product.find(@newParams.last[:id]).id
+        end
         if @cart_product.quantity > Product.find(@newParams.last[:id]).quantity
             @cart_product.quantity = Product.find(@newParams.last[:id]).quantity
         end
