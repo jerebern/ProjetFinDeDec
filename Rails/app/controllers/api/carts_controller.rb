@@ -38,6 +38,9 @@ class Api::CartsController < ApplicationController
         @cart_product.quantity = @newParams[:quantity]
         @newParams = @newParams[:products]
         @cart_product.product_id = Product.find(@newParams.last[:id]).id
+        if @cart_product.quantity > Product.find(@newParams.last[:id]).quantity
+            @cart_product.quantity = Product.find(@newParams.last[:id]).quantity
+        end
         @cart_product.total_price = Product.find(@cart_product.product_id).price * @cart_product.quantity
         if @cart_product.save
             @cart.sub_total = 0
@@ -62,6 +65,9 @@ class Api::CartsController < ApplicationController
         @cart_product = @cart.cart_products.find(params[:id])
         if @cart_product.update(cart_product_params)
             @product = Product.find(@cart_product.product_id)
+            if @cart_product.quantity > @product.quantity
+                @cart_product.quantity = @product.quantity
+            end
             @cart_product.total_price = @product.price * @cart_product.quantity
             if @cart_product.save
                 @cart.sub_total = 0
