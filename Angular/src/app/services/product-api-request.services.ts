@@ -155,20 +155,20 @@ export class ProductApiRequestService {
     )
   }
 
-  addProductToCart(product: Product, quantity: number) {
-    product.quantity = (Number(product.quantity) - quantity).toString();
-    console.log(product, quantity);
-    this.updateProduct(product).subscribe(success => {
-      if (success) {
-        console.log("OK", success)
-      }
-      else {
-        console.log("ERROR")
-        alert("ERROR!!!");
-        window.location.reload();
-      }
-    });////for now addProductToCart just update the product.quantity by removing 1 in quantity proof for update product
-  }
+  // addProductToCart(product: Product, quantity: number) {
+  //   product.quantity = (Number(product.quantity) - quantity).toString();
+  //   console.log(product, quantity);
+  //   this.updateProduct(product).subscribe(success => {
+  //     if (success) {
+  //       console.log("OK", success)
+  //     }
+  //     else {
+  //       console.log("ERROR")
+  //       alert("ERROR!!!");
+  //       window.location.reload();
+  //     }
+  //   });////for now addProductToCart just update the product.quantity by removing 1 in quantity proof for update product
+  // }
 
   generateJSONforSearch(querry: string) {
     console.log(querry)
