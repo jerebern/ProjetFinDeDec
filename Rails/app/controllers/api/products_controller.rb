@@ -1,6 +1,6 @@
 class Api::ProductsController < ApplicationController
     def index
-        if params[:q] != ""
+        if params[:q] != "" && params[:q] != nil
             if @products = Product.all.with_attached_picture
                 render json: { products: @products.where("MATCH(category, title, description, animal_type) AGAINST('" + params[:q] + "')").map { |product|
                     product.as_json.merge({ picture: url_for(product.picture) })
