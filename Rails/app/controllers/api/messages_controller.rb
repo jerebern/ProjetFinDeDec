@@ -1,4 +1,6 @@
 class Api::MessagesController < ApplicationController
+    before_action :authenticate_user!, :is_currentUser?
+    
     def index 
         if is_admin
             @user = current_user

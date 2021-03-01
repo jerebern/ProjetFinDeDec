@@ -1,4 +1,6 @@
 class Api::ConversationsController < ApplicationController
+    before_action :authenticate_user!, :is_currentUser?
+    
     def index 
         if is_admin
             if @conversations = Conversation.all
