@@ -38,8 +38,8 @@ export class AppComponent {
   }
 
   navigateCart() {
-    console.log('/users/' + this.authService.currentUser?.id + '/carts');
-    this.router.navigate(['/users/' + this.authService.currentUser?.id + '/carts']);
+    console.log('cart');
+    this.router.navigate(['cart']);
   }
 
   logOut() {
@@ -53,8 +53,8 @@ export class AppComponent {
     })
   }
 
-  isAdmin(){
-    if(this.authService.currentUser?.is_admin){
+  isAdmin() {
+    if (this.authService.currentUser?.is_admin) {
       return true;
     }
     else return false;

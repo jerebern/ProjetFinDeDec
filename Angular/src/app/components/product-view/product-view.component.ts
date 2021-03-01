@@ -57,6 +57,7 @@ export class ProductViewComponent implements OnInit {
     this.apiCartService.addProductToCart(product, this.addToCartForm.get('quantity')?.value).subscribe(success => {
       if (success) {
         console.log("OK");
+        alert("Ajouter au Panier");
       }
       else {
         console.log("ERROR", success);
@@ -91,5 +92,14 @@ export class ProductViewComponent implements OnInit {
       }
     });
   }
+
+  login() {
+    this.router.navigate(['/login']);
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn;
+  }
+
 
 }
