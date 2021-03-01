@@ -2,12 +2,12 @@
 <div class="row w-100">
     <div class="col-md-4 product-grid text-center">
         <div class="image">
-            <a [routerLink]="['/products', product1.id]">
+            <button class="btn" (click)="goTo(product1.id)">
                 <img class="rounded" src="{{ product1.picture }}" width="200" height="200">
                 <div class="overlay">
-                    <div class="detail">View Details</div>
+                    <div class="detail">Détails</div>
                 </div>
-            </a>
+            </button>
         </div>
         <h5 class="text-center">{{ product1.title }}</h5>
         <h5 class="text-center">{{ product1.price }}$</h5>
@@ -16,12 +16,12 @@
     </div>
     <div class="col-md-4 product-grid text-center">
         <div class="image">
-            <a [routerLink]="['/products', product2.id]">
+            <button class="btn" (click)="goTo(product2.id)">
                 <img class=" rounded" src="{{ product2.picture }}" width="200" height="200">
                 <div class="overlay">
-                    <div class="detail">View Details</div>
+                    <div class="detail">Détails</div>
                 </div>
-            </a>
+            </button>
         </div>
         <h5 class="text-center">{{ product2.title }}</h5>
         <h5 class="text-center">{{ product2.price }}$</h5>
@@ -30,12 +30,12 @@
     </div>
     <div class="col-md-4 product-grid text-center">
         <div class="image">
-            <a [routerLink]="['/products', product3.id]">
+            <button class="btn" (click)="goTo(product3.id)">
                 <img class=" rounded" src="{{ product3.picture }}" width="200" height="200">
                 <div class="overlay">
-                    <div class="detail">View Details</div>
+                    <div class="detail">Détails</div>
                 </div>
-            </a>
+            </button>
         </div>
         <h5 class="text-center">{{ product3.title }}</h5>
         <h5 class="text-center">{{ product3.price }}$</h5>
@@ -44,12 +44,12 @@
     </div>
     <div class="col-md-4 product-grid text-center">
         <div class="image">
-            <a [routerLink]="['/products', product4.id]">
+            <button class="btn" (click)="goTo(product4.id)">
                 <img class=" rounded" src="{{ product4.picture }}" width="200" height="200">
                 <div class="overlay">
-                    <div class="detail">View Details</div>
+                    <div class="detail">Détails</div>
                 </div>
-            </a>
+            </button>
         </div>
         <h5 class="text-center">{{ product4.title }}</h5>
         <h5 class="text-center">{{ product4.price }}$</h5>
@@ -58,12 +58,12 @@
     </div>
     <div class="col-md-4 product-grid text-center">
         <div class="image">
-            <a [routerLink]="['/products', product5.id]">
+            <button class="btn" (click)="goTo(product5.id)">
                 <img class=" rounded" src="{{ product5.picture }}" width="200" height="200">
                 <div class="overlay">
-                    <div class="detail">View Details</div>
+                    <div class="detail">Détails</div>
                 </div>
-            </a>
+            </button>
         </div>
         <h5 class="text-center">{{ product5.title }}</h5>
         <h5 class="text-center">{{ product5.price }}$</h5>
@@ -72,12 +72,12 @@
     </div>
     <div class="col-md-4 product-grid text-center">
         <div class="image">
-            <a [routerLink]="['/products', product6.id]">
+            <button class="btn" (click)="goTo(product6.id)">
                 <img class=" rounded" src="{{ product6.picture }}" width="200" height="200">
                 <div class="overlay">
-                    <div class="detail">View Details</div>
+                    <div class="detail">Détails</div>
                 </div>
-            </a>
+            </button>
         </div>
         <h5 class="text-center">{{ product6.title }}</h5>
         <h5 class="text-center">{{ product6.price }}$</h5>
