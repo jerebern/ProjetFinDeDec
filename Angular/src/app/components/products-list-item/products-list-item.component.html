@@ -1,5 +1,5 @@
 <div class="image">
-    <a href="products/{{ product.id }}">
+    <a [routerLink]="['/products', product.id]">
         <img class="rounded" src="{{ product.picture }}" height="200" width="200">
     </a>
 </div>
