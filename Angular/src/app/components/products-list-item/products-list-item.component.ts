@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product.model';
+import { AuthService } from 'src/app/services/auth.services';
 import { CartApiRequestService } from 'src/app/services/cart-api-request.service';
 
 @Component({
@@ -11,7 +13,7 @@ export class ProductsListItemComponent implements OnInit {
 
   @Input() product!: Product;
 
-  constructor(private apiCartService: CartApiRequestService) { }
+  constructor(private authService: AuthService, private apiCartService: CartApiRequestService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -26,6 +28,14 @@ export class ProductsListItemComponent implements OnInit {
         alert("ERROR!!!");
       }
     });
+  }
+
+  login() {
+    this.router.navigate(['/login']);
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn;
   }
 
 }

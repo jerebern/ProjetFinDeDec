@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product.model';
+import { AuthService } from 'src/app/services/auth.services';
 import { CartApiRequestService } from 'src/app/services/cart-api-request.service';
 import { ProductApiRequestService } from 'src/app/services/product-api-request.services';
 
@@ -34,7 +35,7 @@ export class WelcomeComponent implements OnInit {
     return this.apiService.products;
   }
 
-  constructor(private apiService: ProductApiRequestService, private apiCartService: CartApiRequestService, private router: Router) {
+  constructor(private authService: AuthService, private apiService: ProductApiRequestService, private apiCartService: CartApiRequestService, private router: Router) {
     //console.log(this.products.findIndex(s => s.id === 1), this.products.find(s => s.id === 1));
     this.apiService.listProducts().subscribe(success => {
       if (success) {
@@ -52,18 +53,31 @@ export class WelcomeComponent implements OnInit {
   }
 
   addToCart(product: Product) {
-    this.apiCartService.addProductToCart(product, 1).subscribe(success => {
-      if (success) {
-        console.log("OK");
-      }
-      else {
-        console.log("ERROR", success);
-        alert("ERROR!!!");
-      }
-    });
+    if (this.isLoggedIn() == true) {
+      this.apiCartService.addProductToCart(product, 1).subscribe(success => {
+        if (success) {
+          console.log("OK");
+        }
+        else {
+          console.log("ERROR", success);
+          alert("ERROR!!!");
+        }
+      });
+    }
+    else if (this.isLoggedIn() == false) {
+      this.login();
+    }
   }
 
   goTo(id: number) {
     this.router.navigate(['/products/' + id]);
+  }
+
+  login() {
+    this.router.navigate(['/login']);
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn;
   }
 }

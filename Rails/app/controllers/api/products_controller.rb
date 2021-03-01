@@ -45,7 +45,7 @@ class Api::ProductsController < ApplicationController
     
     def destroy
         if current_user.is_admin==false
-            redirect_to ''
+            #redirect_to ''
         else
             @product = Product.find(params[:id])
             if @product.destroy
