@@ -39,7 +39,6 @@ class Api::CartsController < ApplicationController
         @cart_product.quantity = @quantity
         @newParams = @newParams[:products]
         if @cart.products.find_by_id(Product.find(@newParams.last[:id]).id)
-            #@cart_product = @cart.cart_products.where("product_id LIKE ?", "%" + Product.find(@newParams.last[:id]).id.to_s + "%")
             @cart_product = @cart.cart_products.find_by(product_id: Product.find(@newParams.last[:id]).id)
             @cart_product.quantity = @quantity.to_i + @cart_product.quantity
         else
