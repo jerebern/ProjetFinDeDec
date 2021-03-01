@@ -1,8 +1,8 @@
 class Api::ProductsController < ApplicationController
     def index
-        if params[:q]
+        if params[:q] != "" && params[:q] != nil
             if @products = Product.all.with_attached_picture
-                render json: { products: @products.where("title LIKE ?", "%" + params[:q] + "%").or(@products.where("description LIKE ?", "%" + params[:q] + "%")).or(@products.where("category LIKE ?", "%" + params[:q] + "%")).or(@products.where("animal_type LIKE ?", "%" + params[:q] + "%")).map { |product|
+                render json: { products: @products.where("MATCH(category, title, description, animal_type) AGAINST('" + params[:q] + "')").map { |product|
                     product.as_json.merge({ picture: url_for(product.picture) })
                 }, success: true } 
             else
