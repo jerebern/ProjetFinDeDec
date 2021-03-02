@@ -98,7 +98,6 @@ export class CommandsViewComponent implements OnInit {
         else {
           console.log("ERROR")
           alert("ERROR!!!");
-          window.location.reload();
         }
       });
     }
@@ -116,6 +115,12 @@ export class CommandsViewComponent implements OnInit {
         }
       });
     }
+  }
+  deleteProduct(id : number){
+    console.log(this.commandProduct)
+    this.commandProductApiService.deleteCommandProduct(this.userID.toString(),this.commandProduct.command_id.toString(),this.commandProduct.id.toString()).subscribe(result =>{
+
+    })
   }
   ngOnInit(): void {
     let id: string | null;
