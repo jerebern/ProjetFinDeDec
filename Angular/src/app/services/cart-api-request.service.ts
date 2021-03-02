@@ -77,6 +77,7 @@ export class CartApiRequestService {
     return this.http.get<any>(this.getUrl("users/" + this.authService.currentUser?.id + "/carts.json")).pipe(
       map(response => {
         if (response.success) {
+          console.log("response", response);
           console.log("all", localStorage.getItem(this.SEARCH_CART_KEY));
           if (localStorage.getItem(this.SEARCH_CART_KEY) != undefined && localStorage.getItem(this.SEARCH_CART_KEY) != null && localStorage.getItem(this.SEARCH_CART_KEY) != "") {
             response.cart.cartProduct = localStorage.getItem(this.CART_PRODUCT_KEY);
