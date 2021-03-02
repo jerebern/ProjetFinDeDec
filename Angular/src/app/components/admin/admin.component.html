@@ -21,7 +21,7 @@
         </thead>
 
         <tbody>
-         <tr *ngFor="let conversation of conversations" app-admin-list-item [conversation]="conversation" (conversationClicked)="conversationClicked($event)"></tr>
+         <tr *ngFor="let conversation of conversations" app-admin-list-item [conversation]="conversation" (conversationClicked)="conversationClicked($event)" (delete)="delete($event)"></tr>
         </tbody>
 
       </table>

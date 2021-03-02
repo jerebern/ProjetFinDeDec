@@ -71,19 +71,19 @@ commmand3 = Command.create(id: 29, sub_total: 0.3498e2, tps: 0.175e1, tvq: 0.35e
 cp8 = CommandProduct.create(id: 60, quantity: 1, total_price: 0.1799e2, unit_price: 0.1799e2, product_id: 8, command_id: 29, created_at: "2021-02-26 09:03:53.957263000 +0000", updated_at: "2021-02-26 09:03:53.957263000 +0000")
 cp9 = CommandProduct.create(id: 61, quantity: 1, total_price: 0.1699e2, unit_price: 0.1699e2, product_id: 3, command_id: 29, created_at: "2021-02-26 09:03:53.972044000 +0000", updated_at: "2021-02-26 09:03:53.972044000 +0000")
 #conversations
-conversation1 = Conversation.create(title: "Test", description: "Test test test...", email_user: "jere.bern@hotmail.com", user_id: 2)
-conversation2 = Conversation.create(title: "Test2", description: "Test test test...", email_user: "jevei@hotmail.com", user_id: 3)
-conversation3 = Conversation.create(title: "Test3", description: "Test test test...", email_user: "felixcm1129@hotmail.ca", user_id: 4)
+conversation1 = Conversation.create(title: "Test", description: "Test test test...", user_id: 2)
+conversation2 = Conversation.create(title: "Test2", description: "Test test test...", user_id: 3)
+conversation3 = Conversation.create(title: "Test3", description: "Test test test...", user_id: 4)
 
 #message
-@message = Message.create(texte: "Allo", user_id: 2, conversation_id: 1);
-@message = Message.create(texte: "Allo M. Bernard, comment puis-je vous aidez?", user_id: 1, conversation_id: 1);
+@message = Message.create(body: "Allo", user_id: 2, conversation_id: 1);
+@message = Message.create(body: "Allo M. Bernard, comment puis-je vous aidez?", user_id: 1, conversation_id: 1)
 
-@message = Message.create(texte: "Allo", user_id: 3, conversation_id: 2);
-@message = Message.create(texte: "Allo M. Veillette, comment puis-je vous aidez?", user_id: 1, conversation_id: 2);
+@message = Message.create(body: "Allo", user_id: 3, conversation_id: 2);
+@message = Message.create(body: "Allo M. Veillette, comment puis-je vous aidez?", user_id: 1, conversation_id: 2)
 
-@message = Message.create(texte: "Allo", user_id: 4, conversation_id: 3);
-@message = Message.create(texte: "Allo M. Carle-Milette, comment puis-je vous aidez?", user_id: 1, conversation_id: 3);
+@message = Message.create(body: "Allo", user_id: 4, conversation_id: 3);
+@message = Message.create(body: "Allo M. Carle-Milette, comment puis-je vous aidez?", user_id: 1, conversation_id: 3);
 
 #cart
 @cart = Cart.create!(sub_total: 887.29, user_id: 1)

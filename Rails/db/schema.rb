@@ -91,7 +91,6 @@ ActiveRecord::Schema.define(version: 2021_02_25_160131) do
   create_table "conversations", charset: "utf8mb4", force: :cascade do |t|
     t.string "title", limit: 50, null: false
     t.string "description", limit: 2500, null: false
-    t.string "email_user", limit: 50, null: false
     t.bigint "user_id", null: false
     t.bigint "admin_id", default: 1, null: false
     t.datetime "created_at", precision: 6, null: false
@@ -108,7 +107,7 @@ ActiveRecord::Schema.define(version: 2021_02_25_160131) do
   end
 
   create_table "messages", charset: "utf8mb4", force: :cascade do |t|
-    t.string "texte", limit: 2500, null: false
+    t.string "body", limit: 2500, null: false
     t.bigint "conversation_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false

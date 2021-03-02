@@ -21,7 +21,7 @@ export class ConversationComponent implements OnInit {
 
   constructor(private messageService: MessageApiRequestService, private conversationService: ConversationApiRequestService, private authService: AuthService) {
     this.messageForm = new FormGroup({
-      message: new FormControl("", [Validators.required])
+      body: new FormControl("", [Validators.required])
     })
     this.conversation = this.getConversation();
     this.getMessages();
@@ -64,15 +64,14 @@ export class ConversationComponent implements OnInit {
     let newMessage: Message = new Message();
     if(this.conversation)
     {
-      newMessage.texte = this.messageForm.get('message')?.value;
+      newMessage.body = this.messageForm.get('body')?.value;
       newMessage.conversation_id = this.conversation.id;
-      newMessage.user_id = this.authService.currentUser?.id;
       console.log("New Message: ", newMessage);
 
-      this.messageService.createMessage(this.conversation.user_id?.toString(), newMessage).subscribe(success => {
+      this.messageService.createMessage(this.authService.currentUser?.id.toString(), newMessage).subscribe(success => {
         if(success){
           console.log("Success: ", success);
-          this.conversation;
+          //this.conversation;
           this.getMessages();
         }
       })

@@ -1,3 +1,4 @@
+import { formatNumber } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -15,6 +16,7 @@ export class HelpComponent implements OnInit {
   private userConversation: Conversation;
 
   conversationForm: FormGroup;
+  editConversationForm: FormGroup;
 
   constructor(private conversationService : ConversationApiRequestService, private router: Router, private authService: AuthService) {
     this.userConversation = new Conversation();
@@ -23,10 +25,23 @@ export class HelpComponent implements OnInit {
       title: new FormControl("", Validators.required),
       description: new FormControl("", Validators.required)
     })
+
+    this.editConversationForm = new FormGroup({
+      title: new FormControl("", Validators.required),
+      description: new FormControl("", Validators.required)
+    })
   }
 
   ngOnInit(): void {
     this.getConversation();
+    if(this.conversationService.currentConversation)
+    {
+      this.userConversation = this.conversationService.currentConversation;
+      this.editConversationForm.patchValue({
+        title: this.userConversation.title,
+        description: this.userConversation.description
+      });
+    }
   }
 
   hasMessage(){
@@ -54,14 +69,34 @@ export class HelpComponent implements OnInit {
     let newConversation = new Conversation();
     newConversation.title = this.conversationForm.get('title')?.value;
     newConversation.description = this.conversationForm.get('description')?.value;
-    newConversation.email_user = this.authService.currentUser?.email;
-    newConversation.user_id = this.authService.currentUser?.id;
-    console.log("Conversation: ", newConversation);
+    console.log("New Conversation: ", newConversation);
 
-    this.router.navigate(['conversation/' + newConversation.id]);
+    this.conversationService.createConversation(this.authService.currentUser?.id.toString(), newConversation).subscribe(success =>{
+      if(success){
+        console.log("Success: ", success);
+        this.conversationService.setCurrentConversation(newConversation);
+        this.getConversation();
+        this.router.navigate(['conversation/' + newConversation.id]);
+      }
+    })
   }
 
   message(){
     this.router.navigate(['conversation/' + this.userConversation.id]);
+  }
+
+  update(){
+    this.userConversation.title = this.editConversationForm.get('title')?.value;
+    this.userConversation.description = this.editConversationForm.get('description')?.value;
+    console.log("New Conversation: ", this.userConversation);
+
+    this.conversationService.updateConversation(this.authService.currentUser?.id.toString(), this.userConversation.id.toString(), this.userConversation).subscribe(success =>{
+      if(success){
+        console.log("Success: ", success);
+        this.conversationService.setCurrentConversation(this.userConversation);
+        this.getConversation();
+        this.router.navigate(['conversation/' + this.userConversation.id]);
+      }
+    })
   }
 }

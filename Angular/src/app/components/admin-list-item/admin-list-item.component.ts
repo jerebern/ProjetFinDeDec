@@ -15,6 +15,7 @@ export class AdminListItemComponent implements OnInit {
 
   @Input() conversation!: Conversation;
   @Output() conversationClicked = new EventEmitter();
+  @Output() delete = new EventEmitter();
 
   constructor() { }
 
@@ -26,6 +27,6 @@ export class AdminListItemComponent implements OnInit {
   }
 
   deleteConversation(){
-    alert(this.conversation.title);
+    this.delete.emit(this.conversation);
   }
 }

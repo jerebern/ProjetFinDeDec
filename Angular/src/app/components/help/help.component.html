@@ -11,6 +11,37 @@
     </div>
     <div *ngIf="this.hasMessage(); else messageButton">
       <button class="btn btn-primary" (click)="message()">Continuer votre conversation</button>
+      <div class="row mt-2">
+        <div class="col">
+          <form [formGroup]="editConversationForm" (ngSubmit)="createConversation()">
+            <div class="form-row">
+              <div class="form-group">
+                <p style="font-weight: bold;">Titre*</p>
+                <input style="width: 250px;" formControlName="title"
+                [class.is-invalid]="editConversationForm.get('title')?.errors && editConversationForm.get('title')?.dirty && editConversationForm.get('title')?.touched"
+                type="text" placeholder="Titre" class="form-control">
+                <div class="invalid-feedback text-left">
+                  Veuillez entrer un titre valide.
+                </div>
+              </div>
+            </div>
+
+            <div class="from-row">
+              <div class="form-group">
+                <p style="font-weight: bold;">Description*</p>
+                <textarea formControlName="description"
+                [class.is-invalid]="editConversationForm.get('description')?.errors && editConversationForm.get('description')?.dirty && editConversationForm.get('description')?.touched"
+                type="text" placeholder="Description de la raison de la conversation..." class="form-control">
+                <div class="invalid-feedback text-left">
+                  Veuillez entrer une description valide.
+                </div>
+                </textarea>
+              </div>
+            </div>
+          </form>
+          <button class="btn btn-info" [disabled]="editConversationForm.invalid" (click)="update()">Modifier votre conversation</button>
+        </div>
+      </div>
     </div>
     <ng-template #messageButton>
       <div class="row mt-2">
@@ -41,7 +72,7 @@
               </div>
             </div>
           </form>
-          <button style="margin-top: 10px;" class="btn btn-primary" [disabled]="conversationForm.invalid" (click)="message()">Démarrer une conversation</button>
+          <button style="margin-top: 10px;" class="btn btn-primary" [disabled]="conversationForm.invalid" (click)="createConversation()">Démarrer une conversation</button>
         </div>
       </div>
     </ng-template>

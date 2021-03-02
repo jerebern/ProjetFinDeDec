@@ -38,11 +38,13 @@ export class ConversationApiRequestService {
   }
 
   getConversation(userID: string | null, conversationID: string): Observable<any>{
-    return this.http.get<any>(this.getUrl("users/" + userID + "/conversations/" + conversationID)).pipe(
+    return this.http.get<any>(this.getUrl("users/" + userID + "/conversations")).pipe(
       map(response => {
         if(response.success){
           console.log("GetConversation: ", response);
-          this._currentConversation = response.conversation;
+          this._currentConversation = response.conversation[0];
+          console.log("CurrentConversation: ", this._currentConversation);
+
           return true;
         }
         else{
@@ -89,7 +91,7 @@ export class ConversationApiRequestService {
 
   }
 
-  createConversation(userID: string | null, conversation: Conversation): Observable<any>{
+  createConversation(userID: string | undefined, conversation: Conversation): Observable<any>{
     return this.http.post<any>(this.getUrl("users/" + userID + "/conversations"), conversation).pipe(
       map(response => {
         if(response.success){
@@ -137,15 +139,15 @@ export class ConversationApiRequestService {
     }
   }
 
-  updateConversation(userID: string | null, conversationID: string , conversation: Conversation): Observable<any> {
+  updateConversation(userID: string | undefined, conversationID: string, conversation: Conversation): Observable<any> {
     return this.http.patch(this.getUrl("users/" + userID + "/conversations/" + conversationID), this.generateJsonForConversationUpdate(conversation)).pipe(
       map(response => {
         if (response) {
-          console.log(response)
+          console.log("Update Conversation: ", response)
           return true;
         }
         else {
-          console.log(response);
+          console.log("Update Conversation: ", response);
           return false;
         }
       }),

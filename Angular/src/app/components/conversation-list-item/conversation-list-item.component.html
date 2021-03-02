@@ -1,9 +1,9 @@
 <div *ngIf="this.isMessageUser()!=true; else notMessageUser" style="margin-top: 5px;">
   <td class="col-md-auto" style="background-color: rgb(233, 233, 233); margin-top: 5px;">
-    {{message.texte}}
+    {{message.body}}
   </td>
 </div>
 <ng-template #notMessageUser>
   <td class="col-md-10" style="margin-top: 5px;"></td>
-  <td class="col-md-auto" style="background-color: blue; color: white;">{{message.texte}}</td>
+  <td class="col-md-auto" style="background-color: blue; color: white;">{{message.body}}</td>
 </ng-template>
