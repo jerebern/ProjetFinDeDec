@@ -26,23 +26,20 @@ export class CommandItemsComponent implements OnInit {
 
     })
   }
+
+  loadCurrentProduct(){
+    this.apiProductService.showProduct(this.commandProduct.product_id).subscribe(result => {
+      this.product = result
+
+    })
+  }
   updateQuantity(){
     console.log("Hello")
     this.commandProductApiService.updateCommandProduct(this.userID.toString(),this.commandProduct.command_id.toString(),this.commandProduct.id.toString()).subscribe(result=>{
 
-        window.location.reload()
       
     })
   }
-  deleteProduct(){
-    console.log(this.commandProduct)
-    this.commandProductApiService.deleteCommandProduct(this.userID.toString(),this.commandProduct.command_id.toString(),this.commandProduct.id.toString()).subscribe(result =>{
-      if(result.succes){
-        window.location.reload();
-      }
-    })
-  }
-  loadProduct(id: number) {
-    this.router.navigate(['/products/' + id])
-  }
+
+
 }

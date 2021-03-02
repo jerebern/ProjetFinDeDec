@@ -72,8 +72,11 @@
          
       </thead>
       <tbody>
+        
           <tr *ngFor="let commandProduct of this.currentCommand.command_products" class="text-center" app-command-items
              [commandProduct]="commandProduct" [userID]= "this.currentCommand.user_id"> 
+             <button (click)="deleteProduct(commandProduct.id)" class="btn btn-outline-danger"><i class="fa fa-trash"></i>
+             </button>
          </tr>
       </table>  
 </div>
