@@ -37,8 +37,8 @@ export class ConversationApiRequestService {
     return '/api/' + querry + '/';
   }
 
-  getConversation(userID: string | null): Observable<any>{
-    return this.http.get<any>(this.getUrl("users/" + userID + "/conversations")).pipe(
+  getConversation(): Observable<any>{
+    return this.http.get<any>(this.getUrl("/conversations")).pipe(
       map(response => {
         if(response.success){
           console.log("GetConversation: ", response);
@@ -58,8 +58,8 @@ export class ConversationApiRequestService {
     )
   }
 
-  getConversationsAdmin(userID: string | null){
-      return this.http.get<any>(this.getUrl("users/" + userID + "/conversations")).pipe(
+  getConversationsAdmin(): Observable<any>{
+      return this.http.get<any>(this.getUrl("/conversations")).pipe(
         map(response => {
           if(response.success){
             console.log("GetConversationAdmin: ", response);
@@ -93,8 +93,8 @@ export class ConversationApiRequestService {
 
   }
 
-  createConversation(userID: string | undefined, conversation: Conversation): Observable<any>{
-    return this.http.post<any>(this.getUrl("users/" + userID + "/conversations"), conversation).pipe(
+  createConversation(conversation: Conversation): Observable<any>{
+    return this.http.post<any>(this.getUrl("/conversations"), conversation).pipe(
       map(response => {
         if(response.success){
           console.log("CreateConversation: ", response);
@@ -112,8 +112,8 @@ export class ConversationApiRequestService {
     )
   }
 
-  deleteConversation(userID: string | null, conversationId: string): Observable<any> {
-    return this.http.delete<any>(this.getUrl("users/" + userID + "/conversations/" + conversationId)).pipe(
+  deleteConversation(conversationId: string): Observable<any>{
+    return this.http.delete<any>(this.getUrl("/conversations/" + conversationId)).pipe(
       map(response => {
         if (response.success) {
           console.log("DeleteConversation: ", response)
@@ -141,8 +141,14 @@ export class ConversationApiRequestService {
     }
   }
 
-  updateConversation(userID: string | undefined, conversationID: string, conversation: Conversation): Observable<any> {
-    return this.http.patch(this.getUrl("users/" + userID + "/conversations/" + conversationID), this.generateJsonForConversationUpdate(conversation)).pipe(
+  generateJSONForSearch(querry: string){
+    return{
+      "q": querry
+    }
+  }
+
+  updateConversation(conversationID: string, conversation: Conversation): Observable<any>{
+    return this.http.patch(this.getUrl("/conversations/" + conversationID), this.generateJsonForConversationUpdate(conversation)).pipe(
       map(response => {
         if (response) {
           console.log("Update Conversation: ", response)
@@ -157,6 +163,18 @@ export class ConversationApiRequestService {
         console.log('Error: ', error);
 
         return of(null);
+      })
+    )
+  }
+
+  searchConversation(searchParams: string): Observable<any>{
+    console.log("SearchParamsConversation: ", this.generateJSONForSearch(searchParams));
+    return this.http.get<any>(this.getUrl("/conversations") + "?q=" + searchParams).pipe(
+      map(response => {
+        if(response.success){
+          console.log("Search Conversaion: ", response.conversations);
+
+        }
       })
     )
   }

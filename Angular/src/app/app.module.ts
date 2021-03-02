@@ -27,6 +27,8 @@ import { CartListItemComponent } from './components/cart-list-item/cart-list-ite
 import { ConversationListItemComponent } from './components/conversation-list-item/conversation-list-item.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { CommandItemsComponent } from './components/command-items/command-items.component';
+import { SearchBarConversationsComponent } from './components/search-bar-conversations/search-bar-conversations.component';
+import { SearchBarMessagesComponent } from './components/search-bar-messages/search-bar-messages.component';
 
 
 @NgModule({
@@ -53,6 +55,8 @@ import { CommandItemsComponent } from './components/command-items/command-items.
     ConversationListItemComponent,
     CheckoutComponent,
     CommandItemsComponent,
+    SearchBarConversationsComponent,
+    SearchBarMessagesComponent,
 
   ],
   imports: [

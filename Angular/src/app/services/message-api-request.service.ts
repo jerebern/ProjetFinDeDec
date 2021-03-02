@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Message } from 'src/app/models/message.model';
 import { AuthService } from './auth.services';
@@ -21,8 +21,8 @@ export class MessageApiRequestService {
     return '/api/' + querry + '/';
   }
 
-  getAllMessages(userID: string | undefined){
-    return this.http.get<any>(this.getUrl("users/" + userID + "/messages")).pipe(
+  getAllMessages(): Observable<any>{
+    return this.http.get<any>(this.getUrl("/messages")).pipe(
       map(response => {
         if(response.success){
           console.log("GetAllMessages: ", response);
@@ -44,8 +44,8 @@ export class MessageApiRequestService {
     return this.allMessages;
   }
 
-  createMessage(userID: string | undefined, message: Message){
-    return this.http.post<any>(this.getUrl("users/" + userID + "/messages"), message).pipe(
+  createMessage(message: Message): Observable<any>{
+    return this.http.post<any>(this.getUrl("/messages"), message).pipe(
       map(response => {
         if(response.success){
           console.log("CreateMessage: ", response);
@@ -61,5 +61,54 @@ export class MessageApiRequestService {
       })
     )
   }
+
+  deleteMessage(messageID: string): Observable<any>{
+    return this.http.delete<any>(this.getUrl("/messages/" + messageID)).pipe(
+      map(response => {
+        if (response.success) {
+          console.log("DeleteMessage: ", response)
+          return true;
+        }
+        else {
+          console.log("DeleteMessage: ", response);
+          return false;
+        }
+      }),
+      catchError(error => {
+        console.log('Error: ', error);
+
+        return of(null);
+      })
+    )
+  }
+
+  generateJsonForMessageUpdate(message: Message) {
+    return {
+      "message": {
+        "body": message.body
+      }
+    }
+  }
+
+  updateMessage(messageID: string, message: Message): Observable<any>{
+    return this.http.patch(this.getUrl("/messages/" + messageID), this.generateJsonForMessageUpdate(message)).pipe(
+      map(response => {
+        if (response) {
+          console.log("Update Message: ", response)
+          return true;
+        }
+        else {
+          console.log("Update Message: ", response);
+          return false;
+        }
+      }),
+      catchError(error => {
+        console.log('Error: ', error);
+
+        return of(null);
+      })
+    )
+  }
+
 
 }
