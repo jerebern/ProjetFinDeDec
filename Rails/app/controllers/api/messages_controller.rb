@@ -1,7 +1,8 @@
 class Api::MessagesController < ApplicationController
+    before_action :authenticate_user!
+    
     def index 
         if is_admin
-            @user = current_user
             if @messages = Message.all
                 render json: {messages: @messages, success: true}
             else
@@ -29,6 +30,7 @@ class Api::MessagesController < ApplicationController
     def create
         if is_admin
             @message = Message.create(message_params)
+            @message.user_id = current_user.id
             if @message.save
                 render json: {message: @message, success: true}
             else
@@ -37,6 +39,7 @@ class Api::MessagesController < ApplicationController
         else
             @user = current_user
             @message = @user.conversation.last.messages.create(message_params)
+            @message.user_id = @user.id
             if @message.save
                 render json: {message: @message, success: true}
             else
@@ -67,7 +70,7 @@ class Api::MessagesController < ApplicationController
 
     private 
     def message_params
-        params.require(:message).permit(:texte, :conversation_id, :user_id)
+        params.require(:message).permit(:body, :conversation_id)
     end
 
     def is_admin

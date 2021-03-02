@@ -24,10 +24,10 @@ const routes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: 'products/:id', component: ProductViewComponent }, //todo proteger la route
   { path: 'profile', component: ProfileComponent }, //todo proteger la route
-  { path: 'conversation/:id', component: ConversationComponent }, //todo protéger la route
-  { path: 'help', component: HelpComponent }, //todo protéger la route
-  { path: 'admin', component: AdminComponent, canActivate: [AdminAccessGuard] }, //todo protéger la route
-  { path: 'users/:user_id/carts', component: CartComponent, canActivate: [CartAccessGuard] },
+  { path: 'conversation/:id', component: ConversationComponent}, //todo proteger la route
+  { path: 'help', component: HelpComponent}, //todo proteger la route
+  { path: 'admin', component: AdminComponent, canActivate: [AdminAccessGuard] },
+  { path: 'cart', component: CartComponent, canActivate: [CartAccessGuard] },
   { path: 'checkout', component: CheckoutComponent },
   { path: '', component: WelcomeComponent },
   { path: '**', component: PageNotFoundComponent }

@@ -1,10 +1,28 @@
 class Api::ConversationsController < ApplicationController
+    before_action :authenticate_user!
+    
     def index 
         if is_admin
+            @users = User.all
+            @emails = Array.new
             if @conversations = Conversation.all
-                render json: {conversations: @conversations, success: true}
+                @conversations.each do |c|
+                    @users.each do |u|
+                        if c.user_id == u.id
+                            @emails.push(u.email)
+                        end
+                    end
+                end
+                render json: {conversations: @conversations, emails: @emails, success: true}
             else
                 render json: {success: false, error: [@conversations.errors]}
+            end
+        else
+            @user = current_user
+            if @conversation = @user.conversation
+                render json: {conversation: @conversation, success: true}
+            else
+                render json: {success: false, error: [@conversation.errors]}
             end
         end
     end
@@ -20,15 +38,12 @@ class Api::ConversationsController < ApplicationController
 
     def create
         @user = current_user
-        if @conversation = @user.conversation.last
-            render json: {success: false, error: [@conversation.errors]}
+        @conversation = @user.conversation.create(conversation_params)
+        @conversation.user_id = @user.id
+        if @conversation.save
+            render json: {conversation: @conversation, success: true}
         else
-            @conversation = @user.conversation.create(conversation_params)
-            if @conversation.save
-                render json: {conversation: @conversation, success: true}
-            else
-                render json: {success: false, error: [@conversation.errors]}
-            end
+            render json: {success: false, error: [@conversation.errors]}
         end
     end
 
@@ -61,11 +76,11 @@ class Api::ConversationsController < ApplicationController
 
     private 
     def conversation_params
-        params.require(:conversation).permit(:title, :description, :email_user, :user_id)
+        params.require(:conversation).permit(:title, :description)
     end
 
     def is_admin
-        if current_user.is_admin==true
+        if current_user.is_admin == true
             return true
         else
             return false

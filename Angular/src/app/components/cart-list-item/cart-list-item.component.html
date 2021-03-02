@@ -1,5 +1,9 @@
 <td>
-    {{ cartProduct.products[0].title }}
+    <div>
+        <a [routerLink]="['/products', cartProduct.products[0].id]">
+            {{ cartProduct.products[0].title }}
+        </a>
+    </div>
 </td>
 <td class="text-right">
     {{ cartProduct.products[0].price }}$

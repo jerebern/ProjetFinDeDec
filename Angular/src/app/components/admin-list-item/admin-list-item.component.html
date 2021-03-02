@@ -1,3 +1,5 @@
-<td style="text-align: center;">{{conversation.email_user}}</td>
-<td style="text-align: center;"><button (click)="clicked()" type="button" class="btn btn-sm btn-primary">Lien vers conversation</button></td>
-<td style="text-align: center;"><button (click)="deleteConversation()" type="button" class="btn btn-sm btn-danger">Supprimer</button></td>
+<td><a [routerLink]="['/conversation', conversation.id]" (click)="clicked()">{{conversation.user_email}}</a></td>
+<td>
+  <button (click)="clicked()" type="button" class="btn btn-sm btn-primary"><i class="fa fa-commenting-o fa-2x" aria-hidden="true"></i></button>
+  <button style="margin-left: 5px;" (click)="deleteConversation()" type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></button>
+</td>

@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm">
             <div class="row">
-                <img src="{{ product.picture }}" class="w-100 h-100 rounded">
+                <img src="{{ product.picture_url }}" class="w-100 h-100 rounded">
             </div>
         </div>
         <div class="col-sm">
@@ -36,7 +36,10 @@
                     <input formControlName="quantity" type="number" min="1" max="{{ product.quantity }}" value="1">
                 </div>
                 <div class="row form-group">
-                    <button type="submit" class="btn btn-warning">
+                    <button *ngIf="this.isLoggedIn()==true" type="submit" class="btn btn-warning">
+                        Ajouter au panier
+                    </button>
+                    <button *ngIf="this.isLoggedIn()==false" (click)="login()" class="btn btn-warning">
                         Ajouter au panier
                     </button>
                 </div>

@@ -22,7 +22,7 @@
         <br>
         <button type="submit" class="btn btn-primary">Appliquer</button>
         <br>
-        <button (click)="reset()" class="btn btn-outline-primary">Tous les produits</button>
+        <a (click)="reset()" class="btn btn-outline-primary">Tous les produits</a>
     </form>
 </div>
 <form [formGroup]="cartForm" (ngSubmit)="checkUp()">
@@ -71,8 +71,8 @@
                 <button [routerLink]="['/checkout']" class="btn btn-lg btn-success btn-block" type="submit">
                     Passer à la caisse
                 </button>
-                <a [routerLink]="['/products']" class="btn btn-lg btn btn-danger btn-block" role="button">
-                    Annuler
+                <a [routerLink]="['/products']" class="btn btn-lg btn btn-outline-danger btn-block" role="button">
+                    Retour au produits
                 </a>
             </div>
         </div>

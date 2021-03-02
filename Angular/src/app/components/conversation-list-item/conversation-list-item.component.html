@@ -1,9 +1,14 @@
 <div *ngIf="this.isMessageUser()!=true; else notMessageUser" style="margin-top: 5px;">
-  <td class="col-md-auto" style="background-color: rgb(233, 233, 233); margin-top: 5px;">
-    {{message.texte}}
+  <td class="col-md-auto" style="background-color: rgb(233, 233, 233); margin-bottom: 5px; max-width: 50%; text-align: center;">
+    {{message.body}}
   </td>
+  <td></td>
 </div>
 <ng-template #notMessageUser>
-  <td class="col-md-10" style="margin-top: 5px;"></td>
-  <td class="col-md-auto" style="background-color: blue; color: white;">{{message.texte}}</td>
+  <div style="float: right; margin-top: 5px;">
+    <td style="text-align: right;"><button class="btn btn-outline btn-sm" type="button" ><i class="fa fa-ellipsis-v"></i></button></td>
+    <td class="col-md-auto" style="background-color: blue; color: white; min-width: 45%; text-align: center;">
+      {{message.body}}
+    </td>
+  </div>
 </ng-template>

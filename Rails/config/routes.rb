@@ -10,10 +10,10 @@ Rails.application.routes.draw do
       resources :commands do
         resources :command_products
       end
-      resources :conversations
-      resources :messages
       resources :carts
     end
+    resources :conversations
+    resources :messages
   end
 
   match '*url', to: "angular#index", via: :get # le parametre url contiendra tout ce qui suit l'étoile dans l'url
