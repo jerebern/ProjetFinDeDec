@@ -18,6 +18,7 @@ export class ConversationComponent implements OnInit {
   messageForm: FormGroup;
   messagesTemp: Message[] = [];
   messages: Message[] = [];
+  timeReload: number = 3000;
 
   constructor(private messageService: MessageApiRequestService, private conversationService: ConversationApiRequestService, private authService: AuthService) {
     this.messageForm = new FormGroup({
@@ -25,7 +26,8 @@ export class ConversationComponent implements OnInit {
     })
     this.conversation = this.getConversation();
     this.getMessages();
-    setInterval(() => this.getMessages(), 1500);
+
+    setInterval(() => this.getMessages(), this.timeReload);
   }
 
   ngOnInit(): void {

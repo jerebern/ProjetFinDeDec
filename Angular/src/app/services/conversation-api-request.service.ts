@@ -38,7 +38,7 @@ export class ConversationApiRequestService {
   }
 
   getConversation(userID: string | null): Observable<any>{
-    return this.http.get<any>(this.getUrl("users/" + userID + "/conversations")).pipe(
+    return this.http.get<any>(this.getUrl("/conversations")).pipe(
       map(response => {
         if(response.success){
           console.log("GetConversation: ", response);
@@ -59,7 +59,7 @@ export class ConversationApiRequestService {
   }
 
   getConversationsAdmin(userID: string | null){
-      return this.http.get<any>(this.getUrl("users/" + userID + "/conversations")).pipe(
+      return this.http.get<any>(this.getUrl("/conversations")).pipe(
         map(response => {
           if(response.success){
             console.log("GetConversationAdmin: ", response);
@@ -94,7 +94,7 @@ export class ConversationApiRequestService {
   }
 
   createConversation(userID: string | undefined, conversation: Conversation): Observable<any>{
-    return this.http.post<any>(this.getUrl("users/" + userID + "/conversations"), conversation).pipe(
+    return this.http.post<any>(this.getUrl("/conversations"), conversation).pipe(
       map(response => {
         if(response.success){
           console.log("CreateConversation: ", response);
@@ -113,7 +113,7 @@ export class ConversationApiRequestService {
   }
 
   deleteConversation(userID: string | null, conversationId: string): Observable<any> {
-    return this.http.delete<any>(this.getUrl("users/" + userID + "/conversations/" + conversationId)).pipe(
+    return this.http.delete<any>(this.getUrl("/conversations/" + conversationId)).pipe(
       map(response => {
         if (response.success) {
           console.log("DeleteConversation: ", response)
@@ -142,7 +142,7 @@ export class ConversationApiRequestService {
   }
 
   updateConversation(userID: string | undefined, conversationID: string, conversation: Conversation): Observable<any> {
-    return this.http.patch(this.getUrl("users/" + userID + "/conversations/" + conversationID), this.generateJsonForConversationUpdate(conversation)).pipe(
+    return this.http.patch(this.getUrl("/conversations/" + conversationID), this.generateJsonForConversationUpdate(conversation)).pipe(
       map(response => {
         if (response) {
           console.log("Update Conversation: ", response)
