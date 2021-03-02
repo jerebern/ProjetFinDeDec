@@ -22,7 +22,7 @@ class Api::CartsController < ApplicationController
     def create
         @cart_product = current_user.cart.cart_products.find_by(product_id: cart_params[:products][0][:id])
         if @cart_product
-            @cart_product.quantity = @cart_product.quantity + cart_params[:products][0][:quantity]
+            @cart_product.quantity = @cart_product.quantity + cart_params[:quantity].to_i
         else
             @cart_product = CartProduct.new
             @cart_product.product_id = cart_params[:products][0][:id]
