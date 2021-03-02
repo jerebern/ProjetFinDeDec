@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CartProduct } from 'src/app/models/cart-product.model';
 import { Cart } from 'src/app/models/cart.model';
 import { CartApiRequestService } from 'src/app/services/cart-api-request.service';
+import { CartComponent } from '../cart/cart.component';
 
 @Component({
   selector: 'app-cart-list',
@@ -12,7 +13,7 @@ export class CartItemsComponent implements OnInit {
 
   @Input() cart!: Cart;
 
-  constructor(private apiCartService: CartApiRequestService) { }
+  constructor(private apiCartService: CartApiRequestService, private cartComponent: CartComponent) { }
 
   ngOnInit(): void {
   }
@@ -60,6 +61,7 @@ export class CartItemsComponent implements OnInit {
         console.log(this.apiCartService.sort);
         //window.location.reload();
         this.cart = this.apiCartService.cart!;
+        this.cartComponent.reset();
       }
       else {
         console.log("ERROR", success);

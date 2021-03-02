@@ -2,120 +2,57 @@ class Api::CartsController < ApplicationController
     before_action :is_currentUser?, :authenticate_user!
 
     def index
-        if params[:q]
-            @user = current_user
-            @cart = @user.cart
-            render json: { cart: @cart.as_json.merge({ cartProducts: @cart.cart_products.map{ |cartProduct|
-            cartProduct.as_json.merge({ products: @cart.products.where("product_id LIKE ?", "%" + cartProduct.product_id.to_s + "%").where("MATCH(category, title, description, animal_type) AGAINST('" + params[:q] + "')").as_json })
+        if params[:q].blank?
+            render json: { cart: current_user.cart.as_json.merge({ cartProducts: current_user.cart.cart_products.map{ |cartProduct|
+            cartProduct.as_json.merge({ products: current_user.cart.products.where("product_id LIKE ?", cartProduct.product_id.to_s).as_json })
             }}), success: true }
         else
-            @user = current_user
-            @cart = @user.cart
-            render json: { cart: @cart.as_json.merge({ cartProducts: @cart.cart_products.map{ |cartProduct|
-            cartProduct.as_json.merge({ products: @cart.products.where("product_id LIKE ?", "%" + cartProduct.product_id.to_s + "%").as_json })
+            render json: { cart: current_user.cart.as_json.merge({ cartProducts: current_user.cart.cart_products.map{ |cartProduct|
+            cartProduct.as_json.merge({ products: current_user.cart.products.where("product_id LIKE ?", cartProduct.product_id.to_s).where("MATCH(category, title, description, animal_type) AGAINST( ? )", params[:q]).as_json })
             }}), success: true }
         end
-    rescue => e
-        render json: { success: false, error: [e] }
     end
 
     def show
-        @user = current_user
-        @cart = @user.cart
-        render json: { cart: @cart.as_json.merge({ cartProducts: @cart.cart_products.map{ |cartProduct|
-        cartProduct.as_json.merge({ products: @cart.products.where("product_id LIKE ?", "%" + cartProduct.product_id.to_s + "%").as_json })
+        render json: { cart: current_user.cart.as_json.merge({ cartProducts: current_user.cart.cart_products.map{ |cartProduct|
+        cartProduct.as_json.merge({ products: current_user.cart.products.where("product_id LIKE ?", cartProduct.product_id.to_s).as_json })
         }}), success: true }
-    rescue => e
-        render json: { success: false, error: [e] }
     end
 
     def create
-        @user = current_user
-        @cart = @user.cart
-        @cart_product = CartProduct.new
-        @cart_product.cart_id = @cart.id
-        @newParams = params[:cart_product]
-        @quantity = @newParams[:quantity]
-        @cart_product.quantity = @quantity
-        @newParams = @newParams[:products]
-        if @cart.products.find_by_id(Product.find(@newParams.last[:id]).id)
-            @cart_product = @cart.cart_products.find_by(product_id: Product.find(@newParams.last[:id]).id)
-            @cart_product.quantity = @quantity.to_i + @cart_product.quantity
+        @cart_product = current_user.cart.cart_products.find_by(product_id: cart_params[:products][0][:id])
+        if @cart_product
+            @cart_product.quantity = @cart_product.quantity + cart_params[:products][0][:quantity]
         else
-            @cart_product.product_id = Product.find(@newParams.last[:id]).id
+            @cart_product = CartProduct.new
+            @cart_product.product_id = cart_params[:products][0][:id]
+            @cart_product.quantity = cart_params[:quantity]
+            @cart_product.cart_id = current_user.cart.id
         end
-        if @cart_product.quantity > Product.find(@newParams.last[:id]).quantity
-            @cart_product.quantity = Product.find(@newParams.last[:id]).quantity
-        end
-        @cart_product.total_price = Product.find(@cart_product.product_id).price * @cart_product.quantity
         if @cart_product.save
-            @cart.sub_total = 0
-            @cart.cart_products.each do |carpro|
-                @cart.sub_total += carpro.total_price
-            end
-            if @cart.save
-                render json: { cart_product: @cart_product, success: true }
-            else
-                render json: { success: false, error: [@cart.errors] }
-            end
+            render json: { cart_product: @cart_product, success: true }
         else
             render json: { success: false, error: [@cart_product.errors] }
         end
-    rescue => e
-        render json: { success: false, error: [e] }
     end
 
     def update
-        @user = current_user
-        @cart = @user.cart
-        @cart_product = @cart.cart_products.find(params[:id])
-        if @cart_product.update(cart_product_params)
-            @product = Product.find(@cart_product.product_id)
-            if @cart_product.quantity > @product.quantity
-                @cart_product.quantity = @product.quantity
-            end
-            @cart_product.total_price = @product.price * @cart_product.quantity
-            if @cart_product.save
-                @cart.sub_total = 0
-                @cart.cart_products.each do |carpro|
-                    @cart.sub_total += carpro.total_price
-                end
-                if @cart.save
-                    render json: { cart: @cart.as_json.merge({ cartProducts: @cart.cart_products.map{ |cartProduct|
-                    cartProduct.as_json.merge({ products: @cart.products.where("product_id LIKE ?", "%" + cartProduct.product_id.to_s + "%").as_json })
-                    }}), success: true }
-                else
-                    render json: { success: false, error: [@cart.errors] }
-                end
-            else
-                render json: { success: false, error: [@cart.errors] }
-            end
+        @cart_product = current_user.cart.cart_products.find_by(product_id: cart_params[:products][0][:id])
+        @cart_product.quantity = cart_params[:quantity]
+        if @cart_product.save
+            render json: { cart_product: @cart_product, success: true }
         else
             render json: { success: false, error: [@cart_product.errors] }
         end
-    rescue => e
-        render json: { success: false, error: [e] }
     end
 
     def destroy
-        @user = current_user
-        @cart = @user.cart
-        @cart_product = @cart.cart_products.find(params[:id])
+        @cart_product = current_user.cart.cart_products.find_by_id(params[:id])
         if @cart_product.destroy
-            @cart.sub_total = 0
-            @cart.cart_products.each do |carpro|
-                @cart.sub_total += carpro.total_price
-            end
-            if @cart.save
-                render json: { cart_product: @cart_product.as_json, success: true }
-            else
-                render json: { success: false, error: [@cart.errors] }
-            end
+            render json: { cart_product: @cart_product.as_json, success: true }
         else
             render json: { success: false, error: [@cart_product.errors] }
         end
-    rescue => e
-        render json: { success: false, error: [e] }
     end
     
     private
@@ -127,8 +64,11 @@ class Api::CartsController < ApplicationController
         render json: { success: false, error: [e] }
     end
 
-    private
     def cart_product_params
         params.require(:cart_product).permit(:quantity, :cart_id, :product_id)
+    end
+
+    def cart_params
+        params.require(:cart_product).permit(:quantity, products:[:id])
     end
 end

@@ -18,7 +18,7 @@ export class HelpComponent implements OnInit {
   conversationForm: FormGroup;
   editConversationForm: FormGroup;
 
-  constructor(private conversationService : ConversationApiRequestService, private router: Router, private authService: AuthService) {
+  constructor(private conversationService: ConversationApiRequestService, private router: Router, private authService: AuthService) {
     this.userConversation = new Conversation();
 
     this.conversationForm = new FormGroup({
@@ -34,8 +34,7 @@ export class HelpComponent implements OnInit {
 
   ngOnInit(): void {
     this.getConversation();
-    if(this.conversationService.currentConversation)
-    {
+    if (this.conversationService.currentConversation) {
       this.userConversation = this.conversationService.currentConversation;
       this.editConversationForm.patchValue({
         title: this.userConversation.title,
@@ -44,20 +43,18 @@ export class HelpComponent implements OnInit {
     }
   }
 
-  hasMessage(){
-    if(this.userConversation)
-    {
+  hasMessage() {
+    if (this.userConversation) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
 
-  getConversation(){
-    if(this.authService.currentUser)
-    {
-      this.conversationService.getConversation(this.authService.currentUser.id.toString(), "1").subscribe(success => {
-        if(success){
+  getConversation() {
+    if (this.authService.currentUser) {
+      this.conversationService.getConversation(this.authService.currentUser.id.toString()).subscribe(success => {
+        if (success) {
           this.userConversation = this.conversationService.currentConversation;
           console.log("userConversation: ", this.userConversation);
         }
@@ -65,14 +62,14 @@ export class HelpComponent implements OnInit {
     }
   }
 
-  createConversation(){
+  createConversation() {
     let newConversation = new Conversation();
     newConversation.title = this.conversationForm.get('title')?.value;
     newConversation.description = this.conversationForm.get('description')?.value;
     console.log("New Conversation: ", newConversation);
 
-    this.conversationService.createConversation(this.authService.currentUser?.id.toString(), newConversation).subscribe(success =>{
-      if(success){
+    this.conversationService.createConversation(this.authService.currentUser?.id.toString(), newConversation).subscribe(success => {
+      if (success) {
         console.log("Success: ", success);
         this.conversationService.setCurrentConversation(newConversation);
         this.getConversation();
@@ -81,17 +78,17 @@ export class HelpComponent implements OnInit {
     })
   }
 
-  message(){
+  message() {
     this.router.navigate(['conversation/' + this.userConversation.id]);
   }
 
-  update(){
+  update() {
     this.userConversation.title = this.editConversationForm.get('title')?.value;
     this.userConversation.description = this.editConversationForm.get('description')?.value;
     console.log("New Conversation: ", this.userConversation);
 
-    this.conversationService.updateConversation(this.authService.currentUser?.id.toString(), this.userConversation.id.toString(), this.userConversation).subscribe(success =>{
-      if(success){
+    this.conversationService.updateConversation(this.authService.currentUser?.id.toString(), this.userConversation.id.toString(), this.userConversation).subscribe(success => {
+      if (success) {
         console.log("Success: ", success);
         this.conversationService.setCurrentConversation(this.userConversation);
         this.getConversation();
