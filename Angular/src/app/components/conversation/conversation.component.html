@@ -5,7 +5,7 @@
         <h1 style="text-align: center;">{{conversation.title}}</h1>
         <p style="text-align: center;">{{conversation.description}}</p>
         <table style="width: 100%;">
-          <tr style="width: fit-content;" *ngFor="let message of messages" app-conversation-list-item [message]="message" ></tr>
+          <tr style="width: 100%;" *ngFor="let message of messages" app-conversation-list-item [message]="message"></tr>
         </table>
       </div>
     </div>

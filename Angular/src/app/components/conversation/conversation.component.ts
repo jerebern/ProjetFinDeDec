@@ -25,6 +25,7 @@ export class ConversationComponent implements OnInit {
     })
     this.conversation = this.getConversation();
     this.getMessages();
+    setInterval(() => this.getMessages(), 1500);
   }
 
   ngOnInit(): void {
@@ -71,7 +72,6 @@ export class ConversationComponent implements OnInit {
       this.messageService.createMessage(this.authService.currentUser?.id.toString(), newMessage).subscribe(success => {
         if(success){
           console.log("Success: ", success);
-          //this.conversation;
           this.getMessages();
         }
       })

@@ -37,14 +37,13 @@ export class ConversationApiRequestService {
     return '/api/' + querry + '/';
   }
 
-  getConversation(userID: string | null, conversationID: string): Observable<any>{
+  getConversation(userID: string | null): Observable<any>{
     return this.http.get<any>(this.getUrl("users/" + userID + "/conversations")).pipe(
       map(response => {
         if(response.success){
           console.log("GetConversation: ", response);
           this._currentConversation = response.conversation[0];
           console.log("CurrentConversation: ", this._currentConversation);
-
           return true;
         }
         else{
@@ -65,6 +64,9 @@ export class ConversationApiRequestService {
           if(response.success){
             console.log("GetConversationAdmin: ", response);
             this.allConversations = response.conversations;
+            for(var i = 0; i < this.allConversations.length; i++){
+              this.allConversations[i].user_email = response.emails[i];
+            }
             console.log("AllConversations: ", this.allConversations);
 
             return true;

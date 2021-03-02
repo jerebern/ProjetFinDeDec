@@ -3,8 +3,17 @@ class Api::ConversationsController < ApplicationController
     
     def index 
         if is_admin
+            @users = User.all
+            @emails = Array.new
             if @conversations = Conversation.all
-                render json: {conversations: @conversations, success: true}
+                @conversations.each do |c|
+                    @users.each do |u|
+                        if c.user_id == u.id
+                            @emails.push(u.email)
+                        end
+                    end
+                end
+                render json: {conversations: @conversations, emails: @emails, success: true}
             else
                 render json: {success: false, error: [@conversations.errors]}
             end
