@@ -53,7 +53,7 @@ export class HelpComponent implements OnInit {
 
   getConversation() {
     if (this.authService.currentUser) {
-      this.conversationService.getConversation(this.authService.currentUser.id.toString()).subscribe(success => {
+      this.conversationService.getConversation().subscribe(success => {
         if (success) {
           this.userConversation = this.conversationService.currentConversation;
           console.log("userConversation: ", this.userConversation);
@@ -68,7 +68,7 @@ export class HelpComponent implements OnInit {
     newConversation.description = this.conversationForm.get('description')?.value;
     console.log("New Conversation: ", newConversation);
 
-    this.conversationService.createConversation(this.authService.currentUser?.id.toString(), newConversation).subscribe(success => {
+    this.conversationService.createConversation(newConversation).subscribe(success => {
       if (success) {
         console.log("Success: ", success);
         this.conversationService.setCurrentConversation(newConversation);
@@ -87,7 +87,7 @@ export class HelpComponent implements OnInit {
     this.userConversation.description = this.editConversationForm.get('description')?.value;
     console.log("New Conversation: ", this.userConversation);
 
-    this.conversationService.updateConversation(this.authService.currentUser?.id.toString(), this.userConversation.id.toString(), this.userConversation).subscribe(success => {
+    this.conversationService.updateConversation(this.userConversation.id.toString(), this.userConversation).subscribe(success => {
       if (success) {
         console.log("Success: ", success);
         this.conversationService.setCurrentConversation(this.userConversation);

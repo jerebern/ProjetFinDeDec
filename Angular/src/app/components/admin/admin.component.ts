@@ -26,7 +26,7 @@ export class AdminComponent implements OnInit {
   getConversations(){
     if(this.authService.currentUser)
     {
-      this.conversationService.getConversationsAdmin(this.authService.currentUser.id.toString()).subscribe(success => {
+      this.conversationService.getConversationsAdmin().subscribe(success => {
         if(success){
           this.conversations = this.conversationService.getConversations();
           console.log("Conversations: ", this.conversations);
@@ -47,7 +47,7 @@ export class AdminComponent implements OnInit {
 
     if(confirm("Êtes-vous certain de vouloir supprimer cette conversation avec l'id: " + conversation.id +"?"))
     {
-      this.conversationService.deleteConversation(conversation.user_id.toString(), conversation.id.toString()).subscribe(success => {
+      this.conversationService.deleteConversation(conversation.id.toString()).subscribe(success => {
           if(success){
             console.log("Delete Conversation: ", success);
             this.getConversations();

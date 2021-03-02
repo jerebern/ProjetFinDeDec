@@ -5,15 +5,18 @@ class Api::ConversationsController < ApplicationController
         if is_admin
             @users = User.all
             @emails = Array.new
+            @names = Array.new
             if @conversations = Conversation.all
                 @conversations.each do |c|
                     @users.each do |u|
                         if c.user_id == u.id
                             @emails.push(u.email)
+                            @fullname = u.firstname + " " + u.lastname
+                            @names.push(@fullname)
                         end
                     end
                 end
-                render json: {conversations: @conversations, emails: @emails, success: true}
+                render json: {conversations: @conversations, emails: @emails, names: @names, success: true}
             else
                 render json: {success: false, error: [@conversations.errors]}
             end
@@ -24,6 +27,9 @@ class Api::ConversationsController < ApplicationController
             else
                 render json: {success: false, error: [@conversation.errors]}
             end
+        #else
+            #à continuer
+         #   render json: {conversations: Conversation.where("MATCH(body) AGAINST(?)", params[:q].as_json(success: true))}
         end
     end
 

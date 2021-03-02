@@ -1,5 +1,5 @@
 import { Message } from 'src/app/models/message.model';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.services';
 
 @Component({
@@ -10,6 +10,8 @@ import { AuthService } from 'src/app/services/auth.services';
 export class ConversationListItemComponent implements OnInit {
 
   @Input() message!: Message;
+  @Output() update = new EventEmitter();
+  @Output() delete = new EventEmitter();
 
   constructor(private authService: AuthService) { }
 
@@ -22,6 +24,14 @@ export class ConversationListItemComponent implements OnInit {
     }else{
       return false;
     }
+  }
+
+  updateMessage(){
+    this.update.emit(this.message);
+  }
+
+  deleteMessage(){
+    this.delete.emit(this.message);
   }
 
 }
