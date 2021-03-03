@@ -1,34 +1,37 @@
 class Api::CommandProductsController < ApplicationController
 before_action :authenticate_user!, :is_currentUser?
 def index
-
+    #@productID = Array.new
     @command = Command.find(params[:command_id])
 
+    @productsName = Product.where(id:[@command.command_products.all.select(:product_id)]).all.select(:title)
+     
     if params[:q]
     
         @commandsProduct=  @command.command_products.where("product_id LIKE ?","%" +params[:q]+"%")
+        @productsName = Product.where(id:[@command.command_products.all.select(:product_id)]).all.select(:title)
     
-        render json: {command_products: @commandsProduct ,success: true}
+        render json: {command_products: @commandsProduct, productName: @productName ,success: true}
     elsif params[:s] == "priceTotalUp"
-        render json: {command_products: @command.command_products.sort_by(&:total_price), succes: true}
+        render json: {command_products: @command.command_products.sort_by(&:total_price), productName: @productName, succes: true}
     
     elsif params[:s] == "priceTotalDown"
-        render json: {command_products: @command.command_products.sort_by(&:total_price).reverse, succes: true}
+        render json: {command_products: @command.command_products.sort_by(&:total_price).reverse, productName: @productName, succes: true}
    
     elsif params[:s] == "priceUnitlUp"
-        render json: {command_products: @command.command_products.sort_by(&:unit_price), succes: true}
+        render json: {command_products: @command.command_products.sort_by(&:unit_price), productName: @productName, succes: true}
     
     elsif params[:s] == "priceUnitDown"
-        render json: {command_products: @command.command_products.sort_by(&:unit_price).reverse, succes: true}
+        render json: {command_products: @command.command_products.sort_by(&:unit_price).reverse, productName: @productName, succes: true}
 
     elsif params[:s] == "quantityUp"
-        render json: {command_products: @command.command_products.sort_by(&:quantity), succes: true}
+        render json: {command_products: @command.command_products.sort_by(&:quantity), productName: @productName, succes: true}
     
     elsif params[:s] == "quantityDown"
        
-        render json: {command_products: @command.command_products.sort_by(&:quantity).reverse, succes: true}
+        render json: {command_products: @command.command_products.sort_by(&:quantity).reverse, productName: @productName, succes: true}
     else
-        render json: {command_products: @command.command_products, succes: true}
+        render json: {command_products: @command.command_products, productName: @productsName,succes: true}
         #todo rajouter un s a succes sans tout faire planter
     end
 end
