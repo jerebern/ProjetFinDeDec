@@ -29,6 +29,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { CommandItemsComponent } from './components/command-items/command-items.component';
 import { SearchBarConversationsComponent } from './components/search-bar-conversations/search-bar-conversations.component';
 import { SearchBarMessagesComponent } from './components/search-bar-messages/search-bar-messages.component';
+import { ProductsSommaryComponent } from './components/products-sommary/products-sommary.component';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import { SearchBarMessagesComponent } from './components/search-bar-messages/sea
     CommandItemsComponent,
     SearchBarConversationsComponent,
     SearchBarMessagesComponent,
+    ProductsSommaryComponent,
 
   ],
   imports: [
