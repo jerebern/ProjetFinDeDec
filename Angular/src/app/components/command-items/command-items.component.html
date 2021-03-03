@@ -1,8 +1,5 @@
 <td>
-
-    <a href="products/{{product.id}}">{{ product.title }}</a>
-    <button (click)="deleteProduct()" class="btn btn-outline-danger"><i class="fa fa-trash"></i>
-    </button>
+    <a [routerLink]="['/products',commandProduct.product_id]" routerLinkActive="router-link-active" >{{ commandProduct.productName }}</a>
 </td>
 <td class="text-right">
     {{ commandProduct.unit_price }}$

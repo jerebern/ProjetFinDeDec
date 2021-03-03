@@ -13,4 +13,6 @@ export class CommandProduct extends JSONObject {
     product_id !: number
 
     command_id !: number
+
+    productName !: string
 }

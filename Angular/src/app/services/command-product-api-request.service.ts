@@ -14,7 +14,7 @@ export class CommandProductApiRequestService {
   searchCommandProduct(userID : string, commandID : string, querry : string ){
     return this.http.get<any>("/api/users/"+userID+"/commands/"+commandID+"/command_products/"+"?q="+querry).pipe(
       map(response => { 
-          return response.command_products
+          return response
         
       })
     )
@@ -22,7 +22,7 @@ export class CommandProductApiRequestService {
   getCommandProduct(userID : string, commandID : string, sort : string){
     return this.http.get<any>("/api/users/"+userID+"/commands/"+commandID+"/command_products/"+"?s="+sort).pipe(
       map(response => { 
-          return response.command_products
+          return response
         
       })
     )

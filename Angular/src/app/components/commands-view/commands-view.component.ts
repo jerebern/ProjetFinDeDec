@@ -6,6 +6,7 @@ import { Command } from 'src/app/models/command.model';
 import { AuthService } from 'src/app/services/auth.services';
 import { CommandApiRequestService } from 'src/app/services/command-api-request.service';
 import { CommandProductApiRequestService } from 'src/app/services/command-product-api-request.service';
+import { JSONObject } from 'ts-json-object';
 
 @Component({
   selector: 'app-command',
@@ -30,7 +31,7 @@ export class CommandsViewComponent implements OnInit {
     let querry = this.searchCommandForm.get('search')?.value
     if(this.authService.currentUser){
       this.apiCommandProductService.searchCommandProduct(this.authService.currentUser.id.toString(),this.currentCommand.id.toString(),querry).subscribe(success =>{
-        this.currentCommand.command_products = success
+        this.changeCommandProduct(success)
     })
   }
 }
@@ -62,11 +63,22 @@ export class CommandsViewComponent implements OnInit {
     }
     this.loadCommand_Products(this.sortQuantity)
   }
+  changeCommandProduct(success : any){
+    this.currentCommand.command_products = success.command_products
+    let index : number = 0;
+    console.log(success)
+    for(let name of success.productName){
+      this.currentCommand.command_products[index].productName = name.title
+
+      index++;
+    }
+  }
+
   loadCommand_Products(sortMode : string){
     if (this.authService.isLoggedIn && this.authService.currentUser != null) {
     this.apiCommandProductService.getCommandProduct(this.authService.currentUser.id.toString(),this.currentCommand.id.toString(),sortMode).subscribe(success =>{
-      this.currentCommand.command_products = success
-      console.log(this.currentCommand.command_products)
+      this.changeCommandProduct(success)
+
     })
     }
   }
@@ -77,6 +89,7 @@ export class CommandsViewComponent implements OnInit {
       this.apiRequestService.getOneCommandFromOneUser(this.authService.currentUser.id.toString(), id).subscribe(succes => {
         if (succes) {
           this.currentCommand = this.apiRequestService.getCurrentCommand();
+          this.loadCommand_Products("")
         }
         else {
           console.log("ERROR")
@@ -98,7 +111,6 @@ export class CommandsViewComponent implements OnInit {
         else {
           console.log("ERROR")
           alert("ERROR!!!");
-          window.location.reload();
         }
       });
     }
@@ -116,6 +128,16 @@ export class CommandsViewComponent implements OnInit {
         }
       });
     }
+  }
+  deleteProduct(id : number){
+    console.log(id)
+    if(this.authService.currentUser?.toString()){
+      this.apiCommandProductService.deleteCommandProduct(this.authService.currentUser?.toString(),this.currentCommand.id.toString(),id.toString()).subscribe(result =>{
+
+      })
+
+    }
+
   }
   ngOnInit(): void {
     let id: string | null;
