@@ -6,7 +6,7 @@
     </div>
 </td>
 <td class="text-right">
-    {{ cartProduct.products[0].price }}$
+    {{ price | number : '1.2-2' }}$
 </td>
 <td>
     <form [formGroup]="cartItemForm" (ngSubmit)="refreshItem()">
@@ -30,5 +30,5 @@
     </form>
 </td>
 <td class="text-right">
-    {{ cartProduct.total_price }}$
+    {{ total_price | number : '1.2-2' }}$
 </td>
