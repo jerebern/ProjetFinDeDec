@@ -15,6 +15,8 @@ export class CartListItemComponent implements OnInit {
   @Input() cartProduct!: CartProduct;
 
   cartItemForm: FormGroup;
+  price: number = 0;
+  total_price: number = 0;
 
   constructor(private apiCartService: CartApiRequestService, private cartComponent: CartComponent) {
     this.cartItemForm = new FormGroup({
@@ -25,6 +27,8 @@ export class CartListItemComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.cartProduct);
     this.cartItemForm.get('quantity')?.setValue(this.cartProduct.quantity);
+    this.price = Number(this.cartProduct.products[0].price);
+    this.total_price = Number(this.cartProduct.total_price);
   }
 
   refreshItem() {
@@ -99,6 +103,5 @@ export class CartListItemComponent implements OnInit {
         }
       });
     }
-    /**/
   }
 }

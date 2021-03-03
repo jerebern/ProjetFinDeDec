@@ -33,7 +33,7 @@
                 Prix Total sans filtre :
             </th>
             <th class="text-right">
-                {{ cart.sub_total }}$
+                {{ cart.sub_total | number : '1.2-2' }}$
             </th>
         </tr>
     </thead>

@@ -37,7 +37,7 @@ export class ConversationApiRequestService {
     return '/api/' + querry + '/';
   }
 
-  getConversation(userID: string | null): Observable<any>{
+  getConversation(): Observable<any>{
     return this.http.get<any>(this.getUrl("/conversations")).pipe(
       map(response => {
         if(response.success){
@@ -58,7 +58,7 @@ export class ConversationApiRequestService {
     )
   }
 
-  getConversationsAdmin(userID: string | null){
+  getConversationsAdmin(): Observable<any>{
       return this.http.get<any>(this.getUrl("/conversations")).pipe(
         map(response => {
           if(response.success){
@@ -93,7 +93,7 @@ export class ConversationApiRequestService {
 
   }
 
-  createConversation(userID: string | undefined, conversation: Conversation): Observable<any>{
+  createConversation(conversation: Conversation): Observable<any>{
     return this.http.post<any>(this.getUrl("/conversations"), conversation).pipe(
       map(response => {
         if(response.success){
@@ -112,7 +112,7 @@ export class ConversationApiRequestService {
     )
   }
 
-  deleteConversation(userID: string | null, conversationId: string): Observable<any> {
+  deleteConversation(conversationId: string): Observable<any>{
     return this.http.delete<any>(this.getUrl("/conversations/" + conversationId)).pipe(
       map(response => {
         if (response.success) {
@@ -141,7 +141,13 @@ export class ConversationApiRequestService {
     }
   }
 
-  updateConversation(userID: string | undefined, conversationID: string, conversation: Conversation): Observable<any> {
+  generateJSONForSearch(querry: string){
+    return{
+      "q": querry
+    }
+  }
+
+  updateConversation(conversationID: string, conversation: Conversation): Observable<any>{
     return this.http.patch(this.getUrl("/conversations/" + conversationID), this.generateJsonForConversationUpdate(conversation)).pipe(
       map(response => {
         if (response) {
@@ -157,6 +163,18 @@ export class ConversationApiRequestService {
         console.log('Error: ', error);
 
         return of(null);
+      })
+    )
+  }
+
+  searchConversation(searchParams: string): Observable<any>{
+    console.log("SearchParamsConversation: ", this.generateJSONForSearch(searchParams));
+    return this.http.get<any>(this.getUrl("/conversations") + "?q=" + searchParams).pipe(
+      map(response => {
+        if(response.success){
+          console.log("Search Conversaion: ", response.conversations);
+
+        }
       })
     )
   }

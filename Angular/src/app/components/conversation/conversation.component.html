@@ -5,11 +5,11 @@
         <h1 style="text-align: center;">{{conversation.title}}</h1>
         <p style="text-align: center;">{{conversation.description}}</p>
         <table style="width: 100%;">
-          <tr style="width: 100%;" *ngFor="let message of messages" app-conversation-list-item [message]="message"></tr>
+          <tr style="width: 100%;" *ngFor="let message of messages" app-conversation-list-item [message]="message" (update)="updateTransfer($event)" (delete)="delete($event)"></tr>
         </table>
       </div>
     </div>
-    <div class="form-row" style="height: 10vh; margin-top: 5px; margin-left: 5px; width: 100%;">
+    <div  *ngIf="this.updating!=true; else updatingMessage" class="form-row" style="height: 10vh; margin-top: 5px; margin-left: 5px; width: 100%;">
       <form [formGroup]="messageForm" (ngSubmit)="createMessage()" style="width: 100%;">
 
         <div class="form-row" style="width: 100%">
@@ -30,5 +30,29 @@
 
       </form>
     </div>
+    <ng-template #updatingMessage>
+      <div class="form-row" style="height: 10vh; margin-top: 5px; margin-left: 5px; width: 100%;">
+        <form [formGroup]="editMessageForm" (ngSubmit)="updateMessage()" style="width: 100%;">
+
+          <div class="form-row" style="width: 100%">
+
+            <div class="form-group" style="width: 85%;">
+              <input formControlName="body"
+              [class.is-invalid]="messageForm.get('body')?.errors && messageForm.get('body')?.dirty && messageForm.get('body')?.touched"
+              type="text" placeholder="Entrer votre message..." class="form-control" style="width: 100%">
+              <div class="invalid-feedback text-left">
+                Veuillez entrer un message valide.
+              </div>
+            </div>
+
+            <div class="form-group" style="width: 13%; margin-left: 2px;">
+              <button class="btn btn-primary" type="submit"><i class="fa fa-paper-plane"></i></button>
+              <button (click)="cancelUpdate()" class="btn btn-secondary" type="button">Annuler</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </ng-template>
   </div>
 </body>
