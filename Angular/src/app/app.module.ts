@@ -30,6 +30,7 @@ import { CommandItemsComponent } from './components/command-items/command-items.
 import { SearchBarConversationsComponent } from './components/search-bar-conversations/search-bar-conversations.component';
 import { SearchBarMessagesComponent } from './components/search-bar-messages/search-bar-messages.component';
 import { ProductsSommaryComponent } from './components/products-sommary/products-sommary.component';
+import { ProductsSommaryListItemComponent } from './components/products-sommary-list-item/products-sommary-list-item.component';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { ProductsSommaryComponent } from './components/products-sommary/products
     SearchBarConversationsComponent,
     SearchBarMessagesComponent,
     ProductsSommaryComponent,
+    ProductsSommaryListItemComponent,
 
   ],
   imports: [

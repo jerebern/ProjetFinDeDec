@@ -1,0 +1,34 @@
+<td>
+    <div>
+        <a [routerLink]="">
+            {{ productsSommary.products_title }}
+        </a>
+    </div>
+</td>
+<td class="text-right">
+    {{ productsSommary.products_category }}
+</td>
+<td class="text-right">
+    {{ productsSommary.products_animal_type }}
+</td>
+<td class="text-right">
+    {{ productsSommary.products_price | number : '1.2-2' }}$
+</td>
+<td class="text-right">
+    {{ productsSommary.sum_of_cart_products_quantity }}
+</td>
+<td class="text-right">
+    {{ productsSommary.average_cart_products_quantity }}
+</td>
+<td class="text-right">
+    {{ productsSommary.sum_of_cart_products_total | number : '1.2-2' }}$
+</td>
+<td class="text-right">
+    {{ productsSommary.average_cart_products_total | number : '1.2-2' }}$
+</td>
+<td class="text-right">
+    {{ productsSommary.products_number_of_cart }}
+</td>
+<td class="text-right">
+    {{ productsSommary.average_carts_total | number : '1.2-2' }}$
+</td>

@@ -14,4 +14,3 @@ class ProductsSommary < ApplicationRecord
     attribute :products_number_of_cart, :integer
     attribute :average_carts_total, :decimal
 end
-ProductsSommary.find_by_sql("SELECT * FROM products_sommary").as_json
