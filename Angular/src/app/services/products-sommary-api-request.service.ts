@@ -10,8 +10,8 @@ export class ProductsSommaryApiRequestService {
 
   constructor(private http: HttpClient) { }
 
-  getSommary(): Observable<any> {
-    return this.http.get<any>('/api/products_sommaries.json/').pipe(
+  getSommary(searchParams: string): Observable<any> {
+    return this.http.get<any>('/api/products_sommaries.json?q=' + searchParams).pipe(
       map(response => {
         if (response.success) {
           return response.products_sommary;
