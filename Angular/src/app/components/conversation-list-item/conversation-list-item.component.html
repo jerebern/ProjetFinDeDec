@@ -1,5 +1,5 @@
 <div *ngIf="this.isMessageUser()!=true; else notMessageUser" style="margin-top: 5px; margin-left: 5px;">
-  <td class="col-md-auto" style="background-color: rgb(233, 233, 233); margin-bottom: 5px; max-width: 50%; text-align: center;">
+  <td style="background-color: rgb(233, 233, 233); margin-bottom: 5px; max-width: 50%; text-align: center;">
     {{message.body}}
   </td>
   <td></td>
@@ -14,7 +14,7 @@
         <i class="fa fa-trash-o"></i>
       </button>
     </td>
-    <td class="col-md-auto" style="background-color: blue; color: white; min-width: 45%; text-align: center;">
+    <td style="background-color: blue; color: white; max-width: 50%;text-align: center;">
       {{message.body}}
     </td>
   </div>

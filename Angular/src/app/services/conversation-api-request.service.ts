@@ -16,7 +16,7 @@ export class ConversationApiRequestService {
 
   private _currentConversation: Conversation;;
   private allConversations: Conversation[] = [];
-  private conversation: Conversation | null = null;
+  private allConversationsTemp: Conversation[] = [];
 
   get currentConversation(){
     return this._currentConversation;
@@ -34,11 +34,11 @@ export class ConversationApiRequestService {
   }
 
   private getUrl(querry: string){
-    return '/api/' + querry + '/';
+    return '/api/' + querry;
   }
 
   getConversation(): Observable<any>{
-    return this.http.get<any>(this.getUrl("/conversations")).pipe(
+    return this.http.get<any>(this.getUrl("conversations")).pipe(
       map(response => {
         if(response.success){
           console.log("GetConversation: ", response);
@@ -58,11 +58,12 @@ export class ConversationApiRequestService {
     )
   }
 
-  getConversationsAdmin(): Observable<any>{
-      return this.http.get<any>(this.getUrl("/conversations")).pipe(
+  getConversationsAdmin(sort: string): Observable<any>{
+      return this.http.get<any>(this.getUrl("conversations/"+"?s="+sort)).pipe(
         map(response => {
           if(response.success){
             console.log("GetConversationAdmin: ", response);
+
             this.allConversations = response.conversations;
             for(var i = 0; i < this.allConversations.length; i++){
               this.allConversations[i].fullname = response.names[i];
@@ -90,12 +91,8 @@ export class ConversationApiRequestService {
     console.log("SetCurrentConversation: ", this._currentConversation)
   }
 
-  sortConversationsAdmin(sortBy: string){
-
-  }
-
   createConversation(conversation: Conversation): Observable<any>{
-    return this.http.post<any>(this.getUrl("/conversations"), conversation).pipe(
+    return this.http.post<any>(this.getUrl("conversations"), conversation).pipe(
       map(response => {
         if(response.success){
           console.log("CreateConversation: ", response);
@@ -114,7 +111,7 @@ export class ConversationApiRequestService {
   }
 
   deleteConversation(conversationId: string): Observable<any>{
-    return this.http.delete<any>(this.getUrl("/conversations/" + conversationId)).pipe(
+    return this.http.delete<any>(this.getUrl("conversations/" + conversationId)).pipe(
       map(response => {
         if (response.success) {
           console.log("DeleteConversation: ", response)
@@ -142,14 +139,17 @@ export class ConversationApiRequestService {
     }
   }
 
-  generateJSONForSearch(querry: string){
+  generateJSONForSearch(querry: string, type: string){
     return{
-      "q": querry
+      "querry":{
+        "q": querry,
+        "t": type
+      }
     }
   }
 
   updateConversation(conversationID: string, conversation: Conversation): Observable<any>{
-    return this.http.patch(this.getUrl("/conversations/" + conversationID), this.generateJsonForConversationUpdate(conversation)).pipe(
+    return this.http.patch(this.getUrl("conversations/" + conversationID), this.generateJsonForConversationUpdate(conversation)).pipe(
       map(response => {
         if (response) {
           console.log("Update Conversation: ", response)
@@ -169,13 +169,28 @@ export class ConversationApiRequestService {
   }
 
   searchConversation(searchParams: string): Observable<any>{
-    console.log("SearchParamsConversation: ", this.generateJSONForSearch(searchParams));
-    return this.http.get<any>(this.getUrl("/conversations") + "?q=" + searchParams).pipe(
+    return this.http.get<any>(this.getUrl("conversations/" + "?q=" + searchParams)).pipe(
       map(response => {
         if(response.success){
-          console.log("Search Conversaion: ", response.conversations);
+          console.log("Search Conversation: ", response.conversations);
 
+          this.allConversations = response.conversations;
+          for(var i = 0; i < this.allConversations.length; i++){
+            this.allConversations[i].fullname = response.names[i];
+            this.allConversations[i].user_email = response.emails[i];
+          }
+          console.log("Search Conversation: ", this.allConversations);
+
+          return true;
         }
+        else{
+          console.log("Search Conversation: ", response);
+          return false;
+        }
+      }),
+      catchError(error => {
+        console.log('Error: ', error);
+        return of(null);
       })
     )
   }

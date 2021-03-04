@@ -1,6 +1,19 @@
 <body>
   <div class="container-fluid">
-    <div class="row" style="height: 80vh;">
+    <h1>Conversation</h1>
+
+    <div class="row" style="margin-bottom: 5px;">
+      <div class="col"></div>
+      <form [formGroup]="searchMessagesForm" (ngSubmit)="searchMessages()" class="form-inline">
+        <div class="form-group col">
+          <input formControlName="search" placeholder="Recherher un message..." type="text" class="form-control">
+          <button class="btn btn-primary" type="submit" style="margin-left: 2px;"><i class="fa fa-search"></i></button>
+          <button class="btn btn-secondary" type="button" style="margin-left: 2px;" (click)="getMessages()"><i class="fa fa-retweet"></i></button>
+        </div>
+      </form>
+    </div>
+
+    <div class="row" style="height: 70vh;">
       <div class="col" id="messageBox" class="table table-responsive">
         <h1 style="text-align: center;">{{conversation.title}}</h1>
         <p style="text-align: center;">{{conversation.description}}</p>
@@ -9,7 +22,7 @@
         </table>
       </div>
     </div>
-    <div  *ngIf="this.updating!=true; else updatingMessage" class="form-row" style="width: 100%; margin-left: 10px;">
+    <div  *ngIf="this.updating!=true; else updatingMessage" class="form-row" style="width: 100%;">
       <form [formGroup]="messageForm" (ngSubmit)="createMessage()" style="width: 100%;">
 
         <div class="form-row" style="width: 100%; margin-top: 10px;">
@@ -17,7 +30,7 @@
           <div class="form-group" style="width: 86%;">
             <input formControlName="body"
             [class.is-invalid]="messageForm.get('body')?.errors && messageForm.get('body')?.dirty && messageForm.get('body')?.touched"
-            type="text" placeholder="Entrer votre message..." class="form-control" style="width: 100%">
+            type="text" placeholder="Entrer votre message..." class="form-control" style="width: 100%; margin-left: 7px;">
             <div class="invalid-feedback text-left">
               Veuillez entrer un message valide.
             </div>
@@ -34,20 +47,22 @@
       <div class="form-row" style="width: 100%;">
         <form [formGroup]="editMessageForm" (ngSubmit)="updateMessage()" style="width: 100%;">
 
-          <div class="form-row" style="width: 100%">
+          <div class="form-row" style="width: 100%; margin-top: 10px;">
 
-            <div class="form-group" style="width: 95%;">
+            <div class="form-group" style="width: 76%;">
               <input formControlName="body"
               [class.is-invalid]="messageForm.get('body')?.errors && messageForm.get('body')?.dirty && messageForm.get('body')?.touched"
-              type="text" placeholder="Entrer votre message..." class="form-control" style="width: 100%">
+              type="text" placeholder="Entrer votre message..." class="form-control" style="width: 100%; margin-left: 7px;">
               <div class="invalid-feedback text-left">
                 Veuillez entrer un message valide.
               </div>
             </div>
 
-            <div class="form-group" style="width: 5%; margin-left: 5px; margin-top: 5px;">
-              <button class="btn btn-primary" type="submit" style="width: 100%"><i class="fa fa-paper-plane" style="width: 100%;"></i></button>
-              <button (click)="cancelUpdate()" class="btn btn-danger" type="button" style="margin-left: 5px;"><i class="fa fa-window-close"></i></button>
+            <div class="form-group" style="width: 13%; margin-left: 2px;">
+              <button class="btn btn-primary" type="submit" style="width: 100%;"><i class="fa fa-paper-plane"></i></button>
+            </div>
+            <div class="form-group" style="width: 9%; margin-left: 2px;">
+              <button (click)="cancelUpdate()" class="btn btn-danger" type="button" style="margin-left: 2px; width: fit-content;"><i class="fa fa-window-close"></i></button>
             </div>
           </div>
 

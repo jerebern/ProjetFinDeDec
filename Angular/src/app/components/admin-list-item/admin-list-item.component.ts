@@ -29,4 +29,8 @@ export class AdminListItemComponent implements OnInit {
   deleteConversation(){
     this.delete.emit(this.conversation);
   }
+
+  trimCreatedAt(createdAt: string){
+    return createdAt.substring(0, 10);
+  }
 }

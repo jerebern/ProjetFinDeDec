@@ -3,14 +3,20 @@ class Api::MessagesController < ApplicationController
     
     def index 
         if is_admin
-            if @messages = Message.all
+            if params[:q]
+              @messages = Message.where("body LIKE ?", "%" + params[:q] + "%")
+              render json: {messages: @messages, success: true}
+            elsif @messages = Message.all
                 render json: {messages: @messages, success: true}
             else
                 render json: {success: false, error: [@messages.errors]}
             end
         else
             @user = current_user
-            if @messages = @user.conversation.last.messages
+            if params[:q]
+              @messages = Message.where("body LIKE ?", "%" + params[:q] + "%")
+              render json: {messages: @messages, success: true}
+            elsif @messages = @user.conversation.last.messages
                 render json: {messages: @messages, success: true}
             else
                 render json: {success: false, error: [@messages.errors]}

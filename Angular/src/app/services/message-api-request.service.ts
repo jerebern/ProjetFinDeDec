@@ -18,11 +18,11 @@ export class MessageApiRequestService {
   }
 
   private getUrl(querry: string){
-    return '/api/' + querry + '/';
+    return '/api/' + querry;
   }
 
   getAllMessages(): Observable<any>{
-    return this.http.get<any>(this.getUrl("/messages")).pipe(
+    return this.http.get<any>(this.getUrl("messages")).pipe(
       map(response => {
         if(response.success){
           console.log("GetAllMessages: ", response);
@@ -45,7 +45,7 @@ export class MessageApiRequestService {
   }
 
   createMessage(message: Message): Observable<any>{
-    return this.http.post<any>(this.getUrl("/messages"), message).pipe(
+    return this.http.post<any>(this.getUrl("messages"), message).pipe(
       map(response => {
         if(response.success){
           console.log("CreateMessage: ", response);
@@ -63,7 +63,7 @@ export class MessageApiRequestService {
   }
 
   deleteMessage(messageID: string): Observable<any>{
-    return this.http.delete<any>(this.getUrl("/messages/" + messageID)).pipe(
+    return this.http.delete<any>(this.getUrl("messages/" + messageID)).pipe(
       map(response => {
         if (response.success) {
           console.log("DeleteMessage: ", response)
@@ -91,7 +91,7 @@ export class MessageApiRequestService {
   }
 
   updateMessage(messageID: string, message: Message): Observable<any>{
-    return this.http.patch(this.getUrl("/messages/" + messageID), this.generateJsonForMessageUpdate(message)).pipe(
+    return this.http.patch(this.getUrl("messages/" + messageID), this.generateJsonForMessageUpdate(message)).pipe(
       map(response => {
         if (response) {
           console.log("Update Message: ", response)
@@ -105,6 +105,25 @@ export class MessageApiRequestService {
       catchError(error => {
         console.log('Error: ', error);
 
+        return of(null);
+      })
+    )
+  }
+
+  searchMessages(searchParams: string): Observable<any>{
+    return this.http.get<any>(this.getUrl("messages/" + "?q=" + searchParams)).pipe(
+      map(response => {
+        if(response.success){
+          console.log("Search Messages: ", response);
+          this.allMessages = response.messages;
+          return true;
+        }else{
+          console.log("Search Messages: ", response);
+          return false;
+        }
+      }),
+      catchError(error => {
+        console.log('Error: ', error);
         return of(null);
       })
     )

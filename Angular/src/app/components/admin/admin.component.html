@@ -4,7 +4,23 @@
     <div>
       <h1>Admin</h1>
 
-      <table class="table table-dark table-bordered">
+      <div style="float: right; margin-bottom: 10px;">
+        <form [formGroup]="searchConversationsForm" (ngSubmit)="searchConversations()" class="form-inline">
+          <div class="form-group">
+            <input formControlName="search" placeholder="Recherher...." type="text" class="form-control">
+            <button class="btn btn-primary" type="submit" style="margin-left: 2px;"><i class="fa fa-search"></i></button>
+
+            <select class="form-control" formControlName="type" style="margin-left: 2px;">
+              <option *ngFor="let type of types" [ngValue]="type">{{type}}</option>
+            </select>
+
+            <button class="btn btn-secondary" type="button" style="margin-left: 2px;" (click)="getConversations('')"><i class="fa fa-retweet"></i></button>
+          </div>
+        </form>
+      </div>
+
+
+      <table class="table table-dark table-bordered table-responsive-sm" style="margin-top: 10px;">
 
         <thead>
           <tr>
@@ -14,9 +30,9 @@
 
         <thead>
           <tr>
-            <th scope="col">Nom Utilisateur</th>
-            <th scope="col">Email Utilisateur</th>
-            <th scope="col">Date de création</th>
+            <th scope="col" (click)="sortByFullname()">Nom Utilisateur</th>
+            <th scope="col" (click)="sortByEmail()">Email Utilisateur</th>
+            <th scope="col" (click)="sortByCreationDate()">Date de création</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>

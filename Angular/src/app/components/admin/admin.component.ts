@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Conversation } from 'src/app/models/conversation.model';
 import { User } from 'src/app/models/user.models';
@@ -15,22 +16,39 @@ export class AdminComponent implements OnInit {
 
   conversations: Conversation[] = [];
   conversation!: Conversation;
+  sortFullname: string = "fullnameDown";
+  sortEmail: string = "emailDown";
+  sortCreationDate: string = "creationDateDown";
+  searchConversationsForm: FormGroup;
+
+  types = ["Name", "Email", "Date"];
 
   constructor(private conversationService: ConversationApiRequestService, private authService: AuthService, private router: Router) {
-    this.getConversations();
+    this.searchConversationsForm = new FormGroup({
+      search: new FormControl(''),
+      type: new FormControl(this.types[0])
+    })
+    this.getConversations("");
   }
 
   ngOnInit(): void {
   }
 
-  getConversations(){
+  getConversations(sortMode: string){
     if(this.authService.currentUser)
     {
-      this.conversationService.getConversationsAdmin().subscribe(success => {
+      this.conversationService.getConversationsAdmin(sortMode).subscribe(success => {
         if(success){
           this.conversations = this.conversationService.getConversations();
           console.log("Conversations: ", this.conversations);
         }
+      })
+    }
+
+    if(this.searchConversationsForm.get("search")?.value != ""){
+      this.searchConversationsForm = new FormGroup({
+        search: new FormControl(''),
+        type: new FormControl(this.types[0])
       })
     }
   }
@@ -50,12 +68,59 @@ export class AdminComponent implements OnInit {
       this.conversationService.deleteConversation(conversation.id.toString()).subscribe(success => {
           if(success){
             console.log("Delete Conversation: ", success);
-            this.getConversations();
+            this.getConversations("");
           }
           else{
             console.log("Delete Conversation ERROR: ", success);
           }
         });
     }
+  }
+
+  sortByFullname(){
+    console.log("sortByFullname: ", this.sortFullname);
+    if(this.sortFullname == "fullnameDown"){
+      this.sortFullname = "fullnameUp";
+      console.log("sortByFullname: ", this.sortFullname);
+    }else{
+      this.sortFullname = "fullnameDown";
+    }
+    this.getConversations(this.sortFullname);
+  }
+  sortByEmail(){
+    console.log("sortByEmail: ", this.sortEmail);
+
+    if(this.sortEmail == "emailDown"){
+      this.sortEmail = "emailUp";
+      console.log("sortByEmail: ", this.sortEmail);
+
+    }else{
+      this.sortEmail = "emailDown";
+    }
+    this.getConversations(this.sortEmail);
+  }
+  sortByCreationDate(){
+    console.log("sortByCreationDate: ", this.sortCreationDate);
+
+    if(this.sortCreationDate == "creationDateDown"){
+      this.sortCreationDate = "creationDateUp";
+      console.log("sortByCreationDate: ", this.sortCreationDate);
+
+    }else{
+      this.sortCreationDate = "creationDateDown";
+    }
+    this.getConversations(this.sortCreationDate);
+  }
+
+  searchConversations(){
+    let search = this.searchConversationsForm.get("search")?.value;
+    let type = this.searchConversationsForm.get("type")?.value;
+    let querry = search + "@" + type;
+    this.conversationService.searchConversation(querry).subscribe(success => {
+      if(success){
+        this.conversations = this.conversationService.getConversations();
+        console.log("Search Conversations: ", this.conversations);
+      }
+    })
   }
 }

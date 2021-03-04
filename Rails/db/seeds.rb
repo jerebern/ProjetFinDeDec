@@ -10,6 +10,7 @@
 @jerebern = User.create!(email: "jere.bern@hotmail.com", password: "shawi123", firstname: "Jérémy", lastname: "Bernard", address: "2-1903 rue Saint-Jacques", city: "Shawinigan", postal_code: "G9N4A7", province: "Québec", phone_number: "8193295860", is_admin: false)
 @jevei = User.create!(email: "jevei@hotmail.com", password: "shawi123", firstname: "Jérémy", lastname: "Veillette", address: "3-1903 rue Saint-Jacques", city: "Shawinigan", postal_code: "G9N4A7", province: "Québec", phone_number: "8197358945", is_admin: false)
 @felixcm1129 = User.create!(email: "felixcm1129@hotmail.ca", password: "shawi123", firstname: "Félix", lastname: "Carle-Milette", address: "1660 chemin de Saint-Jean-des-Piles", city: "Shawinigan", postal_code: "G0X2V0", province: "Québec", phone_number: "8196996429", is_admin: false)
+@johndoe = User.create!(email: "johndoe@hotmail.com", password: "shawi123", firstname: "John", lastname: "Doe", address: "Planet Knowhere", city: "Galaxy", postal_code: "000000", province: "Universe", phone_number: "2348956742", is_admin: false)
 
 #https://www.amazon.ca/-/fr/Marina-Thermom%C3%A8tre-flottant-ventouse-aquarium/dp/B0002AQITK?ref_=Oct_s9_apbd_orecs_hd_bw_b6rqbEx&pf_rd_r=X0J2Z10J5XYN88WEEXXC&pf_rd_p=38bd970b-92ba-5009-be3c-7de76d6b9340&pf_rd_s=merchandised-search-10&pf_rd_t=BROWSE&pf_rd_i=6292479011&th=1
 @product = Product.create(category: "Accessoire et Hygiène", price: 2.97, title: "Thermomètre avec ventouse", description: "Un thermomètre: ça sert à savoir la température de l'eau.", quantity: 10, animal_type: "Aquariophilie")
@@ -74,6 +75,7 @@ cp9 = CommandProduct.create(id: 61, quantity: 1, total_price: 0.1699e2, unit_pri
 conversation1 = Conversation.create(title: "Test", description: "Test test test...", user_id: 2)
 conversation2 = Conversation.create(title: "Test2", description: "Test test test...", user_id: 3)
 conversation3 = Conversation.create(title: "Test3", description: "Test test test...", user_id: 4)
+conversation4 = Conversation.create(title: "Help me I'm lost!", description: "I'm far far away in the universe", created_at:"2021-02-12 07:46:29.308824000 +0000", updated_at: "2021-02-12 07:46:29.308824000 +0000", user_id: 5)
 
 #message
 @message = Message.create(body: "Allo", user_id: 2, conversation_id: 1);
