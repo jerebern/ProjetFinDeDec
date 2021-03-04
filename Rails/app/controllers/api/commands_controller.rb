@@ -49,6 +49,10 @@ class Api::CommandsController < ApplicationController
            @newCommand.sub_total = @newCommand.sub_total + @newCommand.command_products.last.total_price
         end
         @newCommand.user_id = current_user.id
+        if params[:shipping] == true
+            @newCommand.sub_total += 14.99
+        end
+
         @newCommand.tps = @newCommand.sub_total * CurrentTax.find(1).tps
         @newCommand.tvq = @newCommand.sub_total * CurrentTax.find(1).tvq
         @newCommand.total = (1 + (CurrentTax.find(1).tps + CurrentTax.find(1).tvq)) * @newCommand.sub_total
