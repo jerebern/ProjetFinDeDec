@@ -1,3 +1,5 @@
+<div>
+
 <div class="float-md-left">
   <div class="px-md-1">
     <h3> Détail de la commande # {{currentCommand.id}}  </h3>
@@ -8,34 +10,22 @@
   <div class="px-md-1">
     <h5> Statut : {{currentCommand.state}} </h5>
   </div>
+  <button class="btn btn-success mr-sm-2" (click)= updateCommandShipping() ><i class="fa fa-edit"></i></button> 
+  <button class="btn btn-danger mr-sm-2" (click)= cancelCommand()> <i class="fa fa-ban"></i></button> 
 </div>
 <div>
-  <div class="float-md-right">
+  <div>
     <div class="row">
     <div class="px-md-1">
-      <button class="btn btn-success" (click)= updateCommandShipping() >Modifier</button> 
-    </div>
-    <div class="px-md-1">
-      <button class="btn btn-danger" (click)= cancelCommand()> Annuler</button> 
+
     </div>
     </div>
   </div>
 </div>
-<br>
-<br>
-<br>
-<br> 
-<br><br>
+
+
 <div>
-  <div class="float-xl-right">
-      <form [formGroup]="searchCommandForm" (ngSubmit)="searchCommand()">
-          <input formControlName="search" placeholder="Entrer ID" type="text" class="form-control">
-          <button class="btn btn-primary" type="submit">Rechercher</button>
-      </form>
-  </div>
-<div>
-<div class="float-xl-left">
-  <table class="table table-bordered table-responsive-xl">
+  <table class="table table-bordered table-responsive-sm">
     <thead style="background-color: aliceblue; text-align: center;">
        <th scope="row" colspan="2"> Facture : </th>
        
@@ -48,8 +38,8 @@
     </table>  
   </div>
 
-  <div class="float-xl-right">
-    <table class="table table-bordered table-responsive-xl">
+  <div>
+    <table class="table table-bordered table-responsive-sm">
       <thead style="background-color: aliceblue; text-align: center;">
          <th scope="row" colspan="1"> Adresse de livraison </th>
          
@@ -58,9 +48,15 @@
          <td style="text-align: center;"> {{currentCommand.shipping_adress}} </td>
       </table>  
 </div>
+
 <div> 
+  <form [formGroup]="searchCommandForm" (ngSubmit)="searchCommand()" class="form-inline">
+    <input formControlName="search" placeholder="Entrer le nom du produit" type="text" class="form-control">
+    <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+</form>
   <div>
-    <table class="table table-bordered table-responsive-xl">
+
+    <table class="table table-bordered table-responsive-sm">
       <thead style="background-color: aliceblue; text-align: center;">
          <th scope="row" colspan="4"> Produits </th>
          <tr>
@@ -72,7 +68,6 @@
          
       </thead>
       <tbody>
-        
           <tr *ngFor="let commandProduct of this.currentCommand.command_products" class="text-center" app-command-items
              [commandProduct]="commandProduct" [userID]= "this.currentCommand.user_id"> 
          </tr>

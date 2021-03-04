@@ -102,17 +102,21 @@ export class CommandsViewComponent implements OnInit {
 
   }
   updateCommandShipping() {
-    this.currentCommand.shipping_adress = "141 rue Alarie"
-    if (this.authService.currentUser) {
-      this.apiRequestService.updateCommand(this.currentCommand.id.toString(), this.authService.currentUser.id.toString(), this.currentCommand).subscribe(success => {
-        if (success) {
-          console.log("OK", success)
-        }
-        else {
-          console.log("ERROR")
-          alert("ERROR!!!");
-        }
-      });
+    let Addresse = prompt("Entrez la nouvelle adresse de livraison :", "141 rue Alarie");
+    if(Addresse != null){
+      this.currentCommand.shipping_adress = Addresse
+      if (this.authService.currentUser) {
+        this.apiRequestService.updateCommand(this.currentCommand.id.toString(), this.authService.currentUser.id.toString(), this.currentCommand).subscribe(success => {
+          if (success) {
+            console.log("OK", success)
+          }
+          else {
+            console.log("ERROR")
+            alert("ERROR!!!");
+          }
+        });
+      }
+      
     }
 
   }
