@@ -15,6 +15,10 @@ export class CheckoutComponent implements OnInit {
   private _cart!: Cart;
   private _tmpCommand !: Command;
   constructor(private commandApiRequestService : CommandApiRequestService, private apiCartService : CartApiRequestService,private authService : AuthService,private router : Router) {
+
+   }
+
+  ngOnInit(): void {
     this.apiCartService.showCart().subscribe(success => {
       if (success) {
         console.log("OK", this.apiCartService.cart);
@@ -26,9 +30,6 @@ export class CheckoutComponent implements OnInit {
       }
     });
     this.getCommandInfo();
-   }
-
-  ngOnInit(): void {
   }
   get cart() {
     return this._cart;
