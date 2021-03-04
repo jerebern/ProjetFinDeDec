@@ -1,6 +1,6 @@
 <div class="row w-100">
-    <div class="col-2" style="background-color: rgb(171, 191, 170)">
-        <form [formGroup]="filterForm" (ngSubmit)="filter()">
+    <div class="col-2" style="background-color: rgb(171, 191, 170);">
+        <form [formGroup]="filterForm" (ngSubmit)="filter()" style="margin-left: 5px;">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="inputGroupSelect01">Options</label>
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Appliquer</button>
-            <button (click)="reset()" class="btn btn-outline-primary">Réinitialiser</button>
+            <button style="margin-left: 5px;" (click)="reset()" class="btn btn-secondary" type="button">Réinitialiser</button>
         </form>
     </div>
     <div class="col-10">

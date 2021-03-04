@@ -65,6 +65,7 @@ export class ConversationApiRequestService {
             console.log("GetConversationAdmin: ", response);
             this.allConversations = response.conversations;
             for(var i = 0; i < this.allConversations.length; i++){
+              this.allConversations[i].fullname = response.names[i];
               this.allConversations[i].user_email = response.emails[i];
             }
             console.log("AllConversations: ", this.allConversations);
