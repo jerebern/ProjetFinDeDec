@@ -1,7 +1,7 @@
 <body>
   <div class="container-fluid">
     <div class="row" style="height: 80vh;">
-      <div class="col" id="messageBox" class="col table-responsive">
+      <div class="col" id="messageBox" class="table table-responsive">
         <h1 style="text-align: center;">{{conversation.title}}</h1>
         <p style="text-align: center;">{{conversation.description}}</p>
         <table style="width: 100%;">
@@ -47,7 +47,7 @@
 
             <div class="form-group" style="width: 13%; margin-left: 2px;">
               <button class="btn btn-primary" type="submit"><i class="fa fa-paper-plane"></i></button>
-              <button (click)="cancelUpdate()" class="btn btn-secondary" type="button">Annuler</button>
+              <button (click)="cancelUpdate()" class="btn btn-danger" type="button" style="margin-left: 5px;"><i class="fa fa-window-close"></i></button>
             </div>
           </div>
 
