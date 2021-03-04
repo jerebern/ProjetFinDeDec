@@ -3,20 +3,9 @@
         <p>TODO photo a mettre ici je sais pas comment :(</p>
     </div>
     <div>
-        <div class="float-xl-right">
-            <form [formGroup]="searchCommandForm" (ngSubmit)="searchCommand()">
-                <input formControlName="search" placeholder="Entrer etat" type="text" class="form-control">
-                <button class="btn btn-primary" type="submit">Rechercher</button>
-            </form>
-        </div>
-    <br>
-    <br>
-    <br>
-    <br>
-
-        <div class="float-xl-left">
-            <div class="float-xl-right">
-                <table class="table table-bordered table-responsive-xl">
+        <div>
+            <div>
+                <table class="table table-bordered table-responsive-sm">
                     <thead style="background-color: white; text-align: center; border: 1px solid white">
                         <th scope="row" colspan="2"> Mes informations </th>
                     </thead>
@@ -56,8 +45,17 @@
                 </table>
             </div>
         </div>
-        <div class="float-xl-right">
-            <table class="table table-bordered table-responsive-xl">
+        <div>
+            <div>
+                <form [formGroup]="searchCommandForm" (ngSubmit)="searchCommand()" class="form-inline">
+                    <br>
+                    <br>
+
+                    <input formControlName="search" placeholder="Rechercher etat" type="text" class="form-control">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+            <table class="table table-bordered table-responsive-sm">
                 <thead style="background-color: white; text-align: center;  border: 1px solid white">
                     <th scope="row" colspan="3"> Mes commandes </th>
                     <tr>

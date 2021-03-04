@@ -1,8 +1,7 @@
 <h1> Finalisation de votre commande</h1>
 
-        <div class="row d-flex justify-content-center">
-            <div class="col">
-                <table class="table table-bordered table-responsive-xl table-active">
+
+                <table class="table table-bordered table-responsive-sm table-active">
                     <thead style="background-color: white; text-align: center;">
                         <th scope="row" colspan="4">
                             Produits
@@ -29,10 +28,9 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
-        <div class="row d-flex justify-content-center">
-            <div class="col col-sm-6">
-                <table class="table table-responsive-xl table-active">
+
+            <div>
+                <table class="table table-responsive-sm table-active">
                     <thead style=" background-color: white; text-align: center;">
 
                             <th colspan="3">
@@ -47,11 +45,10 @@
                     <tr><td> Total :</td> <td>{{tmpcommand.total}}$</td> </tr>
                 </table>
             </div>
-            <div class="col col-sm-6">
+            <div>
                 <button class="btn btn-lg btn-success btn-block" (click) = "sendCommand()"> Payer      </button>
                 <a [routerLink]="['/products']" class="btn btn-lg btn btn-danger btn-block" role="button">
                     Annuler
                 </a>
-            </div>
         </div>
    
