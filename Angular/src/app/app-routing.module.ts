@@ -16,6 +16,7 @@ import { AdminAccessGuard } from './guards/admin-access.guard';
 import { CartComponent } from './components/cart/cart.component';
 import { CartAccessGuard } from './guards/cart-access.guard';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { ProductsSommaryComponent } from './components/products-sommary/products-sommary.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [SigninupAccessGuard] },
@@ -24,9 +25,10 @@ const routes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: 'products/:id', component: ProductViewComponent }, //todo proteger la route
   { path: 'profile', component: ProfileComponent }, //todo proteger la route
-  { path: 'conversation/:id', component: ConversationComponent}, //todo proteger la route
-  { path: 'help', component: HelpComponent}, //todo proteger la route
+  { path: 'conversation/:id', component: ConversationComponent }, //todo proteger la route
+  { path: 'help', component: HelpComponent }, //todo proteger la route
   { path: 'admin', component: AdminComponent, canActivate: [AdminAccessGuard] },
+  { path: 'products-sommary', component: ProductsSommaryComponent, canActivate: [AdminAccessGuard] },
   { path: 'cart', component: CartComponent, canActivate: [CartAccessGuard] },
   { path: 'checkout', component: CheckoutComponent },
   { path: '', component: WelcomeComponent },
