@@ -7,4 +7,5 @@ export class Conversation extends JSONObject{
   fullname!: string;
   user_email!: string;
   description!: string;
+  created_at!: string;
 }

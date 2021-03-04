@@ -9,12 +9,12 @@
         </table>
       </div>
     </div>
-    <div  *ngIf="this.updating!=true; else updatingMessage" class="form-row" style="height: 10vh; margin-top: 5px; margin-left: 5px; width: 100%;">
+    <div  *ngIf="this.updating!=true; else updatingMessage" class="form-row" style="width: 100%; margin-left: 10px;">
       <form [formGroup]="messageForm" (ngSubmit)="createMessage()" style="width: 100%;">
 
-        <div class="form-row" style="width: 100%">
+        <div class="form-row" style="width: 100%; margin-top: 10px;">
 
-          <div class="form-group" style="width: 85%;">
+          <div class="form-group" style="width: 86%;">
             <input formControlName="body"
             [class.is-invalid]="messageForm.get('body')?.errors && messageForm.get('body')?.dirty && messageForm.get('body')?.touched"
             type="text" placeholder="Entrer votre message..." class="form-control" style="width: 100%">
@@ -24,19 +24,19 @@
           </div>
 
           <div class="form-group" style="width: 13%; margin-left: 2px;">
-            <button class="btn btn-primary" type="submit"><i class="fa fa-paper-plane"></i></button>
+            <button class="btn btn-primary" type="submit" style="width: 100%;"><i class="fa fa-paper-plane"></i></button>
           </div>
         </div>
 
       </form>
     </div>
     <ng-template #updatingMessage>
-      <div class="form-row" style="height: 10vh; margin-top: 5px; margin-left: 5px; width: 100%;">
+      <div class="form-row" style="width: 100%;">
         <form [formGroup]="editMessageForm" (ngSubmit)="updateMessage()" style="width: 100%;">
 
           <div class="form-row" style="width: 100%">
 
-            <div class="form-group" style="width: 85%;">
+            <div class="form-group" style="width: 95%;">
               <input formControlName="body"
               [class.is-invalid]="messageForm.get('body')?.errors && messageForm.get('body')?.dirty && messageForm.get('body')?.touched"
               type="text" placeholder="Entrer votre message..." class="form-control" style="width: 100%">
@@ -45,8 +45,8 @@
               </div>
             </div>
 
-            <div class="form-group" style="width: 13%; margin-left: 2px;">
-              <button class="btn btn-primary" type="submit"><i class="fa fa-paper-plane"></i></button>
+            <div class="form-group" style="width: 5%; margin-left: 5px; margin-top: 5px;">
+              <button class="btn btn-primary" type="submit" style="width: 100%"><i class="fa fa-paper-plane" style="width: 100%;"></i></button>
               <button (click)="cancelUpdate()" class="btn btn-danger" type="button" style="margin-left: 5px;"><i class="fa fa-window-close"></i></button>
             </div>
           </div>

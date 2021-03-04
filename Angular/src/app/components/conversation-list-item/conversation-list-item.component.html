@@ -1,11 +1,11 @@
-<div *ngIf="this.isMessageUser()!=true; else notMessageUser" style="margin-top: 5px;">
+<div *ngIf="this.isMessageUser()!=true; else notMessageUser" style="margin-top: 5px; margin-left: 5px;">
   <td class="col-md-auto" style="background-color: rgb(233, 233, 233); margin-bottom: 5px; max-width: 50%; text-align: center;">
     {{message.body}}
   </td>
   <td></td>
 </div>
 <ng-template #notMessageUser>
-  <div style="float: right; margin-top: 5px;">
+  <div style="float: right; margin-top: 5px; margin-right: 5px;">
     <td style="text-align: right;">
       <button (click)="updateMessage()" class="btn btn-sm" type="button">
         <i style="margin-left: 5px;" class="fa fa-edit"></i>

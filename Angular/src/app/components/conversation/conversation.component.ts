@@ -38,7 +38,7 @@ export class ConversationComponent implements OnInit {
     this.conversation = this.getConversation();
     this.getMessages();
 
-    setInterval(() => this.getMessages(), this.timeReload);
+    //setInterval(() => this.getMessages(), this.timeReload);
   }
 
   ngOnInit(): void {
