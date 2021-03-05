@@ -5,6 +5,7 @@ class CreateMessages < ActiveRecord::Migration[6.0]
       t.references :conversation, null: false, foreign_key: true
       t.references :user, null: false, foreign_key: true
       t.timestamps
+      t.index ["body"], name: "fulltext_messages", type: :fulltext
     end
   end
 end

@@ -6,6 +6,7 @@ class CreateConversations < ActiveRecord::Migration[6.0]
       t.references :user, null: false, unique: true, foreign_key: true
       t.references :admin, null: false, foreign_key: {to_table: :users}, default: 1
       t.timestamps
+      t.index ["title", "description"], name: "fulltext_conversations", type: :fulltext
     end
   end
 end
