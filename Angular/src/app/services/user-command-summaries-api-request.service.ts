@@ -13,6 +13,14 @@ export class UserCommandSummariesApiRequestService {
   private getUrl() : string{
     return "/api/user_commands_summaries"
   }
+  sortSummary(mode : string) : Observable<any>{
+    return this.http.get<any>(this.getUrl() + "?s="+mode).pipe(
+      map(response =>{
+        return response.user_commands_summary
+      })
+    )
+  }
+
   searchSummarybyMail(query : string) : Observable<any>{
     return this.http.get<any>(this.getUrl() + "?q="+query).pipe(
       map(response =>{
