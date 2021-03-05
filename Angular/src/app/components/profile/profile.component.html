@@ -1,45 +1,45 @@
-<div>
+<div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
     <div class="float-xl-left">
         <p>TODO photo a mettre ici je sais pas comment :(</p>
     </div>
     <div>
         <div>
             <div>
-                <table class="table table-bordered table-responsive-sm">
-                    <thead style="background-color: white; text-align: center; border: 1px solid white">
+                <table class="table table-dark table-bordered table-responsive-sm">
+                    <thead>
                         <th scope="row" colspan="2"> Mes informations </th>
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="text-align: center;"> Prénom </td>
+                            <td id="header"> Prénom </td>
                             <td>{{currentUser.firstname}}</td>
                         </tr>
                         <tr>
-                            <td style="text-align: center;"> Nom </td>
+                            <td id="header"> Nom </td>
                             <td> {{currentUser.lastname}}</td>
                         </tr>
                         <tr>
-                            <td style="text-align: center;"> Email </td>
+                            <td id="header"> Email </td>
                             <td>{{currentUser.email}} </td>
                         </tr>
                         <tr>
-                            <td style="text-align: center;"> Adresse </td>
+                            <td id="header"> Adresse </td>
                             <td>{{currentUser.address}} </td>
                         </tr>
                         <tr>
-                            <td style="text-align: center;"> Ville </td>
+                            <td id="header"> Ville </td>
                             <td>{{currentUser.city}} </td>
                         </tr>
                         <tr>
-                            <td style="text-align: center;"> Code Postal </td>
+                            <td id="header"> Code Postal </td>
                             <td>{{currentUser.postal_code}}</td>
                         </tr>
                         <tr>
-                            <td style="text-align: center;"> Province </td>
+                            <td id="header"> Province </td>
                             <td> {{currentUser.province}}</td>
                         </tr>
                         <tr>
-                            <td style="text-align: center;"> Numero de téléphone </td>
+                            <td id="header"> Numero de téléphone </td>
                             <td>{{currentUser.phone_number}} </td>
                         </tr>
                 </table>
@@ -47,21 +47,18 @@
         </div>
         <div>
             <div>
-                <form [formGroup]="searchCommandForm" (ngSubmit)="searchCommand()" class="form-inline">
-                    <br>
-                    <br>
-
+                <form [formGroup]="searchCommandForm" (ngSubmit)="searchCommand()" class="form-inline" style="margin-bottom: 5px;">
                     <input formControlName="search" placeholder="Rechercher etat" type="text" class="form-control">
-                    <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                    <button class="btn btn-primary" type="submit" style="margin-left: 3px;"><i class="fa fa-search"></i></button>
                 </form>
             </div>
-            <table class="table table-bordered table-responsive-sm">
-                <thead style="background-color: white; text-align: center;  border: 1px solid white">
+            <table class="table table-dark table-bordered table-responsive-sm">
+                <thead style="text-align: center;  border: 1px solid white">
                     <th scope="row" colspan="3"> Mes commandes </th>
-                    <tr>
-                        <td style="text-align: center;"><a (click)="sortByID()"> Numéro de la Commande </a></td>
-                        <td> <a (click)="sortByPrice()">Total </a></td>
-                        <td><a (click)="sortBydate()">Date </a></td>
+                    <tr style="width: 100%;">
+                        <td style="text-align: center; font-weight: bold; width: 33%;"><a (click)="sortByID()"> Numéro de la Commande </a></td>
+                        <td style="text-align: center; font-weight: bold; width: 33%;"><a (click)="sortByPrice()">Total</a></td>
+                        <td style="text-align: center; font-weight: bold; width: 33%;"><a (click)="sortBydate()">Date</a></td>
                     </tr>
                 </thead>
                 <tbody>

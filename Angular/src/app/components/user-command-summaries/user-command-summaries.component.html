@@ -1,13 +1,10 @@
-<div >
-    <form [formGroup]="searchCommandForm" (ngSubmit)="search()" class="form-inline">
-        <br>
-        <br>
-
+<div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
+    <form [formGroup]="searchCommandForm" (ngSubmit)="search()" class="form-inline" style="margin-bottom: 5px;">
         <input formControlName="search" placeholder="Entrez un couriel d'utilisateur" type="text" class="form-control">
         <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
     </form>
-    <table class="table table-bordered table-responsive-sm">
-    <thead style="background-color: aliceblue; text-align: center;">
+    <table class="table table-dark table-bordered table-responsive-sm">
+    <thead>
        <th scope="row" colspan="7"> Sommaire des commandes par utilisateur </th>
        <tr>
        <th scope="row" colspan="1"><a (click)="sortEmail()">Utilisateur </a></th>
@@ -23,12 +20,12 @@
     <tbody>
         <tr *ngFor="let userCommandSummary of this.userCommandSummary" class="text-center">
         <td>{{userCommandSummary.email}}</td>
-        <td>{{userCommandSummary.unit_product_value_average}}$</td> 
-        <td>{{userCommandSummary.average_unit_per_product}}</td> 
-        <td>{{userCommandSummary.minimum_command_value_sub_total}}$</td> 
-        <td>{{userCommandSummary.maximum_command_value_sub_total}}$</td>  
-        <td>{{userCommandSummary.Average_command_value_sub_total}}$</td>  
-        <td>{{userCommandSummary.total_command_value}}$</td>  
+        <td>{{userCommandSummary.unit_product_value_average}}$</td>
+        <td>{{userCommandSummary.average_unit_per_product}}</td>
+        <td>{{userCommandSummary.minimum_command_value_sub_total}}$</td>
+        <td>{{userCommandSummary.maximum_command_value_sub_total}}$</td>
+        <td>{{userCommandSummary.Average_command_value_sub_total}}$</td>
+        <td>{{userCommandSummary.total_command_value}}$</td>
         </tr>
-    </table>  
+    </table>
 </div>

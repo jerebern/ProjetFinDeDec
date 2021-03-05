@@ -1,20 +1,20 @@
 <body>
   <body>
 
-    <div>
+    <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
       <h1>Admin</h1>
 
       <div style="float: right; margin-bottom: 10px;">
         <form [formGroup]="searchConversationsForm" (ngSubmit)="searchConversations()" class="form-inline">
           <div class="form-group">
             <input formControlName="search" placeholder="Recherher...." type="text" class="form-control">
-            <button class="btn btn-primary" type="submit" style="margin-left: 2px;"><i class="fa fa-search"></i></button>
+            <button class="btn btn-primary" type="submit" style="margin-left: 3px;"><i class="fa fa-search"></i></button>
 
-            <select class="form-control" formControlName="type" style="margin-left: 2px;">
+            <select class="form-control" formControlName="type" style="margin-left: 3px;">
               <option *ngFor="let type of types" [ngValue]="type">{{type}}</option>
             </select>
 
-            <button class="btn btn-secondary" type="button" style="margin-left: 2px;" (click)="getConversations('')"><i class="fa fa-retweet"></i></button>
+            <button class="btn btn-secondary" type="button" style="margin-left: 3px;" (click)="getConversations('')"><i class="fa fa-retweet"></i></button>
           </div>
         </form>
       </div>
@@ -42,6 +42,12 @@
         </tbody>
 
       </table>
+
+        <h3>Rapports</h3>
+        <div class="row" style="float: left">
+          <a class="nav-link" [routerLink]="['/products-sommary']">Sommaire des produits</a>
+          <a class="nav-link" [routerLink]="['/usercommandsummary']">Sommaire des commandes par utilisateur</a>
+        </div>
 
     </div>
 </body>

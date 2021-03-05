@@ -33,7 +33,7 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent, canActivate: [CartAccessGuard] },
   { path: 'checkout', component: CheckoutComponent },
   { path: '', component: WelcomeComponent },
-  { path: 'usercommansummary', component: UserCommandSummariesComponent },
+  { path: 'usercommandsummary', component: UserCommandSummariesComponent, canActivate: [AdminAccessGuard] },
 
   { path: '**', component: PageNotFoundComponent }
 ];

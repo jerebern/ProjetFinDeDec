@@ -1,7 +1,7 @@
-<td style="color: black">{{conversation.title}}</td>
-<td style="color: black;">{{conversation.fullname}}</td>
-<td style="color: black">{{conversation.user_email}}</td>
-<td style="color: black">{{trimCreatedAt(conversation.created_at)}}</td>
+<td>{{conversation.title}}</td>
+<td>{{conversation.fullname}}</td>
+<td>{{conversation.user_email}}</td>
+<td>{{trimCreatedAt(conversation.created_at)}}</td>
 <td>
   <button (click)="clicked()" type="button" class="btn btn-sm btn-primary"><i class="fa fa-commenting-o fa-2x" aria-hidden="true"></i></button>
   <button style="margin-left: 5px;" (click)="deleteConversation()" type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></button>
