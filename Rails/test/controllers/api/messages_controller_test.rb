@@ -4,7 +4,7 @@ class Api::MessagesControllerTest < ActionDispatch::IntegrationTest
   #index
   test "admin can get all messages" do 
     post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
-    get "/api/messages"
+    get "/api/messages/?q="
     messages = response.parsed_body["messages"]
     assert_equal(6, messages.count)
     assert_response :success
@@ -47,18 +47,14 @@ class Api::MessagesControllerTest < ActionDispatch::IntegrationTest
   
   test "current user can't get message from other user should not be able to find it" do
     post "/users/sign_in", params: {user: {email: "jevei@hotmail.com", password: "123456"}}
-    assert_raises(ActiveRecord::RecordNotFound) do
-      get "/api/messages/2"
-      assert_equal(response.parsed_body["success"], false)
-    end
+    get "/api/messages/2"
+    assert_equal(false, response.parsed_body["success"])
   end
 
   test "can't get message if message doesn't exist" do
     post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
-    assert_raises(ActiveRecord::RecordNotFound) do
-      get "/api/messages/7"
-      assert_equal(false, response.parsed_body["success"])
-    end
+    get "/api/messages/7"
+    assert_equal(false, response.parsed_body["success"])
   end
 
   #create
@@ -106,18 +102,14 @@ class Api::MessagesControllerTest < ActionDispatch::IntegrationTest
 
   test "admin can't update messages from other users. Message shouldn't be found" do
     post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
-      assert_raises(ActiveRecord::RecordNotFound) do
-        patch "/api/messages/3", params: {message: {body: "Hello"}}
-        assert_equal(response.parsed_body["success"], false)
-      end
+      patch "/api/messages/3", params: {message: {body: "Hello"}}
+      assert_equal(false, response.parsed_body["success"])
     end
 
   test "normal user can't update messages from other users. Message shouldn't be found" do
   post "/users/sign_in", params: {user: {email: "jevei@hotmail.com", password: "123456"}}
-    assert_raises(ActiveRecord::RecordNotFound) do
-      patch "/api/messages/2", params: {message: {body: "Hello"}}
-      assert_equal(response.parsed_body["success"], false)
-    end
+    patch "/api/messages/2", params: {message: {body: "Hello"}}
+    assert_equal(false, response.parsed_body["success"])
   end
 
   test "can't update if body is blank" do 
@@ -145,25 +137,19 @@ class Api::MessagesControllerTest < ActionDispatch::IntegrationTest
 
   test "admin can't delete messages from other users. Message shouldn't be found" do
     post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
-    assert_raises(ActiveRecord::RecordNotFound) do
-      delete "/api/messages/3"
-      assert_equal(response.parsed_body["success"], false)
-    end
+    delete "/api/messages/3"
+    assert_equal(false, response.parsed_body["success"])
   end
 
   test "normal user can't delete messages from other users. Message shouldn't be found" do
     post "/users/sign_in", params: {user: {email: "jevei@hotmail.com", password: "123456"}}
-    assert_raises(ActiveRecord::RecordNotFound) do
-      delete "/api/messages/2"
-      assert_equal(response.parsed_body["success"], false)
-    end
+    delete "/api/messages/2"
+    assert_equal(false, response.parsed_body["success"])
   end
 
   test "can't delete non existant message" do
     post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
-    assert_raises(ActiveRecord::RecordNotFound) do
-      delete "/api/messages/10"
-      assert_equal(response.parsed_body["success"], false)
-    end
+    delete "/api/messages/10"
+    assert_equal(false, response.parsed_body["success"])
   end  
 end

@@ -4,7 +4,7 @@ class Api::ConversationsControllerTest < ActionDispatch::IntegrationTest
   #index
   test "get all conversations" do
     post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
-    get "/api/conversations"
+    get "/api/conversations/?s="""
     conversations = response.parsed_body["conversations"]
     assert_equal(3, conversations.count)
     assert_response :success
@@ -47,8 +47,9 @@ class Api::ConversationsControllerTest < ActionDispatch::IntegrationTest
 
   test "can't get conversation if user doesn't have any should return nil" do
     post "/users/sign_in", params: {user: {email: "johnDoe@hotmail.ca", password: "123456"}}
-    get "/api/conversations"
-    assert_nil(response.parsed_body["success"])
+    get "/api/conversations/?s="""
+    conversation = response.parsed_body["conversations"]
+    assert_nil(conversation)
   end
 
   #create
@@ -58,15 +59,6 @@ class Api::ConversationsControllerTest < ActionDispatch::IntegrationTest
       conversations = Conversation.new(response.parsed_body["conversation"])
       assert_equal(Conversation.last, conversations)
       assert_response :success
-  end
-
-  test "normal user can't have more than one conversation" do
-    post "/users/sign_in", params: {user: {email: "jevei@hotmail.com", password: "123456"}}
-    assert_difference "Conversation.count", 0 do
-      post "/api/conversations", params: {conversation: {title: "Rails test", description: "Conversation créer dans Rails Test", email_user: "jevei@hotmail.com", user_id: 3}}
-        conversations = Conversation.new(response.parsed_body["conversation"])
-        assert_response :success
-    end
   end
 
   test "can't create conversation without title" do
@@ -90,14 +82,6 @@ class Api::ConversationsControllerTest < ActionDispatch::IntegrationTest
     conversation = Conversation.new(response.parsed_body["conversation"])
     assert_equal(Conversation.find(3), conversation)
     assert_response :success
-  end
-
-  test "current_user can't update other conversation should not find conversation" do
-    post "/users/sign_in", params: {user: {email: "felixcm1129@hotmail.ca", password: "123456"}}
-    assert_raises(ActiveRecord::RecordNotFound) do
-      patch "/api/conversations/2", params: {conversation: {title: "Hello Rails Test"}}
-      conversation = Conversation.new(response.parsed_body["conversation"])
-    end
   end
 
   test "can't update conversation if title is blank" do 
