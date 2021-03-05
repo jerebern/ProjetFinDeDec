@@ -17,6 +17,7 @@ import { CartComponent } from './components/cart/cart.component';
 import { CartAccessGuard } from './guards/cart-access.guard';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ProductsSommaryComponent } from './components/products-sommary/products-sommary.component';
+import { UserCommandSummariesComponent } from './components/user-command-summaries/user-command-summaries.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [SigninupAccessGuard] },
@@ -32,6 +33,8 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent, canActivate: [CartAccessGuard] },
   { path: 'checkout', component: CheckoutComponent },
   { path: '', component: WelcomeComponent },
+  { path: 'usercommansummary', component: UserCommandSummariesComponent },
+
   { path: '**', component: PageNotFoundComponent }
 ];
 

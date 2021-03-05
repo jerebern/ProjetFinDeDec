@@ -29,6 +29,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { CommandItemsComponent } from './components/command-items/command-items.component';
 import { ProductsSommaryComponent } from './components/products-sommary/products-sommary.component';
 import { ProductsSommaryListItemComponent } from './components/products-sommary-list-item/products-sommary-list-item.component';
+import { UserCommandSummariesComponent } from './components/user-command-summaries/user-command-summaries.component';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import { ProductsSommaryListItemComponent } from './components/products-sommary-
     CommandItemsComponent,
     ProductsSommaryComponent,
     ProductsSommaryListItemComponent,
+    UserCommandSummariesComponent,
 
   ],
   imports: [
