@@ -1,30 +1,22 @@
 class Api::CommandsController < ApplicationController
-    before_action :is_currentUser? || :is_admin?, :authenticate_user!
+    before_action :authenticate_user!
     def index
-        @user = User.find(params[:user_id])
-    if params[:q]
-    
-         @commands =  @user.commands.where("state LIKE ?", "%" + params[:q] + "%")
-    
-        render json: {commands: @commands ,success: true}
-
-    elsif params[:s] == "dateReverse"
-
+        @user = current_user
+    if params[:q] && params[:s].blank?
+        render json: {commands: @user.commands.where("state LIKE ?", "%" + params[:q] + "%") ,success: true}
+    else 
+    case params[:s]
+    when "dateReverse"
         render json: {commands: @user.commands.sort_by(&:created_at).reverse, success: true}
-    elsif params[:s] == "date"
-
+    when "date"
         render json: {commands: @user.commands.sort_by(&:created_at), success: true} 
-    elsif params[:s] == "priceUp"
-
+    when "priceUp"
         render json: {commands: @user.commands.sort_by(&:total), success: true}
-    elsif params[:s] == "priceDown"
-        
+    when "priceDown"
         render json: {commands: @user.commands.sort_by(&:total).reverse, success: true}               
     else
-        if @user = User.find(params[:user_id])
-            render json: {commands: @user.commands.sort_by(&:id), success:true} 
-        else
-            render json: @user.errors, status: :unprocessable_entity 
+     ## le .blank est la pour éviter le 500 double render error
+     render json: {commands: @user.commands.sort_by(&:id), success:true} 
         end
     end
     end
@@ -71,7 +63,7 @@ class Api::CommandsController < ApplicationController
     
     def show 
 
-        @user = User.find(params[:user_id])
+        @user = current_user
         if @command = @user.commands.find(params[:id])
             render json: {command: @command, command_products: @command.command_products ,success: true}
         else
@@ -79,7 +71,7 @@ class Api::CommandsController < ApplicationController
         end
     end
     def destroy
-        @user = User.find(params[:user_id])
+        @user = current_user
         @command = @user.commands.find(params[:id])
         @command.command_products.each do |p|
             p.destroy
@@ -91,7 +83,7 @@ class Api::CommandsController < ApplicationController
         end
     end
     def update
-        @user = User.find(params[:user_id])
+        @user = current_user
         @command = @user.commands.find(params[:id])
         if @command.update(command_params)
             render json: {command:@command, success:true}
@@ -104,11 +96,5 @@ class Api::CommandsController < ApplicationController
     def command_params
         params.require(:command).permit(:sub_total, :tps, :tvq, :total, :store_pickup, :state, :shipping_adress)
     end
-    def is_currentUser?
-        unless current_user.id == params[:user_id].to_i || current_user.is_admin == true
-            render json: {success: false} 
-        end
-    rescue => e
-        render json: { success: false, error: [e] }
-    end
+
 end
