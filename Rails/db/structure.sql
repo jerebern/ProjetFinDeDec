@@ -211,7 +211,7 @@ DROP TABLE IF EXISTS `products_sommary`;
 /*!50001 DROP VIEW IF EXISTS `products_sommary`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-CREATE TABLE `products_sommary` (
+/*!50001 CREATE TABLE `products_sommary` (
   `products_title` tinyint NOT NULL,
   `products_category` tinyint NOT NULL,
   `products_animal_type` tinyint NOT NULL,
@@ -222,7 +222,7 @@ CREATE TABLE `products_sommary` (
   `average_cart_products_total` tinyint NOT NULL,
   `products_number_of_cart` tinyint NOT NULL,
   `average_carts_total` tinyint NOT NULL
-) ENGINE=MyISAM;
+) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 DROP TABLE IF EXISTS `schema_migrations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -236,7 +236,7 @@ DROP TABLE IF EXISTS `user_commands_summary`;
 /*!50001 DROP VIEW IF EXISTS `user_commands_summary`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-CREATE TABLE `user_commands_summary` (
+/*!50001 CREATE TABLE `user_commands_summary` (
   `email` tinyint NOT NULL,
   `unit_product_value_average` tinyint NOT NULL,
   `average_unit_per_product` tinyint NOT NULL,
@@ -244,7 +244,7 @@ CREATE TABLE `user_commands_summary` (
   `Average_command_value_sub_total` tinyint NOT NULL,
   `maximum_command_value_sub_total` tinyint NOT NULL,
   `total_command_value` tinyint NOT NULL
-) ENGINE=MyISAM;
+) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;

@@ -40,8 +40,8 @@ class Api::CartsControllerTest < ActionDispatch::IntegrationTest
   end
   test "can update one cart product " do
     post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
-    patch "/api/users/1/carts/1", params: {cart_product: {quantity: "5"}}
-    result = response.parsed_body['cart'].as_json['cartProducts'].first.as_json['quantity']
+    patch "/api/users/1/carts/10", params: {cart_product: {quantity: 5, products:[{id: 10}]}}
+    result = response.parsed_body.as_json['cart_product'].as_json['quantity']
     assert_equal(5, result)
   end
 end
