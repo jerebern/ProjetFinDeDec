@@ -10,13 +10,13 @@
     <thead style="background-color: aliceblue; text-align: center;">
        <th scope="row" colspan="7"> Sommaire des commandes par utilisateur </th>
        <tr>
-       <th scope="row" colspan="1"> Utilisateur </th>
-       <th scope="row" colspan="1"> <a (click)="sort()">Moyenne du prix unitaire des produits </a></th>
-       <th scope="row" colspan="1"><a (click)="sort()"> Quantité moyenne par produit </a> </th>
-       <th scope="row" colspan="1"><a (click)="sort()">Valeur minimum par commande </a> </th>
-       <th scope="row" colspan="1"><a (click)="sort()">Valeur maximum par commande </a> </th>
-       <th scope="row" colspan="1"><a (click)="sort()">Valeur moyenne par commande </a> </th>
-       <th scope="row" colspan="1"><a (click)="sort()">Valeur Total commandé </a> </th>
+       <th scope="row" colspan="1"><a (click)="sortEmail()">Utilisateur </a></th>
+       <th scope="row" colspan="1"> <a (click)="sortAvgUnit()">Moyenne du prix unitaire des produits </a></th>
+       <th scope="row" colspan="1"><a (click)="sortAvgProduct()"> Quantité moyenne par produit </a> </th>
+       <th scope="row" colspan="1"><a (click)="sortMinValue()">Valeur minimum par commande </a> </th>
+       <th scope="row" colspan="1"><a (click)="sortMaxValue()">Valeur maximum par commande </a> </th>
+       <th scope="row" colspan="1"><a (click)="sortAvgValue()">Valeur moyenne par commande </a> </th>
+       <th scope="row" colspan="1"><a (click)="sortTotalValue()">Valeur Total commandé </a> </th>
       </tr>
     </thead>
 
