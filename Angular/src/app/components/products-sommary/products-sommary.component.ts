@@ -72,6 +72,18 @@ export class ProductsSommaryComponent implements OnInit {
     this.filterForm.get('animal')?.setValue("Tous les Animaux");
     this.filterForm.get('category')?.setValue("Toutes les Catégories");
     this.searchForm.get('search')?.setValue("");
+    this.apiProductsSommary.getSommary("").subscribe(success => {
+      if (success) {
+        console.log("OK", success);
+        this.productsSommaries = success;
+        this.reserveProductsSommaries = success;
+        console.log(this.productsSommaries);
+      }
+      else {
+        console.log("ERROR", success)
+        alert("ERROR!!!");
+      }
+    });
   }
 
   search() {
