@@ -69,7 +69,9 @@ export class ProductsSommaryComponent implements OnInit {
   }
 
   reset() {
-
+    this.filterForm.get('animal')?.setValue("Tous les Animaux");
+    this.filterForm.get('category')?.setValue("Toutes les Catégories");
+    this.searchForm.get('search')?.setValue("");
   }
 
   search() {
