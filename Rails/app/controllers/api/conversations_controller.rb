@@ -2,7 +2,7 @@ class Api::ConversationsController < ApplicationController
     before_action :authenticate_user!
     
     def index 
-        if is_admin
+        if current_user.is_admin
             @users = User.all
             @emails = Array.new
             @names = Array.new
@@ -214,21 +214,16 @@ class Api::ConversationsController < ApplicationController
                 render json: {success: false, error: [@conversations.errors]}
             end
         else
-            @user = current_user
-            if @conversation = @user.conversation
+            if @conversation = current_user.conversation
                 render json: {conversation: @conversation, success: true}
             else
                 render json: {success: false, error: [@conversation.errors]}
             end
-        #else
-            #à continuer
-         #   render json: {conversations: Conversation.where("MATCH(body) AGAINST(?)", params[:q].as_json(success: true))}
         end
     end
 
     def show
-        @user = current_user
-        if @conversation = @user.conversation
+        if @conversation = current_user.conversation
             render json: {conversation: @conversation, success: true}
         else
             render json: {success: false, error: [@conversation.errors]}
@@ -236,9 +231,8 @@ class Api::ConversationsController < ApplicationController
     end
 
     def create
-        @user = current_user
-        @conversation = @user.conversation.create(conversation_params)
-        @conversation.user_id = @user.id
+        @conversation = current_user.conversation.create(conversation_params)
+        @conversation.user_id = current_user.id
         if @conversation.save
             render json: {conversation: @conversation, success: true}
         else
@@ -247,9 +241,8 @@ class Api::ConversationsController < ApplicationController
     end
 
     def update
-        @user = current_user
-        @conversation = @user.conversation.find(params[:id])
-        if @conversation.user_id != @user.id
+        @conversation = current_user.conversation.find(params[:id])
+        if @conversation.user_id != current_user.id
             redirect_to ''
         else
             if @conversation.update(conversation_params)
@@ -280,13 +273,5 @@ class Api::ConversationsController < ApplicationController
 
     def search_params
         params.require(:querry).permit(:q, :t)
-    end
-
-    def is_admin
-        if current_user.is_admin == true
-            return true
-        else
-            return false
-        end
     end
 end

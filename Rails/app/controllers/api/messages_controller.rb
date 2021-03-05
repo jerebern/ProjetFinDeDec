@@ -2,9 +2,9 @@ class Api::MessagesController < ApplicationController
     before_action :authenticate_user!
     
     def index 
-        if is_admin
+        if current_user.is_admin
             if params[:q]
-              @messages = Message.where("body LIKE ?", "%" + params[:q] + "%")
+              @messages = Message.where("MATCH(body) AGAINST(?)", params[:q])
               render json: {messages: @messages, success: true}
             elsif @messages = Message.all
                 render json: {messages: @messages, success: true}
@@ -12,11 +12,10 @@ class Api::MessagesController < ApplicationController
                 render json: {success: false, error: [@messages.errors]}
             end
         else
-            @user = current_user
             if params[:q]
-              @messages = Message.where("body LIKE ?", "%" + params[:q] + "%")
+              @messages = Message.where("MATCH(body) AGAINST(?)", params[:q])
               render json: {messages: @messages, success: true}
-            elsif @messages = @user.conversation.last.messages
+            elsif @messages = current_user.conversation.last.messages
                 render json: {messages: @messages, success: true}
             else
                 render json: {success: false, error: [@messages.errors]}
@@ -25,8 +24,7 @@ class Api::MessagesController < ApplicationController
     end
 
     def show
-        @user = current_user
-        if @message = @user.message.find(params[:id])
+        if @message = current_user.message.find(params[:id])
             render json: {message: @message, success: true}
         else
             render json: {success: false, error: [@message.errors]}
@@ -34,7 +32,7 @@ class Api::MessagesController < ApplicationController
     end
 
     def create
-        if is_admin
+        if current_user.is_admin
             @message = Message.create(message_params)
             @message.user_id = current_user.id
             if @message.save
@@ -43,9 +41,8 @@ class Api::MessagesController < ApplicationController
                 render json: {success: false, error: [@message.errors]}
             end
         else
-            @user = current_user
-            @message = @user.conversation.last.messages.create(message_params)
-            @message.user_id = @user.id
+            @message = current_user.conversation.last.messages.create(message_params)
+            @message.user_id = current_user.id
             if @message.save
                 render json: {message: @message, success: true}
             else
@@ -55,8 +52,7 @@ class Api::MessagesController < ApplicationController
     end
 
     def update
-        @user = current_user
-        @message = @user.message.find(params[:id])
+        @message = current_user.message.find(params[:id])
         if @message.update(message_params)
             render json: {message: @message, success: true}
         else
@@ -65,8 +61,7 @@ class Api::MessagesController < ApplicationController
     end
 
     def destroy
-        @user = current_user
-        @message = @user.message.find(params[:id])
+        @message = current_user.message.find(params[:id])
         if @message.destroy
             render json: {message: @message, success: true}
         else
@@ -77,13 +72,5 @@ class Api::MessagesController < ApplicationController
     private 
     def message_params
         params.require(:message).permit(:body, :conversation_id)
-    end
-
-    def is_admin
-        if current_user.is_admin==true
-            return true
-        else
-            return false
-        end
     end
 end
