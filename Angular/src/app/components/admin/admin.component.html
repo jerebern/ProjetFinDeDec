@@ -24,12 +24,13 @@
 
         <thead>
           <tr>
-            <th scope="col" colspan="3">Listes des conversations</th>
+            <th scope="col" colspan="5">Listes des conversations</th>
           </tr>
         </thead>
 
         <thead>
           <tr>
+            <th scope="col" (click)="sortByTitle()">Titre</th>
             <th scope="col" (click)="sortByFullname()">Nom Utilisateur</th>
             <th scope="col" (click)="sortByEmail()">Email Utilisateur</th>
             <th scope="col" (click)="sortByCreationDate()">Date de création</th>

@@ -19,9 +19,10 @@ export class AdminComponent implements OnInit {
   sortFullname: string = "fullnameDown";
   sortEmail: string = "emailDown";
   sortCreationDate: string = "creationDateDown";
+  sortTitle: string = "titleDown";
   searchConversationsForm: FormGroup;
 
-  types = ["Name", "Email", "Date"];
+  types = ["Titre", "Name", "Email", "Date"];
 
   constructor(private conversationService: ConversationApiRequestService, private authService: AuthService, private router: Router) {
     this.searchConversationsForm = new FormGroup({
@@ -81,10 +82,11 @@ export class AdminComponent implements OnInit {
     console.log("sortByFullname: ", this.sortFullname);
     if(this.sortFullname == "fullnameDown"){
       this.sortFullname = "fullnameUp";
-      console.log("sortByFullname: ", this.sortFullname);
     }else{
       this.sortFullname = "fullnameDown";
     }
+    console.log("sortByFullname: ", this.sortFullname);
+
     this.getConversations(this.sortFullname);
   }
   sortByEmail(){
@@ -92,11 +94,11 @@ export class AdminComponent implements OnInit {
 
     if(this.sortEmail == "emailDown"){
       this.sortEmail = "emailUp";
-      console.log("sortByEmail: ", this.sortEmail);
-
     }else{
       this.sortEmail = "emailDown";
     }
+    console.log("sortByEmail: ", this.sortEmail);
+
     this.getConversations(this.sortEmail);
   }
   sortByCreationDate(){
@@ -104,12 +106,25 @@ export class AdminComponent implements OnInit {
 
     if(this.sortCreationDate == "creationDateDown"){
       this.sortCreationDate = "creationDateUp";
-      console.log("sortByCreationDate: ", this.sortCreationDate);
-
     }else{
       this.sortCreationDate = "creationDateDown";
     }
+    console.log("sortByCreationDate: ", this.sortCreationDate);
+
     this.getConversations(this.sortCreationDate);
+  }
+
+  sortByTitle(){
+    console.log("sortByTitle: ", this.sortTitle);
+
+    if(this.sortTitle == "titleDown"){
+      this.sortTitle = "titleUp";
+    }else{
+      this.sortTitle = "titleDown";
+    }
+    console.log("sortByTitle: ", this.sortTitle);
+
+    this.getConversations(this.sortTitle);
   }
 
   searchConversations(){
