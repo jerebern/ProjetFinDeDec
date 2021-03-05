@@ -13,6 +13,9 @@
       <button class="btn btn-primary" (click)="message()">Continuer votre conversation</button>
       <div class="row mt-2">
         <div class="col">
+          <p>Pour modifier le titre de votre conversation et sa description, veuillez tout simplement modifier les champs si dessous et
+            une fois terminé, appuyer sur le bouton "Modifier votre conversation"
+         </p>
           <form [formGroup]="editConversationForm" (ngSubmit)="createConversation()">
             <div class="form-row">
               <div class="form-group">
