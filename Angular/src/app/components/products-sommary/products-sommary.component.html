@@ -1,8 +1,8 @@
 <div class="row d-flex justify-content-center w-100">
     <div class="col-2" style="background-color: rgb(171, 191, 170)">
         <div class="content-align-rigth w-100">
-            <form class="form-inline">
-                <input placeholder="PLACEHOLDER" type="text" class="form-control w-75">
+            <form [formGroup]="searchForm" (ngSubmit)="search()" class="form-inline">
+                <input formControlName="search" placeholder="PLACEHOLDER" type="text" class="form-control w-75">
                 <button class="btn btn-primary" type="submit">
                     <i class="fa fa-search"></i>
                 </button>
@@ -43,52 +43,46 @@
             <thead style="background-color: white; text-align: center;">
                 <tr class="text-center">
                     <td style="background-color: white;">
-                        <a>
-                            products title
-                        </a>
+                        products title
                     </td>
                     <td style="background-color: white;">
-                        <a>
-                            products category
-                        </a>
+                        products category
                     </td>
                     <td style="background-color: white;">
-                        <a>
-                            products animal type
-                        </a>
+                        products animal type
                     </td>
                     <td style="background-color: white;">
-                        <a>
+                        <a (click)="sortBy('productprice')">
                             products price
                         </a>
                     </td>
                     <td style="background-color: white;">
-                        <a>
+                        <a (click)="sortBy('sumcartproductquantity')">
                             sum of cart products quantity
                         </a>
                     </td>
                     <td style="background-color: white;">
-                        <a>
+                        <a (click)="sortBy('averagecartproductquantity')">
                             average cart products quantity
                         </a>
                     </td>
                     <td style="background-color: white;">
-                        <a>
+                        <a (click)="sortBy('sumcartproducttotal')">
                             sum of cart products total
                         </a>
                     </td>
                     <td style="background-color: white;">
-                        <a>
+                        <a (click)="sortBy('averagecartproducttotal')">
                             average cart products total
                         </a>
                     </td>
                     <td style="background-color: white;">
-                        <a>
+                        <a (click)="sortBy('productnumbercart')">
                             products number of cart
                         </a>
                     </td>
                     <td style="background-color: white;">
-                        <a>
+                        <a (click)="sortBy('averagecarttotal')">
                             average carts total
                         </a>
                     </td>
