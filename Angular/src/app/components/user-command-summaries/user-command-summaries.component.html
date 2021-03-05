@@ -1,18 +1,34 @@
-<div>
+<div >
+    <form [formGroup]="searchCommandForm" (ngSubmit)="search()" class="form-inline">
+        <br>
+        <br>
+
+        <input formControlName="search" placeholder="Entrez un couriel d'utilisateur" type="text" class="form-control">
+        <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+    </form>
     <table class="table table-bordered table-responsive-sm">
     <thead style="background-color: aliceblue; text-align: center;">
-       <th scope="row" colspan="6"> Sommaire des commandes par utilisateur </th>
+       <th scope="row" colspan="7"> Sommaire des commandes par utilisateur </th>
        <tr>
        <th scope="row" colspan="1"> Utilisateur </th>
        <th scope="row" colspan="1"> <a (click)="sort()">Moyenne du prix unitaire des produits </a></th>
        <th scope="row" colspan="1"><a (click)="sort()"> Quantité moyenne par produit </a> </th>
-       <th scope="row" colspan="1"><a (click)="sort()">Valeur minimum commandé </a> </th>
-       <th scope="row" colspan="1"><a (click)="sort()">Valeur maximum commandé </a> </th>
+       <th scope="row" colspan="1"><a (click)="sort()">Valeur minimum par commande </a> </th>
+       <th scope="row" colspan="1"><a (click)="sort()">Valeur maximum par commande </a> </th>
+       <th scope="row" colspan="1"><a (click)="sort()">Valeur moyenne par commande </a> </th>
        <th scope="row" colspan="1"><a (click)="sort()">Valeur Total commandé </a> </th>
       </tr>
     </thead>
-    <tbody>
 
-        
+    <tbody>
+        <tr *ngFor="let userCommandSummary of this.userCommandSummary" class="text-center">
+        <td>{{userCommandSummary.email}}</td>
+        <td>{{userCommandSummary.unit_product_value_average}}$</td> 
+        <td>{{userCommandSummary.average_unit_per_product}}</td> 
+        <td>{{userCommandSummary.minimum_command_value_sub_total}}$</td> 
+        <td>{{userCommandSummary.maximum_command_value_sub_total}}$</td>  
+        <td>{{userCommandSummary.Average_command_value_sub_total}}$</td>  
+        <td>{{userCommandSummary.total_command_value}}$</td>  
+        </tr>
     </table>  
 </div>
