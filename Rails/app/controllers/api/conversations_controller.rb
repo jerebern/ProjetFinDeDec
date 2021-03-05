@@ -51,8 +51,21 @@ class Api::ConversationsController < ApplicationController
                     elsif @querry[1] == "Date"
                         @emails = Array.new
                         @names = Array.new
-                        
                         @conversations = Conversation.where("created_at LIKE ?", "%" + @querry[0] + "%")
+                        @users = User.where(id:[@conversations.all.select(:user_id)])
+                        @conversations.each do |c|
+                            @users.each do |u|
+                                if c.user_id == u.id
+                                    @emails.push(u.email)
+                                    @names.push(u.fullname)
+                                end
+                            end
+                        end
+                        render json: {conversations: @conversations, emails: @emails, names: @names, success: true}
+                    elsif @querry[1] == "Titre"
+                        @emails = Array.new
+                        @names = Array.new
+                        @conversations = Conversation.where("title LIKE ?", "%" + @querry[0] + "%")
                         @users = User.where(id:[@conversations.all.select(:user_id)])
                         @conversations.each do |c|
                             @users.each do |u|
@@ -141,8 +154,8 @@ class Api::ConversationsController < ApplicationController
                     end
                     render json: {conversations: @conversationsTemp, emails: @emails, names: @names, success: true}
                 elsif params[:s] == "creationDateUp"
-                    @users = User.all
                     @conversations = @conversations.sort_by(&:created_at)
+                    @users = User.all
                     @names = Array.new
                     @emails = Array.new
                     @conversations.each do |c|
@@ -153,11 +166,10 @@ class Api::ConversationsController < ApplicationController
                             end
                         end
                     end
-
                     render json: {conversations: @conversations, emails: @emails, names: @names, success: true}
                 elsif params[:s] == "creationDateDown"
-                    @users = User.all
                     @conversations = @conversations.sort_by(&:created_at).reverse
+                    @users = User.all
                     @names = Array.new
                     @emails = Array.new
                     @conversations.each do |c|
@@ -168,9 +180,36 @@ class Api::ConversationsController < ApplicationController
                             end
                         end
                     end
-
                     render json: {conversations: @conversations, emails: @emails, names: @names, success: true}
-                end
+                elsif params[:s] == "titleUp"
+                    @conversations = @conversations.sort_by(&:title)
+                    @users = User.all
+                    @names = Array.new
+                    @emails = Array.new
+                    @conversations.each do |c|
+                        @users.each do |u|
+                            if c.user_id == u.id
+                                @names.push(u.fullname)
+                                @emails.push(u.email)
+                            end
+                        end
+                    end
+                    render json: {conversations: @conversations, emails: @emails, names: @names, success: true}
+                elsif params[:s] == "titleDown"
+                    @conversations = @conversations.sort_by(&:title).reverse
+                    @users = User.all
+                    @names = Array.new
+                    @emails = Array.new
+                    @conversations.each do |c|
+                        @users.each do |u|
+                            if c.user_id == u.id
+                                @names.push(u.fullname)
+                                @emails.push(u.email)
+                            end
+                        end
+                    end
+                    render json: {conversations: @conversations, emails: @emails, names: @names, success: true}
+                end 
             else
                 render json: {success: false, error: [@conversations.errors]}
             end

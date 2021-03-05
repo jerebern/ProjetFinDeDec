@@ -5,13 +5,27 @@
 # below each fixture, per the syntax in the comments below
 #
 one: 
-  email: "a@a.com"
-  unit_product_value_average: "0.0"
-  average_unit_per_product: "0.0"
-  minimum_command_value_sub_total: "0.0"
-  Average_command_value_sub_total: "0.0"
-  maximum_command_value_sub_total: "0.0"
-  total_command_value: "0.0"
+  products_title: Thermomètre avec ventouse
+  products_category: Accessoire et Hygiène
+  products_animal_type: Aquariophilie
+  products_price: 2.97
+  sum_of_cart_products_quantity: 18
+  average_cart_products_quantity: 5
+  sum_of_cart_products_total: 53.46
+  average_cart_products_total: 10.69
+  products_number_of_cart: 3
+  average_carts_total: 10.69
 # column: value
-
+#
+two: 
+  products_title: Cage de vol
+  products_category: Cage
+  products_animal_type: Oiseaux
+  products_price: 131.80
+  sum_of_cart_products_quantity: 20
+  average_cart_products_quantity: 5
+  sum_of_cart_products_total: 2636
+  average_cart_products_total: 659
+  products_number_of_cart: 4
+  average_carts_total: 659
 # column: value
