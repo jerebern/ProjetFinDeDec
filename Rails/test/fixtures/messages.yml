@@ -6,37 +6,37 @@
 #
 one: 
   id: 1
-  texte: "Allo"
+  body: "Allo"
   user_id: 2
   conversation_id: 1
 
 two: 
   id: 2
-  texte: "Allo M. Bernard, comment puis-je vous aidez?"
+  body: "Allo M. Bernard, comment puis-je vous aidez?"
   user_id: 1
   conversation_id: 1
 
 three: 
   id: 3
-  texte: "Allo"
+  body: "Allo"
   user_id: 3
   conversation_id: 2
 
 four: 
   id: 4
-  texte: "Allo M. Veillette, comment puis-je vous aidez?"
+  body: "Allo M. Veillette, comment puis-je vous aidez?"
   user_id: 1
   conversation_id: 2
 
 five: 
   id: 5
-  texte: "Allo"
+  body: "Allo"
   user_id: 4
   conversation_id: 3
 
 six: 
   id: 6
-  texte: "Allo M. Carle-Milette, comment puis-je vous aidez?"
+  body: "Allo M. Carle-Milette, comment puis-je vous aidez?"
   user_id: 1
   conversation_id: 3
 
