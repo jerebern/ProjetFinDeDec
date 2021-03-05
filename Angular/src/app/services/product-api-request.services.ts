@@ -71,7 +71,7 @@ export class ProductApiRequestService {
     )
   }
 
-  searchProducts(searchParams: string) {
+  searchProducts(searchParams: string): Observable<any> {
     console.log(this.generateJSONforSearch(searchParams))
     return this.http.get<any>(this.getUrl("/products") + "?q=" + searchParams).pipe(
       map(response => {
