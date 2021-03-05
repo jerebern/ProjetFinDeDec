@@ -18,6 +18,25 @@ class Api::ConversationsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "can search conversations" do
+    post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
+    get "/api/conversations", params:{q: "T@Titre"}
+    conversations = response.parsed_body["conversations"]
+    assert_equal(3, conversations.count)
+    success = response.parsed_body["success"]
+    assert_equal(true, success)
+  end
+
+  test "if invalid search conversations should return zero conversations" do
+    post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
+    get "/api/conversations", params:{q: "B@Titre"}
+    conversations = response.parsed_body["conversations"]
+    assert_equal(0, conversations.count)
+    success = response.parsed_body["success"]
+    assert_equal(true, success)
+  end
+
+
   #show
   test "get conversation from one user" do 
     post "/users/sign_in", params: {user: {email: "felixcm1129@hotmail.ca", password: "123456"}}
