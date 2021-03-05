@@ -4,8 +4,11 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+one:
+  email: "a@a.com"
+  unit_product_value_average: "0.0"
+  average_unit_per_product: "0.0"
+  minimum_command_value_sub_total: "0.0"
+  Average_command_value_sub_total: "0.0"
+  maximum_command_value_sub_total: "0.0"
+  total_command_value: "0.0"
