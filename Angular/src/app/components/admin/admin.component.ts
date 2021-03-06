@@ -22,7 +22,7 @@ export class AdminComponent implements OnInit {
   sortTitle: string = "titleDown";
   searchConversationsForm: FormGroup;
 
-  types = ["Titre", "Name", "Email", "Date"];
+  types = ["Titre", "Name", "Email"];
 
   constructor(private conversationService: ConversationApiRequestService, private authService: AuthService, private router: Router) {
     this.searchConversationsForm = new FormGroup({
@@ -130,11 +130,10 @@ export class AdminComponent implements OnInit {
   searchConversations(){
     let search = this.searchConversationsForm.get("search")?.value;
     let type = this.searchConversationsForm.get("type")?.value;
-    let querry = search + "@" + type;
+    let querry = search + "^" + type;
     this.conversationService.searchConversation(querry).subscribe(success => {
       if(success){
         this.conversations = this.conversationService.getConversations();
-        console.log("Search Conversations: ", this.conversations);
       }
     })
   }

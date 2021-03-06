@@ -3,213 +3,68 @@ class Api::ConversationsController < ApplicationController
     
     def index 
         if current_user.is_admin
-            @users = User.all
             @emails = Array.new
             @names = Array.new
-            if @conversations = Conversation.all
-                @conversations.each do |c|
-                    @users.each do |u|
-                        if c.user_id == u.id
-                            @emails.push(u.email)
-                            @names.push(u.fullname)
-                        end
-                    end
-                end
+            if @conversations = Conversation.all.order("created_at")
+                @users = User.where(id:[@conversations.all.select(:user_id)])
                 if params[:s] == ""
-                    render json: {conversations: @conversations, emails: @emails, names: @names, success: true}
+                    render json: {conversations: @conversations, users: @users, success: true}
                 elsif params[:q]
                     @querry = Array.new
-                    @querry = params[:q].split("@")
+                    @querry = params[:q].split("^")
                     if @querry[1] == "Name"
-                        @emails = Array.new
-                        @names = Array.new
-                        @users = User.where("fullname LIKE ?", "%" + @querry[0] + "%")
+                        @users = User.where("MATCH(firstname, lastname) AGAINST(? IN BOOLEAN MODE)", @querry[0] + "*")
                         @conversations = Conversation.where(user_id:[@users.all.select(:id)])
-                        @conversations.each do |c|
-                            @users.each do |u|
-                                if c.user_id == u.id
-                                    @emails.push(u.email)
-                                    @names.push(u.fullname)
-                                end
-                            end
-                        end
-                        render json: {conversations: @conversations, emails: @emails, names: @names, success: true}
+                        render json: {conversations: @conversations, users: @users, success: true}
                     elsif @querry[1] == "Email"
-                        @emails = Array.new
-                        @names = Array.new
+                        #@users = User.where("MATCH(email) AGAINST(? IN BOOLEAN MODE)", + @querry[0] + "*")
+                        #*En se fiant à stackoverflow, il semble qu'un fulltext sur une addresse email pose problème. D'où mon utilisation ici d'un LIKE
                         @users = User.where("email LIKE ?", "%" + @querry[0] + "%")
                         @conversations = Conversation.where(user_id:[@users.all.select(:id)])
-                        @conversations.each do |c|
-                            @users.each do |u|
-                                if c.user_id == u.id
-                                    @emails.push(u.email)
-                                    @names.push(u.fullname)
-                                end
-                            end
-                        end
-                        render json: {conversations: @conversations, emails: @emails, names: @names, success: true}
-                    elsif @querry[1] == "Date"
-                        @emails = Array.new
-                        @names = Array.new
-                        @conversations = Conversation.where("created_at LIKE ?", "%" + @querry[0] + "%")
-                        @users = User.where(id:[@conversations.all.select(:user_id)])
-                        @conversations.each do |c|
-                            @users.each do |u|
-                                if c.user_id == u.id
-                                    @emails.push(u.email)
-                                    @names.push(u.fullname)
-                                end
-                            end
-                        end
-                        render json: {conversations: @conversations, emails: @emails, names: @names, success: true}
+                        render json: {conversations: @conversations, users: @users, success: true}
+                    # elsif @querry[1] == "Date"
+                    #     @conversations = Conversation.where("MATCH(created_at) AGAINST(? IN BOOLEAN MODE)" + @querry[0] + "*")
+                    #     @users = User.where(id:[@conversations.all.select(:user_id)])
+                    #     render json: {conversations: @conversations, users: @users, success: true}
                     elsif @querry[1] == "Titre"
-                        @emails = Array.new
-                        @names = Array.new
-                        @conversations = Conversation.where("title LIKE ?", "%" + @querry[0] + "%")
+                        @conversations = Conversation.where("MATCH(title) AGAINST(? IN BOOLEAN MODE)", @querry[0] + "*")
                         @users = User.where(id:[@conversations.all.select(:user_id)])
-                        @conversations.each do |c|
-                            @users.each do |u|
-                                if c.user_id == u.id
-                                    @emails.push(u.email)
-                                    @names.push(u.fullname)
-                                end
-                            end
-                        end
-                        render json: {conversations: @conversations, emails: @emails, names: @names, success: true}
+                        render json: {conversations: @conversations, users: @users, success: true}
                     end
+                #Sort
                 elsif params[:s] == "fullnameUp"
-                    @users = User.all
-                    @names = @names.sort
-                    @emails = Array.new
-                    @conversationsTemp = Array.new
-                    @names.each do |n|
-                        @users.each do |u|
-                            @tempfullname = u.fullname 
-                            if @tempfullname == n
-                                @conversations.each do |c| 
-                                    if u.id == c.user_id
-                                        @conversationsTemp.push(c)
-                                        @emails.push(u.email)
-                                    end
-                                end
-                            end
-                        end
-                    end
-                    render json: {conversations: @conversationsTemp, emails: @emails, names: @names, success: true}
+                    @users = User.where(id:[@conversations.all.select(:user_id)]).order(:fullname)
+                    @conversations = Conversation.where(user_id:[@users.all.select(:id)])
+                    render json: {conversations: @conversations, users: @users, success: true}
                 elsif params[:s] == "fullnameDown"
-                    @users = User.all
-                    @names = @names.sort{ |a, b| b <=> a }
-                    @emails = Array.new
-                    @conversationsTemp = Array.new
-                    @names.each do |n|
-                        @users.each do |u|
-                            @tempfullname = u.fullname
-                            if @tempfullname == n
-                                @conversations.each do |c| 
-                                    if u.id == c.user_id
-                                        @conversationsTemp.push(c)
-                                        @emails.push(u.email)
-                                    end
-                                end
-                            end
-                        end
-                    end
-                    render json: {conversations: @conversationsTemp, emails: @emails, names: @names, success: true}
+                    @users = User.where(id:[@conversations.all.select(:user_id)]).order(fullname: :desc)
+                    @conversations = Conversation.where(user_id:[@users.all.select(:id)])
+                    render json: {conversations: @conversations, users: @users, success: true}
                 elsif params[:s] == "emailUp"
-                    @users = User.all
-                    @emails = @emails.sort
-                    @names = Array.new
-                    @conversationsTemp = Array.new
-                    @emails.each do |e| 
-                        @users.each do |u|
-                            @emailsTemp = u.email
-                            if @emailsTemp == e
-                                @conversations.each do |c|
-                                    if u.id == c.user_id
-                                        @conversationsTemp.push(c)
-                                        @names.push(u.fullname)    
-                                    end
-                                end
-                            end
-                        end
-                    end
-                    render json: {conversations: @conversationsTemp, emails: @emails, names: @names, success: true}
+                    @users = User.where(id:[@conversations.all.select(:user_id)]).order(:email)
+                    @conversations = Conversation.where(user_id:[@users.all.select(:id)])
+                    render json: {conversations: @conversations, users: @users, success: true}
                 elsif params[:s] == "emailDown"
-                    @users = User.all
-                    @emails = @emails.sort{ |a, b| b <=> a }
-                    @names = Array.new
-                    @conversationsTemp = Array.new
-                    @emails.each do |e| 
-                        @users.each do |u|
-                            @emailsTemp = u.email
-                            if @emailsTemp == e
-                                @conversations.each do |c|
-                                    if u.id == c.user_id
-                                        @conversationsTemp.push(c)
-                                        @names.push(u.fullname)    
-                                    end
-                                end
-                            end
-                        end
-                    end
-                    render json: {conversations: @conversationsTemp, emails: @emails, names: @names, success: true}
+                    @users = User.where(id:[@conversations.all.select(:user_id)]).order(email: :desc)
+                    @conversations = Conversation.where(user_id:[@users.all.select(:id)])
+                    render json: {conversations: @conversations, users: @users, success: true}
                 elsif params[:s] == "creationDateUp"
-                    @conversations = @conversations.sort_by(&:created_at)
-                    @users = User.all
-                    @names = Array.new
-                    @emails = Array.new
-                    @conversations.each do |c|
-                        @users.each do |u|
-                            if c.user_id == u.id
-                                @names.push(u.fullname)
-                                @emails.push(u.email)
-                            end
-                        end
-                    end
-                    render json: {conversations: @conversations, emails: @emails, names: @names, success: true}
+                    @users = User.where(id:[@conversations.all.select(:user_id)])
+                    @conversations = Conversation.where(user_id:[@users.all.select(:id)]).order(:created_at)
+                    render json: {conversations: @conversations, users: @users, success: true}
                 elsif params[:s] == "creationDateDown"
-                    @conversations = @conversations.sort_by(&:created_at).reverse
-                    @users = User.all
-                    @names = Array.new
-                    @emails = Array.new
-                    @conversations.each do |c|
-                        @users.each do |u|
-                            if c.user_id == u.id
-                                @names.push(u.fullname)
-                                @emails.push(u.email)
-                            end
-                        end
-                    end
-                    render json: {conversations: @conversations, emails: @emails, names: @names, success: true}
+                    @users = User.where(id:[@conversations.all.select(:user_id)])
+                    @conversations = Conversation.where(user_id:[@users.all.select(:id)]).order(created_at: :desc)
+                    render json: {conversations: @conversations, users: @users, success: true}
                 elsif params[:s] == "titleUp"
-                    @conversations = @conversations.sort_by(&:title)
-                    @users = User.all
-                    @names = Array.new
-                    @emails = Array.new
-                    @conversations.each do |c|
-                        @users.each do |u|
-                            if c.user_id == u.id
-                                @names.push(u.fullname)
-                                @emails.push(u.email)
-                            end
-                        end
-                    end
-                    render json: {conversations: @conversations, emails: @emails, names: @names, success: true}
+                    @users = User.where(id:[@conversations.all.select(:user_id)])
+                    @conversations = Conversation.where(user_id:[@users.all.select(:id)]).order(:title)
+                    render json: {conversations: @conversations, users: @users, success: true}
                 elsif params[:s] == "titleDown"
-                    @conversations = @conversations.sort_by(&:title).reverse
-                    @users = User.all
-                    @names = Array.new
-                    @emails = Array.new
-                    @conversations.each do |c|
-                        @users.each do |u|
-                            if c.user_id == u.id
-                                @names.push(u.fullname)
-                                @emails.push(u.email)
-                            end
-                        end
-                    end
-                    render json: {conversations: @conversations, emails: @emails, names: @names, success: true}
-                end 
+                    @users = User.where(id:[@conversations.all.select(:user_id)])
+                    @conversations = Conversation.where(user_id:[@users.all.select(:id)]).order(title: :desc)
+                    render json: {conversations: @conversations, users: @users, success: true}
+                end
             else
                 render json: {success: false, error: [@conversations.errors]}
             end

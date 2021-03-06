@@ -4,7 +4,7 @@ class Api::MessagesController < ApplicationController
     def index 
         if current_user.is_admin
             if params[:q]
-              @messages = Message.where("MATCH(body) AGAINST(?)", params[:q])
+              @messages = Message.where("MATCH(body) AGAINST(? IN BOOLEAN MODE)", params[:q] + "*")
               render json: {messages: @messages, success: true}
             elsif @messages = Message.all
                 render json: {messages: @messages, success: true}
@@ -13,7 +13,7 @@ class Api::MessagesController < ApplicationController
             end
         else
             if params[:q]
-              @messages = Message.where("MATCH(body) AGAINST(?)", params[:q])
+              @messages = Message.where("MATCH(body) AGAINST(? IN BOOLEAN MODE)", params[:q] + "*")
               render json: {messages: @messages, success: true}
             elsif @messages = current_user.conversation.last.messages
                 render json: {messages: @messages, success: true}

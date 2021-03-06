@@ -154,6 +154,7 @@ CREATE TABLE `conversations` (
   KEY `index_conversations_on_user_id` (`user_id`),
   KEY `index_conversations_on_admin_id` (`admin_id`),
   FULLTEXT KEY `fulltext_conversations` (`title`,`description`),
+  FULLTEXT KEY `fulltext_conversation_title` (`title`),
   CONSTRAINT `fk_rails_7c15d62a0a` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `fk_rails_8fc2a42834` FOREIGN KEY (`admin_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -270,7 +271,8 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_users_on_email` (`email`),
   UNIQUE KEY `index_users_on_reset_password_token` (`reset_password_token`),
-  FULLTEXT KEY `fulltext_users` (`email`,`firstname`,`lastname`,`address`,`city`,`postal_code`,`province`,`phone_number`)
+  FULLTEXT KEY `fulltext_users` (`email`,`firstname`,`lastname`,`address`,`city`,`postal_code`,`province`,`phone_number`),
+  FULLTEXT KEY `fulltext_users_fullname` (`firstname`,`lastname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50001 DROP TABLE IF EXISTS `products_sommary`*/;

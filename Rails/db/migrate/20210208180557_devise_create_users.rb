@@ -44,6 +44,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
       t.boolean :is_admin, :default => false, null: false
       t.timestamps null: false
       t.index ["email", "firstname", "lastname", "address", "city", "postal_code", "province", "phone_number"], name: "fulltext_users", type: :fulltext
+      t.index ["firstname", "lastname"], name: "fulltext_users_fullname", type: :fulltext
     end
     #execute <<-SQL
     #  ALTER TABLE users

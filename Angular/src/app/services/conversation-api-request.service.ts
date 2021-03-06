@@ -66,8 +66,8 @@ export class ConversationApiRequestService {
 
             this.allConversations = response.conversations;
             for(var i = 0; i < this.allConversations.length; i++){
-              this.allConversations[i].fullname = response.names[i];
-              this.allConversations[i].user_email = response.emails[i];
+              this.allConversations[i].fullname = response.users[i].fullname;
+              this.allConversations[i].user_email = response.users[i].email;
             }
             console.log("AllConversations: ", this.allConversations);
 
@@ -176,11 +176,9 @@ export class ConversationApiRequestService {
 
           this.allConversations = response.conversations;
           for(var i = 0; i < this.allConversations.length; i++){
-            this.allConversations[i].fullname = response.names[i];
-            this.allConversations[i].user_email = response.emails[i];
+            this.allConversations[i].fullname = response.users[i].firstname + " " + response.users[i].lastname;
+            this.allConversations[i].user_email = response.users[i].email;
           }
-          console.log("Search Conversation: ", this.allConversations);
-
           return true;
         }
         else{
