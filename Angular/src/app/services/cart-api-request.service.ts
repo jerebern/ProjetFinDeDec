@@ -173,7 +173,8 @@ export class CartApiRequestService {
           this._searchCartProduct = searchParams;
           let cart_products: CartProduct[] = [];
           response.cart.cart_products.forEach((cart_product: { product: string | any; }) => {
-            if (cart_product.product.length >= 1) {
+            if (cart_product.product != null) {
+              console.log(cart_product as CartProduct)
               cart_products.push(cart_product as CartProduct);
             }
           });

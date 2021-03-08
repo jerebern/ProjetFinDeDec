@@ -6,7 +6,7 @@ class Api::CartsController < ApplicationController
             render json: { cart: current_user.cart.as_json(:include => { :cart_products => { :include => :product } }), success: true }
         else
             render json: { cart: current_user.cart.as_json.merge({ cart_products: current_user.cart.cart_products.map{ |cartProduct|
-            cartProduct.as_json.merge({ products: current_user.cart.products.find(cartProduct.product_id).where("MATCH(category, title, description, animal_type) AGAINST( ? )", params[:q]).as_json })
+            cartProduct.as_json.merge({ product: current_user.cart.products.where("MATCH(category, title, description, animal_type) AGAINST( ? )", params[:q]).find_by(id: cartProduct.product_id).as_json })
             }}), success: true }
         end
     end
