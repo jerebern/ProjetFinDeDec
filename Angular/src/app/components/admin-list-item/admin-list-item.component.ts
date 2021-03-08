@@ -33,4 +33,12 @@ export class AdminListItemComponent implements OnInit {
   trimCreatedAt(createdAt: string){
     return createdAt.substring(0, 10);
   }
+
+  statusCondition(){
+    if(this.conversation.status=="En cours"){
+      return true;
+    }else{
+      return false;
+    }
+  }
 }

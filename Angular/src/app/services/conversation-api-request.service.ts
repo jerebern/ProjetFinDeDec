@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { threadId } from 'worker_threads';
 import { Conversation } from '../models/conversation.model';
 import { User } from '../models/user.models';
 import { AuthService } from './auth.services';
@@ -64,13 +65,39 @@ export class ConversationApiRequestService {
           if(response.success){
             console.log("GetConversationAdmin: ", response);
 
-            this.allConversations = response.conversations;
-            for(var i = 0; i < this.allConversations.length; i++){
-              this.allConversations[i].fullname = response.users[i].fullname;
-              this.allConversations[i].user_email = response.users[i].email;
-            }
-            console.log("AllConversations: ", this.allConversations);
+            if(sort == "fullnameUp" || sort == "fullnameDown" || sort == "emailUp" || sort == "emailDown"){
+              for(var i = 0; i < response.users.length; i++){
+                for(var j = 0; j < response.conversations.length; j++){
+                  if(response.users[i].id == response.conversations[j].user_id){
+                    this.allConversations[i].id = response.conversations[j].id;
+                    this.allConversations[i].user_id = response.users[i].id;
+                    this.allConversations[i].title = response.conversations[j].title;
+                    this.allConversations[i].description = response.conversations[j].description;
+                    this.allConversations[i].created_at = response.conversations[j].created_at;
+                    this.allConversations[i].fullname = response.users[i].fullname;
+                    this.allConversations[i].user_email = response.users[i].email;
 
+                    console.log("this.allConversations[j].id = response.conversations[j].id; ", this.allConversations[j].id);
+
+                  }
+                }
+              }
+              console.log("AllConversations: ", this.allConversations);
+            }else{
+              this.allConversations = response.conversations;
+
+              for(var i = 0; i < this.allConversations.length; i++){
+                for(var j = 0; j < response.users.length; j++){
+                  if(this.allConversations[i].user_id == response.users[j].id){
+                    this.allConversations[i].fullname = response.users[j].fullname;
+                    this.allConversations[i].user_email = response.users[j].email;
+                  }
+                }
+              }
+            }
+
+            console.log("AllConversations: ", this.allConversations);
+            console.log("AllUsers: ", response.users)
             return true;
           }
           else{
@@ -134,7 +161,8 @@ export class ConversationApiRequestService {
     return {
       "conversation": {
         "title": conversation.title,
-        "description": conversation.description
+        "description": conversation.description,
+        "status": conversation.status
       }
     }
   }

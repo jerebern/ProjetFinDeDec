@@ -12,8 +12,10 @@ export class ConversationListItemComponent implements OnInit {
   @Input() message!: Message;
   @Output() update = new EventEmitter();
   @Output() delete = new EventEmitter();
+  showDate: boolean = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {
+  }
 
   ngOnInit(): void {
   }
@@ -34,4 +36,7 @@ export class ConversationListItemComponent implements OnInit {
     this.delete.emit(this.message);
   }
 
+  trimCreatedAt(createdAt: string){
+    return createdAt.substring(0, 10) + " " + createdAt.substring(11, 19);
+  }
 }

@@ -77,6 +77,7 @@ CREATE TABLE `cart_products` (
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `index_cart_products_on_cart_id_and_product_id` (`cart_id`,`product_id`),
   KEY `index_cart_products_on_cart_id` (`cart_id`),
   KEY `index_cart_products_on_product_id` (`product_id`),
   CONSTRAINT `fk_rails_a4f3e327f3` FOREIGN KEY (`cart_id`) REFERENCES `carts` (`id`),
@@ -146,6 +147,7 @@ CREATE TABLE `conversations` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
   `description` varchar(2500) NOT NULL,
+  `status` varchar(10) NOT NULL,
   `user_id` bigint(20) NOT NULL,
   `admin_id` bigint(20) NOT NULL DEFAULT 1,
   `created_at` datetime(6) NOT NULL,
@@ -155,6 +157,7 @@ CREATE TABLE `conversations` (
   KEY `index_conversations_on_admin_id` (`admin_id`),
   FULLTEXT KEY `fulltext_conversations` (`title`,`description`),
   FULLTEXT KEY `fulltext_conversation_title` (`title`),
+  FULLTEXT KEY `fulltext_conversation_status` (`status`),
   CONSTRAINT `fk_rails_7c15d62a0a` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `fk_rails_8fc2a42834` FOREIGN KEY (`admin_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

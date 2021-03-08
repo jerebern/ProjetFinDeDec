@@ -59,7 +59,6 @@ import { UserCommandSummariesComponent } from './components/user-command-summari
     ProductsSommaryComponent,
     ProductsSommaryListItemComponent,
     UserCommandSummariesComponent,
-
   ],
   imports: [
     ReactiveFormsModule,
