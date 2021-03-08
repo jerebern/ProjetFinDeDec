@@ -6,7 +6,7 @@ export class CartProduct extends JSONObject {
 
     quantity !: string;
 
-    products !: Product[];
+    product !: Product;
 
     total_price !: string;
 }

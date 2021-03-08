@@ -27,7 +27,7 @@ export class CartListItemComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.cartProduct);
     this.cartItemForm.get('quantity')?.setValue(this.cartProduct.quantity);
-    this.price = Number(this.cartProduct.products[0].price);
+    this.price = Number(this.cartProduct.product.price);
     this.total_price = Number(this.cartProduct.total_price);
   }
 
@@ -41,16 +41,16 @@ export class CartListItemComponent implements OnInit {
           if (success) {
             console.log("OK", this.apiCartService.sort);
             if (this.apiCartService.sort == "CTotal") {
-              this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.total_price) > Number(b.total_price) ? 1 : -1)
+              this.apiCartService.cart?.cart_products.sort((a, b) => Number(a.total_price) > Number(b.total_price) ? 1 : -1)
             }
             else if (this.apiCartService.sort == "DTotal") {
-              this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.total_price) < Number(b.total_price) ? 1 : -1)
+              this.apiCartService.cart?.cart_products.sort((a, b) => Number(a.total_price) < Number(b.total_price) ? 1 : -1)
             }
             else if (this.apiCartService.sort == "CPrix") {
-              this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.products[0].price) > Number(b.products[0].price) ? 1 : -1)
+              this.apiCartService.cart?.cart_products.sort((a, b) => Number(a.product.price) > Number(b.product.price) ? 1 : -1)
             }
             else if (this.apiCartService.sort == "DPrix") {
-              this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.products[0].price) < Number(b.products[0].price) ? 1 : -1)
+              this.apiCartService.cart?.cart_products.sort((a, b) => Number(a.product.price) < Number(b.product.price) ? 1 : -1)
             }
             console.log(this.apiCartService.sort);
             this.cartComponent.setCart(this.apiCartService.cart!);
@@ -69,7 +69,7 @@ export class CartListItemComponent implements OnInit {
   }
 
   deleteCartProduct(cartProduct: CartProduct) {
-    if (confirm("Are you sure to delete " + cartProduct.products[0].title)) {
+    if (confirm("Are you sure to delete " + cartProduct.product.title)) {
       this.apiCartService.deleteCartProduct(cartProduct).subscribe(success => {
         if (success) {
           console.log("OK", this.apiCartService.cart);
@@ -77,16 +77,16 @@ export class CartListItemComponent implements OnInit {
             if (success) {
               console.log("OK", this.apiCartService.sort);
               if (this.apiCartService.sort == "CTotal") {
-                this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.total_price) > Number(b.total_price) ? 1 : -1)
+                this.apiCartService.cart?.cart_products.sort((a, b) => Number(a.total_price) > Number(b.total_price) ? 1 : -1)
               }
               else if (this.apiCartService.sort == "DTotal") {
-                this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.total_price) < Number(b.total_price) ? 1 : -1)
+                this.apiCartService.cart?.cart_products.sort((a, b) => Number(a.total_price) < Number(b.total_price) ? 1 : -1)
               }
               else if (this.apiCartService.sort == "CPrix") {
-                this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.products[0].price) > Number(b.products[0].price) ? 1 : -1)
+                this.apiCartService.cart?.cart_products.sort((a, b) => Number(a.product.price) > Number(b.product.price) ? 1 : -1)
               }
               else if (this.apiCartService.sort == "DPrix") {
-                this.apiCartService.cart?.cartProducts.sort((a, b) => Number(a.products[0].price) < Number(b.products[0].price) ? 1 : -1)
+                this.apiCartService.cart?.cart_products.sort((a, b) => Number(a.product.price) < Number(b.product.price) ? 1 : -1)
               }
               console.log(this.apiCartService.sort);
               this.cartComponent.setCart(this.apiCartService.cart!);

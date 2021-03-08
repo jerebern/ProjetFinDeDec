@@ -1,7 +1,7 @@
 <td>
     <div>
-        <a [routerLink]="['/products', cartProduct.products[0].id]">
-            {{ cartProduct.products[0].title }}
+        <a [routerLink]="['/products', cartProduct.product.id]">
+            {{ cartProduct.product.title }}
         </a>
     </div>
 </td>
@@ -15,7 +15,7 @@
                 Quantité:
             </div>
             <div class="col col-sm-2 form-group">
-                <input formControlName="quantity" type="number" min="1" max="{{ cartProduct.products[0].quantity }}"
+                <input formControlName="quantity" type="number" min="1" max="{{ cartProduct.product.quantity }}"
                     value="{{ cartProduct.quantity }}">
             </div>
             <div class="col col-sm-5 form-group">

@@ -3,29 +3,25 @@ class Api::CartsController < ApplicationController
 
     def index
         if params[:q].blank?
-            render json: { cart: current_user.cart.as_json.merge({ cartProducts: current_user.cart.cart_products.map{ |cartProduct|
-            cartProduct.as_json.merge({ products: current_user.cart.products.where("product_id LIKE ?", cartProduct.product_id.to_s).as_json })
-            }}), success: true }
+            render json: { cart: current_user.cart.as_json(:include => { :cart_products => { :include => :product } }), success: true }
         else
-            render json: { cart: current_user.cart.as_json.merge({ cartProducts: current_user.cart.cart_products.map{ |cartProduct|
-            cartProduct.as_json.merge({ products: current_user.cart.products.where("product_id LIKE ?", cartProduct.product_id.to_s).where("MATCH(category, title, description, animal_type) AGAINST( ? )", params[:q]).as_json })
+            render json: { cart: current_user.cart.as_json.merge({ cart_products: current_user.cart.cart_products.map{ |cartProduct|
+            cartProduct.as_json.merge({ products: current_user.cart.products.find(cartProduct.product_id).where("MATCH(category, title, description, animal_type) AGAINST( ? )", params[:q]).as_json })
             }}), success: true }
         end
     end
 
     def show
-        render json: { cart: current_user.cart.as_json.merge({ cartProducts: current_user.cart.cart_products.map{ |cartProduct|
-        cartProduct.as_json.merge({ products: current_user.cart.products.where("product_id LIKE ?", cartProduct.product_id.to_s).as_json })
-        }}), success: true }
+        render json: { cart: current_user.cart.as_json(:include => { :cart_products => { :include => :product } }), success: true }
     end
 
     def create
-        @cart_product = current_user.cart.cart_products.find_by(product_id: cart_params[:products][0][:id])
+        @cart_product = current_user.cart.cart_products.find_by(product_id: cart_params[:product][:id])
         if @cart_product
             @cart_product.quantity = @cart_product.quantity + cart_params[:quantity].to_i
         else
             @cart_product = CartProduct.new
-            @cart_product.product_id = cart_params[:products][0][:id]
+            @cart_product.product_id = cart_params[:product][:id]
             @cart_product.quantity = cart_params[:quantity]
             @cart_product.cart_id = current_user.cart.id
         end
@@ -37,7 +33,7 @@ class Api::CartsController < ApplicationController
     end
 
     def update
-        @cart_product = current_user.cart.cart_products.find_by(product_id: cart_params[:products][0][:id])
+        @cart_product = current_user.cart.cart_products.find_by(product_id: cart_params[:product][:id])
         @cart_product.quantity = cart_params[:quantity]
         if @cart_product.save
             render json: { cart_product: @cart_product, success: true }
@@ -69,6 +65,6 @@ class Api::CartsController < ApplicationController
     end
 
     def cart_params
-        params.require(:cart_product).permit(:quantity, products:[:id])
+        params.require(:cart_product).permit(:quantity, product:[:id])
     end
 end

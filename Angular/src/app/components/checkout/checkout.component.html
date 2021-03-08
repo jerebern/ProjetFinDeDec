@@ -1,52 +1,61 @@
 <h1> Finalisation de votre commande</h1>
-                <table class="table table-bordered table-responsive-sm table-active">
-                    <thead style="background-color: white; text-align: center;">
-                        <th scope="row" colspan="4">
-                            Produits
-                        </th>
-                        <tr class="text-center">
-                            <td style="background-color: white;">
-                                Produits
-                            </td>
-                            <td style="background-color: white;">
-                                Prix unitaire
-                            </td>
-                            <td style="background-color: white;">
-                                Quatité
-                            </td>
-                            <td style="background-color: white;">
-                                Total
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                       
-                         <tr *ngFor="let cartProduct of this.cart.cartProducts" class="text-center" app-checkout-items
-                            [cartProduct]="cartProduct"> 
-                        </tr>
-                    </tbody>
-                </table>
+<table class="table table-bordered table-responsive-sm table-active">
+    <thead style="background-color: white; text-align: center;">
+        <th scope="row" colspan="4">
+            Produits
+        </th>
+        <tr class="text-center">
+            <td style="background-color: white;">
+                Produits
+            </td>
+            <td style="background-color: white;">
+                Prix unitaire
+            </td>
+            <td style="background-color: white;">
+                Quatité
+            </td>
+            <td style="background-color: white;">
+                Total
+            </td>
+        </tr>
+    </thead>
+    <tbody>
 
-            <div>
-                <table class="table table-responsive-sm table-active">
-                    <thead style=" background-color: white; text-align: center;">
+        <tr *ngFor="let cartProduct of this.cart.cart_products" class="text-center" app-checkout-items
+            [cartProduct]="cartProduct">
+        </tr>
+    </tbody>
+</table>
 
-                            <th colspan="3">
-                                Facturation
-                            </th>
+<div>
+    <table class="table table-responsive-sm table-active">
+        <thead style=" background-color: white; text-align: center;">
 
-                    </thead>
-                    <tr><td >Livraison :</td> <td>0.00$</td> </tr>
-                    <tr><td> Sous-Total :</td> <td>{{tmpcommand.sub_total}}$</td> </tr>
-                    <tr><td> TPS :</td> <td>{{tmpcommand.tps}}$</td> </tr>
-                    <tr><td> TVQ :</td> <td>{{tmpcommand.tvq}}$</td> </tr>
-                    <tr><td> Total :</td> <td>{{tmpcommand.total}}$</td> </tr>
-                </table>
-            </div>
-            <div>
-                <button class="btn btn-lg btn-success btn-block" (click) = "sendCommand()"> Commander      </button>
-                <a [routerLink]="['/cart']" class="btn btn-lg btn btn-outline-danger btn-block" role="button">
-                    Retour au panier
-                </a>
-        </div>
-   
+            <th colspan="3">
+                Facturation
+            </th>
+
+        </thead>
+        <tr>
+            <td>Livraison :</td> <td>0.00$</td>
+        </tr>
+        <tr>
+            <td> Sous-Total :</td> <td>{{tmpcommand.sub_total}}$</td>
+        </tr>
+        <tr>
+            <td> TPS :</td> <td>{{tmpcommand.tps}}$</td>
+        </tr>
+        <tr>
+            <td> TVQ :</td> <td>{{tmpcommand.tvq}}$</td>
+        </tr>
+        <tr>
+            <td> Total :</td> <td>{{tmpcommand.total}}$</td>
+        </tr>
+    </table>
+</div>
+<div>
+    <button class="btn btn-lg btn-success btn-block" (click)="sendCommand()"> Commander </button>
+    <a [routerLink]="['/cart']" class="btn btn-lg btn btn-outline-danger btn-block" role="button">
+        Retour au panier
+    </a>
+</div>

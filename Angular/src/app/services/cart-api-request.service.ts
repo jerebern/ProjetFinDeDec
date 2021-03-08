@@ -50,8 +50,8 @@ export class CartApiRequestService {
 
   addProductToCart(product: Product, quantity: number): Observable<any> {
     let cartProduct = new CartProduct();
-    let newProduct: Product[] = [product];
-    cartProduct.products = newProduct;
+    let newProduct: Product = product;
+    cartProduct.product = newProduct;
     cartProduct.quantity = quantity.toString();
     console.log("add product to cart :", cartProduct);
     return this.http.post<any>(this.getUrl("users/" + this.authService.currentUser?.id + "/carts.json"), this.generateJSONforCartProduct(cartProduct)).pipe(
@@ -83,14 +83,14 @@ export class CartApiRequestService {
             response.cart.cartProduct = localStorage.getItem(this.CART_PRODUCT_KEY);
             console.log("Cart test : ", localStorage.getItem(this.CART_PRODUCT_KEY)?.toString());
             let temp = response.cart;
-            temp.cartProducts = JSON.parse(localStorage.getItem(this.CART_PRODUCT_KEY)!);
+            temp.cart_products = JSON.parse(localStorage.getItem(this.CART_PRODUCT_KEY)!);
             this._cart = temp;
             localStorage.setItem(this.SEARCH_CART_KEY, "");
           }
           else {
             this._cart = response.cart;
           }
-          console.log("Cart : ", this._cart);
+          console.log("Cart : ", this.cart);
           return response.success;
         }
         else {
@@ -172,15 +172,12 @@ export class CartApiRequestService {
           console.log("Search Cart Products : ", response);
           this._searchCartProduct = searchParams;
           let cart_products: CartProduct[] = [];
-          response.cart.cartProducts.forEach((cart_product: { products: string | any[]; }) => {
-            if (cart_product.products.length >= 1) {
+          response.cart.cart_products.forEach((cart_product: { product: string | any; }) => {
+            if (cart_product.product.length >= 1) {
               cart_products.push(cart_product as CartProduct);
             }
           });
-          //localStorage.setItem(this.CART_PRODUCT_KEY, JSON.stringify(cart_products));
-          //localStorage.setItem(this.SEARCH_CART_KEY, this._searchCartProduct);
-
-          this._cart!.cartProducts = cart_products;
+          this._cart!.cart_products = cart_products;
           return true;
         }
         else {

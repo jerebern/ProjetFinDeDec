@@ -6,5 +6,5 @@ export class Cart extends JSONObject {
     @required
     sub_total !: string
 
-    cartProducts !: CartProduct[]
+    cart_products !: CartProduct[]
 }
