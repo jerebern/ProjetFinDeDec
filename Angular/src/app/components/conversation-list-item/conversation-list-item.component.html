@@ -1,20 +1,26 @@
 <div *ngIf="this.isMessageUser()!=true; else notMessageUser" style="margin-top: 5px; margin-left: 5px;">
-  <td style="background-color: rgb(233, 233, 233); margin-bottom: 5px; max-width: 50%; text-align: center;">
+  <div style="font-size:x-small; font-weight: bold;" *ngIf="showDate">
+    {{trimCreatedAt(message.created_at)}}
+  </div>
+  <td style="background-color: rgb(233, 233, 233); margin-bottom: 5px; max-width: 50%; text-align: center;" (mouseover)="showDate=true" (mouseout)="showDate=false">
     {{message.body}}
   </td>
   <td></td>
 </div>
 <ng-template #notMessageUser>
   <div style="float: right; margin-top: 5px; margin-right: 5px;">
+    <div style="text-align: right; font-size: x-small; font-weight: bold;"  *ngIf="showDate">
+      {{trimCreatedAt(message.created_at)}}
+    </div>
     <td style="text-align: right;">
       <button (click)="updateMessage()" class="btn btn-sm" type="button">
         <i style="margin-left: 5px;" class="fa fa-edit"></i>
       </button>
-      <button (click)="deleteMessage()" class="btn btn-sm" type="button">
+      <button (click)="deleteMessage()" class="btn btn-sm" type="button" matTooltip="Info about the action">
         <i class="fa fa-trash-o"></i>
       </button>
     </td>
-    <td style="background-color: blue; color: white; max-width: 50%;text-align: center;">
+    <td style="background-color: blue; color: white; max-width: 50%;text-align: center;" (mouseover)="showDate=true" (mouseout)="showDate=false">
       {{message.body}}
     </td>
   </div>

@@ -5,4 +5,5 @@ export class Message extends JSONObject{
   body!: string;
   user_id!: number | undefined;
   conversation_id!: number;
+  created_at!: string;
 }
