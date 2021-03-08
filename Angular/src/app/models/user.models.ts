@@ -1,4 +1,5 @@
 import { custom, JSONObject, required } from 'ts-json-object'
+import { Conversation } from './conversation.model'
 
 export class User extends JSONObject {
     id !: number
@@ -33,5 +34,9 @@ export class User extends JSONObject {
 
 
     is_admin!: boolean
+
+    fullname!: string;
+
+    conversation!: Conversation[];
 
 }

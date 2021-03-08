@@ -1,4 +1,5 @@
 import { JSONObject } from "ts-json-object";
+import { User } from "./user.models";
 
 export class Conversation extends JSONObject{
   id!: number;
@@ -9,4 +10,5 @@ export class Conversation extends JSONObject{
   description!: string;
   status!: string;
   created_at!: string;
+  user!: User;
 }
