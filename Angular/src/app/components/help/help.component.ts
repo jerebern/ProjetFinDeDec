@@ -43,10 +43,12 @@ export class HelpComponent implements OnInit {
     }
   }
 
-  hasMessage() {
+  hasConversation() {
     if (this.userConversation) {
+      console.log("hasConversation: ", "Vrai")
       return true;
     } else {
+      console.log("hasConversation: ", "Faux")
       return false;
     }
   }
@@ -66,6 +68,7 @@ export class HelpComponent implements OnInit {
     let newConversation = new Conversation();
     newConversation.title = this.conversationForm.get('title')?.value;
     newConversation.description = this.conversationForm.get('description')?.value;
+    newConversation.status = "En cours";
     console.log("New Conversation: ", newConversation);
 
     this.conversationService.createConversation(newConversation).subscribe(success => {
@@ -82,9 +85,11 @@ export class HelpComponent implements OnInit {
     this.router.navigate(['conversation/' + this.userConversation.id]);
   }
 
-  update() {
+  update(status: string) {
     this.userConversation.title = this.editConversationForm.get('title')?.value;
     this.userConversation.description = this.editConversationForm.get('description')?.value;
+    this.userConversation.status = status;
+
     console.log("New Conversation: ", this.userConversation);
 
     this.conversationService.updateConversation(this.userConversation.id.toString(), this.userConversation).subscribe(success => {
@@ -92,8 +97,21 @@ export class HelpComponent implements OnInit {
         console.log("Success: ", success);
         this.conversationService.setCurrentConversation(this.userConversation);
         this.getConversation();
-        this.router.navigate(['conversation/' + this.userConversation.id]);
+        if(this.userConversation.status == "En cours"){
+          this.router.navigate(['conversation/' + this.userConversation.id]);
+        }
       }
     })
+  }
+
+  statusCondition(){
+    if(this.userConversation.status=="Terminer"){
+      console.log("Status Condition: ", "Terminer");
+      return true;
+    }else{
+      console.log("Status Condition: ", "En cours");
+
+      return false;
+    }
   }
 }

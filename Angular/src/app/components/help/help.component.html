@@ -9,73 +9,87 @@
         </p>
       </div>
     </div>
-    <div *ngIf="this.hasMessage(); else messageButton">
-      <button class="btn btn-primary" (click)="message()">Continuer votre conversation</button>
-      <div class="row mt-2">
-        <div class="col">
-          <p>Pour modifier le titre de votre conversation et sa description, veuillez tout simplement modifier les champs si dessous et
-            une fois terminé, appuyer sur le bouton "Modifier votre conversation"
-         </p>
-          <form [formGroup]="editConversationForm" (ngSubmit)="createConversation()">
-            <div class="form-row">
-              <div class="form-group">
-                <p style="font-weight: bold;">Titre*</p>
-                <input style="width: 250px;" formControlName="title"
-                [class.is-invalid]="editConversationForm.get('title')?.errors && editConversationForm.get('title')?.dirty && editConversationForm.get('title')?.touched"
-                type="text" placeholder="Titre" class="form-control">
-                <div class="invalid-feedback text-left">
-                  Veuillez entrer un titre valide.
+    <div *ngIf="this.hasConversation(); else messageButton">
+      <div *ngIf="!this.statusCondition(); else retakeConversation">
+        <button class="btn btn-primary" (click)="message()">Continuer votre conversation</button>
+        <div class="row mt-2">
+          <div class="col">
+            <p>Pour modifier le titre de votre conversation et sa description, veuillez tout simplement modifier les champs si dessous et
+              une fois terminé, appuyer sur le bouton "Modifier votre conversation".
+           </p>
+            <form [formGroup]="editConversationForm" (ngSubmit)="createConversation()">
+              <div class="form-row">
+                <div class="form-group">
+                  <p style="font-weight: bold;">Titre*</p>
+                  <input style="width: 250px;" formControlName="title"
+                  [class.is-invalid]="editConversationForm.get('title')?.errors && editConversationForm.get('title')?.dirty && editConversationForm.get('title')?.touched"
+                  type="text" placeholder="Titre" class="form-control">
+                  <div class="invalid-feedback text-left">
+                    Veuillez entrer un titre valide.
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="from-row">
-              <div class="form-group">
-                <p style="font-weight: bold;">Description*</p>
-                <textarea formControlName="description"
-                [class.is-invalid]="editConversationForm.get('description')?.errors && editConversationForm.get('description')?.dirty && editConversationForm.get('description')?.touched"
-                type="text" placeholder="Description de la raison de la conversation..." class="form-control">
-                <div class="invalid-feedback text-left">
-                  Veuillez entrer une description valide.
+              <div class="from-row">
+                <div class="form-group">
+                  <p style="font-weight: bold;">Description*</p>
+                  <textarea formControlName="description"
+                  [class.is-invalid]="editConversationForm.get('description')?.errors && editConversationForm.get('description')?.dirty && editConversationForm.get('description')?.touched"
+                  type="text" placeholder="Description de la raison de la conversation..." class="form-control">
+                  <div class="invalid-feedback text-left">
+                    Veuillez entrer une description valide.
+                  </div>
+                  </textarea>
                 </div>
-                </textarea>
               </div>
-            </div>
-          </form>
-          <button class="btn btn-info" [disabled]="editConversationForm.invalid" (click)="update()">Modifier votre conversation</button>
+            </form>
+            <button class="btn btn-success" [disabled]="editConversationForm.invalid" (click)="update('En cours')">Modifier votre conversation</button>
+            <p style="margin-top: 35px;">Votre problème a été réglé? Changer le status de votre conversation en appuyant sur le boutton ci-dessous :</p>
+            <button class="btn btn-secondary" (click)="update('Terminer')">Terminer</button>
+          </div>
         </div>
       </div>
+      <ng-template #retakeConversation>
+        <div class="row mt-2">
+          <div class="col">
+            <p>Vous souhaitez reprendre votre conversation? Changer le status de votre conversation en appuyant sur ce boutton :</p>
+            <button style="margin-top: 10px" class="btn btn-secondary" (click)="update('En cours')">Reprendre la conversation</button>
+          </div>
+        </div>
+      </ng-template>
     </div>
     <ng-template #messageButton>
-      <div class="row mt-2">
-        <div class="col">
-          <form [formGroup]="conversationForm" (ngSubmit)="createConversation()">
-            <div class="form-row">
-              <div class="form-group">
-                <p style="font-weight: bold;">Titre*</p>
-                <input style="width: 250px;" formControlName="title"
-                [class.is-invalid]="conversationForm.get('title')?.errors && conversationForm.get('title')?.dirty && conversationForm.get('title')?.touched"
-                type="text" placeholder="Titre" class="form-control">
-                <div class="invalid-feedback text-left">
-                  Veuillez entrer un titre valide.
+      <div *ngIf="this.statusCondition()">
+        <div class="row mt-2">
+          <div class="col">
+            <form [formGroup]="conversationForm" (ngSubmit)="createConversation()">
+              <div class="form-row">
+                <div class="form-group">
+                  <p style="font-weight: bold;">Titre*</p>
+                  <input style="width: 250px;" formControlName="title"
+                  [class.is-invalid]="conversationForm.get('title')?.errors && conversationForm.get('title')?.dirty && conversationForm.get('title')?.touched"
+                  type="text" placeholder="Titre" class="form-control">
+                  <div class="invalid-feedback text-left">
+                    Veuillez entrer un titre valide.
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="from-row">
-              <div class="form-group">
-                <p style="font-weight: bold;">Description*</p>
-                <textarea formControlName="description"
-                [class.is-invalid]="conversationForm.get('description')?.errors && conversationForm.get('description')?.dirty && conversationForm.get('description')?.touched"
-                type="text" placeholder="Description de la raison de la conversation..." class="form-control">
-                <div class="invalid-feedback text-left">
-                  Veuillez entrer une description valide.
+              <div class="from-row">
+                <div class="form-group">
+                  <p style="font-weight: bold;">Description*</p>
+                  <textarea formControlName="description"
+                  [class.is-invalid]="conversationForm.get('description')?.errors && conversationForm.get('description')?.dirty && conversationForm.get('description')?.touched"
+                  type="text" placeholder="Description de la raison de la conversation..." class="form-control">
+                  <div class="invalid-feedback text-left">
+                    Veuillez entrer une description valide.
+                  </div>
+                  </textarea>
                 </div>
-                </textarea>
               </div>
-            </div>
-          </form>
-          <button style="margin-top: 10px;" class="btn btn-primary" [disabled]="conversationForm.invalid" (click)="createConversation()">Démarrer une conversation</button>
+            </form>
+            <button style="margin-top: 10px;" class="btn btn-primary" [disabled]="conversationForm.invalid" (click)="createConversation()">Démarrer une conversation</button>
+          </div>
         </div>
       </div>
     </ng-template>

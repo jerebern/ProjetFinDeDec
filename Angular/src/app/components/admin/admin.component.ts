@@ -20,9 +20,10 @@ export class AdminComponent implements OnInit {
   sortEmail: string = "emailDown";
   sortCreationDate: string = "creationDateDown";
   sortTitle: string = "titleDown";
+  sortStatus: string = "statusDown";
   searchConversationsForm: FormGroup;
 
-  types = ["Titre", "Name", "Email"];
+  types = ["Titre", "Name", "Email", "Status"];
 
   constructor(private conversationService: ConversationApiRequestService, private authService: AuthService, private router: Router) {
     this.searchConversationsForm = new FormGroup({
@@ -125,6 +126,19 @@ export class AdminComponent implements OnInit {
     console.log("sortByTitle: ", this.sortTitle);
 
     this.getConversations(this.sortTitle);
+  }
+
+  sortByStatus(){
+    console.log("sortByStatus: ", this.sortStatus);
+
+    if(this.sortStatus == "statusDown"){
+      this.sortStatus = "statusUp";
+    }else{
+      this.sortStatus = "statusDown";
+    }
+    console.log("sortByStatus: ", this.sortStatus);
+
+    this.getConversations(this.sortStatus);
   }
 
   searchConversations(){
