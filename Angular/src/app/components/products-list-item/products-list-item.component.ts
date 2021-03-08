@@ -22,7 +22,7 @@ export class ProductsListItemComponent implements OnInit {
     this.apiCartService.addProductToCart(product, 1).subscribe(success => {
       if (success) {
         console.log("OK");
-        alert("Ajouter au Panier");
+        alert("Ajouter au Panier : " + success + " produit(s)");
       }
       else {
         console.log("ERROR", success);

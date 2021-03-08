@@ -54,7 +54,7 @@ export class ProductViewComponent implements OnInit {
     this.apiCartService.addProductToCart(product, this.addToCartForm.get('quantity')?.value).subscribe(success => {
       if (success) {
         console.log("OK");
-        alert("Ajouter au Panier");
+        alert("Ajouter au Panier : " + success + " produit(s)");
       }
       else {
         console.log("ERROR", success);
