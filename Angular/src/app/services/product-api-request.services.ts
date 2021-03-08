@@ -14,18 +14,12 @@ import { Observable, of } from 'rxjs';
 export class ProductApiRequestService {
   private readonly PRODUCTS_KEY = 'jfj.products';
   private _searchProduct: string = "";
+  private _products: Product[] = [];
   get searchParams(): string {
     return this._searchProduct;
   }
   get products(): Product[] {
-    let Products: Product[] = [];
-    const storedProducts = JSON.parse(localStorage.getItem(this.PRODUCTS_KEY) ?? 'null');
-
-    if (storedProducts) {
-      Products = storedProducts as Product[];
-    }
-    //console.log("storedProducts:", storedProducts, "Products:", Products)
-    return Products;
+    return this._products;
   }
 
   constructor(private http: HttpClient, private router: Router) {
@@ -55,7 +49,7 @@ export class ProductApiRequestService {
       map(response => {
         if (response.success) {
           console.log("Products list : ", response.products);
-          localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(response.products));
+          this._products = response.products
           return true;
         }
         else {
@@ -78,7 +72,7 @@ export class ProductApiRequestService {
         if (response.success) {
           console.log("Search Products : ", response.products)
           this._searchProduct = searchParams;
-          localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(response.products));
+          this._products = response.products
           return true;
         }
         else {
@@ -210,7 +204,6 @@ export class ProductApiRequestService {
         else if (sortBy == 4) {
           index.sort((a, b) => Number(a.price) < Number(b.price) ? 1 : -1);
         }
-        localStorage.setItem(this.PRODUCTS_KEY, JSON.stringify(index));
       }
       else {
         console.log("ERROR")

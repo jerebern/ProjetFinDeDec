@@ -29,12 +29,6 @@ export class CartApiRequestService {
   }
 
   constructor(private http: HttpClient, private authService: AuthService) {
-    if (localStorage.getItem(this.SORT_KEY)) {
-      this._sort = localStorage.getItem(this.SORT_KEY)!?.toString();
-    }
-    else {
-      localStorage.setItem(this.SORT_KEY, this._sort);
-    }
   }
 
   private getUrl(querry: string) {
@@ -78,18 +72,7 @@ export class CartApiRequestService {
       map(response => {
         if (response.success) {
           console.log("response", response);
-          console.log("all", localStorage.getItem(this.SEARCH_CART_KEY));
-          if (localStorage.getItem(this.SEARCH_CART_KEY) != undefined && localStorage.getItem(this.SEARCH_CART_KEY) != null && localStorage.getItem(this.SEARCH_CART_KEY) != "") {
-            response.cart.cartProduct = localStorage.getItem(this.CART_PRODUCT_KEY);
-            console.log("Cart test : ", localStorage.getItem(this.CART_PRODUCT_KEY)?.toString());
-            let temp = response.cart;
-            temp.cart_products = JSON.parse(localStorage.getItem(this.CART_PRODUCT_KEY)!);
-            this._cart = temp;
-            localStorage.setItem(this.SEARCH_CART_KEY, "");
-          }
-          else {
-            this._cart = response.cart;
-          }
+          this._cart = response.cart;
           console.log("Cart : ", this.cart);
           return response.success;
         }
@@ -152,9 +135,7 @@ export class CartApiRequestService {
 
   setSort(sort: string) {
     console.log(sort);
-    localStorage.setItem(this.SORT_KEY, sort);
-    this._sort = localStorage.getItem(this.SORT_KEY)!;
-    console.log(localStorage.getItem(this.SORT_KEY));
+    this._sort = sort;
   }
 
   generateJSONforSearch(querry: string) {
