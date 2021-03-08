@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
   sortPriceMode : string = "priceUp"
 
   searchCommandForm: FormGroup;
-  constructor(private authService: AuthService, private commandApiRequestService: CommandApiRequestService, private router: Router) {
+  constructor(private authService: AuthService, private  commandApiRequestService: CommandApiRequestService, private router: Router) {
     this.currentUser = new User;
     this.searchCommandForm = new FormGroup({
       search: new FormControl('')
@@ -57,12 +57,10 @@ export class ProfileComponent implements OnInit {
   }
   loadCommandList(mode : string){
     if (this.authService.currentUser != null) {
-      console.log("Current User : ", this.authService.currentUser)
-      this.currentUser = this.authService.currentUser;
-      this.commandApiRequestService.getAllCommandFromOneUser(this.authService.currentUser.id.toString(),mode).subscribe(success => {
+      this.commandApiRequestService.getAllCommandFromOneUser(mode).subscribe(success => {
         if (success) {
           console.log("OK")
-          this.userCommands = this.commandApiRequestService.getcurrentCommands("")
+          this.userCommands = this.commandApiRequestService.getCurrentCommands()
         }
         else {
           console.log("ERROR")
@@ -77,10 +75,10 @@ export class ProfileComponent implements OnInit {
     if (this.authService.currentUser != null) {
       console.log("Current User : ", this.authService.currentUser)
       this.currentUser = this.authService.currentUser;
-      this.commandApiRequestService.getAllCommandFromOneUser(this.authService.currentUser.id.toString(),"").subscribe(success => {
+      this.commandApiRequestService.getAllCommandFromOneUser("").subscribe(success => {
         if (success) {
           console.log("OK")
-          this.userCommands = this.commandApiRequestService.getcurrentCommands("")
+          this.userCommands = this.commandApiRequestService.getCurrentCommands()
         }
         else {
           console.log("ERROR")
@@ -95,16 +93,14 @@ export class ProfileComponent implements OnInit {
   }
   searchCommand() {
     let querry = this.searchCommandForm.get('search')?.value
-    if(this.authService.currentUser){
-      console.log(querry)
-      this.commandApiRequestService.searchCommand(querry,this.authService.currentUser.id.toString()).subscribe(succes =>{
-        if(succes){
-          console.log("ok c'est cool")
-          this.userCommands = this.commandApiRequestService.getcurrentCommands("")
+
+      this.commandApiRequestService.searchCommand(querry).subscribe(succes =>{
+        if(succes){   
+          this.userCommands = this.commandApiRequestService.getCurrentCommands();
 
         }
       })
-    }
+    
 
   }
   loadCommand(id: number) {

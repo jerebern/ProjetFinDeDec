@@ -47,7 +47,6 @@ def destroy
         if @command.command_products.count == 0
             @command.destroy
             render json: {command: "destroy", succes: true}
-
         else 
             @command.save
             render json: {succes: true}
@@ -76,7 +75,8 @@ end
 
 private 
 def is_currentUser?
-    unless current_user.id == params[:user_id].to_i || current_user.is_admin == true
+   
+    unless current_user.id == Command.find(params[:command_id]).user_id.to_i 
         render json: {success: false} 
     end
 rescue => e

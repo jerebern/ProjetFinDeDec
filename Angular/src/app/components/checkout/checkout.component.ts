@@ -14,7 +14,7 @@ import { CommandApiRequestService } from 'src/app/services/command-api-request.s
 export class CheckoutComponent implements OnInit {
   private _cart!: Cart;
   private _tmpCommand !: Command;
-  constructor(private commandApiRequestService : CommandApiRequestService, private apiCartService : CartApiRequestService,private authService : AuthService,private router : Router) {
+  constructor(private commandApiRequestService : CommandApiRequestService, private apiCartService : CartApiRequestService,private router : Router) {
 
    }
 
@@ -35,16 +35,12 @@ export class CheckoutComponent implements OnInit {
     return this._cart;
   }
   getCommandInfo(){
-    if(this.authService.currentUser){
-      this.commandApiRequestService.createCommand(this.authService.currentUser?.id.toString(),"false").subscribe(succes =>{
-          
+      this.commandApiRequestService.createCommand("false").subscribe(succes =>{
           this._tmpCommand = this.commandApiRequestService.getCurrentCommand()
-      
-
       }
         
       )
-    }
+    
   }
 
   get tmpcommand(){
@@ -52,18 +48,11 @@ export class CheckoutComponent implements OnInit {
   }
 
   sendCommand(){
-    if(this.authService.currentUser){
-      this.commandApiRequestService.createCommand(this.authService.currentUser?.id.toString(),"true").subscribe(succes =>{
-     
-          console.log("YEah")
+      this.commandApiRequestService.createCommand("true").subscribe(succes =>{
           this.router.navigate(['/profile'])
-        
-
       }
         
       )
-    }
-
 
   }
 

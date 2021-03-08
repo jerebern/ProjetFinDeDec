@@ -6,11 +6,11 @@ Rails.application.routes.draw do
   root to: "angular#index"
   namespace :api, constraints: { format: 'json' }  do
     resources :products
-    resources :users do 
-      resources :commands do
-        resources :command_products
-      end
+    resources :users do
       resources :carts
+    end
+    resources :commands do
+      resources :command_products
     end
     resources :conversations
     resources :messages
