@@ -16,11 +16,11 @@ export class CommandApiRequestService {
     this._currenCommand = new Command();
   }
 
-  private getUrl(querry: string) {
-    return '/api/' + querry + '/'
+  private getUrl(id :string) {
+    return '/api/commands/' + id
   }
-  getAllCommandFromOneUser(userID: string | null, sort : string): Observable<any> {
-    return this.http.get<any>(this.getUrl("users/" + userID + "/commands") + "?s="+ sort).pipe(
+  getAllCommandFromOneUser(sort : string): Observable<any> {
+    return this.http.get<any>(this.getUrl("") + "?s="+ sort).pipe(
       map(response => {
         if (response.success) {
           console.log("All Commands : ", response)
@@ -39,8 +39,8 @@ export class CommandApiRequestService {
       })
     )
   }
-  getOneCommandFromOneUser(userID: string | null, commandId: string): Observable<any> {
-    return this.http.get<any>(this.getUrl("users/" + userID + "/commands/" + commandId)).pipe(
+  getOneCommandFromOneUser(commandId: string): Observable<any> {
+    return this.http.get<any>(this.getUrl( commandId)).pipe(
       map(response => {
         if (response.success) {
           console.log("Command :", response.command)
@@ -63,29 +63,17 @@ export class CommandApiRequestService {
     )
   }
 
-  getcurrentCommands(sortBy: string) {
-    switch (sortBy) {
-
-      case "lowTotal":
-        this._currenCommands.sort((a, b) => Number(a.total) < Number(b.total) ? 1 : -1)
-        break;
-      case "highTotal":
-        this._currenCommands.sort((a, b) => Number(a.total) > Number(b.total) ? 1 : -1);
-        break;
-
-      default:
-        break;
-    }
-    console.log(this._currenCommands)
-    return this._currenCommands
-  }
   getCurrentCommand() {
 
     return this._currenCommand;
   }
-  deleteCommand(commandId: string, userID: string | null): Observable<any> {
+  getCurrentCommands() {
 
-    return this.http.delete<any>(this.getUrl("users/" + userID + "/commands/" + commandId)).pipe(
+    return this._currenCommands;
+  }
+  deleteCommand(commandId: string): Observable<any> {
+
+    return this.http.delete<any>(this.getUrl(commandId)).pipe(
       map(response => {
         if (response) {
           console.log(response)
@@ -116,8 +104,8 @@ export class CommandApiRequestService {
       }
     }
   }
-  updateCommand(commandId: string, userID: string | null, command: Command): Observable<any> {
-    return this.http.patch(this.getUrl("users/" + userID + "/commands/" + commandId), this.generateJsonForCommandUpdate(command)).pipe(
+  updateCommand(commandId: string, command: Command): Observable<any> {
+    return this.http.patch(this.getUrl(commandId), this.generateJsonForCommandUpdate(command)).pipe(
       map(response => {
         if (response) {
           console.log(response)
@@ -147,8 +135,8 @@ export class CommandApiRequestService {
       "sendCommand": querry
     }
   }
-  createCommand(userID : string,sendCommand : string){
-    return this.http.post<any>(this.getUrl("users/"+ userID+"/commands"),this.generateJSONforTmpController(sendCommand)).pipe(
+  createCommand(sendCommand : string){
+    return this.http.post<any>(this.getUrl(""),this.generateJSONforTmpController(sendCommand)).pipe(
      map(response =>{
       if(response.success){
         console.log(response)
@@ -166,9 +154,9 @@ export class CommandApiRequestService {
     )
   }
 
-  searchCommand(querry : string, userID : string ){
+  searchCommand(querry : string){
     console.log(this.generateJSONforSearch(querry))
-    return this.http.get<any>(this.getUrl("users/" + userID + "/commands") + "?q="+querry).pipe(
+    return this.http.get<any>(this.getUrl("") + "?q="+querry).pipe(
       map(response => {
         if (response.success) {
           console.log("All Commands : ", response)

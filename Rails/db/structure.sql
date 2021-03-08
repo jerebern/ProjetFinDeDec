@@ -77,6 +77,7 @@ CREATE TABLE `cart_products` (
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `index_cart_products_on_cart_id_and_product_id` (`cart_id`,`product_id`),
   KEY `index_cart_products_on_cart_id` (`cart_id`),
   KEY `index_cart_products_on_product_id` (`product_id`),
   CONSTRAINT `fk_rails_a4f3e327f3` FOREIGN KEY (`cart_id`) REFERENCES `carts` (`id`),

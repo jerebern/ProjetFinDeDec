@@ -29,12 +29,6 @@ export class CartApiRequestService {
   }
 
   constructor(private http: HttpClient, private authService: AuthService) {
-    if (localStorage.getItem(this.SORT_KEY)) {
-      this._sort = localStorage.getItem(this.SORT_KEY)!?.toString();
-    }
-    else {
-      localStorage.setItem(this.SORT_KEY, this._sort);
-    }
   }
 
   private getUrl(querry: string) {
@@ -50,8 +44,8 @@ export class CartApiRequestService {
 
   addProductToCart(product: Product, quantity: number): Observable<any> {
     let cartProduct = new CartProduct();
-    let newProduct: Product[] = [product];
-    cartProduct.products = newProduct;
+    let newProduct: Product = product;
+    cartProduct.product = newProduct;
     cartProduct.quantity = quantity.toString();
     console.log("add product to cart :", cartProduct);
     return this.http.post<any>(this.getUrl("users/" + this.authService.currentUser?.id + "/carts.json"), this.generateJSONforCartProduct(cartProduct)).pipe(
@@ -59,7 +53,7 @@ export class CartApiRequestService {
         console.log("add product to cart : ", response);
         if (response?.success) {
           console.log("succès:", response);
-          return true;
+          return response.cart_product.quantity;
         }
         else {
           return false;
@@ -78,19 +72,8 @@ export class CartApiRequestService {
       map(response => {
         if (response.success) {
           console.log("response", response);
-          console.log("all", localStorage.getItem(this.SEARCH_CART_KEY));
-          if (localStorage.getItem(this.SEARCH_CART_KEY) != undefined && localStorage.getItem(this.SEARCH_CART_KEY) != null && localStorage.getItem(this.SEARCH_CART_KEY) != "") {
-            response.cart.cartProduct = localStorage.getItem(this.CART_PRODUCT_KEY);
-            console.log("Cart test : ", localStorage.getItem(this.CART_PRODUCT_KEY)?.toString());
-            let temp = response.cart;
-            temp.cartProducts = JSON.parse(localStorage.getItem(this.CART_PRODUCT_KEY)!);
-            this._cart = temp;
-            localStorage.setItem(this.SEARCH_CART_KEY, "");
-          }
-          else {
-            this._cart = response.cart;
-          }
-          console.log("Cart : ", this._cart);
+          this._cart = response.cart;
+          console.log("Cart : ", this.cart);
           return response.success;
         }
         else {
@@ -152,9 +135,7 @@ export class CartApiRequestService {
 
   setSort(sort: string) {
     console.log(sort);
-    localStorage.setItem(this.SORT_KEY, sort);
-    this._sort = localStorage.getItem(this.SORT_KEY)!;
-    console.log(localStorage.getItem(this.SORT_KEY));
+    this._sort = sort;
   }
 
   generateJSONforSearch(querry: string) {
@@ -172,15 +153,13 @@ export class CartApiRequestService {
           console.log("Search Cart Products : ", response);
           this._searchCartProduct = searchParams;
           let cart_products: CartProduct[] = [];
-          response.cart.cartProducts.forEach((cart_product: { products: string | any[]; }) => {
-            if (cart_product.products.length >= 1) {
+          response.cart.cart_products.forEach((cart_product: { product: string | any; }) => {
+            if (cart_product.product != null) {
+              console.log(cart_product as CartProduct)
               cart_products.push(cart_product as CartProduct);
             }
           });
-          //localStorage.setItem(this.CART_PRODUCT_KEY, JSON.stringify(cart_products));
-          //localStorage.setItem(this.SEARCH_CART_KEY, this._searchCartProduct);
-
-          this._cart!.cartProducts = cart_products;
+          this._cart!.cart_products = cart_products;
           return true;
         }
         else {

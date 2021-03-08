@@ -21,7 +21,7 @@ export class CommandsViewComponent implements OnInit {
   sortQuantity : string = "quantityUp"
   sortTotalPrice : string = "priceTotalUp"
   searchCommandForm: FormGroup;
-  constructor(private apiRequestService: CommandApiRequestService, private authService: AuthService, private route: ActivatedRoute, private router: Router, private apiCommandProductService : CommandProductApiRequestService) {
+  constructor(private apiRequestService: CommandApiRequestService, private route: ActivatedRoute, private router: Router, private apiCommandProductService : CommandProductApiRequestService) {
     this.currentCommand = new Command();
     this.searchCommandForm = new FormGroup({
       search: new FormControl('')
@@ -29,11 +29,11 @@ export class CommandsViewComponent implements OnInit {
   }
   searchCommand(){
     let querry = this.searchCommandForm.get('search')?.value
-    if(this.authService.currentUser){
-      this.apiCommandProductService.searchCommandProduct(this.authService.currentUser.id.toString(),this.currentCommand.id.toString(),querry).subscribe(success =>{
+
+      this.apiCommandProductService.searchCommandProduct(this.currentCommand.id.toString(),querry).subscribe(success =>{
         this.changeCommandProduct(success)
     })
-  }
+  
 }
   sortByUnitPrice(){
     if(this.sortUnit==  "priceUnitDown"){
@@ -75,18 +75,17 @@ export class CommandsViewComponent implements OnInit {
   }
 
   loadCommand_Products(sortMode : string){
-    if (this.authService.isLoggedIn && this.authService.currentUser != null) {
-    this.apiCommandProductService.getCommandProduct(this.authService.currentUser.id.toString(),this.currentCommand.id.toString(),sortMode).subscribe(success =>{
+
+    this.apiCommandProductService.getCommandProduct(this.currentCommand.id.toString(),sortMode).subscribe(success =>{
       this.changeCommandProduct(success)
 
     })
-    }
+    
   }
 
   getCurrentCommandNumber(id: string) {
-    if (this.authService.isLoggedIn && this.authService.currentUser != null) {
-      console.log("ID string ", this.authService.currentUser)
-      this.apiRequestService.getOneCommandFromOneUser(this.authService.currentUser.id.toString(), id).subscribe(succes => {
+
+      this.apiRequestService.getOneCommandFromOneUser(id).subscribe(succes => {
         if (succes) {
           this.currentCommand = this.apiRequestService.getCurrentCommand();
           this.loadCommand_Products("")
@@ -97,16 +96,14 @@ export class CommandsViewComponent implements OnInit {
           this.router.navigate(['/products']);
         }
       })
-    }
-    console.log("Heloooo", this.currentCommand);
+    
 
   }
   updateCommandShipping() {
-    let Addresse = prompt("Entrez la nouvelle adresse de livraison :", "141 rue Alarie");
+    let Addresse = prompt("Entrez la nouvelle adresse de livraison :", "");
     if(Addresse != null){
       this.currentCommand.shipping_adress = Addresse
-      if (this.authService.currentUser) {
-        this.apiRequestService.updateCommand(this.currentCommand.id.toString(), this.authService.currentUser.id.toString(), this.currentCommand).subscribe(success => {
+        this.apiRequestService.updateCommand(this.currentCommand.id.toString(), this.currentCommand).subscribe(success => {
           if (success) {
             console.log("OK", success)
           }
@@ -115,14 +112,14 @@ export class CommandsViewComponent implements OnInit {
             alert("ERROR!!!");
           }
         });
-      }
+      
       
     }
 
   }
   cancelCommand() {
-    if (this.authService.currentUser != null) {
-      this.apiRequestService.deleteCommand(this.currentCommand.id.toString(), this.authService.currentUser.id.toString()).subscribe(success => {
+
+      this.apiRequestService.deleteCommand(this.currentCommand.id.toString()).subscribe(success => {
         if (success) {
           this.router.navigate(["/profile"])
         }
@@ -131,16 +128,14 @@ export class CommandsViewComponent implements OnInit {
           alert("ERROR!!!");
         }
       });
-    }
+    
   }
   deleteProduct(id : number){
     console.log(id)
-    if(this.authService.currentUser?.toString()){
-      this.apiCommandProductService.deleteCommandProduct(this.authService.currentUser?.toString(),this.currentCommand.id.toString(),id.toString()).subscribe(result =>{
+
+      this.apiCommandProductService.deleteCommandProduct(this.currentCommand.id.toString(),id.toString()).subscribe(result =>{
 
       })
-
-    }
 
   }
   ngOnInit(): void {

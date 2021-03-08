@@ -1,7 +1,8 @@
 class CartProduct < ApplicationRecord
     before_validation :calculate_price
     validates :total_price, presence: true, allow_blank: false, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: {greater_than: 0}
-    validates :quantity, presence: true, allow_blank: false, numericality: {greater_than_or_equal_to: 0}
+    validates :quantity, presence: true, allow_blank: false, numericality: {greater_than_or_equal_to: 1}
+    validates :cart_id, uniqueness: { scope: :product_id }
     belongs_to :cart
     belongs_to :product
     after_save :update_cart
