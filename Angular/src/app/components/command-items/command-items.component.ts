@@ -12,7 +12,7 @@ import { CommandProductApiRequestService } from 'src/app/services/command-produc
 })
 export class CommandItemsComponent implements OnInit {
   @Input() commandProduct!: CommandProduct ;
-  @Input() userID!: number ;
+  @Input() userID!: number ; //todo a supprimer 
   constructor(private commandProductApiService  : CommandProductApiRequestService ,private router : Router ) { 
 
 
@@ -25,7 +25,7 @@ export class CommandItemsComponent implements OnInit {
   loadCurrentProduct(){
   }
   updateQuantity(){  
-    this.commandProductApiService.updateCommandProduct(this.userID.toString(),this.commandProduct.command_id.toString(),this.commandProduct.id.toString()).subscribe(result=>{
+    this.commandProductApiService.updateCommandProduct(this.commandProduct.command_id.toString(),this.commandProduct.id.toString()).subscribe(result=>{
 
       
     })

@@ -64,7 +64,7 @@ class Api::CommandsController < ApplicationController
     def destroy
         ##rajouter la remise de produit en inventairw
         current_user.commands.find(params[:id]).command_products.destroy_all
-        if @command.destroy
+        if current_user.commands.find(params[:id]).destroy
             render json: {command: "destroy", success:true}
         else
             render json: @command.errors, status: :unprocessable_entity, success:false
