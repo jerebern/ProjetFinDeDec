@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center w-100">
     <mat-sidenav-container class="example-container">
-        <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')"
+        <mat-sidenav #sidenav mode="over" [(opened)]="opened" (opened)="events.push('open!')"
             (closed)="events.push('close!')">
             <div class="col-12" style="background-color: rgb(171, 191, 170)">
                 <div class="content-align-rigth w-100">
@@ -37,7 +37,7 @@
             </div>
         </mat-sidenav>
         <mat-sidenav-content>
-            <button mat-button (click)="sidenav.toggle()">
+            <button mat-button (click)="sidenav.toggle()" class="btn btn-secondary">
                 <i class="fa fa-bars"></i>
             </button>
             <div class="col-12">

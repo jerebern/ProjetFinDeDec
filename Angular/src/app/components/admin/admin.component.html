@@ -1,4 +1,5 @@
 <body>
+
   <body>
 
     <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
@@ -8,13 +9,15 @@
         <form [formGroup]="searchConversationsForm" (ngSubmit)="searchConversations()" class="form-inline">
           <div class="form-group">
             <input formControlName="search" placeholder="Recherher...." type="text" class="form-control">
-            <button class="btn btn-primary" type="submit" style="margin-left: 3px;"><i class="fa fa-search"></i></button>
+            <button class="btn btn-primary" type="submit" style="margin-left: 3px;"><i
+                class="fa fa-search"></i></button>
 
             <select class="form-control" formControlName="type" style="margin-left: 3px;">
               <option *ngFor="let type of types" [ngValue]="type">{{type}}</option>
             </select>
 
-            <button class="btn btn-secondary" type="button" style="margin-left: 3px;" (click)="getConversations('')"><i class="fa fa-retweet"></i></button>
+            <button class="btn btn-secondary" type="button" style="margin-left: 3px;" (click)="getConversations('')"><i
+                class="fa fa-retweet"></i></button>
           </div>
         </form>
       </div>
@@ -39,16 +42,17 @@
         </thead>
 
         <tbody>
-         <tr *ngFor="let conversation of conversations" app-admin-list-item [conversation]="conversation" (conversationClicked)="conversationClicked($event)" (delete)="delete($event)"></tr>
+          <tr *ngFor="let conversation of conversations" app-admin-list-item [conversation]="conversation"
+            (conversationClicked)="conversationClicked($event)" (delete)="delete($event)"></tr>
         </tbody>
 
       </table>
 
-        <h3>Rapports</h3>
-        <div class="row" style="float: left">
-          <a class="nav-link" [routerLink]="['/products-sommary']">Sommaire des produits</a>
-          <a class="nav-link" [routerLink]="['/usercommandsummary']">Sommaire des commandes par utilisateur</a>
-        </div>
+      <h1>Rapports</h1>
+      <div class="row" style="float: left">
+        <a class="nav-link" [routerLink]="['/products-sommary']">Sommaire des produits</a>
+        <a class="nav-link" [routerLink]="['/usercommandsummary']">Sommaire des commandes par utilisateur</a>
+      </div>
 
     </div>
-</body>
+  </body>
