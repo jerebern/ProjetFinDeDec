@@ -9,7 +9,8 @@ import { ProductsSommaryApiRequestService } from 'src/app/services/products-somm
   styleUrls: ['./products-sommary.component.css']
 })
 export class ProductsSommaryComponent implements OnInit {
-
+  events: string[] = [];
+  opened: boolean = false;
   searchForm: FormGroup;
   sort: string = '';
   productsSommaries: ProductsSommary[] = [];
@@ -199,6 +200,48 @@ export class ProductsSommaryComponent implements OnInit {
         else {
           this.productsSommaries.sort((a, b) => Number(a.average_carts_total) > Number(b.average_carts_total) ? 1 : -1)
           this.sort = "daveragecarttotal";
+        }
+        break;
+      case "producttitle":
+        if (this.sort == "cproducttitle") {
+          this.productsSommaries.sort((a, b) => a.products_title > b.products_title ? 1 : -1);
+          this.sort = "dproducttitle";
+        }
+        else if (this.sort == "dproducttitle") {
+          this.productsSommaries.sort((a, b) => a.products_title < b.products_title ? 1 : -1);
+          this.sort = "cproducttitle";
+        }
+        else {
+          this.productsSommaries.sort((a, b) => a.products_title > b.products_title ? 1 : -1);
+          this.sort = "dproducttitle";
+        }
+        break;
+      case "productcategory":
+        if (this.sort == "cproductcategory") {
+          this.productsSommaries.sort((a, b) => a.products_category > b.products_category ? 1 : -1);
+          this.sort = "dproductcategory";
+        }
+        else if (this.sort == "dproductcategory") {
+          this.productsSommaries.sort((a, b) => a.products_category < b.products_category ? 1 : -1);
+          this.sort = "cproductcategory";
+        }
+        else {
+          this.productsSommaries.sort((a, b) => a.products_category > b.products_category ? 1 : -1);
+          this.sort = "dproductcategory";
+        }
+        break;
+      case "productanimaltype":
+        if (this.sort == "cproductanimaltype") {
+          this.productsSommaries.sort((a, b) => a.products_animal_type > b.products_animal_type ? 1 : -1);
+          this.sort = "dproductanimaltype";
+        }
+        else if (this.sort == "dproductanimaltype") {
+          this.productsSommaries.sort((a, b) => a.products_animal_type < b.products_animal_type ? 1 : -1);
+          this.sort = "cproductanimaltype";
+        }
+        else {
+          this.productsSommaries.sort((a, b) => a.products_animal_type > b.products_animal_type ? 1 : -1);
+          this.sort = "dproductanimaltype";
         }
         break;
     }

@@ -1,77 +1,89 @@
 <div>
 
-<div class="float-md-left">
-  <div class="px-md-1">
-    <h3> Détail de la commande # {{currentCommand.id}}  </h3>
-  </div>
-  <div class="px-md-1">
-    <h5> Date : {{currentCommand.created_at}} </h5>
-  </div>
-  <div class="px-md-1">
-    <h5> Statut : {{currentCommand.state}} </h5>
-  </div>
-  <button class="btn btn-success mr-sm-2" (click)= updateCommandShipping() ><i class="fa fa-edit"></i></button> 
-  <button class="btn btn-danger mr-sm-2" (click)= cancelCommand()> <i class="fa fa-ban"></i></button> 
-</div>
-<div>
-  <div>
-    <div class="row">
+  <div class="float-md-left">
     <div class="px-md-1">
-
+      <h1> Détail de la commande # {{currentCommand.id}} </h1>
     </div>
+    <div class="px-md-1">
+      <h3> Date : {{currentCommand.created_at}} </h3>
+    </div>
+    <div class="px-md-1">
+      <h3> Statut : {{currentCommand.state}} </h3>
+    </div>
+    <button class="btn btn-success mr-sm-2" (click)=updateCommandShipping()><i class="fa fa-edit"></i></button>
+    <button class="btn btn-danger mr-sm-2" (click)=cancelCommand()> <i class="fa fa-ban"></i></button>
+  </div>
+  <div>
+    <div>
+      <div class="row">
+        <div class="px-md-1">
+
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-
-<div>
-  <table class="table table-bordered table-responsive-sm">
-    <thead style="background-color: aliceblue; text-align: center;">
-       <th scope="row" colspan="2"> Facture : </th>
-       
-    </thead>
-    <tbody>
-        <tr> <td> Sous-Total : </td> <td> {{currentCommand.sub_total}} $ </td></tr>
-        <tr><td> TPS : </td> <td> {{currentCommand.tps}} $ </td> </tr>
-        <tr><td> TVQ : </td> <td>  {{currentCommand.tvq}} $ </td> </tr>
-        <tr> <td> Total : </td>  <td> {{currentCommand.total}} $</td> </tr>
-    </table>  
-  </div>
 
   <div>
     <table class="table table-bordered table-responsive-sm">
       <thead style="background-color: aliceblue; text-align: center;">
-         <th scope="row" colspan="1"> Adresse de livraison </th>
-         
+        <th scope="row" colspan="2"> Facture : </th>
+
       </thead>
       <tbody>
-         <td style="text-align: center;"> {{currentCommand.shipping_adress}} </td>
-      </table>  
-</div>
-
-<div> 
-  <form [formGroup]="searchCommandForm" (ngSubmit)="searchCommand()" class="form-inline">
-    <input formControlName="search" placeholder="Entrer le nom du produit" type="text" class="form-control">
-    <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
-</form>
-<br>
-  <div>
-
-    <table class="table table-bordered table-responsive-sm">
-      <thead style="background-color: aliceblue; text-align: center;">
-         <th scope="row" colspan="4"> Produits </th>
-         <tr>
-         <th scope="row" colspan="1"> Produit </th>
-         <th scope="row" colspan="1"> <a (click)="sortByUnitPrice()">Prix unitaire </a></th>
-         <th scope="row" colspan="1"><a (click)="sortbyQuantity()"> Quantité </a> </th>
-         <th scope="row" colspan="1"><a (click)="sortByTotalPrice()">Total </a> </th>
+        <tr>
+          <td> Sous-Total : </td>
+          <td> {{currentCommand.sub_total}} $ </td>
         </tr>
-         
+        <tr>
+          <td> TPS : </td>
+          <td> {{currentCommand.tps}} $ </td>
+        </tr>
+        <tr>
+          <td> TVQ : </td>
+          <td> {{currentCommand.tvq}} $ </td>
+        </tr>
+        <tr>
+          <td> Total : </td>
+          <td> {{currentCommand.total}} $</td>
+        </tr>
+    </table>
+  </div>
+
+  <div>
+    <table class="table table-bordered table-responsive-sm">
+      <thead style="background-color: aliceblue; text-align: center;">
+        <th scope="row" colspan="1"> Adresse de livraison </th>
+
       </thead>
       <tbody>
+        <td style="text-align: center;"> {{currentCommand.shipping_adress}} </td>
+    </table>
+  </div>
+
+  <div>
+    <form [formGroup]="searchCommandForm" (ngSubmit)="searchCommand()" class="form-inline">
+      <input formControlName="search" placeholder="Entrer le nom du produit" type="text" class="form-control">
+      <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+    </form>
+    <br>
+    <div>
+
+      <table class="table table-bordered table-responsive-sm">
+        <thead style="background-color: aliceblue; text-align: center;">
+          <th scope="row" colspan="4"> Produits </th>
+          <tr>
+            <th scope="row" colspan="1"> Produit </th>
+            <th scope="row" colspan="1"> <a (click)="sortByUnitPrice()">Prix unitaire </a></th>
+            <th scope="row" colspan="1"><a (click)="sortbyQuantity()"> Quantité </a> </th>
+            <th scope="row" colspan="1"><a (click)="sortByTotalPrice()">Total </a> </th>
+          </tr>
+
+        </thead>
+        <tbody>
           <tr *ngFor="let commandProduct of this.currentCommand.command_products" class="text-center" app-command-items
-             [commandProduct]="commandProduct" [userID]= "this.currentCommand.user_id"> 
-         </tr>
-      </table>  
-</div>
-</div>
+            [commandProduct]="commandProduct" [userID]="this.currentCommand.user_id">
+          </tr>
+      </table>
+    </div>
+  </div>

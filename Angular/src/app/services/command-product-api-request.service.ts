@@ -12,7 +12,7 @@ export class CommandProductApiRequestService {
     return "/api/commands/"+commandID+"/command_products/"+command_productsID
   }
   searchCommandProduct( commandID : string, querry : string ){
-    return this.http.get<any>("/api/commands/"+commandID+"/command_products/"+"?q="+querry).pipe(
+    return this.http.get<any>(this.getURL(commandID,"") +"?q="+querry).pipe(
       map(response => { 
           return response
         
@@ -20,7 +20,7 @@ export class CommandProductApiRequestService {
     )
   }
   getCommandProduct(commandID : string, sort : string){
-    return this.http.get<any>("/commands/"+commandID+"/command_products/"+"?s="+sort).pipe(
+    return this.http.get<any>(this.getURL(commandID,"") +"?s="+sort).pipe(
       map(response => { 
           return response
         

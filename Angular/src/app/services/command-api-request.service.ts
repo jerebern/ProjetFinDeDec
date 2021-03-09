@@ -9,11 +9,10 @@ import { Command } from '../models/command.model';
   providedIn: 'root'
 })
 export class CommandApiRequestService {
-  private _currenCommand: Command;
-  private _currenCommands: Command[] = []
+
 
   constructor(private http: HttpClient, private router: Router) {
-    this._currenCommand = new Command();
+
   }
 
   private getUrl(id :string) {
@@ -24,8 +23,8 @@ export class CommandApiRequestService {
       map(response => {
         if (response.success) {
           console.log("All Commands : ", response)
-          this._currenCommands = response.commands;
-          return true;
+          
+          return response.commands;
         }
         else {
           console.log(response);
@@ -44,11 +43,10 @@ export class CommandApiRequestService {
       map(response => {
         if (response.success) {
           console.log("Command :", response.command)
-          this._currenCommand = response.command;
-          this._currenCommand.command_products = response.command_products
-
-          console.log(this._currenCommand);
-          return response;
+          // this._currenCommand = response.command;
+          // this._currenCommand.command_products = response.command_products
+          
+          return response.command;
         }
         else {
           console.log(response);
@@ -62,17 +60,7 @@ export class CommandApiRequestService {
       })
     )
   }
-
-  getCurrentCommand() {
-
-    return this._currenCommand;
-  }
-  getCurrentCommands() {
-
-    return this._currenCommands;
-  }
   deleteCommand(commandId: string): Observable<any> {
-
     return this.http.delete<any>(this.getUrl(commandId)).pipe(
       map(response => {
         if (response) {
@@ -139,12 +127,7 @@ export class CommandApiRequestService {
     return this.http.post<any>(this.getUrl(""),this.generateJSONforTmpController(sendCommand)).pipe(
      map(response =>{
       if(response.success){
-        console.log(response)
-        if(sendCommand == "false"){
-          this._currenCommand = response.command
-      
-        }
-
+       
       }
       
      }),
@@ -160,9 +143,8 @@ export class CommandApiRequestService {
       map(response => {
         if (response.success) {
           console.log("All Commands : ", response)
-          
-          this._currenCommands = response.commands;
-          return true;
+        
+          return response.commands;;
         }
         else {
           console.log(response);

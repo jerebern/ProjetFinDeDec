@@ -1,99 +1,179 @@
-<div class="row d-flex justify-content-center w-100">
-    <div class="col-2" style="background-color: rgb(171, 191, 170)">
-        <div class="content-align-rigth w-100">
-            <form [formGroup]="searchForm" (ngSubmit)="search()" class="form-inline">
-                <input formControlName="search" placeholder="Chercher dans sommaire" type="text"
-                    class="form-control w-75">
-                <button class="btn btn-primary" type="submit">
-                    <i class="fa fa-search"></i>
-                </button>
-            </form>
-        </div>
-        <form [formGroup]="filterForm" (ngSubmit)="filter()" class="float-rigth">
-            <div class="form-group">
-                <label>Animal</label>
-                <div class="radio" *ngFor="let animal of animal_type">
-                    <label>
-                        <input type="radio" formControlName="animal" [value]="animal" checked>
-                        {{ animal }}
-                    </label>
+<div class="d-flex justify-content-center w-100">
+    <mat-sidenav-container class="example-container">
+        <mat-sidenav #sidenav mode="over" [(opened)]="opened" (opened)="events.push('open!')"
+            (closed)="events.push('close!')">
+            <div class="col-12" style="background-color: rgb(171, 191, 170)">
+                <div class="content-align-rigth w-100">
+                    <button mat-button (click)="sidenav.toggle()" class="btn btn-danger float-right">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <form [formGroup]="searchForm" (ngSubmit)="search()" class="form-inline">
+                        <input formControlName="search" placeholder="Chercher dans sommaire" type="text"
+                            class="form-control w-75">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
                 </div>
+                <form [formGroup]="filterForm" (ngSubmit)="filter()" class="float-rigth">
+                    <div class="form-group">
+                        <label>Animal</label>
+                        <div class="radio" *ngFor="let animal of animal_type">
+                            <label>
+                                <input type="radio" formControlName="animal" [value]="animal" checked>
+                                {{ animal }}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Catégorie</label>
+                        <div class="radio" *ngFor="let category of categories">
+                            <label>
+                                <input type="radio" formControlName="category" [value]="category" checked>
+                                {{ category }}
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2 mb-2 mb-md-0">Appliquer</button>
+                    <button (click)="reset()" class="btn btn-outline-primary">Réinitialiser</button>
+                </form>
             </div>
-            <div class="form-group">
-                <label>Catégorie</label>
-                <div class="radio" *ngFor="let category of categories">
-                    <label>
-                        <input type="radio" formControlName="category" [value]="category" checked>
-                        {{ category }}
-                    </label>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <button mat-button (click)="sidenav.toggle()" class="btn btn-secondary">
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="col-12">
+                <div class="row w-100">
+                    <div class="col col-sm-12">
+                        <h1>
+                            Sommaire des Produits
+                        </h1>
+                    </div>
                 </div>
+                <table class="table table-bordered table-responsive-xl table-active">
+                    <thead style="background-color: white; text-align: center;">
+                        <tr class="text-center">
+                            <td style="background-color: white;">
+                                <a (click)="sortBy('producttitle')">
+                                    <div class="col">
+                                        Titre des produits
+                                    </div>
+                                    <div class="col">
+                                        <i *ngIf="this.sort!='cproducttitle'" class="fa fa-angle-down"></i>
+                                        <i *ngIf="this.sort=='cproducttitle'" class="fa fa-angle-up"></i>
+                                    </div>
+                                </a>
+                            </td>
+                            <td style="background-color: white;">
+                                <a (click)="sortBy('productcategory')">
+                                    <div class="col">
+                                        Catégorie des produits
+                                    </div>
+                                    <div class="col">
+                                        <i *ngIf="this.sort!='cproductcategory'" class="fa fa-angle-down"></i>
+                                        <i *ngIf="this.sort=='cproductcategory'" class="fa fa-angle-up"></i>
+                                    </div>
+                                </a>
+                            </td>
+                            <td style="background-color: white;">
+                                <a (click)="sortBy('productanimaltype')">
+                                    <div class="col">
+                                        Type d'animal des produits
+                                    </div>
+                                    <div class="col">
+                                        <i *ngIf="this.sort!='cproductanimaltype'" class="fa fa-angle-down"></i>
+                                        <i *ngIf="this.sort=='cproductanimaltype'" class="fa fa-angle-up"></i>
+                                    </div>
+                                </a>
+                            </td>
+                            <td style="background-color: white;">
+                                <a (click)="sortBy('productprice')">
+                                    <div class="col">
+                                        prix des produits
+                                    </div>
+                                    <div class="col">
+                                        <i *ngIf="this.sort!='cproductprice'" class="fa fa-angle-down"></i>
+                                        <i *ngIf="this.sort=='cproductprice'" class="fa fa-angle-up"></i>
+                                    </div>
+                                </a>
+                            </td>
+                            <td style="background-color: white;">
+                                <a (click)="sortBy('sumcartproductquantity')">
+                                    <div class="col">
+                                        somme de la quantité de produits du panier
+                                    </div>
+                                    <div class="col">
+                                        <i *ngIf="this.sort!='csumcartproductquantity'" class="fa fa-angle-down"></i>
+                                        <i *ngIf="this.sort=='csumcartproductquantity'" class="fa fa-angle-up"></i>
+                                    </div>
+                                </a>
+                            </td>
+                            <td style="background-color: white;">
+                                <a (click)="sortBy('averagecartproductquantity')">
+                                    <div class="col">
+                                        quantité moyenne de produits dans le panier
+                                    </div>
+                                    <div class="col">
+                                        <i *ngIf="this.sort!='caveragecartproductquantity'"
+                                            class="fa fa-angle-down"></i>
+                                        <i *ngIf="this.sort=='caveragecartproductquantity'" class="fa fa-angle-up"></i>
+                                    </div>
+                                </a>
+                            </td>
+                            <td style="background-color: white;">
+                                <a (click)="sortBy('sumcartproducttotal')">
+                                    <div class="col">
+                                        somme du total des produits du panier
+                                    </div>
+                                    <div class="col">
+                                        <i *ngIf="this.sort!='csumcartproducttotal'" class="fa fa-angle-down"></i>
+                                        <i *ngIf="this.sort=='csumcartproducttotal'" class="fa fa-angle-up"></i>
+                                    </div>
+                                </a>
+                            </td>
+                            <td style="background-color: white;">
+                                <a (click)="sortBy('averagecartproducttotal')">
+                                    <div class="col">
+                                        total moyen des produits du panier
+                                    </div>
+                                    <div class="col">
+                                        <i *ngIf="this.sort!='caveragecartproducttotal'" class="fa fa-angle-down"></i>
+                                        <i *ngIf="this.sort=='caveragecartproducttotal'" class="fa fa-angle-up"></i>
+                                    </div>
+                                </a>
+                            </td>
+                            <td style="background-color: white;">
+                                <a (click)="sortBy('productnumbercart')">
+                                    <div class="col">
+                                        nombre de produits du panier
+                                    </div>
+                                    <div class="col">
+                                        <i *ngIf="this.sort!='cproductnumbercart'" class="fa fa-angle-down"></i>
+                                        <i *ngIf="this.sort=='cproductnumbercart'" class="fa fa-angle-up"></i>
+                                    </div>
+                                </a>
+                            </td>
+                            <td style="background-color: white;">
+                                <a (click)="sortBy('averagecarttotal')">
+                                    <div class="col">
+                                        total moyen de paniers
+                                    </div>
+                                    <div class="col">
+                                        <i *ngIf="this.sort!='caveragecarttotal'" class="fa fa-angle-down"></i>
+                                        <i *ngIf="this.sort=='caveragecarttotal'" class="fa fa-angle-up"></i>
+                                    </div>
+                                </a>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let productsSommary of productsSommaries" class="text-center"
+                            app-products-sommary-list-item [productsSommary]="productsSommary">
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <button type="submit" class="btn btn-primary mr-2 mb-2 mb-md-0">Appliquer</button>
-            <button (click)="reset()" class="btn btn-outline-primary">Réinitialiser</button>
-        </form>
-    </div>
-    <div class="col-10">
-        <div class="row w-100">
-            <div class="col col-sm-12">
-                <h1>
-                    Sommaire des Produits
-                </h1>
-            </div>
-        </div>
-        <table class="table table-bordered table-responsive-xl table-active">
-            <thead style="background-color: white; text-align: center;">
-                <tr class="text-center">
-                    <td style="background-color: white;">
-                        products title
-                    </td>
-                    <td style="background-color: white;">
-                        products category
-                    </td>
-                    <td style="background-color: white;">
-                        products animal type
-                    </td>
-                    <td style="background-color: white;">
-                        <a (click)="sortBy('productprice')">
-                            products price
-                        </a>
-                    </td>
-                    <td style="background-color: white;">
-                        <a (click)="sortBy('sumcartproductquantity')">
-                            sum of cart products quantity
-                        </a>
-                    </td>
-                    <td style="background-color: white;">
-                        <a (click)="sortBy('averagecartproductquantity')">
-                            average cart products quantity
-                        </a>
-                    </td>
-                    <td style="background-color: white;">
-                        <a (click)="sortBy('sumcartproducttotal')">
-                            sum of cart products total
-                        </a>
-                    </td>
-                    <td style="background-color: white;">
-                        <a (click)="sortBy('averagecartproducttotal')">
-                            average cart products total
-                        </a>
-                    </td>
-                    <td style="background-color: white;">
-                        <a (click)="sortBy('productnumbercart')">
-                            products number of cart
-                        </a>
-                    </td>
-                    <td style="background-color: white;">
-                        <a (click)="sortBy('averagecarttotal')">
-                            average carts total
-                        </a>
-                    </td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let productsSommary of productsSommaries" class="text-center" app-products-sommary-list-item
-                    [productsSommary]="productsSommary">
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
 </div>

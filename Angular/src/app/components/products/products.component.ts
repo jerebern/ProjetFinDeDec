@@ -9,7 +9,8 @@ import { ProductApiRequestService } from 'src/app/services/product-api-request.s
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-
+  events: string[] = [];
+  opened: boolean = false;
   filterForm: FormGroup;
   sideBarOpen = false;
   animal_type = ['Chiens', 'Chats', 'Oiseaux', 'Reptiles et Amphibiens', 'Petits Animaux', 'Aquariophilie', 'Tous les Animaux'];

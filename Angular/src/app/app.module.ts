@@ -30,6 +30,8 @@ import { CommandItemsComponent } from './components/command-items/command-items.
 import { ProductsSommaryComponent } from './components/products-sommary/products-sommary.component';
 import { ProductsSommaryListItemComponent } from './components/products-sommary-list-item/products-sommary-list-item.component';
 import { UserCommandSummariesComponent } from './components/user-command-summaries/user-command-summaries.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 
 @NgModule({
@@ -65,7 +67,9 @@ import { UserCommandSummariesComponent } from './components/user-command-summari
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    BrowserAnimationsModule,
+    MatSidenavModule
   ],
   providers: [],
   bootstrap: [AppComponent]

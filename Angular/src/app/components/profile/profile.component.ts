@@ -58,9 +58,10 @@ export class ProfileComponent implements OnInit {
   loadCommandList(mode : string){
     if (this.authService.currentUser != null) {
       this.commandApiRequestService.getAllCommandFromOneUser(mode).subscribe(success => {
+        console.log(success)
         if (success) {
           console.log("OK")
-          this.userCommands = this.commandApiRequestService.getCurrentCommands()
+          this.userCommands = success
         }
         else {
           console.log("ERROR")
@@ -76,9 +77,10 @@ export class ProfileComponent implements OnInit {
       console.log("Current User : ", this.authService.currentUser)
       this.currentUser = this.authService.currentUser;
       this.commandApiRequestService.getAllCommandFromOneUser("").subscribe(success => {
+        console.log(success)
         if (success) {
           console.log("OK")
-          this.userCommands = this.commandApiRequestService.getCurrentCommands()
+          this.userCommands = success
         }
         else {
           console.log("ERROR")
@@ -96,7 +98,7 @@ export class ProfileComponent implements OnInit {
 
       this.commandApiRequestService.searchCommand(querry).subscribe(succes =>{
         if(succes){   
-          this.userCommands = this.commandApiRequestService.getCurrentCommands();
+          this.userCommands = succes
 
         }
       })
