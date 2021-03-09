@@ -9,7 +9,8 @@ import { ProductsSommaryApiRequestService } from 'src/app/services/products-somm
   styleUrls: ['./products-sommary.component.css']
 })
 export class ProductsSommaryComponent implements OnInit {
-
+  events: string[] = [];
+  opened: boolean = false;
   searchForm: FormGroup;
   sort: string = '';
   productsSommaries: ProductsSommary[] = [];
