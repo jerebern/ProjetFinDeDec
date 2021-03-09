@@ -53,7 +53,7 @@ export class CartApiRequestService {
         console.log("add product to cart : ", response);
         if (response?.success) {
           console.log("succès:", response);
-          return true;
+          return response.cart_product.quantity;
         }
         else {
           return false;

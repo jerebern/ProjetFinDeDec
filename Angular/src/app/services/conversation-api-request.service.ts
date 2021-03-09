@@ -17,7 +17,7 @@ export class ConversationApiRequestService {
 
   private _currentConversation: Conversation;;
   private allConversations: Conversation[] = [];
-  private allConversationsTemp: Conversation[] = [];
+  private allConversationsByUsers : User[] = [];
 
   get currentConversation(){
     return this._currentConversation;
@@ -66,38 +66,23 @@ export class ConversationApiRequestService {
             console.log("GetConversationAdmin: ", response);
 
             if(sort == "fullnameUp" || sort == "fullnameDown" || sort == "emailUp" || sort == "emailDown"){
-              for(var i = 0; i < response.users.length; i++){
-                for(var j = 0; j < response.conversations.length; j++){
-                  if(response.users[i].id == response.conversations[j].user_id){
-                    this.allConversations[i].id = response.conversations[j].id;
-                    this.allConversations[i].user_id = response.users[i].id;
-                    this.allConversations[i].title = response.conversations[j].title;
-                    this.allConversations[i].description = response.conversations[j].description;
-                    this.allConversations[i].created_at = response.conversations[j].created_at;
-                    this.allConversations[i].fullname = response.users[i].fullname;
-                    this.allConversations[i].user_email = response.users[i].email;
-
-                    console.log("this.allConversations[j].id = response.conversations[j].id; ", this.allConversations[j].id);
-
-                  }
-                }
+              this.allConversationsByUsers = JSON.parse(response.conversations);
+              for(var i = 0; i < this.allConversationsByUsers.length; i++){
+                this.allConversations[i] = this.allConversationsByUsers[i].conversation[0];
+                this.allConversations[i].fullname = this.allConversationsByUsers[i].fullname;
+                this.allConversations[i].user_email = this.allConversationsByUsers[i].email;
               }
-              console.log("AllConversations: ", this.allConversations);
+
+              console.log("C: ", this.allConversations);
+
             }else{
-              this.allConversations = response.conversations;
+              this.allConversations = JSON.parse(response.conversations);
 
               for(var i = 0; i < this.allConversations.length; i++){
-                for(var j = 0; j < response.users.length; j++){
-                  if(this.allConversations[i].user_id == response.users[j].id){
-                    this.allConversations[i].fullname = response.users[j].fullname;
-                    this.allConversations[i].user_email = response.users[j].email;
-                  }
-                }
+                this.allConversations[i].fullname = this.allConversations[i].user.fullname;
+                this.allConversations[i].user_email = this.allConversations[i].user.email;
               }
             }
-
-            console.log("AllConversations: ", this.allConversations);
-            console.log("AllUsers: ", response.users)
             return true;
           }
           else{
@@ -202,10 +187,10 @@ export class ConversationApiRequestService {
         if(response.success){
           console.log("Search Conversation: ", response.conversations);
 
-          this.allConversations = response.conversations;
+          this.allConversations = JSON.parse(response.conversations);
           for(var i = 0; i < this.allConversations.length; i++){
-            this.allConversations[i].fullname = response.users[i].firstname + " " + response.users[i].lastname;
-            this.allConversations[i].user_email = response.users[i].email;
+            this.allConversations[i].fullname = this.allConversations[i].user.fullname;
+            this.allConversations[i].user_email = this.allConversations[i].user.email;
           }
           return true;
         }
@@ -222,6 +207,8 @@ export class ConversationApiRequestService {
   }
 
   getConversations(){
+    console.log("GetConversations: ", this.allConversations);
+
     return this.allConversations;
   }
 }

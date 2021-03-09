@@ -69,7 +69,7 @@ export class CartListItemComponent implements OnInit {
   }
 
   deleteCartProduct(cartProduct: CartProduct) {
-    if (confirm("Are you sure to delete " + cartProduct.product.title)) {
+    if (confirm("Êtes vous certain de vouloir supprimer " + cartProduct.product.title + '?')) {
       this.apiCartService.deleteCartProduct(cartProduct).subscribe(success => {
         if (success) {
           console.log("OK", this.apiCartService.cart);
