@@ -29,7 +29,7 @@ class Api::CommandsController < ApplicationController
         @newCommand = Command.new
         @newCommand.sub_total = 0
         @newCommand.store_pickup = false;
-        current_user.cart.each do |c|
+        current_user.cart.cart_products.each do |c|
            @newCommand.command_products.new
            @newCommand.command_products.last.quantity = c.quantity
            @newCommand.command_products.last.unit_price = c.product.price

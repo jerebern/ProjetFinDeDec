@@ -36,7 +36,10 @@ export class CheckoutComponent implements OnInit {
   }
   getCommandInfo(){
       this.commandApiRequestService.createCommand("false").subscribe(succes =>{
-          this._tmpCommand = this.commandApiRequestService.getCurrentCommand()
+        if(succes){
+          this._tmpCommand = succes
+
+        }  
       }
         
       )
