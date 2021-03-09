@@ -4,6 +4,9 @@
             (closed)="events.push('close!')">
             <div class="col-12" style="background-color: rgb(171, 191, 170)">
                 <div class="content-align-rigth w-100">
+                    <button mat-button (click)="sidenav.toggle()" class="btn btn-danger float-right">
+                        <i class="fa fa-times"></i>
+                    </button>
                     <form [formGroup]="searchForm" (ngSubmit)="search()" class="form-inline">
                         <input formControlName="search" placeholder="Chercher dans sommaire" type="text"
                             class="form-control w-75">

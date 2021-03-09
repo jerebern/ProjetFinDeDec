@@ -5,15 +5,19 @@
             <div class="col-12" style="background-color: rgb(171, 191, 170);">
                 <form [formGroup]="filterForm" (ngSubmit)="filter()" style="margin-left: 5px;">
                     <div class="input-group mb-3">
-                        <div class="input-group-prepend">
+                        <div class="input-group-prepend mb-2 mb-md-0">
                             <label class="input-group-text" for="inputGroupSelect01">Options</label>
                         </div>
-                        <select class="custom-select" id="inputGroupSelect01" formControlName="select">
+                        <select class="custom-select mr-2 mb-2 mb-md-0" id="inputGroupSelect01"
+                            formControlName="select">
                             <option value="Ordre Alphabétique Croissant">Ordre Alphabétique Croissant</option>
                             <option value="Ordre Alphabétique Décroissant">Ordre Alphabétique Décroissant</option>
                             <option value="Prix Croissant">Prix Croissant</option>
                             <option value="Prix Décroissant">Prix Décroissant</option>
                         </select>
+                        <button mat-button (click)="sidenav.toggle()" class="btn btn-danger mr-2 mb-2 mb-md-0">
+                            <i class="fa fa-times"></i>
+                        </button>
                     </div>
                     <div class="form-group">
                         <label>Animal</label>
