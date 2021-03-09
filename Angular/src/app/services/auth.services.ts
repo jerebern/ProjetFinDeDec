@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   constructor(private http: HttpClient) {
-    const storedCurrentUser = JSON.parse(localStorage.getItem(this.CURRENT_USER_KEY) ?? 'null');
+    const storedCurrentUser = JSON.parse(sessionStorage.getItem(this.CURRENT_USER_KEY) ?? 'null');
 
     if (storedCurrentUser) {
       // this._currentUser = new User(storedCurrentUser);
@@ -48,7 +48,7 @@ export class AuthService {
 
   private setCurrentUser(user: User | null) {
     this._currentUser = user;
-    localStorage.setItem(this.CURRENT_USER_KEY, JSON.stringify(user));
+    sessionStorage.setItem(this.CURRENT_USER_KEY, JSON.stringify(user));
     console.log(this._currentUser);
   }
 
