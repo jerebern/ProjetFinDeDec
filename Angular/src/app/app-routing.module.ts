@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent, canActivate: [AdminAccessGuard] },
   { path: 'products-sommary', component: ProductsSommaryComponent, canActivate: [AdminAccessGuard] },
   { path: 'cart', component: CartComponent, canActivate: [CartAccessGuard] },
-  { path: 'checkout', component: CheckoutComponent },
+  { path: 'checkout/:shipping', component: CheckoutComponent },
   { path: '', component: WelcomeComponent },
   { path: 'usercommandsummary', component: UserCommandSummariesComponent, canActivate: [AdminAccessGuard] },
 

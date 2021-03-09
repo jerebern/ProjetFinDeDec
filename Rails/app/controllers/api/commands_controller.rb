@@ -39,7 +39,7 @@ class Api::CommandsController < ApplicationController
         end
         @newCommand.user_id = current_user.id
         if params[:shipping] == true
-            @newCommand.sub_total += 14.99
+            @newCommand.sub_total += 5.00
         end
         @newCommand.tps = @newCommand.sub_total * CurrentTax.find(1).tps
         @newCommand.tvq = @newCommand.sub_total * CurrentTax.find(1).tvq
@@ -54,6 +54,7 @@ class Api::CommandsController < ApplicationController
             render json: {success: false, error:"cant't create command"}
         end
         else
+
         render json: {command: @newCommand, success:true}
         end
     end
