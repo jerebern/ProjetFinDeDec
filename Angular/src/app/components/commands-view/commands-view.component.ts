@@ -87,7 +87,7 @@ export class CommandsViewComponent implements OnInit {
 
       this.apiRequestService.getOneCommandFromOneUser(id).subscribe(succes => {
         if (succes) {
-          this.currentCommand = this.apiRequestService.getCurrentCommand();
+          this.currentCommand = succes;
           this.loadCommand_Products("")
         }
         else {
