@@ -117,17 +117,20 @@ export class CommandApiRequestService {
       "q": querry
     }
   }
-  generateJSONforTmpController(querry : string){
-    console.log(querry)
+  generateJSONforTmpController(sendCommand : string, shipping: boolean){
+
     return {
-      "sendCommand": querry
+      "sendCommand": sendCommand,
+      "shipping": shipping
     }
   }
-  createCommand(sendCommand : string){
-    return this.http.post<any>(this.getUrl(""),this.generateJSONforTmpController(sendCommand)).pipe(
+  createCommand(sendCommand : string, shipping :boolean){
+    console.log("udududu")
+    return this.http.post<any>(this.getUrl(""),this.generateJSONforTmpController(sendCommand,shipping)).pipe(
      map(response =>{
+       console.log("wtf")
       if(response.success){
-       
+       return response.command
       }
       
      }),

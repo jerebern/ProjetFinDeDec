@@ -2,6 +2,7 @@ import { TmplAstBoundAttribute } from '@angular/compiler';
 import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CartProduct } from 'src/app/models/cart-product.model';
 import { Cart } from 'src/app/models/cart.model';
 import { CartApiRequestService } from 'src/app/services/cart-api-request.service';
@@ -25,7 +26,7 @@ export class CartComponent implements OnInit {
     return this._cart;
   }
 
-  constructor(private apiCartService: CartApiRequestService) {
+  constructor(private apiCartService: CartApiRequestService, private router : Router) {
     this.apiCartService.showCart().subscribe(success => {
       if (success) {
         console.log("OK", this.apiCartService.cart);
@@ -177,6 +178,14 @@ export class CartComponent implements OnInit {
         alert("ERROR!!!");
       }
     });
+  }
+
+  checkOut(){
+
+    let shipping : boolean = this.cartForm.get('shipping')?.value;
+    console.log(shipping)
+    this.router.navigate(['/checkout/'+shipping])
+
   }
 
   setCart(cart: Cart) {
