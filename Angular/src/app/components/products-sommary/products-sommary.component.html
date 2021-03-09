@@ -40,7 +40,7 @@
                 </h1>
             </div>
         </div>
-        <table class="table table-bordered table-responsive-xl table-active">
+        <table class="table table-bordered table-responsive-xl table-active" matSort (matSortChange)="sortData($event)">
             <thead style="background-color: white; text-align: center;">
                 <tr class="text-center">
                     <th style="background-color: white;">
@@ -53,25 +53,39 @@
                         products animal type
                     </th>
                     <th style="background-color: white;">
-                        products price
+                        <a (click)="sortBy('productprice')">
+                            products price
+                        </a>
                     </th>
                     <th style="background-color: white;">
-                        sum of cart products quantity
+                        <a (click)="sortBy('sumcartproductquantity')">
+                            sum of cart products quantity
+                        </a>
                     </th>
                     <th style="background-color: white;">
-                        average cart products quantity
+                        <a (click)="sortBy('averagecartproductquantity')">
+                            average cart products quantity
+                        </a>
                     </th>
                     <th style="background-color: white;">
-                        sum of cart products total
+                        <a (click)="sortBy('sumcartproducttotal')">
+                            sum of cart products total
+                        </a>
                     </th>
                     <th style="background-color: white;">
-                        average cart products total
+                        <a (click)="sortBy('averagecartproducttotal')">
+                            average cart products total
+                        </a>
                     </th>
                     <th style="background-color: white;">
-                        products number of cart
+                        <a (click)="sortBy('productnumbercart')">
+                            products number of cart
+                        </a>
                     </th>
                     <th style="background-color: white;">
-                        average carts total
+                        <a (click)="sortBy('averagecarttotal')">
+                            average carts total
+                        </a>
                     </th>
                 </tr>
             </thead>
