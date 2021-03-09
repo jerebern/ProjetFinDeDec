@@ -1,40 +1,54 @@
-<div class="row w-100">
-    <div class="col-2" style="background-color: rgb(171, 191, 170);">
-        <form [formGroup]="filterForm" (ngSubmit)="filter()" style="margin-left: 5px;">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">Options</label>
-                </div>
-                <select class="custom-select" id="inputGroupSelect01" formControlName="select">
-                    <option value="Ordre Alphabétique Croissant">Ordre Alphabétique Croissant</option>
-                    <option value="Ordre Alphabétique Décroissant">Ordre Alphabétique Décroissant</option>
-                    <option value="Prix Croissant">Prix Croissant</option>
-                    <option value="Prix Décroissant">Prix Décroissant</option>
-                </select>
+<div class="w-100">
+    <mat-sidenav-container class="example-container">
+        <mat-sidenav #sidenav mode="over" [(opened)]="opened" (opened)="events.push('open!')"
+            (closed)="events.push('close!')">
+            <div class="col-12" style="background-color: rgb(171, 191, 170);">
+                <form [formGroup]="filterForm" (ngSubmit)="filter()" style="margin-left: 5px;">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend mb-2 mb-md-0">
+                            <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                        </div>
+                        <select class="custom-select mr-2 mb-2 mb-md-0" id="inputGroupSelect01"
+                            formControlName="select">
+                            <option value="Ordre Alphabétique Croissant">Ordre Alphabétique Croissant</option>
+                            <option value="Ordre Alphabétique Décroissant">Ordre Alphabétique Décroissant</option>
+                            <option value="Prix Croissant">Prix Croissant</option>
+                            <option value="Prix Décroissant">Prix Décroissant</option>
+                        </select>
+                        <button mat-button (click)="sidenav.toggle()" class="btn btn-danger mr-2 mb-2 mb-md-0">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label>Animal</label>
+                        <div class="radio" *ngFor="let animal of animal_type">
+                            <label>
+                                <input type="radio" formControlName="animal" [value]="animal" checked>
+                                {{ animal }}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Catégorie</label>
+                        <div class="radio" *ngFor="let category of categories">
+                            <label>
+                                <input type="radio" formControlName="category" [value]="category" checked>
+                                {{ category }}
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2 mb-2 mb-md-0">Appliquer</button>
+                    <button (click)="reset()" class="btn btn-secondary" type="button">Réinitialiser</button>
+                </form>
             </div>
-            <div class="form-group">
-                <label>Animal</label>
-                <div class="radio" *ngFor="let animal of animal_type">
-                    <label>
-                        <input type="radio" formControlName="animal" [value]="animal" checked>
-                        {{ animal }}
-                    </label>
-                </div>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <button mat-button (click)="sidenav.toggle()" class="btn btn-secondary">
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="col-12">
+                <app-products-list></app-products-list>
             </div>
-            <div class="form-group">
-                <label>Catégorie</label>
-                <div class="radio" *ngFor="let category of categories">
-                    <label>
-                        <input type="radio" formControlName="category" [value]="category" checked>
-                        {{ category }}
-                    </label>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary mr-2 mb-2 mb-md-0">Appliquer</button>
-            <button (click)="reset()" class="btn btn-secondary" type="button">Réinitialiser</button>
-        </form>
-    </div>
-    <div class="col-10">
-        <app-products-list></app-products-list>
-    </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
 </div>

@@ -53,13 +53,12 @@
         <div class="row mt-2">
           <div class="col">
             <p>Vous souhaitez reprendre votre conversation? Changer le status de votre conversation en appuyant sur ce boutton :</p>
-            <button style="margin-top: 10px" class="btn btn-secondary" (click)="update('En cours')">Reprendre la conversation</button>
+            <button style="margin-top: 10px" class="btn btn-secondary" (click)="updateStatus('En cours')">Reprendre la conversation</button>
           </div>
         </div>
       </ng-template>
     </div>
     <ng-template #messageButton>
-      <div *ngIf="this.statusCondition()">
         <div class="row mt-2">
           <div class="col">
             <form [formGroup]="conversationForm" (ngSubmit)="createConversation()">
@@ -91,7 +90,6 @@
             <button style="margin-top: 10px;" class="btn btn-primary" [disabled]="conversationForm.invalid" (click)="createConversation()">Démarrer une conversation</button>
           </div>
         </div>
-      </div>
     </ng-template>
   </div>
 </body>

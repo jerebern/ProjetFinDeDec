@@ -39,9 +39,9 @@ export class AdminComponent implements OnInit {
   getConversations(sortMode: string){
     if(this.authService.currentUser)
     {
-      this.conversationService.getConversationsAdmin(sortMode).subscribe(success => {
-        if(success){
-          this.conversations = this.conversationService.getConversations();
+      this.conversationService.getConversationsAdmin(sortMode).subscribe(response => {
+        if(response){
+          this.conversations = response;
           console.log("Conversations: ", this.conversations);
         }
       })
@@ -58,7 +58,7 @@ export class AdminComponent implements OnInit {
   conversationClicked(conversation: Conversation){
     console.log("ConversationClicked: ", conversation);
 
-    this.conversationService.setCurrentConversation(conversation);
+    //this.conversationService.getOneConversation(conversation.id.toString());
     this.router.navigate(['conversation/' + conversation.id]);
   }
 
@@ -145,9 +145,9 @@ export class AdminComponent implements OnInit {
     let search = this.searchConversationsForm.get("search")?.value;
     let type = this.searchConversationsForm.get("type")?.value;
     let querry = search + "^" + type;
-    this.conversationService.searchConversation(querry).subscribe(success => {
-      if(success){
-        this.conversations = this.conversationService.getConversations();
+    this.conversationService.searchConversation(querry).subscribe(response => {
+      if(response){
+        this.conversations = response;
       }
     })
   }

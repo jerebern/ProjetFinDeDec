@@ -37,7 +37,7 @@
           </div>
 
           <div class="form-group" style="width: 13%; margin-left: 2px;">
-            <button class="btn btn-primary" type="submit" style="width: 100%;"><i class="fa fa-paper-plane"></i></button>
+            <button class="btn btn-primary" type="submit" style="width: 100%;" [disabled]="!statusCondition()"><i class="fa fa-paper-plane"></i></button>
           </div>
         </div>
 
@@ -62,7 +62,7 @@
               <button class="btn btn-primary" type="submit" style="width: 100%;"><i class="fa fa-paper-plane"></i></button>
             </div>
             <div class="form-group" style="width: 9%; margin-left: 2px;">
-              <button (click)="cancelUpdate()" class="btn btn-danger" type="button" style="margin-left: 2px; width: fit-content;"><i class="fa fa-window-close"></i></button>
+              <button (click)="cancelUpdate()" class="btn btn-secondary" type="button" style="margin-left: 2px; width: fit-content;" [disabled]="!statusCondition()"><i class="fa fa-window-close"></i></button>
             </div>
           </div>
 
