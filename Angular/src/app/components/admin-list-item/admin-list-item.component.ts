@@ -1,10 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { of } from 'rxjs/internal/observable/of';
-import { catchError, map } from 'rxjs/operators';
 import { Conversation } from 'src/app/models/conversation.model';
-import { User } from 'src/app/models/user.models';
-import { AuthService } from 'src/app/services/auth.services';
 
 @Component({
   selector: '[app-admin-list-item]',
