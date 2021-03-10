@@ -21,7 +21,7 @@
         </table>
       </div>
     </div>
-    <div  *ngIf="this.updating!=true; else updatingMessage" class="form-row col-12" style="margin-top: 10px;">
+    <div  *ngIf="this.updating!=true; else updatingMessage" class="row" style="margin-top: 2px;">
       <form [formGroup]="messageForm" (ngSubmit)="createMessage()" class="form-inline col-12">
 
           <div class="form-group col-12">
@@ -37,22 +37,24 @@
       </form>
     </div>
     <ng-template #updatingMessage>
-      <form [formGroup]="editMessageForm" (ngSubmit)="updateMessage()" class="form-inline" style="margin-top: 10px;">
+      <div class="row" style="margin-top: 2px;">
+        <form [formGroup]="editMessageForm" (ngSubmit)="updateMessage()" class="form-inline col-12" style="margin-top: 3px;">
 
-        <div class="row col-12" style="margin-left: 7px;">
-          <input formControlName="body"
-            [class.is-invalid]="messageForm.get('body')?.errors && messageForm.get('body')?.dirty && messageForm.get('body')?.touched"
-            type="text" placeholder="Entrer votre message..." class="form-control col-sm-10">
-          <div class="invalid-feedback text-left">
-              Veuillez entrer un message valide.
+          <div class="form-group col-12">
+            <input formControlName="body"
+              [class.is-invalid]="messageForm.get('body')?.errors && messageForm.get('body')?.dirty && messageForm.get('body')?.touched"
+              type="text" placeholder="Entrer votre message..." class="form-control col-sm-10">
+            <div class="invalid-feedback text-left">
+                Veuillez entrer un message valide.
+            </div>
+            <button class="btn btn-primary ml-1" type="submit"><i class="fa fa-paper-plane col-sm"></i></button>
+            <button (click)="cancelUpdate()" class="btn btn-secondary ml-1" type="button" [disabled]="!statusCondition()">
+              <i class="fa fa-window-close col-sm"></i>
+            </button>
           </div>
-          <button class="btn btn-primary" type="submit"><i class="fa fa-paper-plane col-sm"></i></button>
-          <button (click)="cancelUpdate()" class="btn btn-secondary" type="button" [disabled]="!statusCondition()">
-            <i class="fa fa-window-close col-sm"></i>
-          </button>
-        </div>
 
-      </form>
+        </form>
+      </div>
     </ng-template>
   </div>
 </body>
