@@ -71,13 +71,13 @@ export class AuthService {
       })
     )
   }
-  userRegistration(newUser: User, picture: File): Observable<any> {
+  userRegistration(newUser: User): Observable<any> {
     console.log("UserRegistrationService :", JSON.stringify(newUser));
     const data = new FormData();
     data.append("user", JSON.stringify(newUser));
-    data.append("picture", picture)
-    console.log('picture:', data.get('picture'));
-    return this.http.post<any>('/users.json', data).pipe(
+    //data.append("picture", picture)
+    //console.log('picture:', data.get('picture'));
+    return this.http.post<any>('/users', newUser).pipe(
       map(response => {
         console.log("New User service : ", response);
         if (response?.success) {
