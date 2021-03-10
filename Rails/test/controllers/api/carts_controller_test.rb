@@ -21,7 +21,7 @@ class Api::CartsControllerTest < ActionDispatch::IntegrationTest
     get "/api/users/1/carts", params: {q: "cage"}
     cart_product = response.parsed_body
     #if the assert didn't match it would've been because the search didn't work and put fuck all in all cart_product product
-    assert_equal("Cage verte adaptée pour les petits oiseaux.", cart_product.as_json['cart'].as_json['cart_products'].first.as_json['products'].first.as_json['description'].to_s)
+    assert_equal("Cage verte adaptée pour les petits oiseaux.", cart_product.as_json['cart'].as_json['cart_products'].first.as_json['product'].as_json['description'].to_s)
   end
   test "can delete cart Product" do
     post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
@@ -40,7 +40,7 @@ class Api::CartsControllerTest < ActionDispatch::IntegrationTest
   end
   test "can update one cart product " do
     post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
-    patch "/api/users/1/carts/10", params: {cart_product: {quantity: 5, products:[{id: 10}]}}
+    patch "/api/users/1/carts/10", params: {cart_product: {quantity: 5, product:{id: 10}}}
     result = response.parsed_body.as_json['cart_product'].as_json['quantity']
     assert_equal(5, result)
   end
