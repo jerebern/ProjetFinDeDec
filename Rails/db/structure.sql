@@ -245,6 +245,7 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `user_commands_summary` (
   `email` tinyint NOT NULL,
+  `fullname` tinyint NOT NULL,
   `unit_product_value_average` tinyint NOT NULL,
   `average_unit_per_product` tinyint NOT NULL,
   `minimum_command_value_sub_total` tinyint NOT NULL,
@@ -305,7 +306,7 @@ CREATE TABLE `users` (
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `user_commands_summary` AS select `users`.`email` AS `email`,format(avg(`command_products`.`unit_price`),2,'fr_FR') AS `unit_product_value_average`,count(`command_products`.`quantity`) AS `average_unit_per_product`,format(min(`commands`.`sub_total`),2,'fr_FR') AS `minimum_command_value_sub_total`,format(avg(`commands`.`sub_total`),2,'fr_FR') AS `Average_command_value_sub_total`,format(max(`commands`.`sub_total`),2,'fr_FR') AS `maximum_command_value_sub_total`,format(sum(`commands`.`total`),2,'fr_FR') AS `total_command_value` from ((`users` join `commands` on(`commands`.`user_id` = `users`.`id`)) join `command_products` on(`command_products`.`command_id` = `commands`.`id`)) group by `users`.`id` */;
+/*!50001 VIEW `user_commands_summary` AS select `users`.`email` AS `email`,concat(`users`.`firstname`,' ',`users`.`lastname`) AS `fullname`,format(avg(`command_products`.`unit_price`),2,'fr_FR') AS `unit_product_value_average`,count(`command_products`.`quantity`) AS `average_unit_per_product`,format(min(`commands`.`sub_total`),2,'fr_FR') AS `minimum_command_value_sub_total`,format(avg(`commands`.`sub_total`),2,'fr_FR') AS `Average_command_value_sub_total`,format(max(`commands`.`sub_total`),2,'fr_FR') AS `maximum_command_value_sub_total`,format(sum(`commands`.`total`),2,'fr_FR') AS `total_command_value` from ((`users` join `commands` on(`commands`.`user_id` = `users`.`id`)) join `command_products` on(`command_products`.`command_id` = `commands`.`id`)) group by `users`.`id` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;

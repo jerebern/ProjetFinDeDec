@@ -47,7 +47,12 @@
 
     <tbody>
         <tr *ngFor="let userCommandSummary of this.userCommandSummary" class="text-center">
-        <td>{{userCommandSummary.email}}</td>
+        <td>
+            {{userCommandSummary.email}}
+            <br>
+            {{userCommandSummary.fullname}}
+            
+        </td>
         <td>{{userCommandSummary.unit_product_value_average}}$</td>
         <td>{{userCommandSummary.average_unit_per_product}}</td>
         <td>{{userCommandSummary.minimum_command_value_sub_total}}$</td>

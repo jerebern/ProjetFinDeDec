@@ -93,7 +93,7 @@ export class CommandsViewComponent implements OnInit {
         }
         else {
           console.log("ERROR")
-          alert("Produit innexistant.");
+          alert("Commande innexistant.");
           this.router.navigate(['/products']);
         }
       })

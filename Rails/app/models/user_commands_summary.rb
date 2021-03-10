@@ -4,6 +4,7 @@ class UserCommandsSummary < ApplicationRecord
         throw :abort
     end
     attribute :email, :string
+    attribute :fullname, :string
     attribute :unit_product_value_average, :string
     attribute :average_unit_per_product, :decimal
     attribute :minimum_command_value_sub_total, :decimal
