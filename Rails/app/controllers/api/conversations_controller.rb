@@ -68,20 +68,29 @@ class Api::ConversationsController < ApplicationController
                 render json: {success: false, error: [@conversations.errors]}
             end
         else
-            if @conversation = current_user.conversation
-                render json: {conversation: @conversation, success: true}
+            @conversation = current_user.conversation
+            if @conversation.length > 0
+                render json: {conversation: @conversation[0], success: true}
             else
-                render json: {success: false, error: [@conversation.errors]}
+                render json: {success: false}
             end
         end
     end
 
     def show
-        @conversation = current_user.conversation
-        if @conversation.status == "En cours"
-            render json: {conversation: @conversation, success: true}
+        if current_user.is_admin
+            if @conversation = Conversation.find(params[:id])
+                render json: {conversation: @conversation, success: true}
+            else
+                render json: {success: false, error: [@conversation.errors]}
+            end
         else
-            render json: {success: false, error: [@conversation.errors]}
+            @conversation = current_user.conversation
+            if @conversation[0].status == "En cours"
+                render json: {conversation: @conversation[0], success: true}
+            else
+                render json: {success: false, error: [@conversation.errors]}
+            end
         end
     end
 

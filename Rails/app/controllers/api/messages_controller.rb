@@ -13,7 +13,8 @@ class Api::MessagesController < ApplicationController
             end
         else
             if params[:q]
-              @messages = Message.where("MATCH(body) AGAINST(? IN BOOLEAN MODE)", params[:q] + "*")
+              @messages = current_user.conversation.last.messages
+              @messages = @messages.where("MATCH(body) AGAINST(? IN BOOLEAN MODE)", params[:q] + "*")
               render json: {messages: @messages, success: true}
             elsif @messages = current_user.conversation.last.messages
                 render json: {messages: @messages, success: true}

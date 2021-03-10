@@ -1,0 +1,14 @@
+td{
+    text-align: center;
+    background-color:whitesmoke;
+    border: 1px solid rgb(223, 223, 223);
+    color: black;
+  }
+  thead{
+    text-align: center;
+    border: 1px solid white;
+  }
+  #header{
+    font-weight: bold;
+  }
+  

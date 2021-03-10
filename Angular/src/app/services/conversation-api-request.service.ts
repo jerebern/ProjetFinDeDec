@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { threadId } from 'worker_threads';
 import { Conversation } from '../models/conversation.model';
 import { User } from '../models/user.models';
 import { AuthService } from './auth.services';
@@ -13,29 +12,32 @@ import { AuthService } from './auth.services';
 })
 export class ConversationApiRequestService {
 
-  private readonly CURRENT_CONVERSATION_KEY = 'jfj.currentConversation';
-
-  private _currentConversation: Conversation;;
   private allConversations: Conversation[] = [];
   private allConversationsByUsers : User[] = [];
 
-  get currentConversation(){
-    return this._currentConversation;
-  }
-
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
-    this._currentConversation = new Conversation();
-
-    const storedCurrentConversation = JSON.parse(localStorage.getItem(this.CURRENT_CONVERSATION_KEY) ?? 'null');
-
-    if (storedCurrentConversation) {
-      this._currentConversation = storedCurrentConversation
-      console.log(this.currentConversation)
-    }
   }
 
   private getUrl(querry: string){
     return '/api/' + querry;
+  }
+
+  getOneConversation(conversationID: string): Observable<any>{
+    return this.http.get<any>(this.getUrl("conversations/" + conversationID)).pipe(
+      map(response =>{
+        if(response.success){
+          console.log("Conversation(" + conversationID + "): ", response.conversation);
+          return response;
+        }else{
+          console.log("GetOneConversation: ", response);
+          return false;
+        }
+      }),
+      catchError(error => {
+        console.log('Error: ', error);
+        return of(null);
+      })
+    )
   }
 
   getConversation(): Observable<any>{
@@ -43,12 +45,10 @@ export class ConversationApiRequestService {
       map(response => {
         if(response.success){
           console.log("GetConversation: ", response);
-          this._currentConversation = response.conversation[0];
-          console.log("CurrentConversation: ", this._currentConversation);
-          return true;
+          return response;
         }
         else{
-          console.log("GetConversation: ", response);
+          console.log("GetConversation false: ", response);
           return false;
         }
       }),
@@ -72,9 +72,6 @@ export class ConversationApiRequestService {
                 this.allConversations[i].fullname = this.allConversationsByUsers[i].fullname;
                 this.allConversations[i].user_email = this.allConversationsByUsers[i].email;
               }
-
-              console.log("C: ", this.allConversations);
-
             }else{
               this.allConversations = JSON.parse(response.conversations);
 
@@ -83,10 +80,10 @@ export class ConversationApiRequestService {
                 this.allConversations[i].user_email = this.allConversations[i].user.email;
               }
             }
-            return true;
+            return this.allConversations;
           }
           else{
-            console.log("GetConversationAdmin: ", response);
+            console.log("GetConversationAdmin False: ", response);
             return false;
           }
         }),
@@ -95,12 +92,6 @@ export class ConversationApiRequestService {
           return of(null);
         })
       )
-  }
-
-  setCurrentConversation(conversation: Conversation){
-    this._currentConversation = conversation;
-    localStorage.setItem(this.CURRENT_CONVERSATION_KEY, JSON.stringify(conversation));
-    console.log("SetCurrentConversation: ", this._currentConversation)
   }
 
   createConversation(conversation: Conversation): Observable<any>{
@@ -192,7 +183,7 @@ export class ConversationApiRequestService {
             this.allConversations[i].fullname = this.allConversations[i].user.fullname;
             this.allConversations[i].user_email = this.allConversations[i].user.email;
           }
-          return true;
+          return this.allConversations;
         }
         else{
           console.log("Search Conversation: ", response);
@@ -204,11 +195,5 @@ export class ConversationApiRequestService {
         return of(null);
       })
     )
-  }
-
-  getConversations(){
-    console.log("GetConversations: ", this.allConversations);
-
-    return this.allConversations;
   }
 }

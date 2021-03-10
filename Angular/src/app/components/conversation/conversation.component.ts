@@ -5,8 +5,8 @@ import { Conversation } from 'src/app/models/conversation.model';
 import { ConversationApiRequestService } from 'src/app/services/conversation-api-request.service';
 import { AuthService } from 'src/app/services/auth.services';
 import { MessageApiRequestService } from 'src/app/services/message-api-request.service';
-import { ConversationListItemComponent } from '../conversation-list-item/conversation-list-item.component';
-import { identifierModuleUrl } from '@angular/compiler';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-conversation',
@@ -26,7 +26,7 @@ export class ConversationComponent implements OnInit {
   deleting: boolean = false;
   searchMessagesForm: FormGroup;
 
-  constructor(private messageService: MessageApiRequestService, private conversationService: ConversationApiRequestService, private authService: AuthService) {
+  constructor(private route: ActivatedRoute, private messageService: MessageApiRequestService, private conversationService: ConversationApiRequestService, private authService: AuthService) {
     this.currentMessage = new Message();
 
     this.messageForm = new FormGroup({
@@ -41,23 +41,36 @@ export class ConversationComponent implements OnInit {
       search: new FormControl('')
     })
 
-    this.conversation = this.getConversation();
-    this.getMessages();
+    this.conversation = new Conversation();
+
+    this.ngOnInit();
+
 
     //setInterval(() => this.getMessages(), this.timeReload);
   }
 
   ngOnInit(): void {
+    let id: string | null;
+    id = this.route.snapshot.paramMap.get("id");
+    console.log("ID ROUTE: ", id);
+
+    if (id) {
+      this.getConversation(id);
+      this.getMessages();
+    }
+    else {
+      console.log("Bernard est le meilleur");
+    }
   }
 
   getMessages(){
     if(this.conversation){
       console.log("ConversationID: ", this.conversation.id);
 
-      this.messageService.getAllMessages().subscribe(success => {
-        if(success){
+      this.messageService.getAllMessages().subscribe(response => {
+        if(response){
           if(this.authService.currentUser?.is_admin){
-            this.messagesTemp = this.messageService.getMessages();
+            this.messagesTemp = response;
 
             this.messages = [];
 
@@ -67,7 +80,7 @@ export class ConversationComponent implements OnInit {
               }
             }
           }else{
-            this.messages = this.messageService.getMessages();
+            this.messages = response;
             console.log("Messages.length: ", this.messages.length);
             console.log("AllMessages: ", this.messages);
           }
@@ -80,8 +93,14 @@ export class ConversationComponent implements OnInit {
     }
   }
 
-  getConversation(){
-    return this.conversationService.currentConversation;
+  getConversation(id: string){
+    this.conversationService.getOneConversation(id).subscribe(response => {
+      if(response){
+        this.conversation = response.conversation;
+      }else{
+        console.log("ERROR");
+      }
+    })
   }
 
   createMessage(){
@@ -149,10 +168,10 @@ export class ConversationComponent implements OnInit {
 
   searchMessages(){
     let search = this.searchMessagesForm.get("search")?.value;
-    this.messageService.searchMessages(search).subscribe(success => {
-      if(success){
+    this.messageService.searchMessages(search).subscribe(response => {
+      if(response){
         if(this.authService.currentUser?.is_admin){
-          this.messagesTemp = this.messageService.getMessages();
+          this.messagesTemp = response;
 
           this.messages = [];
 
@@ -162,7 +181,7 @@ export class ConversationComponent implements OnInit {
             }
           }
         }else{
-          this.messages = this.messageService.getMessages();
+          this.messages = response;
           console.log("Messages.length: ", this.messages.length);
           console.log("AllMessages: ", this.messages);
         }
@@ -172,5 +191,13 @@ export class ConversationComponent implements OnInit {
 
   cancelUpdate(){
     this.updating = false;
+  }
+
+  statusCondition(){
+    if(this.conversation.status=="En cours"){
+      return true;
+    }else{
+      return false;
+    }
   }
 }

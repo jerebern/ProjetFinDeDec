@@ -3,18 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Message } from 'src/app/models/message.model';
-import { AuthService } from './auth.services';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessageApiRequestService {
-
-  private _currentMessage: Message;
   private allMessages: Message[] = [];
 
-  constructor(private http: HttpClient, private authService: AuthService) {
-    this._currentMessage = new Message();
+  constructor(private http: HttpClient) {
   }
 
   private getUrl(querry: string){
@@ -27,7 +23,7 @@ export class MessageApiRequestService {
         if(response.success){
           console.log("GetAllMessages: ", response);
           this.allMessages = response.messages;
-          return true;
+          return this.allMessages;
         }else{
           console.log("GetAllMessages: ", response);
           return false;
@@ -38,10 +34,6 @@ export class MessageApiRequestService {
         return of(null);
       })
     )
-  }
-
-  getMessages(){
-    return this.allMessages;
   }
 
   createMessage(message: Message): Observable<any>{
@@ -116,7 +108,7 @@ export class MessageApiRequestService {
         if(response.success){
           console.log("Search Messages: ", response);
           this.allMessages = response.messages;
-          return true;
+          return this.allMessages;
         }else{
           console.log("Search Messages: ", response);
           return false;
@@ -128,6 +120,4 @@ export class MessageApiRequestService {
       })
     )
   }
-
-
 }

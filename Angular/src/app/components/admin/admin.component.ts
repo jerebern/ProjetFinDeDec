@@ -21,6 +21,7 @@ export class AdminComponent implements OnInit {
   sortCreationDate: string = "creationDateDown";
   sortTitle: string = "titleDown";
   sortStatus: string = "statusDown";
+  sort: string = "";
   searchConversationsForm: FormGroup;
 
   types = ["Titre", "Name", "Email", "Status"];
@@ -39,9 +40,9 @@ export class AdminComponent implements OnInit {
   getConversations(sortMode: string){
     if(this.authService.currentUser)
     {
-      this.conversationService.getConversationsAdmin(sortMode).subscribe(success => {
-        if(success){
-          this.conversations = this.conversationService.getConversations();
+      this.conversationService.getConversationsAdmin(sortMode).subscribe(response => {
+        if(response){
+          this.conversations = response;
           console.log("Conversations: ", this.conversations);
         }
       })
@@ -58,7 +59,7 @@ export class AdminComponent implements OnInit {
   conversationClicked(conversation: Conversation){
     console.log("ConversationClicked: ", conversation);
 
-    this.conversationService.setCurrentConversation(conversation);
+    //this.conversationService.getOneConversation(conversation.id.toString());
     this.router.navigate(['conversation/' + conversation.id]);
   }
 
@@ -88,6 +89,8 @@ export class AdminComponent implements OnInit {
     }
     console.log("sortByFullname: ", this.sortFullname);
 
+    this.sort = this.sortFullname;
+
     this.getConversations(this.sortFullname);
   }
   sortByEmail(){
@@ -100,6 +103,8 @@ export class AdminComponent implements OnInit {
     }
     console.log("sortByEmail: ", this.sortEmail);
 
+    this.sort = this.sortEmail;
+
     this.getConversations(this.sortEmail);
   }
   sortByCreationDate(){
@@ -111,6 +116,8 @@ export class AdminComponent implements OnInit {
       this.sortCreationDate = "creationDateDown";
     }
     console.log("sortByCreationDate: ", this.sortCreationDate);
+
+    this.sort = this.sortCreationDate;
 
     this.getConversations(this.sortCreationDate);
   }
@@ -125,6 +132,8 @@ export class AdminComponent implements OnInit {
     }
     console.log("sortByTitle: ", this.sortTitle);
 
+    this.sort = this.sortTitle;
+
     this.getConversations(this.sortTitle);
   }
 
@@ -138,6 +147,8 @@ export class AdminComponent implements OnInit {
     }
     console.log("sortByStatus: ", this.sortStatus);
 
+    this.sort = this.sortStatus;
+
     this.getConversations(this.sortStatus);
   }
 
@@ -145,9 +156,9 @@ export class AdminComponent implements OnInit {
     let search = this.searchConversationsForm.get("search")?.value;
     let type = this.searchConversationsForm.get("type")?.value;
     let querry = search + "^" + type;
-    this.conversationService.searchConversation(querry).subscribe(success => {
-      if(success){
-        this.conversations = this.conversationService.getConversations();
+    this.conversationService.searchConversation(querry).subscribe(response => {
+      if(response){
+        this.conversations = response;
       }
     })
   }

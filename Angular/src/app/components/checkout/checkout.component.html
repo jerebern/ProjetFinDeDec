@@ -1,6 +1,6 @@
 <h1> Finalisation de votre commande</h1>
-<table class="table table-bordered table-responsive-sm table-active">
-    <thead style="background-color: white; text-align: center;">
+<table class="table table-responsive-sm table-active">
+    <thead  class="thead-dark">
         <th scope="row" colspan="4">
             Produits
         </th>
@@ -28,8 +28,8 @@
 </table>
 
 <div>
-    <table class="table table-responsive-sm table-active">
-        <thead style=" background-color: white; text-align: center;">
+    <table class="table table-responsive-sm table-active ">
+        <thead  class="thead-dark">
 
             <th colspan="3">
                 Facturation
@@ -37,7 +37,7 @@
 
         </thead>
         <tr>
-            <td>Livraison :</td> <td>0.00$</td>
+            <td>Livraison :</td> <td>{{shipping_cost}} $</td>
         </tr>
         <tr>
             <td> Sous-Total :</td> <td>{{tmpcommand.sub_total}}$</td>
