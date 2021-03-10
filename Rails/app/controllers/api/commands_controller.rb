@@ -41,7 +41,7 @@ class Api::CommandsController < ApplicationController
         @newCommand.tps = @newCommand.sub_total * CurrentTax.find(1).tps
         @newCommand.tvq = @newCommand.sub_total * CurrentTax.find(1).tvq
         @newCommand.total = (1 + (CurrentTax.find(1).tps + CurrentTax.find(1).tvq)) * @newCommand.sub_total
-        if params[:sendCommand]
+        if params[:sendCommand] == "true"
         @newCommand.shipping_adress = current_user.address+","+current_user.city+","+current_user.province+","+current_user.postal_code
         @newCommand.state = "Payé"
         if @newCommand.save
