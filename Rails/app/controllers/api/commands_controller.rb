@@ -2,7 +2,7 @@ class Api::CommandsController < ApplicationController
     before_action :authenticate_user!
     def index
     if params[:q] && params[:s].blank?
-        render json: {commands: current_user.commands.where("state LIKE ?", "%" + params[:q] + "%") ,success: true}
+        render json: {commands: current_user.commands.where("MATCH(state)AGAINST( ? )",params[:q]) ,success: true}
     else 
     case params[:s]
     when "dateReverse"
