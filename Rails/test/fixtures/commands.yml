@@ -11,7 +11,7 @@ one:
   tvq: 1.00
   total: 11.49
   store_pickup: true
-  state: En cours
+  state: Payé
   shipping_adress: Boutique Shawinigan
   user_id: 1
 
@@ -22,7 +22,7 @@ two:
   tvq: 1.50
   total: 17.24
   store_pickup: false
-  state: Traite
+  state: Payé
   shipping_adress: 1570 rue morin
   user_id: 1
 
@@ -33,7 +33,7 @@ three:
   tvq: 1.99
   total: 22.98
   store_pickup: false
-  state: "Traite"
+  state: Envoyé
   shipping_adress: "1570 rue morin"
   user_id: 1
 
@@ -44,7 +44,7 @@ four:
   tvq: 1.50
   total: 17.24
   store_pickup: false
-  state: "Traite"
+  state: Envoyé
   shipping_adress: "2-1903 rue Saint-Jacques Shawinigan"
   user_id: 2
 
@@ -55,7 +55,7 @@ five:
   tvq: 1.50
   total: 17.24
   store_pickup: false
-  state: "En cours"
+  state: Envoyé
   shipping_adress: "2-1903 rue Saint-Jacques Shawinigan"
   user_id: 2
 
@@ -66,7 +66,7 @@ six:
   tvq: 2.99
   total: 34.48
   store_pickup: true
-  state: "Pret au ramassage"
+  state: Livré
   shipping_adress: "Boutique Shawinigan"
   user_id: 2
 
@@ -77,7 +77,7 @@ seven:
   tvq: 2.99
   total: 34.48
   store_pickup: false
-  state: "Annule"
+  state: Envoyé
   shipping_adress: "2-1903 rue Saint-Jacques Shawinigan"
   user_id: 2
 
@@ -88,7 +88,7 @@ eight:
   tvq: 7.98
   total: 91.97
   store_pickup: false
-  state: "Livre"
+  state: Payé
   shipping_adress: "2-1903 rue Saint-Jacques Shawinigan"
   user_id: 2
 
@@ -99,7 +99,7 @@ nine:
   tvq: 7.98
   total: 91.97
   store_pickup: true
-  state: "Pret"
+  state: Envoyé
   shipping_adress: "Boutique Shawinigan"
   user_id: 2
 
@@ -110,6 +110,6 @@ ten:
   tvq: 7.98
   total: 91.97
   store_pickup: false
-  state: "Livre"
+  state: Envoyé
   shipping_adress: "2-1903 rue Saint-Jacques Shawinigan"
   user_id: 2
