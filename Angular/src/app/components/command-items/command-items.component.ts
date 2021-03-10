@@ -14,7 +14,7 @@ export class CommandItemsComponent implements OnInit {
   @Input() commandProduct!: CommandProduct ;
   @Input() userID!: number ; //todo a supprimer 
   @Output() delete = new EventEmitter();
-  @Output() addModify = new EventEmitter();
+  @Output() update = new EventEmitter();
 
   constructor(private commandProductApiService  : CommandProductApiRequestService ,private router : Router ) { 
 
@@ -31,10 +31,7 @@ export class CommandItemsComponent implements OnInit {
     this.delete.emit(this.commandProduct.id)
   }
   updateQuantity(){  
-    this.commandProductApiService.updateCommandProduct(this.commandProduct.command_id.toString(),this.commandProduct.id.toString()).subscribe(result=>{
-
-      
-    })
+    this.update.emit(this.commandProduct.id)
   }
 
 

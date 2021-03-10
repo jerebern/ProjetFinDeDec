@@ -7,7 +7,7 @@ class Api::UserCommandsSummariesController < ApplicationController
             render json: { user_commands_summary: UserCommandsSummary.find_by_sql("SELECT * FROM user_commands_summary order by total_command_value DESC"), success: true}
         else
             ##va falloir qu'on m'explique comment faire un join sur trois table a la fois par ce que j'en ai aucune idee
-            ##On y vas avec ce qui fonctione :(
+            ##On y vas avec ce qui fonctione :( meme si ces pas correct
             render json: { user_commands_summary: UserCommandsSummary.where("email LIKE ?", "%" + params[:q]+ "%"), success: true}
         end
     end

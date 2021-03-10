@@ -100,6 +100,13 @@ export class CommandsViewComponent implements OnInit {
     
 
   }
+  addQuatity(commandProductID : number){
+    this.apiCommandProductService.updateCommandProduct(this.currentCommand.id.toString(),commandProductID.toString()).subscribe(result=>{
+      if(this.id){
+        this.getCurrentCommandNumber(this.id)
+      }
+    })
+  }
   updateCommandShipping() {
     let Addresse = prompt("Entrez la nouvelle adresse de livraison :", "");
     if(Addresse != null){
