@@ -9,4 +9,5 @@ export class UserCommandSummary extends JSONObject{
     Average_command_value_sub_total !: number
     maximum_command_value_sub_total !: number
     total_command_value !: number
+    last_command !: Date
 }

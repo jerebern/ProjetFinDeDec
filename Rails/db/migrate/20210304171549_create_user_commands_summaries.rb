@@ -10,7 +10,8 @@ class CreateUserCommandsSummaries < ActiveRecord::Migration[6.1]
       format(min(commands.sub_total),2,'fr_FR') as minimum_command_value_sub_total,
       format(avg(commands.sub_total),2, 'fr_FR') as Average_command_value_sub_total,
       format(max(commands.sub_total),2,'fr_FR') as maximum_command_value_sub_total,
-      format(sum(commands.total),2,'fr_FR') as total_command_value
+      format(sum(commands.total),2,'fr_FR') as total_command_value,
+      MAX(date_format(commands.created_at, "%m/%d/%Y")) as last_command
       from users
       inner join  commands
       on  commands.user_id = users.id
