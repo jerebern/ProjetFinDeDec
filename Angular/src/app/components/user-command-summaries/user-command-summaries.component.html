@@ -5,7 +5,7 @@
     </form>
     <table class="table table-dark table-bordered table-responsive-sm">
     <thead>
-       <th scope="row" colspan="7"> Sommaire des commandes par utilisateur </th>
+       <th scope="row" colspan="8"> Sommaire des commandes par utilisateur </th>
        <tr>
        <th scope="row" colspan="1" (click)="sortEmail()">
            Utilisateur 
@@ -42,18 +42,30 @@
            <i *ngIf="this.sortMode=='TotalCommandValueUp'" class="fa fa-angle-up"></i>
            <i *ngIf="this.sortMode=='TotalCommandValueDown'" class="fa fa-angle-down"></i> 
         </th>
+        <th scope="row" colspan="1" (click)="sortDate()">
+            Date de la derniere commmande  
+            <i *ngIf="this.sortMode=='LastCommand'" class="fa fa-angle-up"></i>
+            <i *ngIf="this.sortMode=='OldestCommand'" class="fa fa-angle-down"></i> 
+         </th>
       </tr>
     </thead>
 
     <tbody>
         <tr *ngFor="let userCommandSummary of this.userCommandSummary" class="text-center">
-        <td>{{userCommandSummary.email}}</td>
+        <td>
+            {{userCommandSummary.email}}
+            <br>
+            {{userCommandSummary.fullname}}
+            
+        </td>
         <td>{{userCommandSummary.unit_product_value_average}}$</td>
         <td>{{userCommandSummary.average_unit_per_product}}</td>
         <td>{{userCommandSummary.minimum_command_value_sub_total}}$</td>
         <td>{{userCommandSummary.maximum_command_value_sub_total}}$</td>
         <td>{{userCommandSummary.Average_command_value_sub_total}}$</td>
         <td>{{userCommandSummary.total_command_value}}$</td>
+        <td>{{userCommandSummary.last_command}}</td>
+
         </tr>
     </table>
 </div>

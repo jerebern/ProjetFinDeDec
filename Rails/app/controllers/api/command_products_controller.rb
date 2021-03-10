@@ -7,10 +7,15 @@ def index
     @productsName = Product.where(id:[@command.command_products.all.select(:product_id)]).all.select(:title, :id)
      
     if params[:q]
-    
+        #@products = Product.where("MATCH(title)AGAINST( ? )",params[:q])
+        #ca paserait par la en temps normal..
+        #manque a faire la relation mais bon... 
+        #@commandsProduct=  @command.command_products.where("MATCH(product_id)AGAINST( ? )",params[:q].to_i)
+        #@productsName = Product.where(id:[@command.command_products.all.select(:product_id)]).all.select(:title)
+        #@productsName.where(("MATCH(product_id)AGAINST( ? )",params[:q].to_i))
         @commandsProduct=  @command.command_products.where("product_id LIKE ?","%" +params[:q]+"%")
         @productsName = Product.where(id:[@command.command_products.all.select(:product_id)]).all.select(:title)
-    
+        
         render json: {command_products: @commandsProduct, productName: @productsName ,success: true}
     elsif params[:s] == "priceTotalUp"
         render json: {command_products: @command.command_products.sort_by(&:total_price), productName: @productsName, succes: true}

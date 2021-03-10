@@ -19,7 +19,9 @@ export class UserCommandSummariesComponent implements OnInit {
   maxValue : string = "MaxCommandValueUp"
   avgValue : string = "AvgCommandValueUp"
   totalValue : string  = "TotalCommandValueUp"
-  sortMode !: string
+  dateValue : string = "LastCommand"
+
+  sortMode : string = "MaxCommandValueUp"
 
   constructor(private userCommandSummariesApiService : UserCommandSummariesApiRequestService) {
     this.searchCommandForm = new FormGroup({
@@ -139,6 +141,20 @@ export class UserCommandSummariesComponent implements OnInit {
     else{
       this.totalValue = "TotalCommandValueUp"
       this.userCommandSummary.sort((a, b) => Number(a.total_command_value) > Number(b.total_command_value) ? 1 : -1)
+
+    }
+    this.sort(this.totalValue)
+  }
+  sortDate(){
+    // nice try :P
+    if(this.totalValue == "LastCommand"){
+      this.totalValue = "OldestCommand"
+      this.userCommandSummary.sort((a, b) => Number(a.last_command.getUTCDate) < Number(b.last_command.getUTCDate) ? 1 : -1)
+
+    }
+    else{
+      this.totalValue = "LastCommand"
+      this.userCommandSummary.sort((a, b) => Number(a.last_command.getUTCDate) > Number(b.last_command.getUTCDate) ? 1 : -1)
 
     }
     this.sort(this.totalValue)

@@ -14,7 +14,7 @@ import { JSONObject } from 'ts-json-object';
   styleUrls: ['./commands-view.component.css']
 })
 export class CommandsViewComponent implements OnInit {
-
+  id !: string | null;
   currentCommand: Command;
   sort !: string
   sortUnit : string = "priceUnitDown"
@@ -93,12 +93,19 @@ export class CommandsViewComponent implements OnInit {
         }
         else {
           console.log("ERROR")
-          alert("Produit innexistant.");
+          alert("Commande innexistant.");
           this.router.navigate(['/products']);
         }
       })
     
 
+  }
+  addQuatity(commandProductID : number){
+    this.apiCommandProductService.updateCommandProduct(this.currentCommand.id.toString(),commandProductID.toString()).subscribe(result=>{
+      if(this.id){
+        this.getCurrentCommandNumber(this.id)
+      }
+    })
   }
   updateCommandShipping() {
     let Addresse = prompt("Entrez la nouvelle adresse de livraison :", "");
@@ -135,15 +142,16 @@ export class CommandsViewComponent implements OnInit {
     console.log(id)
 
       this.apiCommandProductService.deleteCommandProduct(this.currentCommand.id.toString(),id.toString()).subscribe(result =>{
-
+        if(this.id){
+          this.getCurrentCommandNumber(this.id)
+        }
       })
 
   }
   ngOnInit(): void {
-    let id: string | null;
-    id = this.route.snapshot.paramMap.get("id");
-    if (id) {
-      this.getCurrentCommandNumber(id);
+    this.id = this.route.snapshot.paramMap.get("id");
+    if (this.id) {
+      this.getCurrentCommandNumber(this.id);
     }
     else {
       console.log("Hacker man ");

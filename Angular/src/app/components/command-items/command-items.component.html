@@ -1,11 +1,13 @@
 <td>
     <a [routerLink]="['/products',commandProduct.product_id]" routerLinkActive="router-link-active" >{{ commandProduct.productName }}</a>
+    <button (click)="deleteCommand()" class="btn btn-outline-danger"><i class="fa fa-trash"></i> </button>
 </td>
 <td class="text-right">
-    {{ commandProduct.unit_price }}$
+    {{ commandProduct.unit_price }}$ 
 </td>
 <td class="text-right">
-   <a (click)= "updateQuantity()">  {{ commandProduct.quantity }} </a>
+     {{ commandProduct.quantity }}
+   <button (click)="updateQuantity()" class="btn btn-outline-submit"><i class="fa fa-plus-circle"></i></button>
 </td>
 <td class="text-right">
     {{ commandProduct.total_price }}$
