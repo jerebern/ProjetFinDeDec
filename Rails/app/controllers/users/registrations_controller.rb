@@ -6,7 +6,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
     #resource.picture.attach(io: File.open(Rails.root + "app/assets/images/" + resource.id.to_s, ), filename: resource.picture_name)
-    dirname = Rails.root + "app/assets/images/7";
+    dirname = Rails.root + "app/assets/images";
     file_name = resource.picture_name;
     file = Base64.strict_encode64(file_name)
     FileUtils.mkdir_p(dirname) unless Dir.exists?(dirname)

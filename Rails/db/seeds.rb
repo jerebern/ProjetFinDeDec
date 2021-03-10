@@ -62,6 +62,8 @@
 @product = Product.create(category: "Nourriture", price: 19.48, title: "Nourriture sèche pour chat", description: "Alimentation saine et complète pour votre chat, contient aussi de la dinde.", quantity: 50, animal_type: "Chats")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/nourriturechat.png"), filename: 'nourriturechat.png')
 
+#Commandes
+#Bernard
 command1 = Command.create(id: 28, sub_total: 0.221848e4, tps: 0.11092e3, tvq: 0.22185e3, total: 0.255125e4, store_pickup: false, state: "Payé", shipping_adress: "2-1903 rue Saint-Jacques,Shawinigan,Québec,G9N4A7", user_id: 2, created_at: "2021-02-26 08:47:53.809526000 +0000", updated_at: "2021-02-26 08:47:53.809526000 +0000")
 cp1 = CommandProduct.create(id: 55, quantity: 4, total_price: 0.7592e2, unit_price: 0.1898e2, product_id: 11, command_id: 28, created_at: "2021-02-26 08:47:53.837369000 +0000", updated_at: "2021-02-26 08:47:53.837369000 +0000")
 cp2 = CommandProduct.create(id: 56, quantity: 7, total_price: 0.146993e4, unit_price: 0.20999e3, product_id: 4, command_id: 28, created_at: "2021-02-26 08:47:53.851786000 +0000", updated_at: "2021-02-26 08:47:53.851786000 +0000")
@@ -72,9 +74,26 @@ cp5 = CommandProduct.create(id: 59, quantity: 1, total_price: 0.33257e3, unit_pr
 command2 = Command.create(id: 17, sub_total: 0.154585e4, tps: 0.7729e2, tvq: 0.15459e3, total: 0.177773e4, store_pickup: false, state: "Payé", shipping_adress: "2-1903 rue Saint-Jacques,Shawinigan,Québec,G9N4A7", user_id: 2, created_at: "2021-02-25 21:49:18.675352000 +0000", updated_at: "2021-02-25 21:49:18.675352000 +0000")
 cp6 = CommandProduct.create(id: 13, quantity: 4, total_price: 0.7592e2, unit_price: 0.1898e2, product_id: 11, command_id: 17, created_at: "2021-02-25 21:49:18.692429000 +0000", updated_at: "2021-02-25 21:49:18.692429000 +0000")
 cp7 = CommandProduct.create(id: 14, quantity: 7, total_price: 0.146993e4, unit_price: 0.20999e3, product_id: 4, command_id: 17, created_at: "2021-02-25 21:49:18.811428000 +0000", updated_at: "2021-02-25 21:49:18.811428000 +0000")
+
 commmand3 = Command.create(id: 29, sub_total: 0.3498e2, tps: 0.175e1, tvq: 0.35e1, total: 0.4023e2, store_pickup: false, state: "Payé", shipping_adress: "2-1903 rue Saint-Jacques,Shawinigan,Québec,G9N4A7", user_id: 2, created_at: "2021-02-26 09:03:53.941476000 +0000", updated_at: "2021-02-26 09:03:53.941476000 +0000")
 cp8 = CommandProduct.create(id: 60, quantity: 1, total_price: 0.1799e2, unit_price: 0.1799e2, product_id: 8, command_id: 29, created_at: "2021-02-26 09:03:53.957263000 +0000", updated_at: "2021-02-26 09:03:53.957263000 +0000")
 cp9 = CommandProduct.create(id: 61, quantity: 1, total_price: 0.1699e2, unit_price: 0.1699e2, product_id: 3, command_id: 29, created_at: "2021-02-26 09:03:53.972044000 +0000", updated_at: "2021-02-26 09:03:53.972044000 +0000")
+
+#Jé
+
+
+#Félix
+command4 = Command.create(id: 30, sub_total: 0.4247e2, tps: 0.212e1, tvq: 0.425e1, total: 0.4884e2, store_pickup: false, state: "Payé", shipping_adress: "1660 chemin de Saint-Jean-des-Piles,Shawinigan,Qué...", user_id: 4, created_at: "2021-03-10 11:12:18.585500000 +0000", updated_at: "2021-03-10 11:12:18.585500000 +0000")
+cp10 = CommandProduct.create(id: 62, quantity: 1, total_price: 0.749e1, unit_price: 0.749e1, product_id: 2, command_id: 30, created_at: "2021-03-10 11:12:18.594830000 +0000", updated_at: "2021-03-10 11:12:18.594830000 +0000")
+cp11 = CommandProduct.create(id: 63, quantity: 1, total_price: 0.1699e2, unit_price: 0.1699e2, product_id: 3, command_id: 30, created_at: "2021-03-10 11:12:18.602283000 +0000", updated_at: "2021-03-10 11:12:18.602283000 +0000") 
+cp12 = CommandProduct.create(id: 64, quantity: 1, total_price: 0.1799e2, unit_price: 0.1799e2, product_id: 8, command_id: 30, created_at: "2021-03-10 11:12:18.607972000 +0000", updated_at: "2021-03-10 11:12:18.607972000 +0000")
+
+command5 = Command.create(id: 31, sub_total: 0.20999e3, tps: 0.105e2, tvq: 0.21e2, total: 0.24149e3, store_pickup: false, state: "Payé", shipping_adress: "1660 chemin de Saint-Jean-des-Piles,Shawinigan,Qué...", user_id: 4, created_at: "2021-03-10 11:16:31.214496000 +0000", updated_at: "2021-03-10 11:16:31.214496000 +0000")
+cp13 = CommandProduct.create(id: 65, quantity: 1, total_price: 0.20999e3, unit_price: 0.20999e3, product_id: 4, command_id: 31, created_at: "2021-03-10 11:16:31.221473000 +0000", updated_at: "2021-03-10 11:16:31.221473000 +0000")
+
+#John
+
+
 #conversations
 conversation1 = Conversation.create(title: "Où est ma commande?", description: "J'aimerais savoir ce qu'il se passe avec ma commande", status: "En cours", created_at:"2021-03-09 07:46:29.308824000 +0000", updated_at: "2021-03-09 07:46:29.308824000 +0000", user_id: 2)
 conversation2 = Conversation.create(title: "Nourriture pour crocodile", description: "J'aimerais pouvoir nourrir mon animal", status: "En cours", created_at:"2021-02-08 07:46:29.308824000 +0000", updated_at: "2021-02-08 07:46:29.308824000 +0000", user_id: 3)

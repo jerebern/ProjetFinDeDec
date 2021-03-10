@@ -17,6 +17,7 @@ class Api::ConversationsController < ApplicationController
                     #@users = User.where("MATCH(email) AGAINST(? IN BOOLEAN MODE)", + @querry[0] + "*")
                     #*En se fiant à stackoverflow, il semble qu'un fulltext sur une addresse email pose problème. D'où mon utilisation ici d'un LIKE
                     # lien stackoverflow : https://stackoverflow.com/questions/22736163/mysql-innodb-full-text-search-containing-email-address/40400206
+                    #De plus, James m'a dit que c'était OK :)
                     @users = User.where("email LIKE ?", "%" + @querry[0] + "%")
                     @conversations = Conversation.where(user_id:[@users.select(:id)])
                     render json: {conversations: @conversations.to_json(:include => :user), success: true}

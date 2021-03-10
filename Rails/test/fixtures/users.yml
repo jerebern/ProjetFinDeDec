@@ -15,7 +15,10 @@ one:
   postal_code: G0X2V0
   province: Québec
   phone_number: 8195335333
+  picture_name: "giraffe.png"
   is_admin: true
+  
+  
 
 # column: value
 #
@@ -30,6 +33,7 @@ two:
   postal_code: G9N4A7
   province: Québec
   phone_number: 8193295860
+  picture_name: "default.jpg"
   is_admin: false
 
 three:
@@ -43,6 +47,7 @@ three:
   postal_code: G9N4A7
   province: Québec
   phone_number: 8197358945
+  picture_name: "canarie.JPG"
   is_admin: false
 
 four:
@@ -56,6 +61,7 @@ four:
   postal_code: G0X2V0
   province: Québec
   phone_number: 8196996429
+  picture_name: "snoopy.jpg"
   is_admin: false
 
 five:
@@ -69,6 +75,7 @@ five:
   postal_code: G0X2V0
   province: Québec
   phone_number: 8199999999
+  picture_name: "babyGroot.png"
   is_admin: false
   
 # column: value

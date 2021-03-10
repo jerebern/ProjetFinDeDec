@@ -6,6 +6,7 @@ class Api::ProductsControllerTest < ActionDispatch::IntegrationTest
   # end
 
     test "Can Delete a existing product " do 
+    User.find(1).picture.attach(io: File.open(Rails.root + "app/assets/images/giraffe.png"), filename: 'giraffe.png')
     post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
         Product.find(1).picture.attach(io: File.open(Rails.root + "app/assets/images/thermometre.png"), filename: 'thermometre.png')
         Product.find(2).picture.attach(io: File.open(Rails.root + "app/assets/images/thermometre.png"), filename: 'thermometre.png')
@@ -28,6 +29,7 @@ class Api::ProductsControllerTest < ActionDispatch::IntegrationTest
     end
 
     test "Can't Delete a no existing product " do 
+        User.find(1).picture.attach(io: File.open(Rails.root + "app/assets/images/giraffe.png"), filename: 'giraffe.png')
         post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
         Product.find(1).picture.attach(io: File.open(Rails.root + "app/assets/images/thermometre.png"), filename: 'thermometre.png')
         Product.find(2).picture.attach(io: File.open(Rails.root + "app/assets/images/thermometre.png"), filename: 'thermometre.png')
@@ -49,6 +51,7 @@ class Api::ProductsControllerTest < ActionDispatch::IntegrationTest
         assert_equal({"success"=>false, "error"=>"erreur 404 page introuvable"}, response.parsed_body)
     end
     test "Can get one products" do
+        User.find(1).picture.attach(io: File.open(Rails.root + "app/assets/images/giraffe.png"), filename: 'giraffe.png')
         post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
         Product.find(1).picture.attach(io: File.open(Rails.root + "app/assets/images/thermometre.png"), filename: 'thermometre.png')
         Product.find(2).picture.attach(io: File.open(Rails.root + "app/assets/images/thermometre.png"), filename: 'thermometre.png')
@@ -71,6 +74,7 @@ class Api::ProductsControllerTest < ActionDispatch::IntegrationTest
         assert_response :success
     end
     test "can get all products" do
+        User.find(1).picture.attach(io: File.open(Rails.root + "app/assets/images/giraffe.png"), filename: 'giraffe.png')
         post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
         Product.find(1).picture.attach(io: File.open(Rails.root + "app/assets/images/thermometre.png"), filename: 'thermometre.png')
         Product.find(2).picture.attach(io: File.open(Rails.root + "app/assets/images/thermometre.png"), filename: 'thermometre.png')
@@ -92,6 +96,7 @@ class Api::ProductsControllerTest < ActionDispatch::IntegrationTest
         assert_response :success
     end
     test "can't get not existing product " do
+        User.find(1).picture.attach(io: File.open(Rails.root + "app/assets/images/giraffe.png"), filename: 'giraffe.png')
         post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
         Product.find(1).picture.attach(io: File.open(Rails.root + "app/assets/images/thermometre.png"), filename: 'thermometre.png')
         Product.find(2).picture.attach(io: File.open(Rails.root + "app/assets/images/thermometre.png"), filename: 'thermometre.png')
