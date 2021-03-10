@@ -4,8 +4,8 @@ class Api::ConversationsControllerTest < ActionDispatch::IntegrationTest
   #index
   test "get all conversations" do
     post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
-    get "/api/conversations/?s="""
-    conversations = response.parsed_body["conversations"]
+    get '/api/conversations', params:{s: ""}
+    conversations = JSON.parse(response.parsed_body["conversations"])
     assert_equal(3, conversations.count)
     assert_response :success
   end
@@ -20,8 +20,8 @@ class Api::ConversationsControllerTest < ActionDispatch::IntegrationTest
 
   test "can search conversations" do
     post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
-    get "/api/conversations", params:{q: "T@Titre"}
-    conversations = response.parsed_body["conversations"]
+    get "/api/conversations", params:{q: "T^Titre"}
+    conversations = JSON.parse(response.parsed_body["conversations"])
     assert_equal(3, conversations.count)
     success = response.parsed_body["success"]
     assert_equal(true, success)
@@ -29,8 +29,8 @@ class Api::ConversationsControllerTest < ActionDispatch::IntegrationTest
 
   test "if invalid search conversations should return zero conversations" do
     post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
-    get "/api/conversations", params:{q: "B@Titre"}
-    conversations = response.parsed_body["conversations"]
+    get "/api/conversations", params:{q: "B^Titre"}
+    conversations = JSON.parse(response.parsed_body["conversations"])
     assert_equal(0, conversations.count)
     success = response.parsed_body["success"]
     assert_equal(true, success)
@@ -42,7 +42,7 @@ class Api::ConversationsControllerTest < ActionDispatch::IntegrationTest
     post "/users/sign_in", params: {user: {email: "felixcm1129@hotmail.ca", password: "123456"}}
     get "/api/conversations/3"
     conversation = response.parsed_body["conversation"]
-    assert_equal(1, conversation.count)
+    assert_equal(Conversation.find(3).to_json, conversation.to_json)
   end
 
   test "can't get conversation if user doesn't have any should return nil" do
@@ -55,7 +55,7 @@ class Api::ConversationsControllerTest < ActionDispatch::IntegrationTest
   #create
   test "normal user can create conversation if he doesn't have any" do
     post "/users/sign_in", params: {user: {email: "johnDoe@hotmail.ca", password: "123456"}}
-    post "/api/conversations", params: {conversation: {title: "Rails test", description: "Conversation créer dans Rails Test", email_user: "jevei@hotmail.com", user_id: 3}}
+    post "/api/conversations", params: {conversation: {title: "Rails test", description: "Conversation créer dans Rails Test", email_user: "jevei@hotmail.com", status: "En cours",user_id: 3}}
       conversations = Conversation.new(response.parsed_body["conversation"])
       assert_equal(Conversation.last, conversations)
       assert_response :success

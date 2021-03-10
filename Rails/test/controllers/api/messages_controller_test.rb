@@ -4,7 +4,7 @@ class Api::MessagesControllerTest < ActionDispatch::IntegrationTest
   #index
   test "admin can get all messages" do 
     post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
-    get "/api/messages/?q="
+    get "/api/messages"
     messages = response.parsed_body["messages"]
     assert_equal(6, messages.count)
     assert_response :success

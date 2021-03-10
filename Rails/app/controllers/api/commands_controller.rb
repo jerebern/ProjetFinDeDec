@@ -22,10 +22,7 @@ class Api::CommandsController < ApplicationController
             
     def create 
         ##ICI ON NE RECOIT UTILISE RIEN EN PARAMETRE POUR EVITER QU'UN USER RENTRE DES MENSONGE  SAUF POUR CALCULER UN ESTIMER
-        ##TODO reflechir a une methode de renvoyer un false si le cart est vide 
-        ## Pour le perfectionement de API
-        ##Verifier si le solde de la commande est plus grand que zeor
-        ## on se garde ça pour la semaine 3 - Jeremy 5h du matin
+        ## Ajustement inventaire fait dans le model de command_product
         @newCommand = Command.new
         @newCommand.sub_total = 0
         @newCommand.store_pickup = false;
@@ -35,10 +32,11 @@ class Api::CommandsController < ApplicationController
            @newCommand.command_products.last.unit_price = c.product.price
            @newCommand.command_products.last.product_id = c.product.id
            @newCommand.command_products.last.total_price = (c.quantity * c.product.price)
+           
            @newCommand.sub_total += @newCommand.command_products.last.total_price
         end
         @newCommand.user_id = current_user.id
-        if params[:shipping] == true
+        if params[:shipping]
             @newCommand.sub_total += 5.00
         end
         @newCommand.tps = @newCommand.sub_total * CurrentTax.find(1).tps
@@ -68,12 +66,11 @@ class Api::CommandsController < ApplicationController
         if current_user.commands.find(params[:id]).destroy
             render json: {command: "destroy", success:true}
         else
-            render json: @command.errors, status: :unprocessable_entity, success:false
+            render json: {status: :unprocessable_entity, success:false}
         end
     end
     def update
-        @command = current_user.commands.find(params[:id])
-        if @command.update(command_params)
+        if current_user.commands.find(params[:id]).update(command_params)
             render json: {command:@command, success:true}
         else
             render json: @command.errors, status: :unprocessable_entity 
