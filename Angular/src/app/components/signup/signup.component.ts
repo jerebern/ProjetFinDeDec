@@ -59,11 +59,12 @@ export class SignupComponent implements OnInit {
     newUser.postal_code = this.signForm.get('postal_code')?.value
     newUser.province = this.signForm.get('province')?.value
     newUser.phone_number = this.signForm.get('phone_number')?.value
-    newUser.picture_url = this.signForm.get('file')?.value;
-    console.log("picture : ")
+    let file: File = this.signForm.get('file')?.value;
+    //newUser.picture_url = file.name;
+    //console.log("picture : ", newUser.picture_url)
     console.log("SignUpform value : ", this.signForm.value);
     console.log("New user value ", newUser);
-    this.authService.userRegistration(newUser, this.signForm.get('file')?.value).subscribe(success => {
+    this.authService.userRegistration(newUser).subscribe(success => {
       if (success) {
         this.router.navigate(['/']);
         console.log("OK")
