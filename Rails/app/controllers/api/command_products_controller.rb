@@ -11,25 +11,25 @@ def index
         @commandsProduct=  @command.command_products.where("product_id LIKE ?","%" +params[:q]+"%")
         @productsName = Product.where(id:[@command.command_products.all.select(:product_id)]).all.select(:title)
     
-        render json: {command_products: @commandsProduct, productName: @productName ,success: true}
+        render json: {command_products: @commandsProduct, productName: @productsName ,success: true}
     elsif params[:s] == "priceTotalUp"
-        render json: {command_products: @command.command_products.sort_by(&:total_price), productName: @productName, succes: true}
+        render json: {command_products: @command.command_products.sort_by(&:total_price), productName: @productsName, succes: true}
     
     elsif params[:s] == "priceTotalDown"
-        render json: {command_products: @command.command_products.sort_by(&:total_price).reverse, productName: @productName, succes: true}
+        render json: {command_products: @command.command_products.sort_by(&:total_price).reverse, productName: @productsName, succes: true}
    
     elsif params[:s] == "priceUnitlUp"
-        render json: {command_products: @command.command_products.sort_by(&:unit_price), productName: @productName, succes: true}
+        render json: {command_products: @command.command_products.sort_by(&:unit_price), productName: @productsName, succes: true}
     
     elsif params[:s] == "priceUnitDown"
-        render json: {command_products: @command.command_products.sort_by(&:unit_price).reverse, productName: @productName, succes: true}
+        render json: {command_products: @command.command_products.sort_by(&:unit_price).reverse, productName: @productsName, succes: true}
 
     elsif params[:s] == "quantityUp"
-        render json: {command_products: @command.command_products.sort_by(&:quantity), productName: @productName, succes: true}
+        render json: {command_products: @command.command_products.sort_by(&:quantity), productName: @productsName, succes: true}
     
     elsif params[:s] == "quantityDown"
        
-        render json: {command_products: @command.command_products.sort_by(&:quantity).reverse, productName: @productName, succes: true}
+        render json: {command_products: @command.command_products.sort_by(&:quantity).reverse, productName: @productsName, succes: true}
     else
         render json: {command_products: @command.command_products, productName: @productsName,succes: true}
         #todo rajouter un s a succes sans tout faire planter
