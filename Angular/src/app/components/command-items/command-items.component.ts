@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommandProduct } from 'src/app/models/command-product';
 import { Product } from 'src/app/models/product.model';
@@ -13,6 +13,9 @@ import { CommandProductApiRequestService } from 'src/app/services/command-produc
 export class CommandItemsComponent implements OnInit {
   @Input() commandProduct!: CommandProduct ;
   @Input() userID!: number ; //todo a supprimer 
+  @Output() delete = new EventEmitter();
+  @Output() addModify = new EventEmitter();
+
   constructor(private commandProductApiService  : CommandProductApiRequestService ,private router : Router ) { 
 
 
@@ -23,6 +26,9 @@ export class CommandItemsComponent implements OnInit {
   }
 
   loadCurrentProduct(){
+  }
+  deleteCommand(){
+    this.delete.emit(this.commandProduct.id)
   }
   updateQuantity(){  
     this.commandProductApiService.updateCommandProduct(this.commandProduct.command_id.toString(),this.commandProduct.id.toString()).subscribe(result=>{
