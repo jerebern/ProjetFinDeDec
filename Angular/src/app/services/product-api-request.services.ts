@@ -204,6 +204,7 @@ export class ProductApiRequestService {
         else if (sortBy == 4) {
           index.sort((a, b) => Number(a.price) < Number(b.price) ? 1 : -1);
         }
+        this._products = index;
       }
       else {
         console.log("ERROR")
