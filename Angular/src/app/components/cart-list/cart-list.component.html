@@ -9,7 +9,13 @@
             </td>
             <td style="background-color: white;">
                 <a (click)="sortBy('Prix')">
-                    Prix
+                    <div class="col">
+                        Prix
+                    </div>
+                    <div class="col">
+                        <i *ngIf="this.sort!='DPrix'" class="fa fa-angle-down"></i>
+                        <i *ngIf="this.sort=='DPrix'" class="fa fa-angle-up"></i>
+                    </div>
                 </a>
             </td>
             <td style="background-color: white;">
@@ -17,7 +23,13 @@
             </td>
             <td style="background-color: white;">
                 <a (click)="sortBy('Total')">
-                    Total
+                    <div class="col">
+                        Total
+                    </div>
+                    <div class="col">
+                        <i *ngIf="this.sort!='DTotal'" class="fa fa-angle-down"></i>
+                        <i *ngIf="this.sort=='DTotal'" class="fa fa-angle-up"></i>
+                    </div>
                 </a>
             </td>
         </tr>

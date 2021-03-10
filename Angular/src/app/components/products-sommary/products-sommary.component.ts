@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ProductsSommary } from 'src/app/models/products-sommary.model';
@@ -20,11 +21,12 @@ export class ProductsSommaryComponent implements OnInit {
   animal_type = ['Chiens', 'Chats', 'Oiseaux', 'Reptiles et Amphibiens', 'Petits Animaux', 'Aquariophilie', 'Tous les Animaux'];
   categories = ['Accessoire et Hygiène', 'Nourriture', 'Jouet', 'Cage', 'Aquarium et Terrarium', 'Transport', 'Toutes les Catégories'];
 
-  constructor(private apiProductsSommary: ProductsSommaryApiRequestService) {
+  constructor(private apiProductsSommary: ProductsSommaryApiRequestService, public datepipe: DatePipe) {
     this.filterForm = new FormGroup({
       animal: new FormControl('Tous les Animaux'),
       category: new FormControl('Toutes les Catégories'),
-      select: new FormControl('Ordre Alphabétique Croissant')
+      select: new FormControl('Ordre Alphabétique Croissant'),
+      time: new FormControl('[all]')
     });
     this.searchForm = new FormGroup({
       search: new FormControl('')
@@ -66,7 +68,46 @@ export class ProductsSommaryComponent implements OnInit {
       index = this.reserveProductsSommaries.filter(s => s.products_animal_type === animal).filter(s => s.products_category === category);
       console.log('4', index);
     }
-    this.productsSommaries = index;
+    let tempProductsSommaries: ProductsSommary[] = [];
+    var oneYearAgoFromNow = new Date();
+    var threeMonthAgoFromNow = new Date();
+    var thirtyDayAgoFromNow = new Date();
+    oneYearAgoFromNow.setFullYear(oneYearAgoFromNow.getFullYear() - 1);
+    threeMonthAgoFromNow.setMonth(threeMonthAgoFromNow.getMonth() - 3);
+    thirtyDayAgoFromNow.setMonth(thirtyDayAgoFromNow.getMonth() - 1);
+    if (this.filterForm.get('time')?.value == '[year]') {
+      index.forEach(productsSommary => {
+        var date = new Date(productsSommary.created_at);
+        if (oneYearAgoFromNow < date) {
+          console.log('TROUVÉS', productsSommary);
+          tempProductsSommaries.push(productsSommary);
+        }
+      })
+    }
+    else if (this.filterForm.get('time')?.value == '[month]') {
+      index.forEach(productsSommary => {
+        var date = new Date(productsSommary.created_at);
+        if (threeMonthAgoFromNow < date) {
+          console.log('TROUVÉS', productsSommary);
+          tempProductsSommaries.push(productsSommary);
+        }
+      })
+    }
+    else if (this.filterForm.get('time')?.value == '[day]') {
+      index.forEach(productsSommary => {
+        var date = new Date(productsSommary.created_at);
+        if (thirtyDayAgoFromNow < date) {
+          console.log('TROUVÉS', productsSommary);
+          tempProductsSommaries.push(productsSommary);
+        }
+      })
+    }
+    if (this.filterForm.get('time')?.value != '[all]') {
+      this.productsSommaries = tempProductsSommaries;
+    }
+    else {
+      this.productsSommaries = index;
+    }
   }
 
   reset() {
@@ -242,6 +283,20 @@ export class ProductsSommaryComponent implements OnInit {
         else {
           this.productsSommaries.sort((a, b) => a.products_animal_type > b.products_animal_type ? 1 : -1);
           this.sort = "dproductanimaltype";
+        }
+        break;
+      case "createdat":
+        if (this.sort == "ccreatedat") {
+          this.productsSommaries.sort((a, b) => a.created_at > b.created_at ? 1 : -1);
+          this.sort = "dcreatedat";
+        }
+        else if (this.sort == "dcreatedat") {
+          this.productsSommaries.sort((a, b) => a.created_at < b.created_at ? 1 : -1);
+          this.sort = "ccreatedat";
+        }
+        else {
+          this.productsSommaries.sort((a, b) => a.created_at > b.created_at ? 1 : -1);
+          this.sort = "dcreatedat";
         }
         break;
     }

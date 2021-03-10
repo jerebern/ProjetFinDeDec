@@ -13,6 +13,10 @@ export class CartItemsComponent implements OnInit {
 
   @Input() cart!: Cart;
 
+  get sort() {
+    return this.apiCartService.sort;
+  }
+
   constructor(private apiCartService: CartApiRequestService, private cartComponent: CartComponent) { }
 
   ngOnInit(): void {
