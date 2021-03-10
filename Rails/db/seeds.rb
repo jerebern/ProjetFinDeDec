@@ -34,7 +34,7 @@
 @product = Product.create(category: "Aquarium et Terrarium", price: 332.57, title: "Aquarium 30 gallon", description: "Aquarium de 30 gallon en acrylique.", quantity: 10, animal_type: "Aquariophilie")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/aquarium30g.png"), filename: 'aquarium30g.png')
 #https://www.amazon.ca/liti%C3%A8re-alliage-daluminium-poign%C3%A9e-souple/dp/B08NSNHRLD?ref_=Oct_s9_apbd_onr_hd_bw_b6roT5P&pf_rd_r=RVV3SW9JJVFXNNEP1FYS&pf_rd_p=d59b0580-cf21-57e3-8091-74eac13cc030&pf_rd_s=merchandised-search-10&pf_rd_t=BROWSE&pf_rd_i=6291971011
-@product = Product.create(category: "Accessoire et Hygiène", price: 17.99, title: "Pelle a litière", description: "Pelle en alluminium pour nettoyer la litière.", quantity: 10, animal_type: "Chats")
+@product = Product.create(category: "Accessoire et Hygiène", price: 17.99, title: "Pelle à litière", description: "Pelle en alluminium pour nettoyer la litière.", quantity: 10, animal_type: "Chats")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/allupellelitiere.png"), filename: 'allupellelitiere.png')
 #https://www.amazon.ca/-/fr/ReptoMin-B%C3%A2tonnets-flottants-aquatiques-grenouilles/dp/B00025640S?ref_=Oct_s9_apbd_orecs_hd_bw_b6rqvX1&pf_rd_r=FKDE80ENS9FJP14FYB1T&pf_rd_p=f8fedcfe-997e-5b32-8d82-8675cf4542f8&pf_rd_s=merchandised-search-10&pf_rd_t=BROWSE&pf_rd_i=6292557011
 @product = Product.create(category: "Nourriture", price: 21.99, title: "Bâtonnets flottants", description: "Nourriture pour tortue sousforme de batonnêts flottants.", quantity: 10, animal_type: "Reptiles et Amphibiens")

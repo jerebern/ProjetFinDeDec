@@ -20,7 +20,7 @@ export class AuthService {
     return !!this._currentUser;
   }
 
-  get isAdmin(): boolean{
+  get isAdmin(): boolean {
     return !!this._currentUser?.is_admin;
   }
 
