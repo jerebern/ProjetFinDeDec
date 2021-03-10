@@ -20,7 +20,7 @@ export class ConversationComponent implements OnInit {
   editMessageForm: FormGroup;
   messagesTemp: Message[] = [];
   messages: Message[] = [];
-  timeReload: number = 3000;
+  timeReload: number = 10000;
   private currentMessage: Message;
   updating: boolean = false;
   deleting: boolean = false;
@@ -46,7 +46,7 @@ export class ConversationComponent implements OnInit {
     this.ngOnInit();
 
 
-    //setInterval(() => this.getMessages(), this.timeReload);
+    setInterval(() => this.getMessages(), this.timeReload);
   }
 
   ngOnInit(): void {
