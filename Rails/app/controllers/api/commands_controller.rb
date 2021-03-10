@@ -69,6 +69,7 @@ class Api::CommandsController < ApplicationController
         end
     end
     def update
+        @command = current_user.commands.find(params[:id])
         if current_user.commands.find(params[:id]).update(command_params)
             render json: {command:@command, success:true}
         else
