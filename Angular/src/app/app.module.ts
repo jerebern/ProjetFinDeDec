@@ -32,6 +32,7 @@ import { ProductsSommaryListItemComponent } from './components/products-sommary-
 import { UserCommandSummariesComponent } from './components/user-command-summaries/user-command-summaries.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -71,7 +72,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     BrowserAnimationsModule,
     MatSidenavModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

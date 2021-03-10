@@ -18,6 +18,9 @@ export class CartComponent implements OnInit {
 
   private _cart!: Cart;
 
+  events: string[] = [];
+  opened: boolean = false;
+
   cartForm: FormGroup;
   searchCartProductForm: FormGroup;
   filterCartProductForm: FormGroup;

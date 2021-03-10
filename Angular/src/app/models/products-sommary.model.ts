@@ -21,4 +21,6 @@ export class ProductsSommary extends JSONObject {
     products_number_of_cart !: number
 
     average_carts_total !: number
+
+    created_at !: Date
 }

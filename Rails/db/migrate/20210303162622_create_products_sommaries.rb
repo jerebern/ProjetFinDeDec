@@ -12,7 +12,8 @@ class CreateProductsSommaries < ActiveRecord::Migration[6.1]
       sum(cp.total_price) as sum_of_cart_products_total, 
       format(avg(cp.total_price), 2, 'fr_FR') as average_cart_products_total, 
       count(cp.cart_id) as products_number_of_cart, 
-      format(avg(c.sub_total), 2, 'fr_FR') as average_carts_total 
+      format(avg(c.sub_total), 2, 'fr_FR') as average_carts_total, 
+      date_format(cp.created_at, "%m/%d/%Y") as created_at
       from products p 
       join cart_products cp 
       on p.id = cp.product_id 
