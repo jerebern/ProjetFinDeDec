@@ -3,7 +3,11 @@
         <img class="rounded" src="{{ product.picture_url }}" height="200" width="200">
     </a>
 </div>
-<h3 style="text-align: center;">{{ product.title }}</h3>
+<h3 style="text-align: center;">
+    <strong>
+        {{ product.title }}
+    </strong>
+</h3>
 <h3 style="text-align: center;">{{ product.price | number : '1.2-2' }}$</h3>
 <button *ngIf="this.isLoggedIn()==true" (click)="addToCart(product)" class="btn btn-warning">Ajouter au panier</button>
 <button *ngIf="this.isLoggedIn()==false" (click)="login()" class="btn btn-warning">Ajouter au panier</button>

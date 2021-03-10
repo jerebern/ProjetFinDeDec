@@ -13,49 +13,49 @@
 @johndoe = User.create!(email: "e@e.com", password: "123456", firstname: "John", lastname: "Doe", address: "Planet Knowhere", city: "Galaxy", postal_code: "000000", province: "Universe", phone_number: "2348956742", is_admin: false)
 
 #https://www.amazon.ca/-/fr/Marina-Thermom%C3%A8tre-flottant-ventouse-aquarium/dp/B0002AQITK?ref_=Oct_s9_apbd_orecs_hd_bw_b6rqbEx&pf_rd_r=X0J2Z10J5XYN88WEEXXC&pf_rd_p=38bd970b-92ba-5009-be3c-7de76d6b9340&pf_rd_s=merchandised-search-10&pf_rd_t=BROWSE&pf_rd_i=6292479011&th=1
-@product = Product.create(category: "Accessoire et Hygiène", price: 2.97, title: "Thermomètre avec ventouse", description: "Un thermomètre: ça sert à savoir la température de l'eau.", quantity: 10, animal_type: "Aquariophilie")
+@product = Product.create(category: "Accessoire et Hygiène", price: 2.97, title: "Thermomètre avec ventouse", description: "Un thermomètre: ça sert à savoir la température de l'eau.", quantity: 50, animal_type: "Aquariophilie")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/thermometre.png"), filename: 'thermometre.png')
 #https://zoo-max.com/fr/product/serin-2-lbs-3/?v=c4782f5abe5c
-@product = Product.create(category: "Nourriture", price: 7.49, title: "Vitomax pour serin", description: "Vitomax est une nourriture enrichie de vitamines et minéraux.", quantity: 10, animal_type: "Oiseaux")
+@product = Product.create(category: "Nourriture", price: 7.49, title: "Vitomax pour serin", description: "Vitomax est une nourriture enrichie de vitamines et minéraux.", quantity: 50, animal_type: "Oiseaux")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/vitomaxserin.png"), filename: 'vitomaxserin.png')
 #https://www.amazon.ca/-/fr/MiXXAT-%C3%A9lectrique-poisson-r%C3%A9aliste-peluche/dp/B08R75GKRC?ref_=Oct_s9_apbd_onr_hd_bw_b6roVQZ&pf_rd_r=72HBBNPHM29AM45T2JWA&pf_rd_p=d3d0fd8a-55ca-5b01-96f1-8d88b8665180&pf_rd_s=merchandised-search-10&pf_rd_t=BROWSE&pf_rd_i=6291980011
-@product = Product.create(category: "Jouet", price: 16.99, title: "Poisson électrique", description: "Jouet poisson électrique à l'herbe à chat.", quantity: 10, animal_type: "Chats")
+@product = Product.create(category: "Jouet", price: 16.99, title: "Poisson électrique", description: "Jouet poisson électrique à l'herbe à chat.", quantity: 50, animal_type: "Chats")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/poissonelectrique.png"), filename: 'poissonelectrique.png')
 #https://www.amazon.ca/-/fr/PawHut-Clapier-sur%C3%A9lev%C3%A9-plateau-coulissant/dp/B07DP9H9CC/ref=zg_mw_6292604011_18?_encoding=UTF8&psc=1&refRID=6D6E931H0RJT1PSATYEK
-@product = Product.create(category: "Cage", price: 209.99, title: "Clapier surélevé en bois à 2 étages", description: "Matériau : pin, bois de sapin, fil d'acier. Couleur : Poids du filet : Dimensions totales : Dimensions de la porte en maille HTop : Dimensions de la porte en bois HTop : 27,6 x 12,8 cm. 12,8 x 15,7 cm.", quantity: 10, animal_type: "Petits Animaux")
+@product = Product.create(category: "Cage", price: 209.99, title: "Clapier surélevé en bois à 2 étages", description: "Matériau : pin, bois de sapin, fil d'acier. Couleur : Poids du filet : Dimensions totales : Dimensions de la porte en maille HTop : Dimensions de la porte en bois HTop : 27,6 x 12,8 cm. 12,8 x 15,7 cm.", quantity: 50, animal_type: "Petits Animaux")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/clapierbois.png"), filename: 'clapierbois.png')
 #https://www.amazon.ca/-/fr/Exo-Terra-Terrarium-verre-cm/dp/B000OQYGQ4/ref=sr_1_35?dchild=1&pf_rd_i=6292579011&pf_rd_p=14ef9e4c-de6f-5130-b917-d2ce76be83da&pf_rd_r=D6DW4VQBM8WWZSBS9V8E&pf_rd_s=merchandised-search-10&pf_rd_t=BROWSE&qid=1613405997&refinements=p_72%3A11192170011&s=pet-supplies&sr=1-35
-@product = Product.create(category: "Aquarium et Terrarium", price: 279.81, title: "Terrarium en verre", description: "Terrarium en verre de 45,7 x 45,7 x 45,7 cm pour petit reptiles ou amphibiens.", quantity: 10, animal_type: "Reptiles et Amphibiens")
+@product = Product.create(category: "Aquarium et Terrarium", price: 279.81, title: "Terrarium en verre", description: "Terrarium en verre de 45,7 x 45,7 x 45,7 cm pour petit reptiles ou amphibiens.", quantity: 50, animal_type: "Reptiles et Amphibiens")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/petitterrarium.png"), filename: 'petitterrarium.png')
 #https://www.amazon.ca/-/fr/Load-Kennel-Door-Blue-15lbs/dp/B0062JFGM0?ref_=Oct_s9_apbd_otopr_hd_bw_b6rpZFD&pf_rd_r=29GXD55HKH0STC9FMXAQ&pf_rd_p=84b0eb4c-0fba-5f16-b821-c3620ae185eb&pf_rd_s=merchandised-search-10&pf_rd_t=BROWSE&pf_rd_i=6292233011&th=1
-@product = Product.create(category: "Transport", price: 53.99, title: "Petit pet voyageur", description: "De petite taille et idéal pour les petits chiens.", quantity: 10, animal_type: "Chiens")
+@product = Product.create(category: "Transport", price: 53.99, title: "Petit pet voyageur", description: "De petite taille et idéal pour les petits chiens.", quantity: 50, animal_type: "Chiens")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/petitpetvoyageur.png"), filename: 'petitpetvoyageur.png')
 #https://www.amazon.ca/-/fr/American-Products-30-gallons-Acrylique-Aquarium/dp/B0085Y5AYE/ref=sr_1_106?dchild=1&qid=1613406756&s=pet-supplies&sr=1-106
-@product = Product.create(category: "Aquarium et Terrarium", price: 332.57, title: "Aquarium 30 gallon", description: "Aquarium de 30 gallon en acrylique.", quantity: 10, animal_type: "Aquariophilie")
+@product = Product.create(category: "Aquarium et Terrarium", price: 332.57, title: "Aquarium 30 gallon", description: "Aquarium de 30 gallon en acrylique.", quantity: 50, animal_type: "Aquariophilie")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/aquarium30g.png"), filename: 'aquarium30g.png')
 #https://www.amazon.ca/liti%C3%A8re-alliage-daluminium-poign%C3%A9e-souple/dp/B08NSNHRLD?ref_=Oct_s9_apbd_onr_hd_bw_b6roT5P&pf_rd_r=RVV3SW9JJVFXNNEP1FYS&pf_rd_p=d59b0580-cf21-57e3-8091-74eac13cc030&pf_rd_s=merchandised-search-10&pf_rd_t=BROWSE&pf_rd_i=6291971011
-@product = Product.create(category: "Accessoire et Hygiène", price: 17.99, title: "Pelle à litière", description: "Pelle en alluminium pour nettoyer la litière.", quantity: 10, animal_type: "Chats")
+@product = Product.create(category: "Accessoire et Hygiène", price: 17.99, title: "Pelle à litière", description: "Pelle en alluminium pour nettoyer la litière.", quantity: 50, animal_type: "Chats")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/allupellelitiere.png"), filename: 'allupellelitiere.png')
 #https://www.amazon.ca/-/fr/ReptoMin-B%C3%A2tonnets-flottants-aquatiques-grenouilles/dp/B00025640S?ref_=Oct_s9_apbd_orecs_hd_bw_b6rqvX1&pf_rd_r=FKDE80ENS9FJP14FYB1T&pf_rd_p=f8fedcfe-997e-5b32-8d82-8675cf4542f8&pf_rd_s=merchandised-search-10&pf_rd_t=BROWSE&pf_rd_i=6292557011
-@product = Product.create(category: "Nourriture", price: 21.99, title: "Bâtonnets flottants", description: "Nourriture pour tortue sousforme de batonnêts flottants.", quantity: 10, animal_type: "Reptiles et Amphibiens")
+@product = Product.create(category: "Nourriture", price: 21.99, title: "Bâtonnets flottants", description: "Nourriture pour tortue sousforme de batonnêts flottants.", quantity: 50, animal_type: "Reptiles et Amphibiens")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/turtlefeed.png"), filename: 'turtlefeed.png')
 #https://www.amazon.ca/-/fr/Prevue-Products-verte-noire-SP1804-4/dp/B00SK7HOS6/ref=zg_bs_6291718011_24?_encoding=UTF8&psc=1&refRID=P4XMB2BV0821R0HV7AC9
-@product = Product.create(category: "Cage", price: 131.80, title: "Cage de vol", description: "Cage verte adaptée pour les petits oiseaux.", quantity: 10, animal_type: "Oiseaux")
+@product = Product.create(category: "Cage", price: 131.80, title: "Cage de vol", description: "Cage verte adaptée pour les petits oiseaux.", quantity: 50, animal_type: "Oiseaux")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/cagevolpetit.png"), filename: 'cagevolpetit.png')
 #https://www.amazon.ca/-/fr/HAMMER-Liti%C3%A8re-double-r%C3%A9sistante-contr%C3%B4le/dp/B01MFF2ZAH/ref=lp_6291972011_1_1?th=1
-@product = Product.create(category: "Accessoire et Hygiène", price: 18.98, title: "Litière à chat", description: "Élimine à la fois les odeurs d'urine et d'excréments sur le contact.", quantity: 10, animal_type: "Chats")
+@product = Product.create(category: "Accessoire et Hygiène", price: 18.98, title: "Litière à chat", description: "Élimine à la fois les odeurs d'urine et d'excréments sur le contact.", quantity: 50, animal_type: "Chats")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/litiere.png"), filename: 'litiere.png')
 #https://www.amazon.ca/-/fr/Living-60888-transport-animal-compagnie/dp/B006JVPL8A?ref_=Oct_s9_apbd_otopr_hd_bw_b6rr22F&pf_rd_r=APECRY9T4G3T06B5XYFK&pf_rd_p=07a4b9b1-fe81-5631-890f-94876d733f70&pf_rd_s=merchandised-search-10&pf_rd_t=BROWSE&pf_rd_i=6292582011
-@product = Product.create(category: "Transport", price: 14.97, title: "Mini pet voyageur", description: "Idéal pour tous les petits animaux.", quantity: 10, animal_type: "Petits Animaux")
+@product = Product.create(category: "Transport", price: 14.97, title: "Mini pet voyageur", description: "Idéal pour tous les petits animaux.", quantity: 50, animal_type: "Petits Animaux")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/transportpetitanimaux.png"), filename: 'transportpetitanimaux.png')
 #https://www.amazon.ca/-/fr/Living-World-Lot-2-bonbons/dp/B0002DH2YW/ref=sr_1_4?dchild=1&qid=1613658721&s=pet-supplies&sr=1-4
-@product = Product.create(category: "Accessoire et Hygiène", price: 4.79, title: "Os de Seiche", description: "Parfait et nécessaire pour la santé des os de votre oiseau.", quantity: 10, animal_type: "Oiseaux")
+@product = Product.create(category: "Accessoire et Hygiène", price: 4.79, title: "Os de Seiche", description: "Parfait et nécessaire pour la santé des os de votre oiseau.", quantity: 50, animal_type: "Oiseaux")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/osdeseiche.png"), filename: 'osdeseiche.png')
 #https://www.amazon.ca/-/fr/Omega-Tricky-Treat-English-Manual/dp/B0002DK26M/ref=sr_1_7?dchild=1&qid=1613658774&s=pet-supplies&sr=1-7
-@product = Product.create(category: "Jouet", price: 8.97, title: "Balle", description: "Balle jaune-orange pour amuser votre chien sans effort.", quantity: 10, animal_type: "Chiens")
+@product = Product.create(category: "Jouet", price: 8.97, title: "Balle", description: "Balle jaune-orange pour amuser votre chien sans effort.", quantity: 50, animal_type: "Chiens")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/balchien.png"), filename: 'balchien.png')
 #https://www.amazon.ca/-/fr/IAMS-ProACTIVE-Health-Nourriture-poulet/dp/B01DVVEU9G/ref=sr_1_24?dchild=1&qid=1613658844&s=pet-supplies&sr=1-24
-@product = Product.create(category: "Nourriture", price: 19.48, title: "Nourriture sèche pour chat", description: "Alimentation saine et complète pour votre chat, contient aussi de la dinde.", quantity: 10, animal_type: "Chats")
+@product = Product.create(category: "Nourriture", price: 19.48, title: "Nourriture sèche pour chat", description: "Alimentation saine et complète pour votre chat, contient aussi de la dinde.", quantity: 50, animal_type: "Chats")
 @product.picture.attach(io: File.open(Rails.root + "app/assets/images/nourriturechat.png"), filename: 'nourriturechat.png')
 
 command1 = Command.create(id: 28, sub_total: 0.221848e4, tps: 0.11092e3, tvq: 0.22185e3, total: 0.255125e4, store_pickup: false, state: "Payé", shipping_adress: "2-1903 rue Saint-Jacques,Shawinigan,Québec,G9N4A7", user_id: 2, created_at: "2021-02-26 08:47:53.809526000 +0000", updated_at: "2021-02-26 08:47:53.809526000 +0000")
@@ -108,6 +108,8 @@ conversation4.update(status: "Terminer");
 #cart
 @cart = Cart.create!(sub_total: 887.29, user_id: 1)
 @cart = Cart.create!(sub_total: 1545.85, user_id: 2)
+@cart = Cart.create!(sub_total: 1498.89, user_id: 3)
+@cart = Cart.create!(sub_total: 635.91, user_id: 4)
 
 
 @cart_product = CartProduct.create(total_price: 790.80, quantity: 6, cart_id: 1, product_id: 10, created_at: "2020-02-05 07:46:29.308824000 +0000")
@@ -116,4 +118,10 @@ conversation4.update(status: "Terminer");
 @cart_product = CartProduct.create(total_price: 8.97, quantity: 1, cart_id: 1, product_id: 14)
 @cart_product = CartProduct.create(total_price: 75.92, quantity: 4, cart_id: 2, product_id: 11)
 @cart_product = CartProduct.create(total_price: 1469.93, quantity: 7, cart_id: 2, product_id: 4)
+@cart_product = CartProduct.create(total_price: 395.40, quantity: 3, cart_id: 3, product_id: 10, created_at: "2020-02-05 07:46:29.308824000 +0000")
+@cart_product = CartProduct.create(total_price: 87.96, quantity: 4, cart_id: 3, product_id: 9, created_at: "2021-02-05 07:46:29.308824000 +0000")
+@cart_product = CartProduct.create(total_price: 17.82, quantity: 6, cart_id: 3, product_id: 1)
+@cart_product = CartProduct.create(total_price: 997.71, quantity: 3, cart_id: 3, product_id: 7)
+@cart_product = CartProduct.create(total_price: 629.97, quantity: 3, cart_id: 4, product_id: 4)
+@cart_product = CartProduct.create(total_price: 5.94, quantity: 2, cart_id: 4, product_id: 1)
 @taxes = CurrentTax.create(tps:0.05, tvq:0.09975)

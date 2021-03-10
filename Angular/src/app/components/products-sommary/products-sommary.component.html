@@ -29,7 +29,11 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Animal</label>
+                        <label>
+                            <strong>
+                                Animal
+                            </strong>
+                        </label>
                         <div class="radio" *ngFor="let animal of animal_type">
                             <label>
                                 <input type="radio" formControlName="animal" [value]="animal" checked>
@@ -38,7 +42,11 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Catégorie</label>
+                        <label>
+                            <strong>
+                                Catégorie
+                            </strong>
+                        </label>
                         <div class="radio" *ngFor="let category of categories">
                             <label>
                                 <input type="radio" formControlName="category" [value]="category" checked>
@@ -113,7 +121,7 @@
                             <td style="background-color: white;">
                                 <a (click)="sortBy('sumcartproductquantity')">
                                     <div class="col">
-                                        somme de la quantité de produits du panier
+                                        somme de la quantité de produits des panier
                                     </div>
                                     <div class="col">
                                         <i *ngIf="this.sort!='csumcartproductquantity'" class="fa fa-angle-down"></i>
@@ -136,7 +144,7 @@
                             <td style="background-color: white;">
                                 <a (click)="sortBy('sumcartproducttotal')">
                                     <div class="col">
-                                        somme du total des produits du panier
+                                        somme des total des produits des panier
                                     </div>
                                     <div class="col">
                                         <i *ngIf="this.sort!='csumcartproducttotal'" class="fa fa-angle-down"></i>
@@ -147,7 +155,7 @@
                             <td style="background-color: white;">
                                 <a (click)="sortBy('averagecartproducttotal')">
                                     <div class="col">
-                                        total moyen des produits du panier
+                                        total moyen des produits des panier
                                     </div>
                                     <div class="col">
                                         <i *ngIf="this.sort!='caveragecartproducttotal'" class="fa fa-angle-down"></i>
@@ -158,7 +166,7 @@
                             <td style="background-color: white;">
                                 <a (click)="sortBy('productnumbercart')">
                                     <div class="col">
-                                        nombre de produits du panier
+                                        nombre de produits des panier
                                     </div>
                                     <div class="col">
                                         <i *ngIf="this.sort!='cproductnumbercart'" class="fa fa-angle-down"></i>
@@ -169,7 +177,7 @@
                             <td style="background-color: white;">
                                 <a (click)="sortBy('averagecarttotal')">
                                     <div class="col">
-                                        total moyen de paniers
+                                        total moyen des paniers
                                     </div>
                                     <div class="col">
                                         <i *ngIf="this.sort!='caveragecarttotal'" class="fa fa-angle-down"></i>
@@ -180,7 +188,7 @@
                             <td style="background-color: white;">
                                 <a (click)="sortBy('createdat')">
                                     <div class="col">
-                                        Date de création
+                                        Dernière date de création
                                     </div>
                                     <div class="col">
                                         <i *ngIf="this.sort!='ccreatedat'" class="fa fa-angle-down"></i>
