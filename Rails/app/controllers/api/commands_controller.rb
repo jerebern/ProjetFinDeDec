@@ -32,7 +32,6 @@ class Api::CommandsController < ApplicationController
            @newCommand.command_products.last.unit_price = c.product.price
            @newCommand.command_products.last.product_id = c.product.id
            @newCommand.command_products.last.total_price = (c.quantity * c.product.price)
-           
            @newCommand.sub_total += @newCommand.command_products.last.total_price
         end
         @newCommand.user_id = current_user.id
@@ -42,17 +41,17 @@ class Api::CommandsController < ApplicationController
         @newCommand.tps = @newCommand.sub_total * CurrentTax.find(1).tps
         @newCommand.tvq = @newCommand.sub_total * CurrentTax.find(1).tvq
         @newCommand.total = (1 + (CurrentTax.find(1).tps + CurrentTax.find(1).tvq)) * @newCommand.sub_total
-        if params[:sendCommand] == "true"
+        if params[:sendCommand]
         @newCommand.shipping_adress = current_user.address+","+current_user.city+","+current_user.province+","+current_user.postal_code
         @newCommand.state = "Payé"
         if @newCommand.save
+            current_user.cart.cart_products.destroy_all
             render json: {command: current_user.commands.last, success:true}
         else
             raise ActiveRecord::Rollback, "Vous êtes vraiment pas suposé voir ça!"
             render json: {success: false, error:"cant't create command"}
         end
         else
-
         render json: {command: @newCommand, success:true}
         end
     end
