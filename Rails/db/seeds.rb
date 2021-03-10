@@ -72,20 +72,38 @@ commmand3 = Command.create(id: 29, sub_total: 0.3498e2, tps: 0.175e1, tvq: 0.35e
 cp8 = CommandProduct.create(id: 60, quantity: 1, total_price: 0.1799e2, unit_price: 0.1799e2, product_id: 8, command_id: 29, created_at: "2021-02-26 09:03:53.957263000 +0000", updated_at: "2021-02-26 09:03:53.957263000 +0000")
 cp9 = CommandProduct.create(id: 61, quantity: 1, total_price: 0.1699e2, unit_price: 0.1699e2, product_id: 3, command_id: 29, created_at: "2021-02-26 09:03:53.972044000 +0000", updated_at: "2021-02-26 09:03:53.972044000 +0000")
 #conversations
-conversation1 = Conversation.create(title: "Test", description: "Test test test...", status: "En cours", created_at:"2021-02-05 07:46:29.308824000 +0000", updated_at: "2021-02-05 07:46:29.308824000 +0000", user_id: 2)
-conversation2 = Conversation.create(title: "Test2", description: "Test test test...", status: "En cours", created_at:"2021-02-08 07:46:29.308824000 +0000", updated_at: "2021-02-08 07:46:29.308824000 +0000", user_id: 3)
-conversation3 = Conversation.create(title: "Test3", description: "Test test test...", status: "En cours", created_at:"2021-02-23 07:46:29.308824000 +0000", updated_at: "2021-02-23 07:46:29.308824000 +0000", user_id: 4)
-conversation4 = Conversation.create(title: "Help me I'm lost!", description: "I'm far far away in the universe", status: "Terminer", created_at:"2021-02-27 07:46:29.308824000 +0000", updated_at: "2021-02-27 07:46:29.308824000 +0000", user_id: 5)
+conversation1 = Conversation.create(title: "Où est ma commande?", description: "J'aimerais savoir ce qu'il se passe avec ma commande", status: "En cours", created_at:"2021-03-09 07:46:29.308824000 +0000", updated_at: "2021-03-09 07:46:29.308824000 +0000", user_id: 2)
+conversation2 = Conversation.create(title: "Nourriture pour crocodile", description: "J'aimerais pouvoir nourrir mon animal", status: "En cours", created_at:"2021-02-08 07:46:29.308824000 +0000", updated_at: "2021-02-08 07:46:29.308824000 +0000", user_id: 3)
+conversation3 = Conversation.create(title: "Besoin d'un conseille", description: "Je ne sais pas quoi faire", status: "En cours", created_at:"2021-02-23 07:46:29.308824000 +0000", updated_at: "2021-02-23 07:46:29.308824000 +0000", user_id: 4)
+conversation4 = Conversation.create(title: "La litière pue beaucoup", description: "Ça pue beaucoup", status: "En cours", created_at:"2021-02-27 07:46:29.308824000 +0000", updated_at: "2021-02-27 07:46:29.308824000 +0000", user_id: 5)
 
 #message
-@message = Message.create(body: "Allo", user_id: 2, conversation_id: 1);
-@message = Message.create(body: "Allo M. Bernard, comment puis-je vous aidez?", user_id: 1, conversation_id: 1)
+@message = Message.create(body: "Allo, j'ai passé une commande récemment et j'aimerais savoir si je vais bientôt la recevoir", user_id: 2, conversation_id: 1);
+@message = Message.create(body: "Allo M. Bernard, puis-je avoir le numéro de votre commande?", user_id: 1, conversation_id: 1);
+@message = Message.create(body: "Oui avec plaisir. Mon numéro de commande est le 28", user_id: 2, conversation_id: 1);
+@message = Message.create(body: "Parfait je vous reviens avec cela bientôt", user_id: 1, conversation_id: 1);
 
-@message = Message.create(body: "Allo", user_id: 3, conversation_id: 2);
-@message = Message.create(body: "Allo M. Veillette, comment puis-je vous aidez?", user_id: 1, conversation_id: 2)
+@message = Message.create(body: "Allo, pensez-vous un jour avoir de la nourriture pour crocrodile?", user_id: 3, conversation_id: 2);
+@message = Message.create(body: "Allo M. Veillette, je ne crois pas que nous allions un jour en avoir", user_id: 1, conversation_id: 2);
+@message = Message.create(body: "Vous devriez probablement lui donner du steak crue", user_id: 1, conversation_id: 2);
+@message = Message.create(body: "J'ai essayé, mais je crois qu'il est végétarien...", user_id: 3, conversation_id: 2);
+@message = Message.create(body: "Ah bon, c'est bien la première fois que j'entend ça. Malheureusement je ne peux pas vous aidez plus que cela.
+    Vous devriez peut-être aller voir un vétérinaire pour de meilleur conseille.", user_id: 1, conversation_id: 2);
+@message = Message.create(body: "Je vais faire ça. Merci.", user_id: 3, conversation_id: 2);
+@message = Message.create(body: "Ça ma fait plaisir de vous aider", user_id: 1, conversation_id: 2);
 
-@message = Message.create(body: "Allo", user_id: 4, conversation_id: 3);
-@message = Message.create(body: "Allo M. Carle-Milette, comment puis-je vous aidez?", user_id: 1, conversation_id: 3);
+@message = Message.create(body: "Allo, j'aurais besoin d'un conseil", user_id: 4, conversation_id: 3);
+
+@message = Message.create(body: "Allo j'ai un problème avec ma litière", user_id: 5, conversation_id: 4);
+@message = Message.create(body: "Bonjour, je suis désolé d'entendre ça", user_id: 1, conversation_id: 4);
+@message = Message.create(body: "Vous avez combien de chat? Et à quel rythme faites vous la litière?", user_id: 1, conversation_id: 4);
+@message = Message.create(body: "J'ai 4 chats et je la fais au semaine", user_id: 5, conversation_id: 4);
+@message = Message.create(body: "Dans un cas comme le votre il est conseillé de la faire à tous les jours et même il est conseillé d'avoir au minimum une litière pour 2 chats.
+     Donc, dans votre cas, vous devriez avoir 2 litières", user_id: 1, conversation_id: 4);
+@message = Message.create(body: "ok merci du conseille", user_id: 5, conversation_id: 4);
+@message = Message.create(body: "Ça ma fait plaisir de vous aider", user_id: 1, conversation_id: 4);
+
+conversation4.update(status: "Terminer");
 
 #cart
 @cart = Cart.create!(sub_total: 887.29, user_id: 1)
