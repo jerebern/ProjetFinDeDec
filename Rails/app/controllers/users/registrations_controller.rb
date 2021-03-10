@@ -90,7 +90,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # Notice the name of the method
   def sign_up_params
-    params.require(:user).permit(:email, :password, :firstname, :lastname, :address, :city, :postal_code, :province, :phone_number, :picture)
+    params.require(:user).permit(:email, :password, :firstname, :lastname, :address, :city, :postal_code, :province, :phone_number, picture_attribute: [:id, :name])
   end
+
+  #def picture_params
+  #  params.require(:picture).permit()
+  #  current_user.picture.attach(io: File.open(Rails.root + "app/assets/images/default.jpg"), filename: 'default.jpg')
+  #end
 
 end

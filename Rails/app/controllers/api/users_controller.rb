@@ -6,6 +6,7 @@ class Api::UsersController < ApplicationController
         render json: {success: false} 
         end
     end
+
     def isAdmin?
        if current_user.is_admin == true
         return true 

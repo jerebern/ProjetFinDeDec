@@ -26,4 +26,9 @@ class User < ApplicationRecord
       errors.add(:email, "is not an email")
     end
   end
+
+  def picture_url
+    Rails.application.routes.url_helpers.rails_blob_path(self.picture, only_path: true)
+  end
+
 end

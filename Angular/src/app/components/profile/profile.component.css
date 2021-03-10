@@ -11,3 +11,7 @@ thead{
 #header{
   font-weight: bold;
 }
+#center{
+  font-weight: bold;
+  vertical-align: middle;
+}

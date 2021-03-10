@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
     }
     this.loadCommandList(this.sortDateMode)
 
-    
+
   }
   loadCommandList(mode : string){
     this.sort = mode
@@ -77,6 +77,7 @@ export class ProfileComponent implements OnInit {
     if (this.authService.currentUser != null) {
       console.log("Current User : ", this.authService.currentUser)
       this.currentUser = this.authService.currentUser;
+
       this.commandApiRequestService.getAllCommandFromOneUser("").subscribe(success => {
         console.log(success)
         if (success) {
@@ -98,12 +99,12 @@ export class ProfileComponent implements OnInit {
     let querry = this.searchCommandForm.get('search')?.value
 
       this.commandApiRequestService.searchCommand(querry).subscribe(succes =>{
-        if(succes){   
+        if(succes){
           this.userCommands = succes
 
         }
       })
-    
+
 
   }
   loadCommand(id: number) {
