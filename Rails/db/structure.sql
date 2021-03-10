@@ -225,7 +225,8 @@ SET character_set_client = utf8;
   `sum_of_cart_products_total` tinyint NOT NULL,
   `average_cart_products_total` tinyint NOT NULL,
   `products_number_of_cart` tinyint NOT NULL,
-  `average_carts_total` tinyint NOT NULL
+  `average_carts_total` tinyint NOT NULL,
+  `created_at` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 DROP TABLE IF EXISTS `schema_migrations`;
@@ -288,7 +289,7 @@ CREATE TABLE `users` (
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `products_sommary` AS select `p`.`title` AS `products_title`,`p`.`category` AS `products_category`,`p`.`animal_type` AS `products_animal_type`,`p`.`price` AS `products_price`,sum(`cp`.`quantity`) AS `sum_of_cart_products_quantity`,format(avg(`cp`.`quantity`),0,'fr_FR') AS `average_cart_products_quantity`,sum(`cp`.`total_price`) AS `sum_of_cart_products_total`,format(avg(`cp`.`total_price`),2,'fr_FR') AS `average_cart_products_total`,count(`cp`.`cart_id`) AS `products_number_of_cart`,format(avg(`c`.`sub_total`),2,'fr_FR') AS `average_carts_total` from ((`products` `p` join `cart_products` `cp` on(`p`.`id` = `cp`.`product_id`)) join `carts` `c` on(`c`.`id` = `cp`.`cart_id`)) group by `p`.`title` */;
+/*!50001 VIEW `products_sommary` AS select `p`.`title` AS `products_title`,`p`.`category` AS `products_category`,`p`.`animal_type` AS `products_animal_type`,`p`.`price` AS `products_price`,sum(`cp`.`quantity`) AS `sum_of_cart_products_quantity`,format(avg(`cp`.`quantity`),0,'fr_FR') AS `average_cart_products_quantity`,sum(`cp`.`total_price`) AS `sum_of_cart_products_total`,format(avg(`cp`.`total_price`),2,'fr_FR') AS `average_cart_products_total`,count(`cp`.`cart_id`) AS `products_number_of_cart`,format(avg(`c`.`sub_total`),2,'fr_FR') AS `average_carts_total`,date_format(`cp`.`created_at`,'%m/%d/%Y') AS `created_at` from ((`products` `p` join `cart_products` `cp` on(`p`.`id` = `cp`.`product_id`)) join `carts` `c` on(`c`.`id` = `cp`.`cart_id`)) group by `p`.`title` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;

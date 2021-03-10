@@ -195,11 +195,8 @@ export class ConversationComponent implements OnInit {
 
   statusCondition(){
     if(this.conversation.status=="En cours"){
-      //console.log("ConversationComponent: ", this.conversation);
-
       return true;
     }else{
-      //console.log("ConversationComponent: ", this.conversation);
       return false;
     }
   }

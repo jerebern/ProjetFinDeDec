@@ -92,8 +92,8 @@ conversation4 = Conversation.create(title: "Help me I'm lost!", description: "I'
 @cart = Cart.create!(sub_total: 1545.85, user_id: 2)
 
 
-@cart_product = CartProduct.create(total_price: 790.80, quantity: 6, cart_id: 1, product_id: 10)
-@cart_product = CartProduct.create(total_price: 33.53, quantity: 7, cart_id: 1, product_id: 13)
+@cart_product = CartProduct.create(total_price: 790.80, quantity: 6, cart_id: 1, product_id: 10, created_at: "2020-02-05 07:46:29.308824000 +0000")
+@cart_product = CartProduct.create(total_price: 33.53, quantity: 7, cart_id: 1, product_id: 13, created_at: "2021-02-05 07:46:29.308824000 +0000")
 @cart_product = CartProduct.create(total_price: 53.99, quantity: 1, cart_id: 1, product_id: 6)
 @cart_product = CartProduct.create(total_price: 8.97, quantity: 1, cart_id: 1, product_id: 14)
 @cart_product = CartProduct.create(total_price: 75.92, quantity: 4, cart_id: 2, product_id: 11)

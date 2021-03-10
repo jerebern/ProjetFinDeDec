@@ -5,19 +5,19 @@
     <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
       <h1>Admin</h1>
 
-      <div style="float: right; margin-bottom: 10px;">
+      <div style="margin-bottom: 10px;">
         <form [formGroup]="searchConversationsForm" (ngSubmit)="searchConversations()" class="form-inline">
-          <div class="form-group">
-            <input formControlName="search" placeholder="Recherher...." type="text" class="form-control">
-            <button class="btn btn-primary" type="submit" style="margin-left: 3px;"><i
-                class="fa fa-search"></i></button>
+          <div class="form-group col-12">
+            <input formControlName="search" placeholder="Recherher...." type="text" class="form-control col-sm-10">
+              <button class="btn btn-primary col-sm" type="submit" style="margin-left: 2px;"><i class="fa fa-search"></i></button>
 
-            <select class="form-control" formControlName="type" style="margin-left: 3px;">
-              <option *ngFor="let type of types" [ngValue]="type">{{type}}</option>
-            </select>
+              <select class="form-control col-sm" formControlName="type" style="margin-left: 2px;">
+                <option *ngFor="let type of types" [ngValue]="type">{{type}}</option>
+              </select>
 
-            <button class="btn btn-secondary" type="button" style="margin-left: 3px;" (click)="getConversations('')"><i
-                class="fa fa-retweet"></i></button>
+              <button class="btn btn-secondary col-sm" type="button" style="margin-left: 2px;" (click)="getConversations('')">
+                <i class="fa fa-retweet"></i>
+              </button>
           </div>
         </form>
       </div>
@@ -26,17 +26,37 @@
 
         <thead>
           <tr>
-            <th scope="col" colspan="5">Listes des conversations</th>
+            <th scope="col" colspan="6">Listes des conversations</th>
           </tr>
         </thead>
 
         <thead>
           <tr>
-            <th scope="col" (click)="sortByTitle()">Titre</th>
-            <th scope="col" (click)="sortByFullname()">Nom Utilisateur</th>
-            <th scope="col" (click)="sortByEmail()">Email Utilisateur</th>
-            <th scope="col" (click)="sortByCreationDate()">Date de création</th>
-            <th scope="col" (click)="sortByStatus()">Status</th>
+            <th scope="col" (click)="sortByTitle()">
+              Titre
+              <i *ngIf="this.sort=='titleUp'" class="fa fa-angle-up"></i>
+              <i *ngIf="this.sort=='titleDown'" class="fa fa-angle-down"></i>
+            </th>
+            <th scope="col" (click)="sortByFullname()">
+              Nom Utilisateur
+              <i *ngIf="this.sort=='fullnameUp'" class="fa fa-angle-up"></i>
+              <i *ngIf="this.sort=='fullnameDown'" class="fa fa-angle-down"></i>
+            </th>
+            <th scope="col" (click)="sortByEmail()">
+              Email Utilisateur
+              <i *ngIf="this.sort=='emailUp'" class="fa fa-angle-up"></i>
+              <i *ngIf="this.sort=='emailDown'" class="fa fa-angle-down"></i>
+            </th>
+            <th scope="col" (click)="sortByCreationDate()">
+              Date de création
+              <i *ngIf="this.sort=='creationDateUp'" class="fa fa-angle-up"></i>
+              <i *ngIf="this.sort=='creationDateDown'" class="fa fa-angle-down"></i>
+            </th>
+            <th scope="col" (click)="sortByStatus()">
+              Status
+              <i *ngIf="this.sort=='statusUp'" class="fa fa-angle-up"></i>
+              <i *ngIf="this.sort=='statusDown'" class="fa fa-angle-down"></i>
+            </th>
             <th scope="col">Actions</th>
           </tr>
         </thead>

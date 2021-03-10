@@ -1,80 +1,99 @@
-<div class="float-xl-right">
-    <form [formGroup]="searchCartProductForm" (ngSubmit)="searchCartProduct()">
-        <input formControlName="search" placeholder="Rechercher dans la description des produit du panier" type="text"
-            class="form-control">
-        <button class="btn btn-primary" type="submit">Rechercher</button>
-    </form>
-    <form [formGroup]="filterCartProductForm" (ngSubmit)="filterCartProduct()">
-        <label>
-            [0$-25$]
-            <input type="radio" formControlName="cash" value="[0$-25$]" checked>
-        </label>
-        <br>
-        <label>
-            [25$-50$]
-            <input type="radio" formControlName="cash" value="[25$-50$]">
-        </label>
-        <br>
-        <label>
-            [>50$]
-            <input type="radio" formControlName="cash" value="[>50$]">
-        </label>
-        <br>
-        <button type="submit" class="btn btn-primary">Appliquer</button>
-        <br>
-        <a (click)="reset()" class="btn btn-outline-primary">Tous les produits</a>
-    </form>
-</div>
-<form [formGroup]="cartForm" (ngSubmit)="checkUp()">
-    <div class="container w-100">
-        <div class="row">
-            <div class="col col-sm-3">
-                <h1>
-                    Votre panier
-                </h1>
-            </div>
-        </div>
-        <div class="row d-flex justify-content-center">
-            <div class="col">
-                <app-cart-list [cart]="cart"></app-cart-list>
-            </div>
-        </div>
-        <div class="row d-flex justify-content-center">
-            <div class="col col-sm-6">
-                <table class="table table-bordered table-responsive-xl table-active">
-                    <thead style=" background-color: white; text-align: center;">
-                        <th scope="row" colspan="2">
-                            Méthode de livrason
-                        </th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                Gratuite (7 à 14 jours ouvrable)
-                            </td>
-                            <td>
-                                <input formControlName="shipping" type="radio" checked value="0">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Express (1 à 5 jours ouvrable) 5.00$
-                            </td>
-                            <td>
-                                <input formControlName="shipping" type="radio" value="1">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col col-sm-6">
-                <button (click)="checkOut()" class="btn btn-lg btn-success btn-block" type="submit">
-                    Passer à la caisse
+<mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav mode="over" [(opened)]="opened" (opened)="events.push('open!')"
+        (closed)="events.push('close!')">
+        <div class="col-12">
+            <div class="content-align-rigth w-100">
+                <button mat-button (click)="sidenav.toggle()" class="btn btn-danger float-right">
+                    <i class="fa fa-times"></i>
                 </button>
-                <a [routerLink]="['/products']" class="btn btn-lg btn btn-outline-danger btn-block" role="button">
-                    Retour au produits
-                </a>
+                <form [formGroup]="searchCartProductForm" (ngSubmit)="searchCartProduct()" class="form-inline">
+                    <input formControlName="search" placeholder="Rechercher dans la description des produit du panier"
+                        type="text" class="form-control w-75">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
             </div>
+            <br>
+            <form [formGroup]="filterCartProductForm" (ngSubmit)="filterCartProduct()">
+                <div class="form-group">
+                    <label>
+                        [0$-25$]
+                        <input type="radio" formControlName="cash" value="[0$-25$]" checked>
+                    </label>
+                    <br>
+                    <label>
+                        [25$-50$]
+                        <input type="radio" formControlName="cash" value="[25$-50$]">
+                    </label>
+                    <br>
+                    <label>
+                        [>50$]
+                        <input type="radio" formControlName="cash" value="[>50$]">
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary mr-2 mb-2 mb-md-0">Appliquer</button>
+                <a (click)="reset()" class="btn btn-outline-primary mr-2 mb-2 mb-md-0">Tous les produits</a>
+            </form>
         </div>
-    </div>
-</form>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <button mat-button (click)="sidenav.toggle()" class="btn btn-secondary">
+            <i class="fa fa-bars"></i>
+        </button>
+        <form [formGroup]="cartForm" (ngSubmit)="checkUp()">
+            <div class="container w-100">
+                <div class="row">
+                    <div class="col col-sm-3">
+                        <h1>
+                            Votre panier
+                        </h1>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col">
+                        <app-cart-list [cart]="cart"></app-cart-list>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col col-sm-6">
+                        <table class="table table-bordered table-responsive-xl table-active">
+                            <thead style=" background-color: white; text-align: center;">
+                                <th scope="row" colspan="2">
+                                    Méthode de livrason
+                                </th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Gratuite (7 à 14 jours ouvrable)
+                                    </td>
+                                    <td>
+                                        <input formControlName="shipping" type="radio" checked value="0">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Express (1 à 5 jours ouvrable) 5.00$
+                                    </td>
+                                    <td>
+                                        <input formControlName="shipping" type="radio" value="1">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col col-sm-6">
+                        <button [routerLink]="['/checkout']" class="btn btn-lg btn-success btn-block" type="submit">
+                            Passer à la caisse
+                        </button>
+                        <a [routerLink]="['/products']" class="btn btn-lg btn btn-outline-danger btn-block"
+                            role="button">
+                            Retour au produits
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-sidenav-content>
+</mat-sidenav-container>

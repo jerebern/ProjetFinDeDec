@@ -2,13 +2,12 @@
   <div class="container-fluid">
     <h1>Conversation</h1>
 
-    <div class="row" style="margin-bottom: 5px;">
-      <div class="col"></div>
-      <form [formGroup]="searchMessagesForm" (ngSubmit)="searchMessages()" class="form-inline">
-        <div class="form-group col">
-          <input formControlName="search" placeholder="Recherher un message..." type="text" class="form-control">
-          <button class="btn btn-primary" type="submit" style="margin-left: 2px;"><i class="fa fa-search"></i></button>
-          <button class="btn btn-secondary" type="button" style="margin-left: 2px;" (click)="getMessages()"><i class="fa fa-retweet"></i></button>
+    <div class="row" style="margin-bottom: 2px;">
+      <form [formGroup]="searchMessagesForm" (ngSubmit)="searchMessages()" class="form-inline col-12">
+        <div class="form-group col-12">
+          <input formControlName="search" placeholder="Recherher" type="text" class="form-control col-sm-11">
+          <button class="btn btn-primary col-sm" type="submit" style="margin-left: 2px;"><i class="fa fa-search"></i></button>
+          <button class="btn btn-secondary col-sm" type="button" style="margin-left: 2px;" (click)="getMessages()"><i class="fa fa-retweet"></i></button>
         </div>
       </form>
     </div>
@@ -22,48 +21,36 @@
         </table>
       </div>
     </div>
-    <div  *ngIf="this.updating!=true; else updatingMessage" class="form-row" style="width: 100%;">
-      <form [formGroup]="messageForm" (ngSubmit)="createMessage()" style="width: 100%;">
+    <div  *ngIf="this.updating!=true; else updatingMessage" class="row" style="margin-top: 2px;">
+      <form [formGroup]="messageForm" (ngSubmit)="createMessage()" class="form-inline col-12">
 
-        <div class="form-row" style="width: 100%; margin-top: 10px;">
-
-          <div class="form-group" style="width: 86%;">
+          <div class="form-group col-12">
             <input formControlName="body"
             [class.is-invalid]="messageForm.get('body')?.errors && messageForm.get('body')?.dirty && messageForm.get('body')?.touched"
-            type="text" placeholder="Entrer votre message..." class="form-control" style="width: 100%; margin-left: 7px;">
+            type="text" placeholder="Entrer votre message..." class="form-control col-sm-11" >
             <div class="invalid-feedback text-left">
               Veuillez entrer un message valide.
             </div>
+            <button class="btn btn-primary col-sm" type="submit" [disabled]="!statusCondition()" style="margin-left: 2px;"><i class="fa fa-paper-plane"></i></button>
           </div>
-
-          <div class="form-group" style="width: 13%; margin-left: 2px;">
-            <button class="btn btn-primary" type="submit" style="width: 100%;" [disabled]="!statusCondition()"><i class="fa fa-paper-plane"></i></button>
-          </div>
-        </div>
 
       </form>
     </div>
     <ng-template #updatingMessage>
-      <div class="form-row" style="width: 100%;">
-        <form [formGroup]="editMessageForm" (ngSubmit)="updateMessage()" style="width: 100%;">
+      <div class="row" style="margin-top: 2px;">
+        <form [formGroup]="editMessageForm" (ngSubmit)="updateMessage()" class="form-inline col-12" style="margin-top: 3px;">
 
-          <div class="form-row" style="width: 100%; margin-top: 10px;">
-
-            <div class="form-group" style="width: 76%;">
-              <input formControlName="body"
+          <div class="form-group col-12">
+            <input formControlName="body"
               [class.is-invalid]="messageForm.get('body')?.errors && messageForm.get('body')?.dirty && messageForm.get('body')?.touched"
-              type="text" placeholder="Entrer votre message..." class="form-control" style="width: 100%; margin-left: 7px;">
-              <div class="invalid-feedback text-left">
+              type="text" placeholder="Entrer votre message..." class="form-control col-sm-10">
+            <div class="invalid-feedback text-left">
                 Veuillez entrer un message valide.
-              </div>
             </div>
-
-            <div class="form-group" style="width: 13%; margin-left: 2px;">
-              <button class="btn btn-primary" type="submit" style="width: 100%;"><i class="fa fa-paper-plane"></i></button>
-            </div>
-            <div class="form-group" style="width: 9%; margin-left: 2px;">
-              <button (click)="cancelUpdate()" class="btn btn-secondary" type="button" style="margin-left: 2px; width: fit-content;" [disabled]="!statusCondition()"><i class="fa fa-window-close"></i></button>
-            </div>
+            <button class="btn btn-primary ml-1" type="submit"><i class="fa fa-paper-plane col-sm"></i></button>
+            <button (click)="cancelUpdate()" class="btn btn-secondary ml-1" type="button" [disabled]="!statusCondition()">
+              <i class="fa fa-window-close col-sm"></i>
+            </button>
           </div>
 
         </form>
