@@ -41,9 +41,10 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
       t.string :postal_code, :limit => 6, null: false
       t.string :province, :limit => 50, null: false
       t.string :phone_number, :limit => 10, null: false
+      t.string :picture_name, :limit => 100, null: false
       t.boolean :is_admin, :default => false, null: false
       t.timestamps null: false
-      t.index ["email", "firstname", "lastname", "address", "city", "postal_code", "province", "phone_number"], name: "fulltext_users", type: :fulltext
+      t.index ["email", "firstname", "lastname", "address", "city", "postal_code", "province", "phone_number", "picture_name"], name: "fulltext_users", type: :fulltext
       t.index ["firstname", "lastname"], name: "fulltext_users_fullname", type: :fulltext
     end
     #execute <<-SQL

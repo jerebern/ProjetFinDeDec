@@ -51,27 +51,27 @@ export class SignupComponent implements OnInit {
   signUp() {
     let newUser: User = new User();
     newUser.email = this.signForm.get('email')?.value;
-    newUser.password = this.signForm.get('password')?.value
-    newUser.firstname = this.signForm.get('firstname')?.value
-    newUser.lastname = this.signForm.get('lastname')?.value
-    newUser.address = this.signForm.get('address')?.value
-    newUser.city = this.signForm.get('city')?.value
-    newUser.postal_code = this.signForm.get('postal_code')?.value
-    newUser.province = this.signForm.get('province')?.value
-    newUser.phone_number = this.signForm.get('phone_number')?.value
+    newUser.password = this.signForm.get('password')?.value;
+    newUser.firstname = this.signForm.get('firstname')?.value;
+    newUser.lastname = this.signForm.get('lastname')?.value;
+    newUser.address = this.signForm.get('address')?.value;
+    newUser.city = this.signForm.get('city')?.value;
+    newUser.postal_code = this.signForm.get('postal_code')?.value;
+    newUser.province = this.signForm.get('province')?.value;
+    newUser.phone_number = this.signForm.get('phone_number')?.value;
     let file: File = this.signForm.get('file')?.value;
-    //newUser.picture_url = file.name;
-    //console.log("picture : ", newUser.picture_url)
+    newUser.picture_name = file.name;
+    console.log("picture : ", file);
     console.log("SignUpform value : ", this.signForm.value);
     console.log("New user value ", newUser);
     this.authService.userRegistration(newUser).subscribe(success => {
       if (success) {
         this.router.navigate(['/']);
-        console.log("OK")
+        console.log("OK");
       }
       else {
-        console.log("ERROR")
-        alert("ERROR!!!      une valeur est infonctionnelle");///////a modifié
+        console.log("ERROR");
+        alert("Erreur dans le formulaire d'inscription");
       }
     }
     );

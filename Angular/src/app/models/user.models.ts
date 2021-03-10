@@ -32,6 +32,8 @@ export class User extends JSONObject {
 
     picture_url!: string
 
+    picture_name!: string;
+
 
     is_admin!: boolean
 

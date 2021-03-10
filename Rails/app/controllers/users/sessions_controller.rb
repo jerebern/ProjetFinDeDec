@@ -9,6 +9,10 @@ class Users::SessionsController < Devise::SessionsController
     render json: {user: current_user.as_json(:methods => :picture_url), success: true}
   end
 
+  def show 
+    render json: {user: current_user.as_json(:methods => :picture_url), success: true}
+  end
+
   # GET /resource/sign_in
   # def new
   #   super

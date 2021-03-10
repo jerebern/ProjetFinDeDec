@@ -5,12 +5,16 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-@admin = User.create!(email: "a@a.com", password: "123456", firstname: "Réal", lastname: "Tremblay", address: "1570 rue morin", city: "Shawinigan", postal_code: "G0X2V0", province: "Québec", phone_number: "8195335333", is_admin: true)
-@admin.picture.attach(io: File.open(Rails.root + "app/assets/images/default.jpg"), filename: 'default.jpg')
-@jerebern = User.create!(email: "b@b.com", password: "123456", firstname: "Jérémy", lastname: "Bernard", address: "2-1903 rue Saint-Jacques", city: "Shawinigan", postal_code: "G9N4A7", province: "Québec", phone_number: "8193295860", is_admin: false)
-@jevei = User.create!(email: "c@c.com", password: "123456", firstname: "Jérémy", lastname: "Veillette", address: "3-1903 rue Saint-Jacques", city: "Shawinigan", postal_code: "G9N4A7", province: "Québec", phone_number: "8197358945", is_admin: false)
-@felixcm1129 = User.create!(email: "d@d.com", password: "123456", firstname: "Félix", lastname: "Carle-Milette", address: "1660 chemin de Saint-Jean-des-Piles", city: "Shawinigan", postal_code: "G0X2V0", province: "Québec", phone_number: "8196996429", is_admin: false)
-@johndoe = User.create!(email: "e@e.com", password: "123456", firstname: "John", lastname: "Doe", address: "Planet Knowhere", city: "Galaxy", postal_code: "000000", province: "Universe", phone_number: "2348956742", is_admin: false)
+@admin = User.create!(email: "a@a.com", password: "123456", firstname: "Réal", lastname: "Tremblay", address: "1570 rue morin", city: "Shawinigan", postal_code: "G0X2V0", province: "Québec", phone_number: "8195335333", picture_name: "giraffe.png", is_admin: true)
+@admin.picture.attach(io: File.open(Rails.root + "app/assets/images/giraffe.png"), filename: 'giraffe.png');
+@jerebern = User.create!(email: "b@b.com", password: "123456", firstname: "Jérémy", lastname: "Bernard", address: "2-1903 rue Saint-Jacques", city: "Shawinigan", postal_code: "G9N4A7", province: "Québec", phone_number: "8193295860", picture_name: "default.jpg", is_admin: false)
+@jerebern.picture.attach(io: File.open(Rails.root + "app/assets/images/default.jpg"), filename: "default.jpg");
+@jevei = User.create!(email: "c@c.com", password: "123456", firstname: "Jérémy", lastname: "Veillette", address: "3-1903 rue Saint-Jacques", city: "Shawinigan", postal_code: "G9N4A7", province: "Québec", phone_number: "8197358945", picture_name: "canarie.JPG", is_admin: false)
+@jevei.picture.attach(io: File.open(Rails.root + "app/assets/images/canarie.JPG"), filename: "canarie.JPG");
+@felixcm1129 = User.create!(email: "d@d.com", password: "123456", firstname: "Félix", lastname: "Carle-Milette", address: "1660 chemin de Saint-Jean-des-Piles", city: "Shawinigan", postal_code: "G0X2V0", province: "Québec", phone_number: "8196996429", picture_name: "snoopy.jpg", is_admin: false)
+@felixcm1129.picture.attach(io: File.open(Rails.root + "app/assets/images/snoopy.jpg"), filename: "snoopy.jpg");
+@johndoe = User.create!(email: "e@e.com", password: "123456", firstname: "John", lastname: "Doe", address: "Planet Knowhere", city: "Galaxy", postal_code: "000000", province: "Universe", phone_number: "2348956742", picture_name: "babyGroot.png", is_admin: false)
+@johndoe.picture.attach(io: File.open(Rails.root + "app/assets/images/babyGroot2.png"), filename: "babyGroot2.png");
 
 #https://www.amazon.ca/-/fr/Marina-Thermom%C3%A8tre-flottant-ventouse-aquarium/dp/B0002AQITK?ref_=Oct_s9_apbd_orecs_hd_bw_b6rqbEx&pf_rd_r=X0J2Z10J5XYN88WEEXXC&pf_rd_p=38bd970b-92ba-5009-be3c-7de76d6b9340&pf_rd_s=merchandised-search-10&pf_rd_t=BROWSE&pf_rd_i=6292479011&th=1
 @product = Product.create(category: "Accessoire et Hygiène", price: 2.97, title: "Thermomètre avec ventouse", description: "Un thermomètre: ça sert à savoir la température de l'eau.", quantity: 50, animal_type: "Aquariophilie")

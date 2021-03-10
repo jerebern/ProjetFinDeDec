@@ -13,6 +13,7 @@ class User < ApplicationRecord
   validates :postal_code, presence: true
   validates :province, presence: true
   validates :phone_number, presence: true
+  validates :picture_name, presence: true
   has_one_attached :picture
   has_many :commands
   has_many :conversation

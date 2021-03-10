@@ -64,19 +64,19 @@
                 <thead style="text-align: center;  border: 1px solid white">
                     <th scope="row" colspan="3"> Mes commandes </th>
                     <tr style="width: 100%;">
-                        <td style="text-align: center; font-weight: bold; width: 33%;"(click)="sortByID()"> 
+                        <td style="text-align: center; font-weight: bold; width: 33%;"(click)="sortByID()">
                             Numéro de la Commande
-                            <i *ngIf="this.sort==''" class="fa fa-angle-down"></i> 
+                            <i *ngIf="this.sort==''" class="fa fa-angle-down"></i>
                         </td>
                         <td style="text-align: center; font-weight: bold; width: 33%;" (click)="sortByPrice()">
                             Total
                             <i *ngIf="this.sort=='priceUp'" class="fa fa-angle-up"></i>
-                            <i *ngIf="this.sort=='priceDown'" class="fa fa-angle-down"></i> 
+                            <i *ngIf="this.sort=='priceDown'" class="fa fa-angle-down"></i>
                         </td>
                         <td style="text-align: center; font-weight: bold; width: 33%;" (click)="sortBydate()">
                             Date
                             <i *ngIf="this.sort=='date'" class="fa fa-angle-up"></i>
-                            <i *ngIf="this.sort=='dateReverse'" class="fa fa-angle-down"></i> 
+                            <i *ngIf="this.sort=='dateReverse'" class="fa fa-angle-down"></i>
                         </td>
                     </tr>
                 </thead>

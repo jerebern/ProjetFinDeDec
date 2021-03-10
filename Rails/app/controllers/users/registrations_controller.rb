@@ -5,6 +5,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
   def create
     build_resource(sign_up_params)
+    #resource.picture.attach(io: File.open(Rails.root + "app/assets/images/" + resource.id.to_s, ), filename: resource.picture_name)
+    dirname = Rails.root + "app/assets/images/7";
+    file_name = resource.picture_name;
+    file = Base64.strict_encode64(file_name)
+    FileUtils.mkdir_p(dirname) unless Dir.exists?(dirname)
+    path = dirname + file;
+    File.new(path, 'w+');
+    resource.picture.attach(io: File.open(path), filename: file);
     resource.save
     Rails.logger.info(@user.errors.inspect)
     yield resource if block_given?
@@ -90,12 +98,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # Notice the name of the method
   def sign_up_params
-    params.require(:registration).permit(:email, :password, :firstname, :lastname, :address, :city, :postal_code, :province, :phone_number)
+    params.require(:registration).permit(:email, :password, :firstname, :lastname, :address, :city, :postal_code, :province, :phone_number, :picture_name)
   end
-
-  #def picture_params
-  #  params.require(:picture).permit()
-  #  current_user.picture.attach(io: File.open(Rails.root + "app/assets/images/default.jpg"), filename: 'default.jpg')
-  #end
 
 end
