@@ -65,6 +65,7 @@ class Api::ConversationsController < ApplicationController
                 @conversations = Conversation.all.order(status: :desc)
                 render json: {conversations: @conversations.to_json(:include => :user), success: true}
             else
+                @conversations = Conversation.find(1)
                 render json: {success: false, error: [@conversations.errors]}
             end
         else
@@ -72,7 +73,7 @@ class Api::ConversationsController < ApplicationController
             if @conversation.length > 0
                 render json: {conversation: @conversation[0], success: true}
             else
-                render json: {success: false}
+                render json: {success: false, error: "User doesn't have a conversation"}
             end
         end
     end
@@ -82,6 +83,7 @@ class Api::ConversationsController < ApplicationController
             if @conversation = Conversation.find(params[:id])
                 render json: {conversation: @conversation, success: true}
             else
+                @conversation = Conversation.find(params[:id])
                 render json: {success: false, error: [@conversation.errors]}
             end
         else
@@ -89,6 +91,7 @@ class Api::ConversationsController < ApplicationController
             if @conversation[0].status == "En cours"
                 render json: {conversation: @conversation[0], success: true}
             else
+                @conversation = current_user.conversation
                 render json: {success: false, error: [@conversation.errors]}
             end
         end
