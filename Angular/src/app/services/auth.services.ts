@@ -101,11 +101,14 @@ export class AuthService {
       map(response => {
         if (response?.success) {
           console.log("New User service : ", response);
+          console.log("Picture User: ", response.user.picture_url);
+
           var data = response.user;
           console.log("New User service : ", data);
           let newUser: User = new User();
           newUser = data;
           console.log("New user value ", newUser);
+
           this.setCurrentUser(newUser);
           return true;
         }
@@ -120,4 +123,5 @@ export class AuthService {
       })
     )
   }
+
 }

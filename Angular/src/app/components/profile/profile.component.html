@@ -1,7 +1,4 @@
 <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
-    <div class="float-xl-left">
-        <p>TODO photo a mettre ici je sais pas comment :(</p>
-    </div>
     <div>
         <div>
             <div>
@@ -10,6 +7,12 @@
                         <th scope="row" colspan="2"> Mes informations </th>
                     </thead>
                     <tbody>
+                        <tr>
+                          <td id="center">Photo de profile</td>
+                          <td>
+                            <img src="{{ currentUser.picture_url }}" width="150" height="150">
+                          </td>
+                        </tr>
                         <tr>
                             <td id="header"> Prénom </td>
                             <td>{{currentUser.firstname}}</td>

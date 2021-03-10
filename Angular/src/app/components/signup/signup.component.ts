@@ -59,7 +59,7 @@ export class SignupComponent implements OnInit {
     newUser.postal_code = this.signForm.get('postal_code')?.value
     newUser.province = this.signForm.get('province')?.value
     newUser.phone_number = this.signForm.get('phone_number')?.value
-    newUser.picture = this.signForm.get('file')?.value;
+    newUser.picture_url = this.signForm.get('file')?.value;
     console.log("picture : ")
     console.log("SignUpform value : ", this.signForm.value);
     console.log("New user value ", newUser);

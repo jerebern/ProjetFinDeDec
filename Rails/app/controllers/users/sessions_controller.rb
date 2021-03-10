@@ -6,8 +6,9 @@ class Users::SessionsController < Devise::SessionsController
 
     self.resource = warden.authenticate!(auth_options)
     sign_in(resource_name, resource)
-    render json: {success: true, user: current_user}
-end
+    render json: {user: current_user.as_json(:methods => :picture_url), success: true}
+  end
+
   # GET /resource/sign_in
   # def new
   #   super

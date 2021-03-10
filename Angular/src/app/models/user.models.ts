@@ -30,7 +30,7 @@ export class User extends JSONObject {
     phone_number!: string
 
 
-    picture!: string
+    picture_url!: string
 
 
     is_admin!: boolean
