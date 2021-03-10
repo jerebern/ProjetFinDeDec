@@ -187,7 +187,10 @@ export class CartComponent implements OnInit {
 
     let shipping : boolean = this.cartForm.get('shipping')?.value;
     console.log(shipping)
-    this.router.navigate(['/checkout/'+shipping])
+    if(this._cart.cart_products.length >= 1){
+      this.router.navigate(['/checkout/'+shipping])
+
+    }
 
   }
 

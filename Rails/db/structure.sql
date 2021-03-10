@@ -137,6 +137,8 @@ CREATE TABLE `commands` (
   `updated_at` datetime(6) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_commands_on_user_id` (`user_id`),
+  FULLTEXT KEY `fulltext_command_shipping_adress` (`shipping_adress`),
+  FULLTEXT KEY `fulltext_command_state` (`state`),
   CONSTRAINT `fk_rails_370b310a97` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;

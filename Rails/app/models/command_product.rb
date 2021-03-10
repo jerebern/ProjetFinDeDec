@@ -1,5 +1,5 @@
 class CommandProduct < ApplicationRecord
-    after_save :desc_inventory
+    before_save :desc_inventory
     before_destroy :ajus_inventory
     validates :quantity, presence: true
     has_one :product
@@ -17,6 +17,7 @@ class CommandProduct < ApplicationRecord
         @product.quantity += self.quantity 
         @product.save
      end
+     
     #impossible de laisser d la car dans le controller L .39 @newCommand.sub_total += @newCommand.command_products.last.total_price
     #tombe sur un null vue que ça se passe avant la creation   
     #TypeError (nil can't be coerced into BigDecimal):

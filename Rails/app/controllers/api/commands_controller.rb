@@ -2,7 +2,7 @@ class Api::CommandsController < ApplicationController
     before_action :authenticate_user!
     def index
     if params[:q] && params[:s].blank?
-        render json: {commands: current_user.commands.where("state LIKE ?", "%" + params[:q] + "%") ,success: true}
+        render json: {commands: current_user.commands.where("MATCH(state)AGAINST( ? )",params[:q]) ,success: true}
     else 
     case params[:s]
     when "dateReverse"
@@ -32,7 +32,6 @@ class Api::CommandsController < ApplicationController
            @newCommand.command_products.last.unit_price = c.product.price
            @newCommand.command_products.last.product_id = c.product.id
            @newCommand.command_products.last.total_price = (c.quantity * c.product.price)
-           
            @newCommand.sub_total += @newCommand.command_products.last.total_price
         end
         @newCommand.user_id = current_user.id
@@ -46,13 +45,13 @@ class Api::CommandsController < ApplicationController
         @newCommand.shipping_adress = current_user.address+","+current_user.city+","+current_user.province+","+current_user.postal_code
         @newCommand.state = "Payé"
         if @newCommand.save
+            current_user.cart.cart_products.destroy_all
             render json: {command: current_user.commands.last, success:true}
         else
             raise ActiveRecord::Rollback, "Vous êtes vraiment pas suposé voir ça!"
             render json: {success: false, error:"cant't create command"}
         end
         else
-
         render json: {command: @newCommand, success:true}
         end
     end

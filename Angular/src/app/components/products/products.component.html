@@ -20,7 +20,11 @@
                         </button>
                     </div>
                     <div class="form-group">
-                        <label>Animal</label>
+                        <label>
+                            <strong>
+                                Animal
+                            </strong>
+                        </label>
                         <div class="radio" *ngFor="let animal of animal_type">
                             <label>
                                 <input type="radio" formControlName="animal" [value]="animal" checked>
@@ -29,7 +33,11 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Catégorie</label>
+                        <label>
+                            <strong>
+                                Catégorie
+                            </strong>
+                        </label>
                         <div class="radio" *ngFor="let category of categories">
                             <label>
                                 <input type="radio" formControlName="category" [value]="category" checked>
