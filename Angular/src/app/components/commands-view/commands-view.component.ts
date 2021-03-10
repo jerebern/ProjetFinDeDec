@@ -16,7 +16,7 @@ import { JSONObject } from 'ts-json-object';
 export class CommandsViewComponent implements OnInit {
 
   currentCommand: Command;
-
+  sort !: string
   sortUnit : string = "priceUnitDown"
   sortQuantity : string = "quantityUp"
   sortTotalPrice : string = "priceTotalUp"
@@ -67,6 +67,7 @@ export class CommandsViewComponent implements OnInit {
     this.currentCommand.command_products = success.command_products
     let index : number = 0;
     console.log(success)
+    //todo regler ste bug la 
     for(let name of success.productName){
       this.currentCommand.command_products[index].productName = name.title
 
@@ -75,7 +76,7 @@ export class CommandsViewComponent implements OnInit {
   }
 
   loadCommand_Products(sortMode : string){
-
+    this.sort = sortMode
     this.apiCommandProductService.getCommandProduct(this.currentCommand.id.toString(),sortMode).subscribe(success =>{
       this.changeCommandProduct(success)
 
