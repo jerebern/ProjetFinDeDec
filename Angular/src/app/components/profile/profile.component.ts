@@ -15,10 +15,10 @@ import { CommandApiRequestService } from 'src/app/services/command-api-request.s
 export class ProfileComponent implements OnInit {
   userCommands: Command[] = []
   currentUser: User
-  sortMode: string = "lowTotal"
+  sortMode: string = "lowTotal" //pas le temps de renomer
   sortDateMode : string = "date"
   sortPriceMode : string = "priceUp"
-
+  sort !: string
   searchCommandForm: FormGroup;
   constructor(private authService: AuthService, private  commandApiRequestService: CommandApiRequestService, private router: Router) {
     this.currentUser = new User;
@@ -56,6 +56,7 @@ export class ProfileComponent implements OnInit {
     
   }
   loadCommandList(mode : string){
+    this.sort = mode
     if (this.authService.currentUser != null) {
       this.commandApiRequestService.getAllCommandFromOneUser(mode).subscribe(success => {
         console.log(success)

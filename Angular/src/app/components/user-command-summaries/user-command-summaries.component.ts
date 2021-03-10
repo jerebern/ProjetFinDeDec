@@ -19,6 +19,7 @@ export class UserCommandSummariesComponent implements OnInit {
   maxValue : string = "MaxCommandValueUp"
   avgValue : string = "AvgCommandValueUp"
   totalValue : string  = "TotalCommandValueUp"
+  sortMode !: string
 
   constructor(private userCommandSummariesApiService : UserCommandSummariesApiRequestService) {
     this.searchCommandForm = new FormGroup({
@@ -43,11 +44,12 @@ export class UserCommandSummariesComponent implements OnInit {
     )
   }
   private sort(mode : string){
-    this.userCommandSummariesApiService.sortSummary(mode).subscribe(success =>{
-      this.userCommandSummary = success
+    this.sortMode = mode
+    // this.userCommandSummariesApiService.sortSummary(mode).subscribe(success =>{
+    //   this.userCommandSummary = success
 
-    }
-    )
+    // }
+    // )
   }
 
   sortEmail(){
@@ -61,7 +63,7 @@ export class UserCommandSummariesComponent implements OnInit {
       this.userCommandSummary.sort((a, b) => a.email.toLowerCase() < b.email.toLowerCase() ? 1 : -1);
 
     }
-   // this.sort(this.email);
+    this.sort(this.email);
   }
   sortAvgUnit(){
     if(this.avgUnit == "AvgUnitUp"){
@@ -74,7 +76,7 @@ export class UserCommandSummariesComponent implements OnInit {
 
     }
     console.log("click")
-    //this.sort(this.avgUnit)
+    this.sort(this.avgUnit)
   }
   sortAvgProduct(){
     if(this.avgProduct == "AvgProductUp"){
@@ -87,7 +89,7 @@ export class UserCommandSummariesComponent implements OnInit {
       this.userCommandSummary.sort((a, b) => Number(a.average_unit_per_product) < Number(b.average_unit_per_product) ? 1 : -1)
 
     }
-  //  this.sort(this.avgProduct)
+   this.sort(this.avgProduct)
   }
   sortMinValue(){
     if(this.minValue == "MinCommandValueUp"){
@@ -100,7 +102,7 @@ export class UserCommandSummariesComponent implements OnInit {
       this.userCommandSummary.sort((a, b) => Number(a.minimum_command_value_sub_total) > Number(b.minimum_command_value_sub_total) ? 1 : -1)
 
     }
-    //this.sort(this.minValue)
+    this.sort(this.minValue)
   }
   sortMaxValue(){
     if(this.maxValue == "MaxCommandValueUp"){
@@ -113,7 +115,7 @@ export class UserCommandSummariesComponent implements OnInit {
       this.userCommandSummary.sort((a, b) => Number(a.maximum_command_value_sub_total) > Number(b.maximum_command_value_sub_total) ? 1 : -1)
 
     }
-   // this.sort(this.maxValue)
+   this.sort(this.maxValue)
   }
   sortAvgValue(){
     if(this.avgProduct == "AvgCommandValueUp"){
@@ -126,7 +128,7 @@ export class UserCommandSummariesComponent implements OnInit {
       this.userCommandSummary.sort((a, b) => Number(a.Average_command_value_sub_total) > Number(b.Average_command_value_sub_total) ? 1 : -1)
 
     }
-    //this.sort(this.avgProduct)
+    this.sort(this.avgProduct)
   }
   sortTotalValue(){
     if(this.totalValue == "TotalCommandValueUp"){
@@ -139,7 +141,7 @@ export class UserCommandSummariesComponent implements OnInit {
       this.userCommandSummary.sort((a, b) => Number(a.total_command_value) > Number(b.total_command_value) ? 1 : -1)
 
     }
-    //this.sort(this.totalValue)
+    this.sort(this.totalValue)
   }
 
 

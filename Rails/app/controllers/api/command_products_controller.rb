@@ -4,7 +4,7 @@ def index
     #@productID = Array.new
     @command = Command.find(params[:command_id])
 
-    @productsName = Product.where(id:[@command.command_products.all.select(:product_id)]).all.select(:title)
+    @productsName = Product.where(id:[@command.command_products.all.select(:product_id)]).all.select(:title, :id)
      
     if params[:q]
     

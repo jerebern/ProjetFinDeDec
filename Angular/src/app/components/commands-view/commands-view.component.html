@@ -74,9 +74,21 @@
           <th scope="row" colspan="4"> Produits </th>
           <tr>
             <th scope="row" colspan="1"> Produit </th>
-            <th scope="row" colspan="1"> <a (click)="sortByUnitPrice()">Prix unitaire </a></th>
-            <th scope="row" colspan="1"><a (click)="sortbyQuantity()"> Quantité </a> </th>
-            <th scope="row" colspan="1"><a (click)="sortByTotalPrice()">Total </a> </th>
+            <th scope="row" colspan="1" (click)="sortByUnitPrice()">
+              Prix unitaire
+              <i *ngIf="this.sort=='priceUnitlUp'" class="fa fa-angle-up"></i>
+              <i *ngIf="this.sort=='priceUnitDown'" class="fa fa-angle-down"></i>
+            </th>
+            <th scope="row" colspan="1" (click)="sortbyQuantity()">
+               Quantité
+              <i *ngIf="this.sort=='quantityUp'" class="fa fa-angle-up"></i>
+              <i *ngIf="this.sort=='quantityDown'" class="fa fa-angle-down"></i> 
+            </th>
+            <th scope="row" colspan="1" (click)="sortByTotalPrice()">
+              Total
+              <i *ngIf="this.sort=='priceTotalUp'" class="fa fa-angle-up"></i>
+              <i *ngIf="this.sort=='priceTotalDown'" class="fa fa-angle-down"></i> 
+            </th>
           </tr>
 
         </thead>
