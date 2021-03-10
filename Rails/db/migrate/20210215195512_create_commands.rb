@@ -10,6 +10,8 @@ class CreateCommands < ActiveRecord::Migration[6.0]
       t.string :shipping_adress, :limit => 159, null: false
       t.references :user, null: false, foreign_key: true
       t.timestamps
+      t.index ["shipping_adress"], name: "fulltext_command_shipping_adress", type: :fulltext
+      t.index ["state"], name: "fulltext_command_state", type: :fulltext
       end
 
     end
