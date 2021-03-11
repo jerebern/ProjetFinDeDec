@@ -8,44 +8,44 @@
        <th scope="row" colspan="8"> Sommaire des commandes par utilisateur </th>
        <tr>
        <th scope="row" colspan="1" (click)="sortEmail()">
-           Utilisateur 
+           Utilisateur
            <i *ngIf="this.sortMode=='EmailUp'" class="fa fa-angle-up"></i>
-           <i *ngIf="this.sortMode=='EmailDown'" class="fa fa-angle-down"></i> 
+           <i *ngIf="this.sortMode=='EmailDown'" class="fa fa-angle-down"></i>
         </th>
        <th scope="row" colspan="1" (click)="sortAvgUnit()">
-           Moyenne du prix unitaire des produits 
+           Moyenne du prix unitaire des produits
            <i *ngIf="this.sortMode=='AvgUnitUp'" class="fa fa-angle-up"></i>
-           <i *ngIf="this.sortMode=='AvgUnitDown'" class="fa fa-angle-down"></i> 
+           <i *ngIf="this.sortMode=='AvgUnitDown'" class="fa fa-angle-down"></i>
         </th>
-       <th scope="row" colspan="1" (click)="sortAvgProduct()"> 
-           Quantité moyenne par produit 
+       <th scope="row" colspan="1" (click)="sortAvgProduct()">
+           Quantité moyenne par produit
            <i *ngIf="this.sortMode=='AvgProductUp'" class="fa fa-angle-up"></i>
-           <i *ngIf="this.sortMode=='AvgProductDown'" class="fa fa-angle-down"></i> 
+           <i *ngIf="this.sortMode=='AvgProductDown'" class="fa fa-angle-down"></i>
        </th>
        <th scope="row" colspan="1" (click)="sortMinValue()">
-           Valeur minimum par commande 
+           Valeur minimum par commande
            <i *ngIf="this.sortMode=='MinCommandValueUp'" class="fa fa-angle-up"></i>
-           <i *ngIf="this.sortMode=='MinCommandValueDown'" class="fa fa-angle-down"></i> 
+           <i *ngIf="this.sortMode=='MinCommandValueDown'" class="fa fa-angle-down"></i>
         </th>
        <th scope="row" colspan="1" (click)="sortMaxValue()">
            Valeur maximum par commande
            <i *ngIf="this.sortMode=='MaxCommandValueUp'" class="fa fa-angle-up"></i>
-           <i *ngIf="this.sortMode=='MaxCommandValueDown'" class="fa fa-angle-down"></i> 
+           <i *ngIf="this.sortMode=='MaxCommandValueDown'" class="fa fa-angle-down"></i>
           </th>
        <th scope="row" colspan="1" (click)="sortAvgValue()">
            Valeur moyenne par commande
            <i *ngIf="this.sortMode=='AvgCommandValueUp'" class="fa fa-angle-up"></i>
-           <i *ngIf="this.sortMode=='AvgCommandValueDown'" class="fa fa-angle-down"></i> 
+           <i *ngIf="this.sortMode=='AvgCommandValueDown'" class="fa fa-angle-down"></i>
             </th>
        <th scope="row" colspan="1" (click)="sortTotalValue()">
-           Valeur Total commandé  
+           Valeur Total commandé
            <i *ngIf="this.sortMode=='TotalCommandValueUp'" class="fa fa-angle-up"></i>
-           <i *ngIf="this.sortMode=='TotalCommandValueDown'" class="fa fa-angle-down"></i> 
+           <i *ngIf="this.sortMode=='TotalCommandValueDown'" class="fa fa-angle-down"></i>
         </th>
         <th scope="row" colspan="1" (click)="sortDate()">
-            Date de la derniere commmande  
+            Date de la derniere commmande
             <i *ngIf="this.sortMode=='LastCommand'" class="fa fa-angle-up"></i>
-            <i *ngIf="this.sortMode=='OldestCommand'" class="fa fa-angle-down"></i> 
+            <i *ngIf="this.sortMode=='OldestCommand'" class="fa fa-angle-down"></i>
          </th>
       </tr>
     </thead>
@@ -56,7 +56,7 @@
             {{userCommandSummary.email}}
             <br>
             {{userCommandSummary.fullname}}
-            
+
         </td>
         <td>{{userCommandSummary.unit_product_value_average}}$</td>
         <td>{{userCommandSummary.average_unit_per_product}}</td>
@@ -68,4 +68,6 @@
 
         </tr>
     </table>
+
+    <app-rapport></app-rapport>
 </div>

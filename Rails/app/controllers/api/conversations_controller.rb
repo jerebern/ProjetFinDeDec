@@ -10,7 +10,7 @@ class Api::ConversationsController < ApplicationController
                 @querry = Array.new
                 @querry = params[:q].split("^")
                 if @querry[1] == "Name"
-                    @users = User.where("MATCH(firstname, lastname) AGAINST(? IN BOOLEAN MODE)", @querry[0] + "*")
+                    @users = User.where("MATCH(firstname, lastname) AGAINST(? IN BOOLEAN MODE)", @querry[0])
                     @conversations = Conversation.where(user_id:[@users.select(:id)])
                     render json: {conversations: @conversations.to_json(:include => :user), success: true}
                 elsif @querry[1] == "Email"
@@ -22,11 +22,11 @@ class Api::ConversationsController < ApplicationController
                     @conversations = Conversation.where(user_id:[@users.select(:id)])
                     render json: {conversations: @conversations.to_json(:include => :user), success: true}
                 elsif @querry[1] == "Titre"
-                    @conversations = Conversation.where("MATCH(title) AGAINST(? IN BOOLEAN MODE)", @querry[0] + "*")
+                    @conversations = Conversation.where("MATCH(title) AGAINST(? IN BOOLEAN MODE)", @querry[0])
                     @users = User.where(id:[@conversations.select(:user_id)])
                     render json: {conversations: @conversations.to_json(:include => :user), success: true}
                 elsif @querry[1] == "Status"
-                    @conversations = Conversation.where("MATCH(status) AGAINST(? IN BOOLEAN MODE)", @querry[0] + "*")
+                    @conversations = Conversation.where("MATCH(status) AGAINST(? IN BOOLEAN MODE)", @querry[0])
                     @users = User.where(id:[@conversations.select(:user_id)])
                     render json: {conversations: @conversations.to_json(:include => :user), success: true}
                 end

@@ -161,4 +161,16 @@ export class UserConversationMessagesSummaryComponent implements OnInit {
     this.getSummary(this.sortResolution);
   }
 
+  searchSummary(){
+    let search = this.searchSummaryForm.get("search")?.value;
+    let type = this.searchSummaryForm.get("type")?.value;
+    let querry = type + "(*)" + search;
+    this.userCMService.searchSummary(querry).subscribe(response => {
+      if(response){
+        this.userCMSummaries = response;
+          console.log("User Conversation Messages Summary Search: ", this.userCMSummaries);
+      }
+    })
+  }
+
 }

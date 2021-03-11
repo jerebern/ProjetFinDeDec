@@ -36,6 +36,14 @@ class Api::UserConversationMessagesSummariesController < ApplicationController
             render json: { user_conversation_messages_summary: UserConversationMessagesSummary.find_by_sql("SELECT * FROM user_conversation_messages_summary order by number_days_resolution ASC"), success: true}
         elsif params[:s] == "resolutionDown"    
             render json: { user_conversation_messages_summary: UserConversationMessagesSummary.find_by_sql("SELECT * FROM user_conversation_messages_summary order by number_days_resolution DESC"), success: true}
+        elsif params[:q]
+            @querry = Array.new
+            @querry = params[:q].split("(*)")
+            if @querry[0] == "Nom"
+            
+            elsif @querry[0] == "Email"
+            elsif @querry[0] == "Titre"
+            end
         end
     end
 end

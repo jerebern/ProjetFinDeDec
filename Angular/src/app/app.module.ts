@@ -35,6 +35,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { DatePipe } from '@angular/common';
 import { UserConversationMessagesSummaryComponent } from './components/user-conversation-messages-summary/user-conversation-messages-summary.component';
 import { UserConversationMessagesSummaryListItemComponent } from './components/user-conversation-messages-summary-list-item/user-conversation-messages-summary-list-item.component';
+import { RapportComponent } from './components/rapport/rapport.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { UserConversationMessagesSummaryListItemComponent } from './components/u
     UserCommandSummariesComponent,
     UserConversationMessagesSummaryComponent,
     UserConversationMessagesSummaryListItemComponent,
+    RapportComponent,
   ],
   imports: [
     ReactiveFormsModule,
