@@ -3,7 +3,7 @@ class Api::UserConversationMessagesSummariesController < ApplicationController
     
     def index
         if params[:s] == ""
-            render json: { user_conversation_messages_summary: UserConversationMessagesSummary.find_by_sql("SELECT * FROM user_conversation_messages_summary order by fullname ASC"), success: true}
+            render json: { user_conversation_messages_summary: UserConversationMessagesSummary.find_by_sql("SELECT * FROM user_conversation_messages_summary order by number_days_resolution ASC, number_messages DESC"), success: true}
         elsif params[:s] == "fullnameUp"
             render json: { user_conversation_messages_summary: UserConversationMessagesSummary.find_by_sql("SELECT * FROM user_conversation_messages_summary order by fullname ASC"), success: true}   
         elsif params[:s] == "fullnameDown"
