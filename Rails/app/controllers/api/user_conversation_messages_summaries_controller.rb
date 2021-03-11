@@ -40,9 +40,11 @@ class Api::UserConversationMessagesSummariesController < ApplicationController
             @querry = Array.new
             @querry = params[:q].split("(*)")
             if @querry[0] == "Nom"
-            
+                render json: { user_conversation_messages_summary: UserConversationMessagesSummary.joins("JOIN users ON user_conversation_messages_summary.email = users.email").where("MATCH(firstname, lastname) AGAINST(? IN BOOLEAN MODE)", @querry[1]), success: true}
             elsif @querry[0] == "Email"
+                render json: { user_conversation_messages_summary: UserConversationMessagesSummary.joins("JOIN users ON user_conversation_messages_summary.email = users.email").where("users.email LIKE ?","%" +  @querry[1] + "%"), success: true}
             elsif @querry[0] == "Titre"
+                render json: { user_conversation_messages_summary: UserConversationMessagesSummary.joins("JOIN conversations ON user_conversation_messages_summary.title = conversations.title").where("MATCH(conversations.title) AGAINST(? IN BOOLEAN MODE)", @querry[1]), success: true}
             end
         end
     end
