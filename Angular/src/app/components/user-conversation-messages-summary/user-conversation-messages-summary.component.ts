@@ -169,7 +169,6 @@ export class UserConversationMessagesSummaryComponent implements OnInit {
       if(response){
         this.userCMSummaries = response;
         console.log("User Conversation Messages Summary Search: ", this.userCMSummaries);
-        this.searchSummaryForm.reset();
       }
     })
   }
