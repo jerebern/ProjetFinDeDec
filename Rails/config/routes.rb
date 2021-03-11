@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :messages
     resources :products_sommaries
     resources :user_commands_summaries
+    resources :user_conversation_messages_summaries
   end
 
   match '*url', to: "angular#index", via: :get # le parametre url contiendra tout ce qui suit l'étoile dans l'url

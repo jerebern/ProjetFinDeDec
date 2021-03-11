@@ -1,0 +1,58 @@
+<div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
+  <h1>Sommaire de conversation et messages par utilisateur</h1>
+
+  <table class="table table-dark table-bordered table-responsive-sm">
+    <thead>
+      <tr>
+        <th (click)="sortByFullname()">
+          Nom
+          <i *ngIf="this.sort=='fullnameUp'" class="fa fa-angle-up"></i>
+          <i *ngIf="this.sort=='fullnameDown'" class="fa fa-angle-down"></i>
+        </th>
+        <th (click)="sortByEmail()">
+          Email
+          <i *ngIf="this.sort=='emailUp'" class="fa fa-angle-up"></i>
+          <i *ngIf="this.sort=='emailDown'" class="fa fa-angle-down"></i>
+        </th>
+        <th (click)="sortByTitle()">
+          Titre
+          <i *ngIf="this.sort=='titleUp'" class="fa fa-angle-up"></i>
+          <i *ngIf="this.sort=='titleDown'" class="fa fa-angle-down"></i>
+        </th>
+        <th (click)="sortByNbrMessage()">
+          Nombre de messages
+          <i *ngIf="this.sort=='nbrMessagesUp'" class="fa fa-angle-up"></i>
+          <i *ngIf="this.sort=='nbrMessagesDown'" class="fa fa-angle-down"></i>
+        </th>
+        <th (click)="sortByLgMessage()">
+          Longueur total des messages
+          <i *ngIf="this.sort=='lgMessagesUp'" class="fa fa-angle-up"></i>
+          <i *ngIf="this.sort=='lgMessagesDown'" class="fa fa-angle-down"></i>
+        </th>
+        <th (click)="sortByAvgMessage()">
+          Moyenne de la longueur des messages
+          <i *ngIf="this.sort=='avgMessagesUp'" class="fa fa-angle-up"></i>
+          <i *ngIf="this.sort=='avgMessagesDown'" class="fa fa-angle-down"></i>
+        </th>
+        <th (click)="sortByCreationDate()">
+          Date de création
+          <i *ngIf="this.sort=='creationDateUp'" class="fa fa-angle-up"></i>
+          <i *ngIf="this.sort=='creationDateDown'" class="fa fa-angle-down"></i>
+        </th>
+        <th (click)="sortByResolution()">
+          Nombre de jour pour la résolution du problème
+          <i *ngIf="this.sort=='resolutionUp'" class="fa fa-angle-up"></i>
+          <i *ngIf="this.sort=='resolutionDown'" class="fa fa-angle-down"></i>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let userCMSummary of userCMSummaries"
+          app-user-conversation-messages-summary-list-item [userCMSummary]="userCMSummary">
+      </tr>
+    </tbody>
+
+  </table>
+
+</div>

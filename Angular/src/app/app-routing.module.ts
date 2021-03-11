@@ -18,6 +18,7 @@ import { LoginAccessGuard } from './guards/login-access.guard';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ProductsSommaryComponent } from './components/products-sommary/products-sommary.component';
 import { UserCommandSummariesComponent } from './components/user-command-summaries/user-command-summaries.component';
+import { UserConversationMessagesSummaryComponent } from './components/user-conversation-messages-summary/user-conversation-messages-summary.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [SigninupAccessGuard] },
@@ -34,7 +35,7 @@ const routes: Routes = [
   { path: 'checkout/:shipping', component: CheckoutComponent , canActivate: [LoginAccessGuard] },
   { path: '', component: WelcomeComponent },
   { path: 'usercommandsummary', component: UserCommandSummariesComponent, canActivate: [AdminAccessGuard] },
-
+  { path: 'user_conversation_messages_summary', component: UserConversationMessagesSummaryComponent, canActivate: [AdminAccessGuard] },
   { path: '**', component: PageNotFoundComponent }
 ];
 

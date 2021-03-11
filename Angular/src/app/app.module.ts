@@ -33,6 +33,8 @@ import { UserCommandSummariesComponent } from './components/user-command-summari
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { DatePipe } from '@angular/common';
+import { UserConversationMessagesSummaryComponent } from './components/user-conversation-messages-summary/user-conversation-messages-summary.component';
+import { UserConversationMessagesSummaryListItemComponent } from './components/user-conversation-messages-summary-list-item/user-conversation-messages-summary-list-item.component';
 
 
 @NgModule({
@@ -62,6 +64,8 @@ import { DatePipe } from '@angular/common';
     ProductsSommaryComponent,
     ProductsSommaryListItemComponent,
     UserCommandSummariesComponent,
+    UserConversationMessagesSummaryComponent,
+    UserConversationMessagesSummaryListItemComponent,
   ],
   imports: [
     ReactiveFormsModule,

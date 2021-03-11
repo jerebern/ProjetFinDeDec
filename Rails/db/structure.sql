@@ -255,6 +255,21 @@ SET character_set_client = utf8;
   `last_command` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
+DROP TABLE IF EXISTS `user_conversation_messages_summary`;
+/*!50001 DROP VIEW IF EXISTS `user_conversation_messages_summary`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `user_conversation_messages_summary` (
+  `email` tinyint NOT NULL,
+  `fullname` tinyint NOT NULL,
+  `title` tinyint NOT NULL,
+  `number_messages` tinyint NOT NULL,
+  `length_messages` tinyint NOT NULL,
+  `avg_length_messages` tinyint NOT NULL,
+  `conversation_created_at` tinyint NOT NULL,
+  `number_days_resolution` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
 DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -312,6 +327,20 @@ CREATE TABLE `users` (
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
+/*!50001 DROP TABLE IF EXISTS `user_conversation_messages_summary`*/;
+/*!50001 DROP VIEW IF EXISTS `user_conversation_messages_summary`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `user_conversation_messages_summary` AS select `u`.`email` AS `email`,concat(`u`.`firstname`,' ',`u`.`lastname`) AS `fullname`,`c`.`title` AS `title`,count(`m`.`body`) AS `number_messages`,sum(octet_length(`m`.`body`)) AS `length_messages`,format(avg(octet_length(`m`.`body`)),0) AS `avg_length_messages`,date_format(`c`.`created_at`,'%y/%m/%d') AS `conversation_created_at`,to_days(date_format(`c`.`updated_at`,'%y/%m/%d')) - to_days(date_format(`c`.`created_at`,'%y/%m/%d')) AS `number_days_resolution` from ((`users` `u` join `conversations` `c` on(`c`.`user_id` = `u`.`id`)) join `messages` `m` on(`m`.`conversation_id` = `c`.`id`)) group by `u`.`fullname` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -336,6 +365,7 @@ INSERT INTO `schema_migrations` (version) VALUES
 ('20210224061352'),
 ('20210225160131'),
 ('20210303162622'),
-('20210304171549');
+('20210304171549'),
+('20210310234550');
 
 

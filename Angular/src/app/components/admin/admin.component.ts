@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Conversation } from 'src/app/models/conversation.model';
 import { User } from 'src/app/models/user.models';
@@ -28,7 +28,7 @@ export class AdminComponent implements OnInit {
 
   constructor(private conversationService: ConversationApiRequestService, private authService: AuthService, private router: Router) {
     this.searchConversationsForm = new FormGroup({
-      search: new FormControl(''),
+      search: new FormControl('', Validators.required),
       type: new FormControl(this.types[0])
     })
     this.getConversations("");
