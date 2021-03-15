@@ -6,3 +6,7 @@
 <td>{{userCMSummary.avg_length_messages}}</td>
 <td>{{userCMSummary.conversation_created_at}}</td>
 <td>{{userCMSummary.number_days_resolution}}</td>
+<td *ngIf="statusCondition(); else statusFalse" style="color: green;">{{userCMSummary.status}}</td>
+<ng-template #statusFalse>
+  <td style="color: red">{{userCMSummary.status}}</td>
+</ng-template>

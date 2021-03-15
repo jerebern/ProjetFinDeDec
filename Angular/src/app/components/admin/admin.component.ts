@@ -23,14 +23,22 @@ export class AdminComponent implements OnInit {
   sortStatus: string = "statusDown";
   sort: string = "";
   searchConversationsForm: FormGroup;
+  filterConversationsForm: FormGroup;
+  filterMode: string = "Tout";
 
-  types = ["Titre", "Name", "Email", "Status"];
+  types = ["Titre", "Nom", "Email"];
+  filters = ["Tout", "En cours", "Terminer"];
 
   constructor(private conversationService: ConversationApiRequestService, private authService: AuthService, private router: Router) {
     this.searchConversationsForm = new FormGroup({
       search: new FormControl('', Validators.required),
       type: new FormControl(this.types[0])
-    })
+    });
+
+    this.filterConversationsForm = new FormGroup({
+      filter: new FormControl(this.filters[0])
+    });
+
     this.getConversations("");
   }
 
@@ -52,8 +60,14 @@ export class AdminComponent implements OnInit {
       this.searchConversationsForm = new FormGroup({
         search: new FormControl(''),
         type: new FormControl(this.types[0])
-      })
+      });
     }
+
+    this.filterConversationsForm = new FormGroup({
+      filter: new FormControl(this.filters[0])
+    });
+
+    this.filterMode = "Tout";
   }
 
   conversationClicked(conversation: Conversation){
@@ -155,8 +169,18 @@ export class AdminComponent implements OnInit {
   searchConversations(){
     let search = this.searchConversationsForm.get("search")?.value;
     let type = this.searchConversationsForm.get("type")?.value;
-    let querry = search + "^" + type;
+    let querry = type + "(*)" + search + "(*)" + this.filterMode;
     this.conversationService.searchConversation(querry).subscribe(response => {
+      if(response){
+        this.conversations = response;
+      }
+    })
+  }
+
+  filterConversations(){
+    let filter = this.filterConversationsForm.get("filter")?.value;
+    this.filterMode = filter;
+    this.conversationService.filterConversations(filter).subscribe(response => {
       if(response){
         this.conversations = response;
       }

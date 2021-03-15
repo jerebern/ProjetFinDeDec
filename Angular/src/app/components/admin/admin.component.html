@@ -2,12 +2,11 @@
     <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
       <h1>Admin</h1>
 
-      <div style="margin-bottom: 10px;">
+      <div style="margin-bottom: 5px;">
         <form [formGroup]="searchConversationsForm" (ngSubmit)="searchConversations()" class="form-inline">
           <div class="form-group col-12">
             <input formControlName="search" placeholder="Recherher...." type="text" class="form-control col-sm-10">
               <button class="btn btn-primary col-sm" type="submit" style="margin-left: 2px;"><i class="fa fa-search"></i></button>
-
               <select class="form-control col-sm" formControlName="type" style="margin-left: 2px;">
                 <option *ngFor="let type of types" [ngValue]="type">{{type}}</option>
               </select>
@@ -15,6 +14,17 @@
               <button class="btn btn-secondary col-sm" type="button" style="margin-left: 2px;" (click)="getConversations('')">
                 <i class="fa fa-retweet"></i>
               </button>
+          </div>
+        </form>
+      </div>
+
+      <div style="margin-bottom: 5px; float: right">
+        <form [formGroup]="filterConversationsForm" (ngSubmit)="filterConversations()" class="form-inline">
+          <div class="form-group col-12">
+              <select class="form-control col-sm;" formControlName="filter">
+                <option *ngFor="let filter of filters" [ngValue]="filter">{{filter}}</option>
+              </select>
+              <button class="btn btn-primary col-sm" type="submit" style="margin-left: 2px;"><i class="fa fa-filter"></i></button>
           </div>
         </form>
       </div>

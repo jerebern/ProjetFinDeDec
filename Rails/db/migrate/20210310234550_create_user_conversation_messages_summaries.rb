@@ -10,7 +10,8 @@ class CreateUserConversationMessagesSummaries < ActiveRecord::Migration[6.1]
       sum(length(m.body)) as length_messages,
       format(avg(length(m.body)), 0) as avg_length_messages,
       date_format(c.created_at, "%y/%m/%d") as conversation_created_at,
-      DATEDIFF(date_format(c.updated_at, "%y/%m/%d"), date_format(c.created_at, "%y/%m/%d")) as number_days_resolution
+      DATEDIFF(date_format(c.updated_at, "%y/%m/%d"), date_format(c.created_at, "%y/%m/%d")) as number_days_resolution,
+      c.status as status
       from users u 
       join conversations c 
       on c.user_id = u.id

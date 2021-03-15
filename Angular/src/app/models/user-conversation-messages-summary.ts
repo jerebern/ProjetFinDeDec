@@ -9,4 +9,5 @@ export class UserConversationMessagesSummary extends JSONObject {
   avg_length_messages!: number;
   conversation_created_at!: string;
   number_days_resolution!: number;
+  status!: string;
 }

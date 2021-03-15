@@ -11,4 +11,5 @@ class UserConversationMessagesSummary < ApplicationRecord
     attribute :avg_length_messages, :integer
     attribute :conversation_created_at, :string
     attribute :number_days_resolution, :integer
+    attribute :status, :string
 end

@@ -196,4 +196,28 @@ export class ConversationApiRequestService {
       })
     )
   }
+
+  filterConversations(filterParams: string){
+    return this.http.get<any>(this.getUrl("conversations/" + "?f=" + filterParams)).pipe(
+      map(response => {
+        if(response.success){
+          console.log("Filter: ", response.conversations);
+
+          this.allConversations = JSON.parse(response.conversations);
+          for(var i = 0; i < this.allConversations.length; i++){
+            this.allConversations[i].fullname = this.allConversations[i].user.fullname;
+            this.allConversations[i].user_email = this.allConversations[i].user.email;
+          }
+          return this.allConversations;
+        }else{
+          console.log("Search Conversation: ", response);
+          return false;
+        }
+      }),
+      catchError(error => {
+        console.log('Error: ', error);
+        return of(null);
+      })
+    )
+  }
 }

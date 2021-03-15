@@ -8,27 +8,44 @@ class Api::ConversationsController < ApplicationController
                 render json: {conversations: @conversations.to_json(:include => :user), success: true}
             elsif params[:q]
                 @querry = Array.new
-                @querry = params[:q].split("^")
-                if @querry[1] == "Name"
-                    @users = User.where("MATCH(firstname, lastname) AGAINST(? IN BOOLEAN MODE)", @querry[0])
-                    @conversations = Conversation.where(user_id:[@users.select(:id)])
-                    render json: {conversations: @conversations.to_json(:include => :user), success: true}
-                elsif @querry[1] == "Email"
+                @querry = params[:q].split("(*)")
+                if @querry[0] == "Nom"
+                    @users = User.where("MATCH(firstname, lastname) AGAINST(? IN BOOLEAN MODE)", @querry[1])
+                    if @querry[2] == "Tout"
+                        @conversations = Conversation.where(user_id:[@users.select(:id)])
+                        render json: {conversations: @conversations.to_json(:include => :user), success: true}
+                    elsif @querry[2] == "En cours"
+                        @conversations = Conversation.where(user_id:[@users.select(:id)], status: "En cours")
+                        render json: {conversations: @conversations.to_json(:include => :user), success: true}
+                    elsif @querry[2] == "Terminer"
+                        @conversations = Conversation.where(user_id:[@users.select(:id)], status: "Terminer")
+                        render json: {conversations: @conversations.to_json(:include => :user), success: true}
+                    end
+                elsif @querry[0] == "Email"
                     #@users = User.where("MATCH(email) AGAINST(? IN BOOLEAN MODE)", + @querry[0] + "*")
                     #*En se fiant à stackoverflow, il semble qu'un fulltext sur une addresse email pose problème. D'où mon utilisation ici d'un LIKE
                     # lien stackoverflow : https://stackoverflow.com/questions/22736163/mysql-innodb-full-text-search-containing-email-address/40400206
                     #De plus, James m'a dit que c'était OK :)
-                    @users = User.where("email LIKE ?", "%" + @querry[0] + "%")
-                    @conversations = Conversation.where(user_id:[@users.select(:id)])
-                    render json: {conversations: @conversations.to_json(:include => :user), success: true}
-                elsif @querry[1] == "Titre"
-                    @conversations = Conversation.where("MATCH(title) AGAINST(? IN BOOLEAN MODE)", @querry[0])
-                    @users = User.where(id:[@conversations.select(:user_id)])
-                    render json: {conversations: @conversations.to_json(:include => :user), success: true}
-                elsif @querry[1] == "Status"
-                    @conversations = Conversation.where("MATCH(status) AGAINST(? IN BOOLEAN MODE)", @querry[0])
-                    @users = User.where(id:[@conversations.select(:user_id)])
-                    render json: {conversations: @conversations.to_json(:include => :user), success: true}
+                    @users = User.where("email LIKE ?", "%" + @querry[1] + "%")
+                    if @querry[2] == "Tout"
+                        @conversations = Conversation.where(user_id:[@users.select(:id)])
+                        render json: {conversations: @conversations.to_json(:include => :user), success: true}
+                    elsif @querry[2] == "En cours"
+                        @conversations = Conversation.where(user_id:[@users.select(:id)], status: "En cours")
+                        render json: {conversations: @conversations.to_json(:include => :user), success: true}
+                    elsif @querry[2] == "Terminer"
+                        @conversations = Conversation.where(user_id:[@users.select(:id)], status: "Terminer")
+                        render json: {conversations: @conversations.to_json(:include => :user), success: true}
+                    end
+                elsif @querry[0] == "Titre"
+                    @conversations = Conversation.where("MATCH(title) AGAINST(? IN BOOLEAN MODE)", @querry[1])
+                    if @querry[2] == "Tout"
+                        render json: {conversations: @conversations.to_json(:include => :user), success: true}
+                    elsif @querry[2] == "En cours"
+                        render json: {conversations: @conversations.where(status: "En cours").to_json(:include => :user), success: true}
+                    elsif @querry[2] == "Terminer"
+                        render json: {conversations: @conversations.where(status: "Terminer").to_json(:include => :user), success: true}
+                    end
                 end
             #Sort
             elsif params[:s] == "fullnameUp"
@@ -64,6 +81,15 @@ class Api::ConversationsController < ApplicationController
                 render json: {conversations: @conversations.to_json(:include => :user), success: true}
             elsif params[:s] == "statusDown"
                 @conversations = Conversation.all.order(status: :desc)
+                render json: {conversations: @conversations.to_json(:include => :user), success: true}
+            elsif params[:f] == "Tout"
+                @conversations = Conversation.all.order(:status)
+                render json: {conversations: @conversations.to_json(:include => :user), success: true}
+            elsif params[:f] == "En cours"
+                @conversations = Conversation.where("MATCH(status) AGAINST(? IN BOOLEAN MODE)", params[:f])
+                render json: {conversations: @conversations.to_json(:include => :user), success: true}
+            elsif params[:f] == "Terminer"
+                @conversations = Conversation.where("MATCH(status) AGAINST(? IN BOOLEAN MODE)", params[:f])
                 render json: {conversations: @conversations.to_json(:include => :user), success: true}
             else
                 @conversations = Conversation.find(1)

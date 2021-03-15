@@ -30,4 +30,12 @@ export class UserConversationMessagesSummariesApiRequestService {
     )
   }
 
+  filterSummary(filerParams: string): Observable<any>{
+    return this.http.get<any>(this.getUrl("?f=" + filerParams)).pipe(
+      map(response => {
+        return response.user_conversation_messages_summary;
+      })
+    )
+  }
+
 }

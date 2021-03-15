@@ -15,4 +15,12 @@ export class UserConversationMessagesSummaryListItemComponent implements OnInit 
   ngOnInit(): void {
   }
 
+  statusCondition(){
+    if(this.userCMSummary.status=="En cours"){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 }

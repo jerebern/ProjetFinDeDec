@@ -22,16 +22,23 @@ export class UserConversationMessagesSummaryComponent implements OnInit {
   sortAvgMessages: string = "avgMessagesDown";
   sortCreationDate: string = "creationDateDown";
   sortResolution: string = "resolutionDown";
+  sortStatus: string = "statusDown";
+  filterMode: string = "Tout";
 
   searchSummaryForm: FormGroup;
+  filterSummaryForm: FormGroup;
 
-  types = ["Nom", "Email", "Titre"]
+  types = ["Nom", "Email", "Titre"];
+  filters = ["Tout", "En cours", "Terminer"];
 
   constructor(private userCMService: UserConversationMessagesSummariesApiRequestService, private authService: AuthService) {
     this.searchSummaryForm = new FormGroup({
       search: new FormControl('', Validators.required),
       type: new FormControl(this.types[0])
     })
+    this.filterSummaryForm = new FormGroup({
+      filter: new FormControl(this.filters[0])
+    });
   }
 
   ngOnInit(): void {
@@ -47,6 +54,19 @@ export class UserConversationMessagesSummaryComponent implements OnInit {
         }
       })
     }
+
+    if(this.searchSummaryForm.get("search")?.value != ""){
+      this.searchSummaryForm = new FormGroup({
+        search: new FormControl(''),
+        type: new FormControl(this.types[0])
+      });
+    }
+
+    this.filterSummaryForm = new FormGroup({
+      filter: new FormControl(this.filters[0])
+    });
+
+    this.filterMode = "Tout";
   }
 
   sortByFullname(){
@@ -164,11 +184,36 @@ export class UserConversationMessagesSummaryComponent implements OnInit {
   searchSummary(){
     let search = this.searchSummaryForm.get("search")?.value;
     let type = this.searchSummaryForm.get("type")?.value;
-    let querry = type + "(*)" + search;
+    let querry = type + "(*)" + search + "(*)" + this.filterMode;
     this.userCMService.searchSummary(querry).subscribe(response => {
       if(response){
         this.userCMSummaries = response;
         console.log("User Conversation Messages Summary Search: ", this.userCMSummaries);
+      }
+    })
+  }
+
+  sortByStatus(){
+    console.log("sortByStatus: ", this.sortStatus);
+
+    if(this.sortStatus == "statusDown"){
+      this.sortStatus = "statusUp";
+    }else{
+      this.sortStatus = "statusDown";
+    }
+    console.log("sortByStatus: ", this.sortStatus);
+
+    this.sort = this.sortStatus;
+
+    this.getSummary(this.sortStatus);
+  }
+
+  filterSummary(){
+    let filter = this.filterSummaryForm.get("filter")?.value;
+    this.filterMode = filter;
+    this.userCMService.filterSummary(filter).subscribe(response => {
+      if(response){
+        this.userCMSummaries = response;
       }
     })
   }

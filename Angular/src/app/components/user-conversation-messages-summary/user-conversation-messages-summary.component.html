@@ -18,6 +18,17 @@
     </form>
   </div>
 
+  <div style="margin-bottom: 5px; float: right">
+    <form [formGroup]="filterSummaryForm" (ngSubmit)="filterSummary()" class="form-inline">
+      <div class="form-group col-12">
+          <select class="form-control col-sm;" formControlName="filter">
+            <option *ngFor="let filter of filters" [ngValue]="filter">{{filter}}</option>
+          </select>
+          <button class="btn btn-primary col-sm" type="submit" style="margin-left: 2px;"><i class="fa fa-filter"></i></button>
+      </div>
+    </form>
+  </div>
+
   <table class="table table-dark table-bordered table-responsive-sm">
     <thead>
       <tr>
@@ -60,6 +71,11 @@
           Nombre de jour pour la résolution du problème
           <i *ngIf="this.sort=='resolutionUp'" class="fa fa-angle-up"></i>
           <i *ngIf="this.sort=='resolutionDown'" class="fa fa-angle-down"></i>
+        </th>
+        <th (click)="sortByStatus()">
+          Status
+          <i *ngIf="this.sort=='statusUp'" class="fa fa-angle-up"></i>
+          <i *ngIf="this.sort=='statusDown'" class="fa fa-angle-down"></i>
         </th>
       </tr>
     </thead>

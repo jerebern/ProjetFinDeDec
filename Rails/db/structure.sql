@@ -267,7 +267,8 @@ SET character_set_client = utf8;
   `length_messages` tinyint NOT NULL,
   `avg_length_messages` tinyint NOT NULL,
   `conversation_created_at` tinyint NOT NULL,
-  `number_days_resolution` tinyint NOT NULL
+  `number_days_resolution` tinyint NOT NULL,
+  `status` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 DROP TABLE IF EXISTS `users`;
@@ -337,7 +338,7 @@ CREATE TABLE `users` (
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `user_conversation_messages_summary` AS select `u`.`email` AS `email`,concat(`u`.`firstname`,' ',`u`.`lastname`) AS `fullname`,`c`.`title` AS `title`,count(`m`.`body`) AS `number_messages`,sum(octet_length(`m`.`body`)) AS `length_messages`,format(avg(octet_length(`m`.`body`)),0) AS `avg_length_messages`,date_format(`c`.`created_at`,'%y/%m/%d') AS `conversation_created_at`,to_days(date_format(`c`.`updated_at`,'%y/%m/%d')) - to_days(date_format(`c`.`created_at`,'%y/%m/%d')) AS `number_days_resolution` from ((`users` `u` join `conversations` `c` on(`c`.`user_id` = `u`.`id`)) join `messages` `m` on(`m`.`conversation_id` = `c`.`id`)) group by `u`.`fullname` */;
+/*!50001 VIEW `user_conversation_messages_summary` AS select `u`.`email` AS `email`,concat(`u`.`firstname`,' ',`u`.`lastname`) AS `fullname`,`c`.`title` AS `title`,count(`m`.`body`) AS `number_messages`,sum(octet_length(`m`.`body`)) AS `length_messages`,format(avg(octet_length(`m`.`body`)),0) AS `avg_length_messages`,date_format(`c`.`created_at`,'%y/%m/%d') AS `conversation_created_at`,to_days(date_format(`c`.`updated_at`,'%y/%m/%d')) - to_days(date_format(`c`.`created_at`,'%y/%m/%d')) AS `number_days_resolution`,`c`.`status` AS `status` from ((`users` `u` join `conversations` `c` on(`c`.`user_id` = `u`.`id`)) join `messages` `m` on(`m`.`conversation_id` = `c`.`id`)) group by `u`.`fullname` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;

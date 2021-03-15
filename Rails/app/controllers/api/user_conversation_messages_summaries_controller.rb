@@ -36,16 +36,47 @@ class Api::UserConversationMessagesSummariesController < ApplicationController
             render json: { user_conversation_messages_summary: UserConversationMessagesSummary.find_by_sql("SELECT * FROM user_conversation_messages_summary order by number_days_resolution ASC"), success: true}
         elsif params[:s] == "resolutionDown"    
             render json: { user_conversation_messages_summary: UserConversationMessagesSummary.find_by_sql("SELECT * FROM user_conversation_messages_summary order by number_days_resolution DESC"), success: true}
+        elsif params[:s] == "statusUp"
+            render json: { user_conversation_messages_summary: UserConversationMessagesSummary.find_by_sql("SECLECT * FROM user_conversation_messages_summary order by status ASC"), success: true}
+        elsif params[:s] == "statusDown"
+            render json: { user_conversation_messages_summary: UserConversationMessagesSummary.find_by_sql("SECLECT * FROM user_conversation_messages_summary order by status DESC"), success: true}
         elsif params[:q]
             @querry = Array.new
             @querry = params[:q].split("(*)")
             if @querry[0] == "Nom"
-                render json: { user_conversation_messages_summary: UserConversationMessagesSummary.joins("JOIN users ON user_conversation_messages_summary.email = users.email").where("MATCH(firstname, lastname) AGAINST(? IN BOOLEAN MODE)", @querry[1]), success: true}
+                @summary = UserConversationMessagesSummary.joins("JOIN users ON user_conversation_messages_summary.email = users.email").where("MATCH(firstname, lastname) AGAINST(? IN BOOLEAN MODE)", @querry[1]);
+                if @querry[2] == "Tout"
+                    render json: { user_conversation_messages_summary: @summary, success: true}
+                elsif @querry[2] == "En cours"
+                    render json: { user_conversation_messages_summary: @summary.where(status: "En cours"), success: true}
+                elsif @querry[2 == "Terminer"]
+                    render json: { user_conversation_messages_summary: @summary.where(status: "Terminer"), success: true}
+                end
             elsif @querry[0] == "Email"
-                render json: { user_conversation_messages_summary: UserConversationMessagesSummary.joins("JOIN users ON user_conversation_messages_summary.email = users.email").where("users.email LIKE ?","%" +  @querry[1] + "%"), success: true}
+                @summary = UserConversationMessagesSummary.joins("JOIN users ON user_conversation_messages_summary.email = users.email").where("users.email LIKE ?","%" +  @querry[1] + "%");
+                if @querry[2] == "Tout"
+                    render json: { user_conversation_messages_summary: @summary, success: true}
+                elsif @querry[2] == "En cours"
+                    render json: { user_conversation_messages_summary: @summary.where(status: "En cours"), success: true}
+                elsif @querry[2] == "Terminer"
+                    render json: { user_conversation_messages_summary: @summary.where(status: "Terminer"), success: true}
+                end
             elsif @querry[0] == "Titre"
-                render json: { user_conversation_messages_summary: UserConversationMessagesSummary.joins("JOIN conversations ON user_conversation_messages_summary.title = conversations.title").where("MATCH(conversations.title) AGAINST(? IN BOOLEAN MODE)", @querry[1]), success: true}
+                @summary = UserConversationMessagesSummary.joins("JOIN conversations ON user_conversation_messages_summary.title = conversations.title").where("MATCH(conversations.title) AGAINST(? IN BOOLEAN MODE)", @querry[1]);
+                if @querry[2] == "Tout"
+                    render json: { user_conversation_messages_summary: @summary, success: true}
+                elsif @querry[2] == "En cours"
+                    render json: { user_conversation_messages_summary: @summary.where(status: "En cours"), success: true}
+                elsif @querry[2] == "Terminer"
+                    render json: { user_conversation_messages_summary: @summary.where(status: "Terminer"), success: true}
+                end
             end
+        elsif params[:f] == "Tout"
+            render json: { user_conversation_messages_summary: UserConversationMessagesSummary.find_by_sql("SELECT * FROM user_conversation_messages_summary order by number_days_resolution ASC, number_messages DESC"), success: true}
+        elsif params[:f] == "En cours"
+            render json: { user_conversation_messages_summary: UserConversationMessagesSummary.find_by_sql("SELECT * FROM user_conversation_messages_summary where status = 'En cours' order by number_days_resolution ASC, number_messages DESC"), success: true}
+        elsif params[:f] == "Terminer"
+            render json: { user_conversation_messages_summary: UserConversationMessagesSummary.find_by_sql("SELECT * FROM user_conversation_messages_summary where status = 'Terminer' order by number_days_resolution ASC, number_messages DESC"), success: true}
         end
     end
 end
