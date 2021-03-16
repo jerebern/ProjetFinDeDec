@@ -23,7 +23,7 @@ class Api::MessagesControllerTest < ActionDispatch::IntegrationTest
   test "can search messages" do
     User.find(1).picture.attach(io: File.open(Rails.root + "app/assets/images/giraffe.png"), filename: 'giraffe.png')
     post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
-    get "/api/messages", params:{q: "A"}
+    get "/api/messages", params:{q: "A*"}
     messages = response.parsed_body["messages"]
     assert_equal(6, messages.count)
     success = response.parsed_body["success"]
