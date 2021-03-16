@@ -23,7 +23,7 @@ class Api::ConversationsControllerTest < ActionDispatch::IntegrationTest
   test "can search conversations" do
     User.find(1).picture.attach(io: File.open(Rails.root + "app/assets/images/giraffe.png"), filename: 'giraffe.png')
     post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
-    get "/api/conversations", params:{q: "T*^Titre"}
+    get "/api/conversations", params:{q: "Titre(*)T*(*)Tout"}
     conversations = JSON.parse(response.parsed_body["conversations"])
     assert_equal(3, conversations.count)
     success = response.parsed_body["success"]
@@ -33,7 +33,7 @@ class Api::ConversationsControllerTest < ActionDispatch::IntegrationTest
   test "if invalid search conversations should return zero conversations" do
     User.find(1).picture.attach(io: File.open(Rails.root + "app/assets/images/giraffe.png"), filename: 'giraffe.png')
     post "/users/sign_in", params: {user: {email: "admin@jfj.com", password: "123456"}}
-    get "/api/conversations", params:{q: "B^Titre"}
+    get "/api/conversations", params:{q: "Titre(*)B*(*)Tout"}
     conversations = JSON.parse(response.parsed_body["conversations"])
     assert_equal(0, conversations.count)
     success = response.parsed_body["success"]
