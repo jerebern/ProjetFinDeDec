@@ -1,3 +1,8 @@
 table{
   text-align: center;
 }
+td{
+  background-color:whitesmoke;
+  border: 1px solid rgb(223, 223, 223);
+  color: black;
+}

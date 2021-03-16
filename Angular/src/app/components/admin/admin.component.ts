@@ -173,6 +173,8 @@ export class AdminComponent implements OnInit {
     this.conversationService.searchConversation(querry).subscribe(response => {
       if(response){
         this.conversations = response;
+        console.log("Conversation.length: ", this.conversations.length);
+
       }
     })
   }

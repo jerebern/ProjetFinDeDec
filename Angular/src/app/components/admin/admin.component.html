@@ -70,7 +70,9 @@
 
         <tbody>
           <tr *ngFor="let conversation of conversations" app-admin-list-item [conversation]="conversation"
-            (conversationClicked)="conversationClicked($event)" (delete)="delete($event)"></tr>
+            (conversationClicked)="conversationClicked($event)" (delete)="delete($event)">
+          </tr>
+          <tr *ngIf="conversations.length == 0"><td colspan="6">Aucune donnée pour cette recherche</td></tr>
         </tbody>
 
       </table>

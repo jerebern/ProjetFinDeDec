@@ -84,6 +84,7 @@
       <tr *ngFor="let userCMSummary of userCMSummaries"
           app-user-conversation-messages-summary-list-item [userCMSummary]="userCMSummary">
       </tr>
+      <tr *ngIf="userCMSummaries.length == 0"><td colspan="9">Aucune donnée pour cette recherche</td></tr>
     </tbody>
 
   </table>
