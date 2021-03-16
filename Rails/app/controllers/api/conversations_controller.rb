@@ -6,6 +6,7 @@ class Api::ConversationsController < ApplicationController
             if params[:s] == ""
                 @conversations = Conversation.all.order(:status)
                 render json: {conversations: @conversations.to_json(:include => :user), success: true}
+            #Search    
             elsif params[:q]
                 @querry = Array.new
                 @querry = params[:q].split("(*)")
@@ -82,6 +83,7 @@ class Api::ConversationsController < ApplicationController
             elsif params[:s] == "statusDown"
                 @conversations = Conversation.all.order(status: :desc)
                 render json: {conversations: @conversations.to_json(:include => :user), success: true}
+            #Filter
             elsif params[:f] == "Tout"
                 @conversations = Conversation.all.order(:status)
                 render json: {conversations: @conversations.to_json(:include => :user), success: true}

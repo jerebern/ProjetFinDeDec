@@ -24,6 +24,8 @@ export class UserConversationMessagesSummaryComponent implements OnInit {
   sortResolution: string = "resolutionDown";
   sortStatus: string = "statusDown";
   filterMode: string = "Tout";
+  searchMode: string = "";
+  typeMode: string = "";
 
   searchSummaryForm: FormGroup;
   filterSummaryForm: FormGroup;
@@ -181,18 +183,6 @@ export class UserConversationMessagesSummaryComponent implements OnInit {
     this.getSummary(this.sortResolution);
   }
 
-  searchSummary(){
-    let search = this.searchSummaryForm.get("search")?.value;
-    let type = this.searchSummaryForm.get("type")?.value;
-    let querry = type + "(*)" + search + "(*)" + this.filterMode;
-    this.userCMService.searchSummary(querry).subscribe(response => {
-      if(response){
-        this.userCMSummaries = response;
-        console.log("User Conversation Messages Summary Search: ", this.userCMSummaries);
-      }
-    })
-  }
-
   sortByStatus(){
     console.log("sortByStatus: ", this.sortStatus);
 
@@ -208,14 +198,37 @@ export class UserConversationMessagesSummaryComponent implements OnInit {
     this.getSummary(this.sortStatus);
   }
 
+  searchSummary(){
+    let search = this.searchSummaryForm.get("search")?.value;
+    let type = this.searchSummaryForm.get("type")?.value;
+    this.searchMode = search;
+    this.typeMode = type;
+    let querry = type + "(*)" + search + "(*)" + this.filterMode;
+    this.userCMService.searchSummary(querry).subscribe(response => {
+      if(response){
+        this.userCMSummaries = response;
+        console.log("User Conversation Messages Summary Search: ", this.userCMSummaries);
+      }
+    })
+  }
+
   filterSummary(){
     let filter = this.filterSummaryForm.get("filter")?.value;
     this.filterMode = filter;
-    this.userCMService.filterSummary(filter).subscribe(response => {
-      if(response){
-        this.userCMSummaries = response;
-      }
-    })
+    if(this.searchMode == ""){
+      this.userCMService.filterSummary(filter).subscribe(response => {
+        if(response){
+          this.userCMSummaries = response;
+        }
+      })
+    }else{
+      let querry = this.typeMode + "(*)" + this.searchMode + "(*)" + this.filterMode;
+      this.userCMService.searchSummary(querry).subscribe(response => {
+        if(response){
+          this.userCMSummaries = response;
+        }
+      })
+    }
   }
 
 }

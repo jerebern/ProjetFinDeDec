@@ -25,6 +25,8 @@ export class AdminComponent implements OnInit {
   searchConversationsForm: FormGroup;
   filterConversationsForm: FormGroup;
   filterMode: string = "Tout";
+  typeMode: string = "";
+  searchMode: string = "";
 
   types = ["Titre", "Nom", "Email"];
   filters = ["Tout", "En cours", "Terminer"];
@@ -169,6 +171,8 @@ export class AdminComponent implements OnInit {
   searchConversations(){
     let search = this.searchConversationsForm.get("search")?.value;
     let type = this.searchConversationsForm.get("type")?.value;
+    this.searchMode = search;
+    this.typeMode = type;
     let querry = type + "(*)" + search + "(*)" + this.filterMode;
     this.conversationService.searchConversation(querry).subscribe(response => {
       if(response){
@@ -182,10 +186,20 @@ export class AdminComponent implements OnInit {
   filterConversations(){
     let filter = this.filterConversationsForm.get("filter")?.value;
     this.filterMode = filter;
-    this.conversationService.filterConversations(filter).subscribe(response => {
-      if(response){
-        this.conversations = response;
-      }
-    })
+    if(this.searchMode == ""){
+      this.conversationService.filterConversations(filter).subscribe(response => {
+        if(response){
+          this.conversations = response;
+        }
+      })
+    }else{
+      let querry = this.typeMode + "(*)" + this.searchMode + "(*)" + this.filterMode;
+      this.conversationService.searchConversation(querry).subscribe(response => {
+        if(response){
+          this.conversations = response;
+        }
+      })
+    }
+
   }
 }

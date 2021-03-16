@@ -4,6 +4,7 @@ class Api::UserConversationMessagesSummariesController < ApplicationController
     def index
         if params[:s] == ""
             render json: { user_conversation_messages_summary: UserConversationMessagesSummary.find_by_sql("SELECT * FROM user_conversation_messages_summary order by number_days_resolution ASC, number_messages DESC"), success: true}
+        #Sort
         elsif params[:s] == "fullnameUp"
             render json: { user_conversation_messages_summary: UserConversationMessagesSummary.find_by_sql("SELECT * FROM user_conversation_messages_summary order by fullname ASC"), success: true}   
         elsif params[:s] == "fullnameDown"
@@ -40,6 +41,7 @@ class Api::UserConversationMessagesSummariesController < ApplicationController
             render json: { user_conversation_messages_summary: UserConversationMessagesSummary.find_by_sql("SECLECT * FROM user_conversation_messages_summary order by status ASC"), success: true}
         elsif params[:s] == "statusDown"
             render json: { user_conversation_messages_summary: UserConversationMessagesSummary.find_by_sql("SECLECT * FROM user_conversation_messages_summary order by status DESC"), success: true}
+        #Search
         elsif params[:q]
             @querry = Array.new
             @querry = params[:q].split("(*)")
@@ -49,7 +51,7 @@ class Api::UserConversationMessagesSummariesController < ApplicationController
                     render json: { user_conversation_messages_summary: @summary, success: true}
                 elsif @querry[2] == "En cours"
                     render json: { user_conversation_messages_summary: @summary.where(status: "En cours"), success: true}
-                elsif @querry[2 == "Terminer"]
+                elsif @querry[2] == "Terminer"
                     render json: { user_conversation_messages_summary: @summary.where(status: "Terminer"), success: true}
                 end
             elsif @querry[0] == "Email"
@@ -61,6 +63,7 @@ class Api::UserConversationMessagesSummariesController < ApplicationController
                 elsif @querry[2] == "Terminer"
                     render json: { user_conversation_messages_summary: @summary.where(status: "Terminer"), success: true}
                 end
+            #Filter
             elsif @querry[0] == "Titre"
                 @summary = UserConversationMessagesSummary.joins("JOIN conversations ON user_conversation_messages_summary.title = conversations.title").where("MATCH(conversations.title) AGAINST(? IN BOOLEAN MODE)", @querry[1]);
                 if @querry[2] == "Tout"
